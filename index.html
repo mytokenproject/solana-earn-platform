@@ -447,6 +447,50 @@
 })();
 
 </script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
+<script>
+  const SUPABASE_URL = "https://cudmuahuhaqdavvvnjlk.supabase.co";
+
+  const SUPABASE_KEY =
+    "sb_publishable_IubnKW61UPUj0IBKVEf4lQ_qJlBflu8";
+
+  const supabaseClient = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+  );
+
+  async function testSupabaseConnection() {
+    try {
+      const { data, error } =
+        await supabaseClient.auth.getSession();
+
+      if (error) {
+        console.error(
+          "Supabase bağlantı hatası:",
+          error
+        );
+        return;
+      }
+
+      console.log(
+        "Supabase bağlantısı başarılı."
+      );
+
+      console.log(
+        "Oturum:",
+        data.session
+      );
+
+    } catch (error) {
+      console.error(
+        "Supabase bağlantı hatası:",
+        error
+      );
+    }
+  }
+
+  testSupabaseConnection();
+</script>
 </body>
 </html>
