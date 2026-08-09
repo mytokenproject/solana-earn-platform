@@ -1,0 +1,452 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#0b0d12">
+  <title>Solana Earn — Test Mode</title>
+
+  <style>
+    :root {
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont,
+        "Segoe UI", sans-serif;
+      color: #f5f7fb;
+      background: #0b0d12;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: linear-gradient(180deg, #0b0d12, #121722);
+      min-height: 100vh;
+    }
+
+    .wrap {
+      width: min(680px, 100%);
+      margin: auto;
+      padding: 18px 16px 36px;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+    }
+
+    .brand {
+      font-weight: 800;
+      font-size: 20px;
+    }
+
+    .badge {
+      font-size: 11px;
+      padding: 6px 9px;
+      border-radius: 999px;
+      background: #242a35;
+      color: #b9c2d0;
+    }
+
+    .hero,
+    .card {
+      background: #151a23;
+      border: 1px solid #252d3a;
+      border-radius: 20px;
+      padding: 20px;
+      box-shadow: 0 8px 30px #0003;
+    }
+
+    .hero {
+      margin-bottom: 14px;
+    }
+
+    .eyebrow {
+      font-size: 12px;
+      color: #9da8b8;
+      margin-bottom: 8px;
+    }
+
+    h1 {
+      font-size: 30px;
+      line-height: 1.1;
+      margin: 0 0 10px;
+    }
+
+    h2 {
+      font-size: 18px;
+      margin: 0 0 14px;
+    }
+
+    p {
+      color: #aeb7c5;
+      line-height: 1.55;
+      margin: 8px 0;
+    }
+
+    .wallet {
+      word-break: break-all;
+      color: #dfe5ee;
+      font-size: 13px;
+    }
+
+    button {
+      width: 100%;
+      border: 0;
+      border-radius: 14px;
+      padding: 14px 16px;
+      font-size: 15px;
+      font-weight: 750;
+      cursor: pointer;
+      margin-top: 14px;
+    }
+
+    .primary {
+      background: #fff;
+      color: #0b0d12;
+    }
+
+    .secondary {
+      background: #222a36;
+      color: #fff;
+    }
+
+    .status {
+      margin-top: 12px;
+      font-size: 13px;
+      color: #aeb7c5;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin: 14px 0;
+    }
+
+    .stat {
+      background: #11161e;
+      border-radius: 16px;
+      padding: 16px;
+    }
+
+    .label {
+      font-size: 12px;
+      color: #8994a5;
+    }
+
+    .value {
+      font-size: 22px;
+      font-weight: 800;
+      margin-top: 6px;
+    }
+
+    .task {
+      padding: 15px 0;
+      border-top: 1px solid #252d3a;
+    }
+
+    .task:first-of-type {
+      border-top: 0;
+    }
+
+    .task-title {
+      font-weight: 700;
+    }
+
+    .task small {
+      color: #8f9aaa;
+    }
+
+    .done {
+      color: #7ee2a8;
+    }
+
+    .notice {
+      font-size: 12px;
+      color: #8f9aaa;
+      margin-top: 18px;
+      text-align: center;
+    }
+
+    @media (max-width: 380px) {
+      h1 {
+        font-size: 26px;
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <main class="wrap">
+
+    <header>
+      <div class="brand">SOLANA EARN</div>
+      <div class="badge">TEST MODE</div>
+    </header>
+
+    <section class="hero">
+
+      <div class="eyebrow">
+        İzle · Görev Yap · Kazan
+      </div>
+
+      <h1>
+        Mobil uyumlu ödül platformu
+      </h1>
+
+      <p>
+        Bu sürüm test amaçlıdır.
+        Gerçek token veya gerçek para transferi yapılmaz.
+      </p>
+
+      <button class="primary" id="connectBtn">
+        Cüzdanı Bağla
+      </button>
+
+      <div class="status" id="walletStatus">
+        Cüzdan bağlı değil.
+      </div>
+
+    </section>
+
+
+    <section class="card">
+
+      <h2>Test Paneli</h2>
+
+      <div class="grid">
+
+        <div class="stat">
+          <div class="label">
+            Test bakiyesi
+          </div>
+
+          <div class="value">
+            <span id="balance">0</span> puan
+          </div>
+        </div>
+
+
+        <div class="stat">
+          <div class="label">
+            Tamamlanan görev
+          </div>
+
+          <div class="value">
+            <span id="completed">0</span>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <section class="card" style="margin-top:14px">
+
+      <h2>Görevler</h2>
+
+
+      <div class="task">
+
+        <div class="task-title">
+          🎬 Tanıtım videosunu izle
+        </div>
+
+        <small>
+          Test ödülü: 10 puan
+        </small>
+
+        <button
+          class="secondary taskBtn"
+          data-points="10">
+          Görevi Başlat
+        </button>
+
+      </div>
+
+
+      <div class="task">
+
+        <div class="task-title">
+          🎯 Platformu keşfet
+        </div>
+
+        <small>
+          Test ödülü: 25 puan
+        </small>
+
+        <button
+          class="secondary taskBtn"
+          data-points="25">
+          Görevi Başlat
+        </button>
+
+      </div>
+
+
+      <div class="task">
+
+        <div class="task-title">
+          📅 Günlük giriş
+        </div>
+
+        <small>
+          Test ödülü: 5 puan
+        </small>
+
+        <button
+          class="secondary taskBtn"
+          data-points="5">
+          Görevi Başlat
+        </button>
+
+      </div>
+
+    </section>
+
+
+    <div class="notice">
+      Test Mode • Gerçek token bakiyesi kontrolü ve
+      ödül transferi henüz aktif değildir.
+    </div>
+
+  </main>
+
+
+<script>
+
+(() => {
+
+  const balanceEl =
+    document.getElementById("balance");
+
+  const completedEl =
+    document.getElementById("completed");
+
+  const walletStatus =
+    document.getElementById("walletStatus");
+
+  const connectBtn =
+    document.getElementById("connectBtn");
+
+
+  let balance =
+    Number(localStorage.getItem("se_test_balance") || 0);
+
+  let completed =
+    Number(localStorage.getItem("se_test_completed") || 0);
+
+
+  function render() {
+
+    balanceEl.textContent = balance;
+
+    completedEl.textContent = completed;
+
+  }
+
+
+  connectBtn.addEventListener("click", async () => {
+
+    try {
+
+      if (!window.solana || !window.solana.isPhantom) {
+
+        walletStatus.textContent =
+          "Phantom cüzdanı bulunamadı. Test modunda görevleri yine deneyebilirsin.";
+
+        return;
+      }
+
+
+      const response =
+        await window.solana.connect();
+
+
+      const address =
+        response.publicKey?.toString() || "";
+
+
+      walletStatus.innerHTML =
+        "Bağlandı: <span class='wallet'>" +
+        address +
+        "</span>";
+
+
+      connectBtn.textContent =
+        "Cüzdan Bağlandı";
+
+
+    } catch (err) {
+
+      walletStatus.textContent =
+        "Cüzdan bağlantısı iptal edildi.";
+
+    }
+
+  });
+
+
+  document
+    .querySelectorAll(".taskBtn")
+    .forEach(btn => {
+
+      btn.addEventListener("click", () => {
+
+        if (btn.dataset.done === "1")
+          return;
+
+
+        const points =
+          Number(btn.dataset.points || 0);
+
+
+        balance += points;
+
+        completed += 1;
+
+
+        localStorage.setItem(
+          "se_test_balance",
+          balance
+        );
+
+
+        localStorage.setItem(
+          "se_test_completed",
+          completed
+        );
+
+
+        btn.dataset.done = "1";
+
+        btn.textContent =
+          "✓ Tamamlandı";
+
+        btn.classList.add("done");
+
+
+        render();
+
+      });
+
+    });
+
+
+  render();
+
+})();
+
+</script>
+
+</body>
+</html>
