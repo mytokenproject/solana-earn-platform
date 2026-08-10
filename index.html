@@ -622,9 +622,10 @@ if (!existingWallet) {
     alert("Cüzdan Supabase'e kaydedilemedi.");
     return;
   }
-  }
+  const minRequired =
+  Number(window.platformSettings?.minimum_token_balance || 0);
     console.log("Bağlanan cüzdan:", walletAddress);
-    alert("Cüzdan bağlandı: " + walletAddress);
+    alert("Cüzdan bağlandı: " + walletAddress + "\nMinimum token şartı: " + minRequired.toLocaleString("tr-TR") + " token");
   } catch (error) {
     console.error("Cüzdan bağlantı hatası:", error);
     alert("Cüzdan bağlantısı başarısız oldu.");
