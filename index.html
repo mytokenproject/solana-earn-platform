@@ -238,7 +238,8 @@
             <span id="balance">0</span> puan
 <br>
 <small>Supabase bakiyesi: <span id="dbBalance">0</span> lamports</small>
-          </div>
+         <br>
+<small>Minimum token şartı: <span id="minTokenBalance">-</span> token</small> </div>
         </div>
 
 
@@ -483,6 +484,10 @@
   console.log("Token mint:", data.token_mint);
 
   window.platformSettings = data;
+    const minTokenEl = document.getElementById("minTokenBalance");
+if (minTokenEl) {
+  minTokenEl.textContent = Number(data.minimum_token_balance).toLocaleString("tr-TR");
+}
 }
 
 loadPlatformSettings();
