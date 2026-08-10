@@ -490,7 +490,11 @@ if (minTokenEl) {
 }
 }
 
-loadPlatformSettings();
+loadPlatformSettings().then(() => {
+  const testTokenBalance = 30000;
+  const testAccessResult = checkTokenAccess(testTokenBalance);
+  console.log("25.000 token erişim testi:", testAccessResult);
+});
 function checkTokenAccess(testTokenBalance) {
   const minimumRequired = Number(
     window.platformSettings?.minimum_token_balance || 0
@@ -504,9 +508,7 @@ function checkTokenAccess(testTokenBalance) {
 
   return hasAccess;
 } 
-  const testTokenBalance = 30000;
-const testAccessResult = checkTokenAccess(testTokenBalance);
-console.log("25.000 token erişim testi:", testAccessResult);
+  
   async function testSupabaseConnection() {
     try {
       const { data, error } =
