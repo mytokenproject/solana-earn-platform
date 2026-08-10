@@ -491,7 +491,19 @@ if (minTokenEl) {
 }
 
 loadPlatformSettings();
+function checkTokenAccess(testTokenBalance) {
+  const minimumRequired = Number(
+    window.platformSettings?.minimum_token_balance || 0
+  );
 
+  const hasAccess = testTokenBalance >= minimumRequired;
+
+  console.log("Test token bakiyesi:", testTokenBalance);
+  console.log("Minimum gerekli:", minimumRequired);
+  console.log("Platform erişimi:", hasAccess);
+
+  return hasAccess;
+}
   async function testSupabaseConnection() {
     try {
       const { data, error } =
