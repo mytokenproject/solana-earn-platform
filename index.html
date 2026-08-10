@@ -526,6 +526,20 @@ loginBtn.addEventListener("click", async () => {
 
   loginStatus.textContent =
     "Giriş başarılı: " + data.user.email;
+const { data: dbBalance, error: 
+       balanceError } =
+  await supabaseClient
+    .from("balances")
+    .select("sol_lamports")
+    .eq("user_id", data.user.id)
+    .maybeSingle();
+
+if (!balanceError && dbBalance) {
+  loginStatus.textContent +=
+    " | Bakiye: " + 
+    dbBalance.sol_lamports +
+    " lamports";
+  }
 }); 
   async function connectSolanaWallet() {
   try {
