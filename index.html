@@ -206,7 +206,12 @@
         Bu sürüm test amaçlıdır.
         Gerçek token veya gerçek para transferi yapılmaz.
       </p>
-
+<div>
+<input id="emailInput" type="email" placeholder="E-posta">
+<input id="passwordInput" type="password" placeholder="Şifre">
+<button id="loginBtn">Giriş Yap</button>
+<div class="status" id="loginStatus">Giriş yapılmadı.</div>
+</div>
       <button class="primary" id="connectBtn">
         Cüzdanı Bağla
       </button>
@@ -491,6 +496,37 @@
   }
 
   testSupabaseConnection();
+const loginBtn = document.getElementById("loginBtn");
+const emailInput = document.getElementById("emailInput");
+const passwordInput = document.getElementById("passwordInput");
+const loginStatus = document.getElementById("loginStatus");
+
+loginBtn.addEventListener("click", async () => {
+  const email = emailInput.value.trim();
+  const password = passwordInput.value;
+
+  if (!email || !password) {
+    loginStatus.textContent = "E-posta ve şifreyi gir.";
+    return;
+  }
+
+  loginStatus.textContent = "Giriş yapılıyor...";
+
+  const { data, error } =
+    await supabaseClient.auth.signInWithPassword({
+      email,
+      password
+    });
+
+  if (error) {
+    console.error("Giriş hatası:", error);
+    loginStatus.textContent = "Giriş başarısız.";
+    return;
+  }
+
+  loginStatus.textContent =
+    "Giriş başarılı: " + data.user.email;
+}); 
   async function connectSolanaWallet() {
   try {
     const provider = window.solana;
