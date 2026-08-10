@@ -533,8 +533,12 @@ const { data: dbBalance, error:
     .select("sol_lamports")
     .eq("user_id", data.user.id)
     .maybeSingle();
-
-if (!balanceError && dbBalance) {
+console.log("Balance result:", dbBalance, balanceError);
+if (balanceError) {
+  loginStatus.textContent +=
+    " | Bakiye hatası: " + balanceError.message; 
+}
+  if (!balanceError && dbBalance)  {
   loginStatus.textContent +=
     " | Bakiye: " + 
     dbBalance.sol_lamports +
