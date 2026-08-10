@@ -236,6 +236,8 @@
 
           <div class="value">
             <span id="balance">0</span> puan
+<br>
+<small>Supabase bakiyesi: <span id="dbBalance">0</span> lamports</small>
           </div>
         </div>
 
@@ -538,7 +540,8 @@ if (balanceError) {
   loginStatus.textContent +=
     " | Bakiye hatası: " + balanceError.message; 
 }
-  if (!balanceError && dbBalance)  {
+  if (!balanceError && dbBalance) {
+  balanceEl.textContent = dbBalance.sol_lamports ?? 0;
   loginStatus.textContent +=
     " | Bakiye: " + 
     dbBalance.sol_lamports +
