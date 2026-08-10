@@ -584,53 +584,66 @@ if (balanceError) {
 
     const response = await provider.connect();
     const walletAddress = response.publicKey.toString();
-const { data: authData, error: authError } =
-  await supabaseClient.auth.getUser();
 
-if (authError || !authData.user) {
-  alert("Önce hesabınıza giriş yapın.");
-  return;
-}
+    const { data: authData, error: authError } =
+      await supabaseClient.auth.getUser();
 
-const userId = authData.user.id;
+    if (authError || !authData.user) {
+      alert("Önce hesabınıza giriş yapın.");
+      return;
+    }
 
-const { data: existingWallet, error: walletCheckError } =
-  await supabaseClient
-    .from("wallets")
-    .select("id")
-    .eq("user_id", userId)
-    .eq("address", walletAddress)
-    .maybeSingle();
+    const userId = authData.user.id;
 
-if (walletCheckError) {
-  console.error("Cüzdan kontrol hatası:", walletCheckError);
-  alert("Cüzdan kontrol edilirken hata oluştu.");
-  return;
-}
+    const { data: existingWallet, error: walletCheckError } =
+      await supabaseClient
+        .from("wallets")
+        .select("id")
+        .eq("user_id", userId)
+        .eq("address", walletAddress)
+        .maybeSingle();
 
-if (!existingWallet) {
-  const { error: walletInsertError } =
-    await supabaseClient
-      .from("wallets")
-      .insert({
-        user_id: userId,
-        address: walletAddress
-      });
+    if (walletCheckError) {
+      console.error("Cüzdan kontrol hatası:", walletCheckError);
+      alert("Cüzdan kontrol edilirken hata oluştu.");
+      return;
+    }
 
-  if (walletInsertError) {
-    console.error("Cüzdan kayıt hatası:", walletInsertError);
-    alert("Cüzdan Supabase'e kaydedilemedi.");
-    return;
-  }
-  const minRequired =
-  Number(window.platformSettings?.minimum_token_balance || 0);
+    if (!existingWallet) {
+      const { error: walletInsertError } =
+        await supabaseClient
+          .from("wallets")
+          .insert({
+            user_id: userId,
+            address: walletAddress
+          });
+
+      if (walletInsertError) {
+        console.error("Cüzdan kayıt hatası:", walletInsertError);
+        alert("Cüzdan Supabase'e kaydedilemedi.");
+        return;
+      }
+    }
+
+    const minRequired = Number(
+      window.platformSettings?.minimum_token_balance || 0
+    );
+
     console.log("Bağlanan cüzdan:", walletAddress);
-    alert("Cüzdan bağlandı: " + walletAddress + "\nMinimum token şartı: " + minRequired.toLocaleString("tr-TR") + " token");
-  } catch (error) {
+
+    alert(
+      "Cüzdan bağlandı: " +
+      walletAddress +
+      "\nMinimum token şartı: " +
+      minRequired.toLocaleString("tr-TR") +
+      " token"
+    );
+
+    } catch (error) {
     console.error("Cüzdan bağlantı hatası:", error);
     alert("Cüzdan bağlantısı başarısız oldu.");
   }
-  }
+}
 </script>
 </body>
 </html>
