@@ -466,6 +466,26 @@
     SUPABASE_URL,
     SUPABASE_KEY
   );
+  async function loadPlatformSettings() {
+  const { data, error } = await supabaseClient
+    .from("settings")
+    .select("test_mode, minimum_token_balance, token_mint")
+    .eq("id", 1)
+    .single();
+
+  if (error) {
+    console.error("Ayarlar alınamadı:", error);
+    return;
+  }
+
+  console.log("Minimum token:", data.minimum_token_balance);
+  console.log("Test modu:", data.test_mode);
+  console.log("Token mint:", data.token_mint);
+
+  window.platformSettings = data;
+}
+
+loadPlatformSettings();
 
   async function testSupabaseConnection() {
     try {
