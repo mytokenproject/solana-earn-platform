@@ -491,6 +491,25 @@
   }
 
   testSupabaseConnection();
+  async function connectSolanaWallet() {
+  try {
+    const provider = window.solana;
+
+    if (!provider || !provider.isPhantom) {
+      alert("Phantom cüzdan bulunamadı. Lütfen Phantom uygulamasını veya eklentisini kullan.");
+      return;
+    }
+
+    const response = await provider.connect();
+    const walletAddress = response.publicKey.toString();
+
+    console.log("Bağlanan cüzdan:", walletAddress);
+    alert("Cüzdan bağlandı: " + walletAddress);
+  } catch (error) {
+    console.error("Cüzdan bağlantı hatası:", error);
+    alert("Cüzdan bağlantısı başarısız oldu.");
+  }
+  }
 </script>
 </body>
 </html>
