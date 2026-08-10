@@ -503,7 +503,10 @@ function checkTokenAccess(testTokenBalance) {
   console.log("Platform erişimi:", hasAccess);
 
   return hasAccess;
-}
+} 
+  const testTokenBalance = 30000;
+const testAccessResult = checkTokenAccess(testTokenBalance);
+console.log("25.000 token erişim testi:", testAccessResult);
   async function testSupabaseConnection() {
     try {
       const { data, error } =
