@@ -559,7 +559,45 @@ if (balanceError) {
 
     const response = await provider.connect();
     const walletAddress = response.publicKey.toString();
+const { data: authData, error: authError } =
+  await supabaseClient.auth.getUser();
 
+if (authError || !authData.user) {
+  alert("Önce hesabınıza giriş yapın.");
+  return;
+}
+
+const userId = authData.user.id;
+
+const { data: existingWallet, error: walletCheckError } =
+  await supabaseClient
+    .from("wallets")
+    .select("id")
+    .eq("user_id", userId)
+    .eq("address", walletAddress)
+    .maybeSingle();
+
+if (walletCheckError) {
+  console.error("Cüzdan kontrol hatası:", walletCheckError);
+  alert("Cüzdan kontrol edilirken hata oluştu.");
+  return;
+}
+
+if (!existingWallet) {
+  const { error: walletInsertError } =
+    await supabaseClient
+      .from("wallets")
+      .insert({
+        user_id: userId,
+        address: walletAddress
+      });
+
+  if (walletInsertError) {
+    console.error("Cüzdan kayıt hatası:", walletInsertError);
+    alert("Cüzdan Supabase'e kaydedilemedi.");
+    return;
+  }
+  }
     console.log("Bağlanan cüzdan:", walletAddress);
     alert("Cüzdan bağlandı: " + walletAddress);
   } catch (error) {
