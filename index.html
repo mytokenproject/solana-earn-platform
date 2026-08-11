@@ -448,7 +448,7 @@
         return;
       }
 
-      balance = Number(result.new_balance || 0);
+      balance = Number(result.new_total_points || 0);
       completed += 1;
 
       localStorage.setItem(
@@ -469,7 +469,7 @@
 
       alert(
         "Görev tamamlandı! +" +
-        result.reward +
+        result.earned_points
         " puan"
       );
     });
