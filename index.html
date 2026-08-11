@@ -423,9 +423,9 @@
       btn.textContent = "İşleniyor...";
 
       const { data, error } = await supabaseClient.rpc(
-        "complete_task",
+        "complete_my_task_and_reward",
         {
-          p_task_id: taskId
+          Use secure task reward RPC
         }
       );
 
