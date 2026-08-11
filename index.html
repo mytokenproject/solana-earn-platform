@@ -771,6 +771,36 @@ if (tokenMint) {
     alert("Cüzdan bağlantısı başarısız oldu.");
   }
 }
+</script> 
+<script>
+async function completeTask(taskId) {
+  try {
+    if (!window.supabaseClient) {
+      alert("Supabase bağlantısı hazır değil.");
+      return;
+    }
+
+    const { data, error } = await window.supabaseClient.rpc(
+      "complete_my_task_and_reward",
+      { p_task_id: taskId }
+    );
+
+    if (error) {
+      console.error("Görev tamamlama hatası:", error);
+      alert("Görev tamamlanamadı.");
+      return;
+    }
+
+    if (data === true) {
+      alert("Görev tamamlandı ve ödül eklendi!");
+    } else {
+      alert("Bu görev şu anda tamamlanamaz.");
+    }
+  } catch (error) {
+    console.error(error);
+    alert("Bir hata oluştu.");
+  }
+}
 </script>
 </body>
 </html>
