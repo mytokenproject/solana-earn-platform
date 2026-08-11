@@ -425,7 +425,7 @@
       const { data, error } = await supabaseClient.rpc(
         "complete_my_task_and_reward",
         {
-          Use secure task reward RPC
+          p_task_id: taskId
         }
       );
 
