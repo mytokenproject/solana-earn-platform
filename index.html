@@ -517,7 +517,7 @@ if (minTokenEl) {
 }
 
 loadPlatformSettings().then(() => {
-  const testTokenBalance = 120000;
+  const testTokenBalance = window.platformSettings?.test_mode ? 120000 : 0;
   const testAccessResult = checkTokenAccess(testTokenBalance);
   console.log("100.000 token erişim testi:", testAccessResult);
   const accessMessage = document.createElement("div");
