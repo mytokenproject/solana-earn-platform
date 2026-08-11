@@ -517,14 +517,14 @@ if (minTokenEl) {
 }
 
 loadPlatformSettings().then(() => {
-  const testTokenBalance = 20000;
+  const testTokenBalance = 120000;
   const testAccessResult = checkTokenAccess(testTokenBalance);
-  console.log("25.000 token erişim testi:", testAccessResult);
+  console.log("100.000 token erişim testi:", testAccessResult);
   const accessMessage = document.createElement("div");
 accessMessage.style.marginTop = "12px";
 accessMessage.style.fontWeight = "700";
 accessMessage.textContent = testAccessResult
-  ? "✅ Platform erişimi: AÇIK — 30.000 token yeterli"
+  ? "✅ Platform erişimi: AÇIK — 120.000 token yeterli"
   : "❌ Platform erişimi: KAPALI — Token bakiyesi yetersiz";
 
 document.querySelector(".wrap").prepend(accessMessage);
