@@ -624,7 +624,53 @@ if (balanceError) {
     " lamports";
   }
 }); 
-  async function connectSolanaWallet() {
+ async function getWalletTokenBalance(walletAddress, tokenMint) {
+  const rpcUrl = "https://api.mainnet-beta.solana.com";
+
+  const response = await fetch(rpcUrl, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      jsonrpc: "2.0",
+      id: 1,
+      method: "getTokenAccountsByOwner",
+      params: [
+        walletAddress,
+        {
+          mint: tokenMint
+        },
+        {
+          encoding: "jsonParsed"
+        }
+      ]
+    })
+  });
+
+  if (!response.ok) {
+    throw new Error("Solana RPC bağlantısı başarısız.");
+  }
+
+  const result = await response.json();
+
+  if (result.error) {
+    throw new Error(result.error.message);
+  }
+
+  let totalBalance = 0;
+
+  for (const account of result.result.value) {
+    const tokenAmount =
+      account.account.data.parsed.info.tokenAmount;
+
+    totalBalance += Number(tokenAmount.uiAmountString || 0);
+  }
+
+  return totalBalance;
+}
+
+async function connectSolanaWallet() {
   try {
     const provider = window.solana;
 
@@ -681,9 +727,34 @@ if (balanceError) {
     );
     const tokenMint = window.platformSettings?.token_mint;
 
-if (!tokenMint) {
-  console.log("Token mint henüz tanımlı değil. Test modu devam ediyor.");
+if (tokenMint) {
+  const realTokenBalance = await getWalletTokenBalance(
+    walletAddress,
+    tokenMint
+  );
+
+  console.log("Gerçek token bakiyesi:", realTokenBalance);
+
+  if (realTokenBalance < minRequired) {
+    alert(
+      "Platform erişimi reddedildi.\n" +
+      "Token bakiyesi: " +
+      realTokenBalance.toLocaleString("tr-TR") +
+      "\nGerekli minimum: " +
+      minRequired.toLocaleString("tr-TR")
+    );
+    return;
   }
+
+  console.log("Token şartı sağlandı.");
+} else if (!window.platformSettings?.test_mode) {
+  alert("Token mint adresi tanımlı değil.");
+  return;
+} else {
+  console.log(
+    "Token mint henüz tanımlı değil. Test modu devam ediyor."
+  );
+}
 
     console.log("Bağlanan cüzdan:", walletAddress);
 
