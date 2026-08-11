@@ -406,50 +406,75 @@
 
 
   document
-    .querySelectorAll(".taskBtn")
-    .forEach(btn => {
+  .querySelectorAll(".taskBtn")
+  .forEach(btn => {
 
-      btn.addEventListener("click", () => {
+    btn.addEventListener("click", async () => {
 
-        if (btn.dataset.done === "1")
-          return;
+      const taskId = Number(btn.dataset.taskId || 0);
 
+      // Henüz Supabase'e bağlanmamış diğer test görevleri
+      if (!taskId) {
+        alert("Bu görev henüz Supabase sistemine bağlanmadı.");
+        return;
+      }
 
-        const points =
-          Number(btn.dataset.points || 0);
+      btn.disabled = true;
+      btn.textContent = "İşleniyor...";
 
+      const { data, error } = await supabaseClient.rpc(
+        "complete_task",
+        {
+          p_task_id: taskId
+        }
+      );
 
-        balance += points;
+      if (error) {
+        console.error("Görev hatası:", error);
+        alert(error.message);
 
-        completed += 1;
+        btn.disabled = false;
+        btn.textContent = "Görevi Başlat";
+        return;
+      }
 
+      const result = data && data[0];
 
-        localStorage.setItem(
-          "se_test_balance",
-          balance
-        );
+      if (!result) {
+        alert("Görev sonucu alınamadı.");
 
+        btn.disabled = false;
+        btn.textContent = "Görevi Başlat";
+        return;
+      }
 
-        localStorage.setItem(
-          "se_test_completed",
-          completed
-        );
+      balance = Number(result.new_balance || 0);
+      completed += 1;
 
+      localStorage.setItem(
+        "se_test_balance",
+        balance
+      );
 
-        btn.dataset.done = "1";
+      localStorage.setItem(
+        "se_test_completed",
+        completed
+      );
 
-        btn.textContent =
-          "✓ Tamamlandı";
+      btn.dataset.done = "1";
+      btn.textContent = "✓ Tamamlandı";
+      btn.classList.add("done");
 
-        btn.classList.add("done");
+      render();
 
-
-        render();
-
-      });
-
+      alert(
+        "Görev tamamlandı! +" +
+        result.reward +
+        " puan"
+      );
     });
 
+  });
 
   render();
 
