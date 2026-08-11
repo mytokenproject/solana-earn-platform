@@ -679,6 +679,11 @@ if (balanceError) {
     const minRequired = Number(
       window.platformSettings?.minimum_token_balance || 0
     );
+    const tokenMint = window.platformSettings?.token_mint;
+
+if (!tokenMint) {
+  console.log("Token mint henüz tanımlı değil. Test modu devam ediyor.");
+  }
 
     console.log("Bağlanan cüzdan:", walletAddress);
 
