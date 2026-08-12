@@ -341,7 +341,8 @@
 
   const balanceEl =
     document.getElementById("balance");
-
+const dbBalanceEl =
+  document.getElementById("dbBalance");
   const completedEl =
     document.getElementById("completed");
 
@@ -715,7 +716,7 @@ if (earnings) {
     0
   );
 
-  balanceEl.textContent = totalLamports;
+  dbBalanceEl.textContent = totalLamports;
 }
   
 }); 
