@@ -949,7 +949,18 @@ async function testMyEarnings() {
     "Toplam kazanç: " + totalLamports + " lamports"
   );
 }
-  
+async function showSupabaseBalance() {
+  const earnings = await getMyEarnings();
+
+  if (earnings === null) return;
+
+  const totalLamports = earnings.reduce(
+    (total, item) => total + Number(item.amount_lamports || 0),
+    0
+  );
+
+  console.log("Supabase bakiyesi:", totalLamports, "lamports");
+}  
 
 
   
