@@ -881,6 +881,33 @@ async function completeTask(taskId) {
     alert("Bir hata oluştu.");
   }
 }
+  // === KAZANÇ MOTORU HAZIRLIK ===
+async function getMyEarnings() {
+  if (!window.supabaseClient) {
+    console.error("Supabase bağlantısı hazır değil.");
+    return null;
+  }
+
+  const { data: { user }, error: userError } =
+    await window.supabaseClient.auth.getUser();
+
+  if (userError || !user) {
+    console.error("Kullanıcı bulunamadı.");
+    return null;
+  }
+
+  const { data, error } = await window.supabaseClient
+    .from("earnings")
+    .select("*")
+    .eq("user_id", user.id);
+
+  if (error) {
+    console.error("Kazanç bilgisi alınamadı:", error);
+    return null;
+  }
+
+  return data;
+}
 </script>
 </body>
 </html>
