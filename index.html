@@ -926,11 +926,20 @@ async function testMyEarnings() {
     return;
   }
 
+  const totalLamports = earnings.reduce(
+    (total, item) => total + Number(item.amount_lamports || 0),
+    0
+  );
+
   alert(
-    "Kazanç Motoru çalışıyor! Kayıt sayısı: " +
-    earnings.length
+    "Kazanç Motoru çalışıyor!\n" +
+    "Kayıt sayısı: " + earnings.length + "\n" +
+    "Toplam kazanç: " + totalLamports + " lamports"
   );
 }
+  }
+
+
   
 </script>
 </body>
