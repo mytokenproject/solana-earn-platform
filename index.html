@@ -493,6 +493,7 @@
     SUPABASE_URL,
     SUPABASE_KEY
   );
+  window.supabaseClient = supabaseClient;
   async function loadPlatformSettings() {
   const { data, error } = await supabaseClient
     .from("settings")
