@@ -702,7 +702,7 @@ if (balanceError) {
     " | Bakiye hatası: " + balanceError.message; 
 }
   if (!balanceError && dbBalance) {
-  balanceEl.textContent = dbBalance.sol_lamports ?? 0;
+  document.getElementById("dbBalance").textContent = dbBalance.sol_lamports ?? 0;
   loginStatus.textContent +=
     " | Bakiye: " + 
     dbBalance.sol_lamports +
