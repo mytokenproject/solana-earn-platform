@@ -960,7 +960,8 @@ async function showSupabaseBalance() {
   );
 
   console.log("Supabase bakiyesi:", totalLamports, "lamports");
-}  
+document.getElementById("dbBalance").textContent = totalLamports;
+}
 
 
   
