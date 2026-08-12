@@ -744,7 +744,7 @@ if (balanceError) {
     const tokenAmount =
       account.account.data.parsed.info.tokenAmount;
 
-    totalBalance += Number(tokenAmount.uiAmountString || 0);
+    totalBalance += Number(tokenAmount.uiAmountString ?? tokenAmount.uiAmount ?? 0);
   }
 
   return totalBalance;
