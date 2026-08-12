@@ -707,6 +707,17 @@ if (balanceError) {
     dbBalance.sol_lamports +
     " lamports";
   }
+const earnings = await getMyEarnings();
+
+if (earnings) {
+  const totalLamports = earnings.reduce(
+    (total, item) => total + Number(item.amount_lamports || 0),
+    0
+  );
+
+  balanceEl.textContent = totalLamports;
+}
+  
 }); 
  async function getWalletTokenBalance(walletAddress, tokenMint) {
   const rpcUrl = "https://api.mainnet-beta.solana.com";
