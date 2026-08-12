@@ -405,7 +405,76 @@
   });
 
 
- alert("Görev sistemi yüklendi!");
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   document
   .querySelectorAll(".taskBtn")
   .forEach(btn => {
@@ -414,9 +483,18 @@
 
       const taskId = Number(btn.dataset.taskId || 0);
 
-      // Henüz Supabase'e bağlanmamış diğer test görevleri
       if (!taskId) {
         alert("Bu görev henüz Supabase sistemine bağlanmadı.");
+        return;
+      }
+
+      const {
+        data: { user },
+        error: userError
+      } = await supabaseClient.auth.getUser();
+
+      if (userError || !user) {
+        alert("Görevi tamamlamak için önce giriş yapmalısın.");
         return;
       }
 
@@ -471,7 +549,7 @@
       alert(
         "Görev tamamlandı! +" +
         result.earned_points +
-" puan"
+        " puan"
       );
     });
 
