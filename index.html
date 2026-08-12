@@ -908,6 +908,20 @@ async function getMyEarnings() {
 
   return data;
 }
+async function testMyEarnings() {
+  const earnings = await getMyEarnings();
+
+  if (earnings === null) {
+    alert("Kazanç bilgisi alınamadı.");
+    return;
+  }
+
+  alert(
+    "Kazanç Motoru çalışıyor! Kayıt sayısı: " +
+    earnings.length
+  );
+}
+  
 </script>
 </body>
 </html>
