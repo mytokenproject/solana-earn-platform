@@ -906,8 +906,14 @@ async function getMyEarnings() {
     .eq("user_id", user.id);
 
   if (error) {
-    console.error("Kazanç bilgisi alınamadı:", error);
-    return null;
+  console.error("Kazanç bilgisi alınamadı:", error);
+
+  alert(
+    "Supabase hata: " +
+    (error.message || JSON.stringify(error))
+  );
+
+  return null;
   }
 
   return data;
