@@ -708,6 +708,22 @@ if (balanceError) {
     dbBalance.sol_lamports +
     " lamports";
   }
+  const { count: completedCount, error: completedError } =
+  await supabaseClient
+    .from("task_completions")
+    .select("id", { count: "exact", head: true })
+    .eq("user_id", data.user.id)
+    .eq("verified", true);
+
+if (completedError) {
+  console.error(
+    "Tamamlanan görev sayısı hatası:",
+    completedError
+  );
+} else {
+  completed = completedCount ?? 0;
+  completedEl.textContent = completed;
+}
 const earnings = await getMyEarnings();
 
 if (earnings) {
