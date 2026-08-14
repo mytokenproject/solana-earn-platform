@@ -725,8 +725,9 @@ if (earnings) {
 
   const { data: canComplete, error: canError } =
     await supabaseClient.rpc("can_complete_task", {
-      p_task_id: taskId
-    });
+  p_user_id: data.user.id,
+  p_task_id: taskId
+});
 
   if (canError) {
     console.error("Görev durum hatası:", canError);
