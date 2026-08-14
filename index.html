@@ -367,7 +367,11 @@ const dbBalanceEl =
     completedEl.textContent = completed;
 
   }
-
+window.setCompletedCount = (value) => {
+  completed = Number(value || 0);
+  localStorage.setItem("se_test_completed", completed);
+  render();
+};
 
   connectBtn.addEventListener("click", async () => {
 
@@ -721,8 +725,7 @@ if (completedError) {
     completedError
   );
 } else {
-  completed = completedCount ?? 0;
-  completedEl.textContent = completed;
+  window.setCompletedCount(completedCount ?? 0);
 }
 const earnings = await getMyEarnings();
 
