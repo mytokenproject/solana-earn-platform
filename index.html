@@ -718,6 +718,37 @@ if (earnings) {
 
 
 }
+  for (const btn of document.querySelectorAll(".taskBtn")) {
+  const taskId = Number(btn.dataset.taskId || 0);
+
+  if (!taskId) continue;
+
+  const { data: canComplete, error: canError } =
+    await supabaseClient.rpc("can_complete_task", {
+      p_task_id: taskId
+    });
+
+  if (canError) {
+    console.error("Görev durum hatası:", canError);
+    continue;
+  }
+
+  if (canComplete === false) {
+    btn.disabled = true;
+    btn.dataset.done = "1";
+    btn.classList.add("done");
+
+    btn.textContent =
+      taskId === 3
+        ? "✓ Bugün tamamlandı"
+        : "✓ Tamamlandı";
+  } else {
+    btn.disabled = false;
+    btn.dataset.done = "0";
+    btn.classList.remove("done");
+    btn.textContent = "Görevi Başlat";
+  }
+}
   
 }); 
  async function getWalletTokenBalance(walletAddress, tokenMint) {
