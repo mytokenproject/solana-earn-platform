@@ -445,7 +445,7 @@ button:active {
   <h2>📱 Uygulamalar</h2>
 <p>Uygulama görevleri burada listelenecek.</p>
   <div class="task" style="margin-top:14px;">
-  <div class="task-title">📱 Örnek Uygulama Görevi</div>
+  <div class="task-title" id="appTaskPreview">📱 Örnek Uygulama Görevi</div>
 
   <small>
     Sağlayıcı: Test • Durum: Yakında
@@ -458,13 +458,13 @@ button:active {
     gap:10px;
     margin-top:12px;
   ">
-    <strong style="white-space:nowrap;">+150 puan</strong>
+    <strong style="white-space:nowrap;">+100 puan</strong>
 
-    <button class="secondary"
-      style="width:auto; min-width:140px;"
-      type="button"
-      disabled>
-      Yakında
+    <button class="secondary taskBtn"
+  style="width:auto; min-width:140px;"
+  type="button"
+  data-task-id="6">
+  Görevi Başlat
     </button>
   </div>
   </div>
@@ -953,7 +953,6 @@ window.setCompletedCount = (value) => {
   console.error("Kategori görevleri alınamadı:", error);
   return [];
 }
-
 const gameTask = (data || []).find(task =>
   task.type === "game");
 
@@ -964,6 +963,17 @@ if (gameTaskPreview && gameTask) {
   gameTaskPreview.textContent =
     gameTask.title + " • " +
     gameTask.reward_points + " puan";
+}
+const appTask = (data || []).find(task =>
+  task.type === "app");
+
+const appTaskPreview =
+  document.getElementById("appTaskPreview");
+
+if (appTaskPreview && appTask) {
+  appTaskPreview.textContent =
+    appTask.title + " • " +
+    appTask.reward_points + " puan";
 }
 
 console.log("Kategori görevleri:", data);
