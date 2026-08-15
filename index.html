@@ -374,7 +374,7 @@ button:active {
     margin-top:16px;
   ">
 
-    <div class="task">
+    <div class="task" id="gamesCard">
       <div class="task-title">🎮 Oyunlar</div>
       <small>Oyna, ilerle ve kazan</small>
     </div>
@@ -409,7 +409,12 @@ button:active {
       <small>Web3 görevlerini keşfet</small>
     </div>
 
-  </div>
+   </div>
+    </section>
+    <section class="card" id="gamesSection" style="display:none; margin-top:14px;">
+  <h2>🎮 Oyunlar</h2>
+  <p>Oyun görevleri burada listelenecek.</p>
+  <button class="secondary" id="closeGamesBtn">Geri Dön</button>
     </section>
 
 
@@ -1352,7 +1357,29 @@ if (balanceEl) {
     historyEl.appendChild(row);
   });
 }
+const gamesCardEl = document.getElementById("gamesCard");
+const gamesSectionEl = document.getElementById("gamesSection");
+const closeGamesBtnEl = document.getElementById("closeGamesBtn");
 
+if (gamesCardEl && gamesSectionEl && closeGamesBtnEl) {
+  gamesCardEl.style.cursor = "pointer";
+
+  gamesCardEl.addEventListener("click", () => {
+    gamesSectionEl.style.display = "block";
+    gamesSectionEl.scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
+  });
+
+  closeGamesBtnEl.addEventListener("click", () => {
+    gamesSectionEl.style.display = "none";
+    gamesCardEl.scrollIntoView({
+      behavior: "smooth",
+      block: "center"
+    });
+  });
+}
 
   
 </script>
