@@ -325,6 +325,12 @@
     <button class="secondary" onclick="testMyEarnings()">
   Kazancımı Test Et
     </button>
+    <div id="pointHistoryPanel" style="margin-top:16px;">
+  <h3>Puan Geçmişi</h3>
+  <div id="pointHistory">
+    Giriş yaptıktan sonra puan geçmişi burada görünecek.
+  </div>
+    </div>
 
 
     <div class="notice">
@@ -727,6 +733,7 @@ if (completedError) {
 } else {
   window.setCompletedCount(completedCount ?? 0);
 }
+  await loadPointHistory();
 const earnings = await getMyEarnings();
 
 if (earnings) {
@@ -1012,6 +1019,69 @@ async function showSupabaseBalance() {
 
   console.log("Supabase bakiyesi:", totalLamports, "lamports");
 document.getElementById("dbBalance").textContent = totalLamports;
+}
+  async function loadPointHistory() {
+  const historyEl = document.getElementById("pointHistory");
+
+  if (!historyEl) return;
+
+  historyEl.textContent = "Puan geçmişi yükleniyor...";
+
+  const {
+    data: { user },
+    error: userError
+  } = await supabaseClient.auth.getUser();
+
+  if (userError || !user) {
+    historyEl.textContent =
+      "Puan geçmişini görmek için giriş yap.";
+    return;
+  }
+
+  const { data: history, error } = await supabaseClient
+    .from("point_earnings")
+    .select("points, description, task_id, created_at")
+    .eq("user_id", user.id)
+    .order("created_at", { ascending: false });
+
+  if (error) {
+    console.error("Puan geçmişi hatası:", error);
+    historyEl.textContent = "Puan geçmişi alınamadı.";
+    return;
+  }
+
+  if (!history || history.length === 0) {
+    historyEl.textContent = "Henüz puan kazancı yok.";
+    return;
+  }
+
+  historyEl.innerHTML = "";
+
+  history.forEach((item) => {
+    const row = document.createElement("div");
+    row.style.padding = "10px 0";
+    row.style.borderBottom = "1px solid #2a3140";
+
+    const pointsEl = document.createElement("strong");
+    pointsEl.textContent =
+      "+" + Number(item.points || 0) + " puan";
+
+    const descriptionEl = document.createElement("div");
+    descriptionEl.textContent =
+      item.description ||
+      (item.task_id ? "Görev #" + item.task_id : "Görev");
+
+    const dateEl = document.createElement("small");
+    dateEl.textContent = item.created_at
+      ? new Date(item.created_at).toLocaleString("tr-TR")
+      : "";
+
+    row.appendChild(pointsEl);
+    row.appendChild(descriptionEl);
+    row.appendChild(dateEl);
+
+    historyEl.appendChild(row);
+  });
 }
 
 
