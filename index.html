@@ -384,7 +384,7 @@ button:active {
       <small>Uygulamaları keşfet</small>
     </div>
 
-    <div class="task">
+    <div class="task" id="surveysCard">
       <div class="task-title">📋 Anketler</div>
       <small>Fikrini paylaş ve kazan</small>
     </div>
@@ -421,6 +421,11 @@ button:active {
 <p>Uygulama görevleri burada listelenecek.</p>
 <button class="secondary" id="closeAppsBtn">Geri Dön</button>
 </section
+  <section class="card" id="surveysSection" style="display:none; margin-top:14px;">
+  <h2>📋 Anketler</h2>
+  <p>Anket görevleri burada listelenecek.</p>
+  <button class="secondary" id="closeSurveysBtn">Geri Dön</button>
+  </section>
   <section class="card" style="margin-top:14px">
 
       <h2>Görevler</h2>
@@ -1406,7 +1411,29 @@ if (appsCardEl && appsSectionEl && closeAppsBtnEl) {
     });
   });
   }
-  
+ const surveysCardEl = document.getElementById("surveysCard");
+const surveysSectionEl = document.getElementById("surveysSection");
+const closeSurveysBtnEl = document.getElementById("closeSurveysBtn");
+
+if (surveysCardEl && surveysSectionEl && closeSurveysBtnEl) {
+  surveysCardEl.style.cursor = "pointer";
+
+  surveysCardEl.addEventListener("click", () => {
+    surveysSectionEl.style.display = "block";
+    surveysSectionEl.scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
+  });
+
+  closeSurveysBtnEl.addEventListener("click", () => {
+    surveysSectionEl.style.display = "none";
+    surveysCardEl.scrollIntoView({
+      behavior: "smooth",
+      block: "center"
+    });
+  });
+} 
 </script>
 </body>
 </html>
