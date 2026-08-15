@@ -503,7 +503,7 @@ button:active {
   <h2>▶️ Video & Reklam</h2>
   <p>Video ve reklam görevleri burada listelenecek.</p>
 <div class="task" style="margin-top:14px;">
-  <div class="task-title">▶️ Örnek Video Görevi</div>
+  <div class="task-title" id="videoTaskPreview">▶️ Örnek Video Görevi</div>
 
   <small>
     Sağlayıcı: Test • Durum: Yakında
@@ -516,13 +516,13 @@ button:active {
     gap:10px;
     margin-top:12px;
   ">
-    <strong style="white-space:nowrap;">+50 puan</strong>
+    <strong style="white-space:nowrap;">+100 puan</strong>
 
-    <button class="secondary"
-      style="width:auto; min-width:140px;"
-      type="button"
-      disabled>
-      Yakında
+    <button class="secondary taskBtn"
+  style="width:auto; min-width:140px;"
+  type="button"
+  data-task-id="8">
+  Görevi Başlat
     </button>
   </div>
 </div>
@@ -986,7 +986,18 @@ if (surveyTaskPreview && surveyTask) {
     surveyTask.title + " • " +
     surveyTask.reward_points + " puan";
 }
-console.log("Kategori görevleri:", data);
+const videoTask = (data || []).find(task =>
+  task.type === "video");
+
+const videoTaskPreview =
+  document.getElementById("videoTaskPreview");
+
+if (videoTaskPreview && videoTask) {
+  videoTaskPreview.textContent =
+    videoTask.title + " • " +
+    videoTask.reward_points + " puan";
+  }
+    console.log("Kategori görevleri:", data);
 return data || [];
   }
   async function loadPlatformSettings() {
