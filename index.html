@@ -991,6 +991,7 @@ accessMessage.textContent = testAccessResult
 
 document.querySelector(".wrap").prepend(accessMessage);
 });
+  loadCategoryTasks();
 function checkTokenAccess(testTokenBalance) {
   const minimumRequired = Number(
     window.platformSettings?.minimum_token_balance || 0
