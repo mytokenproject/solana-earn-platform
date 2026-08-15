@@ -359,11 +359,9 @@ const dbBalanceEl =
     document.getElementById("connectBtn");
 
 
-  let balance =
-    Number(localStorage.getItem("se_test_balance") || 0);
+  let balance = 0;
 
-  let completed =
-    Number(localStorage.getItem("se_test_completed") || 0);
+  let completed = 0;
 
 
   function render() {
@@ -375,7 +373,6 @@ const dbBalanceEl =
   }
 window.setCompletedCount = (value) => {
   completed = Number(value || 0);
-  localStorage.setItem("se_test_completed", completed);
   render();
 };
 
@@ -544,16 +541,6 @@ window.setCompletedCount = (value) => {
 
       balance = Number(result.new_total_points || 0);
       completed += 1;
-
-      localStorage.setItem(
-        "se_test_balance",
-        balance
-      );
-
-      localStorage.setItem(
-        "se_test_completed",
-        completed
-      );
 
       btn.dataset.done = "1";
       btn.textContent = "✓ Tamamlandı";
@@ -801,9 +788,6 @@ if (earnings) {
       window.setCompletedCount(0);
     }
 
-    localStorage.setItem("se_test_balance", 0);
-    localStorage.setItem("se_test_completed", 0);
-
     return;
   }
 
@@ -847,7 +831,6 @@ if (earnings) {
       balanceEl.textContent = totalPoints + " puan";
     }
 
-    localStorage.setItem("se_test_balance", totalPoints);
   }
 
   const { count: completedCount, error: completedError } =
@@ -861,11 +844,6 @@ if (earnings) {
     if (window.setCompletedCount) {
       window.setCompletedCount(completedCount ?? 0);
     }
-
-    localStorage.setItem(
-      "se_test_completed",
-      completedCount ?? 0
-    );
   }
 
   await loadPointHistory();
@@ -1180,6 +1158,16 @@ document.getElementById("dbBalance").textContent = totalLamports;
     historyEl.textContent = "Henüz puan kazancı yok.";
     return;
   }
+    const totalPoints = history.reduce(
+  (sum, item) => sum + Number(item.points || 0),
+  0
+);
+
+const balanceEl = document.getElementById("balance");
+
+if (balanceEl) {
+  balanceEl.textContent = totalPoints + " puan";
+}
 
   historyEl.innerHTML = "";
 
