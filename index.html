@@ -404,7 +404,7 @@ button:active {
       <small>Alışverişlerinden ödül kazan</small>
     </div>
 
-    <div class="task" style="grid-column:1 / -1">
+    <div class="task" id="web3Card" style="grid-column:1 / -1">
       <div class="task-title">◎ Web3 / Solana</div>
       <small>Web3 görevlerini keşfet</small>
     </div>
@@ -441,6 +441,11 @@ button:active {
   <h2>🛍️ Alışveriş & Kazan</h2>
   <p>Alışveriş ve cashback görevleri burada listelenecek.</p>
   <button class="secondary" id="closeShoppingBtn">Geri Dön</button>
+    </section>
+    <section class="card" id="web3Section" style="display:none; margin-top:14px;">
+  <h2>◉ Web3 / Solana</h2>
+  <p>Web3 ve Solana görevleri burada listelenecek.</p>
+  <button class="secondary" id="closeWeb3Btn">Geri Dön</button>
     </section>
   <section class="card" style="margin-top:14px">
 
@@ -1519,6 +1524,29 @@ if (shoppingCardEl && shoppingSectionEl && closeShoppingBtnEl) {
     });
   });
   }
+const web3CardEl = document.getElementById("web3Card");
+const web3SectionEl = document.getElementById("web3Section");
+const closeWeb3BtnEl = document.getElementById("closeWeb3Btn");
+
+if (web3CardEl && web3SectionEl && closeWeb3BtnEl) {
+  web3CardEl.style.cursor = "pointer";
+
+  web3CardEl.addEventListener("click", () => {
+    web3SectionEl.style.display = "block";
+    web3SectionEl.scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
+  });
+
+  closeWeb3BtnEl.addEventListener("click", () => {
+    web3SectionEl.style.display = "none";
+    web3CardEl.scrollIntoView({
+      behavior: "smooth",
+      block: "center"
+    });
+  });
+}
 </script>
 </body>
 </html>
