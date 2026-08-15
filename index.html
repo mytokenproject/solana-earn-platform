@@ -948,12 +948,24 @@ window.setCompletedCount = (value) => {
     .order("id", { ascending: true });
 
   if (error) {
-    console.error("Kategori görevleri alınamadı:", error);
-    return [];
-  }
+  console.error("Kategori görevleri alınamadı:", error);
+  return [];
+}
 
-  console.log("Kategori görevleri:", data);
-  return data || [];
+const gameTask = (data || []).find(task =>
+  task.type === "game");
+
+const gameTaskPreview =
+  document.getElementById("gameTaskPreview");
+
+if (gameTaskPreview && gameTask) {
+  gameTaskPreview.textContent =
+    gameTask.title + " • " +
+    gameTask.reward_points + " puan";
+}
+
+console.log("Kategori görevleri:", data);
+return data || [];
   }
   async function loadPlatformSettings() {
   const { data, error } = await supabaseClient
