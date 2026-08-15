@@ -845,11 +845,10 @@ window.setCompletedCount = (value) => {
   
   
   
-  document
-  .querySelectorAll(".taskBtn")
-  .forEach(btn => {
+  document.addEventListener("click", async (event) => {
+  const btn = event.target.closest(".taskBtn");
 
-    btn.addEventListener("click", async () => {
+  if (!btn) return;
 
       const taskId = Number(btn.dataset.taskId || 0);
 
@@ -912,8 +911,6 @@ window.setCompletedCount = (value) => {
         " puan"
       );
     });
-
-  });
 
   render();
 
