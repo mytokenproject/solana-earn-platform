@@ -399,7 +399,7 @@ button:active {
       <small>Özel kampanyaları tamamla</small>
     </div>
 
-    <div class="task">
+    <div class="task" id="shoppingCard">
       <div class="task-title">🛍️ Alışveriş & Kazan</div>
       <small>Alışverişlerinden ödül kazan</small>
     </div>
@@ -436,6 +436,11 @@ button:active {
   <h2>⭐ Sponsorlu Görevler</h2>
   <p>Sponsorlu görevler ve özel kampanyalar burada listelenecek.</p>
   <button class="secondary" id="closeSponsoredBtn">Geri Dön</button>
+    </section>
+    <section class="card" id="shoppingSection" style="display:none; margin-top:14px;">
+  <h2>🛍️ Alışveriş & Kazan</h2>
+  <p>Alışveriş ve cashback görevleri burada listelenecek.</p>
+  <button class="secondary" id="closeShoppingBtn">Geri Dön</button>
     </section>
   <section class="card" style="margin-top:14px">
 
@@ -1491,6 +1496,29 @@ if (sponsoredCardEl && sponsoredSectionEl && closeSponsoredBtnEl) {
     });
   });
 }
+const shoppingCardEl = document.getElementById("shoppingCard");
+const shoppingSectionEl = document.getElementById("shoppingSection");
+const closeShoppingBtnEl = document.getElementById("closeShoppingBtn");
+
+if (shoppingCardEl && shoppingSectionEl && closeShoppingBtnEl) {
+  shoppingCardEl.style.cursor = "pointer";
+
+  shoppingCardEl.addEventListener("click", () => {
+    shoppingSectionEl.style.display = "block";
+    shoppingSectionEl.scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
+  });
+
+  closeShoppingBtnEl.addEventListener("click", () => {
+    shoppingSectionEl.style.display = "none";
+    shoppingCardEl.scrollIntoView({
+      behavior: "smooth",
+      block: "center"
+    });
+  });
+  }
 </script>
 </body>
 </html>
