@@ -778,6 +778,132 @@ if (earnings) {
 }
   
 }); 
+  async function restoreSessionUI() {
+  const {
+    data: { session },
+    error: sessionError
+  } = await supabaseClient.auth.getSession();
+
+  if (sessionError) {
+    console.error("Oturum kontrol hatası:", sessionError);
+    return;
+  }
+
+  if (!session || !session.user) {
+    loginStatus.textContent = "Giriş yapılmadı.";
+
+    const balanceEl = document.getElementById("balance");
+    if (balanceEl) balanceEl.textContent = "0 puan";
+
+    document.getElementById("dbBalance").textContent = 0;
+
+    if (window.setCompletedCount) {
+      window.setCompletedCount(0);
+    }
+
+    localStorage.setItem("se_test_balance", 0);
+    localStorage.setItem("se_test_completed", 0);
+
+    return;
+  }
+
+  const user = session.user;
+
+  loginStatus.textContent =
+    "Oturum geri yüklendi: " + (user.email || "");
+
+  const { data: dbBalance, error: balanceError } =
+    await supabaseClient
+      .from("balances")
+      .select("sol_lamports")
+      .eq("user_id", user.id)
+      .maybeSingle();
+
+  if (!balanceError && dbBalance) {
+    document.getElementById("dbBalance").textContent =
+      dbBalance.sol_lamports ?? 0;
+
+    loginStatus.textContent +=
+      " | Bakiye: " +
+      (dbBalance.sol_lamports ?? 0) +
+      " lamports";
+  }
+
+  const { data: pointRows, error: pointError } =
+    await supabaseClient
+      .from("point_earnings")
+      .select("points")
+      .eq("user_id", user.id);
+
+  if (!pointError && pointRows) {
+    const totalPoints = pointRows.reduce(
+      (sum, item) => sum + Number(item.points || 0),
+      0
+    );
+
+    const balanceEl = document.getElementById("balance");
+
+    if (balanceEl) {
+      balanceEl.textContent = totalPoints + " puan";
+    }
+
+    localStorage.setItem("se_test_balance", totalPoints);
+  }
+
+  const { count: completedCount, error: completedError } =
+    await supabaseClient
+      .from("task_completions")
+      .select("id", { count: "exact", head: true })
+      .eq("user_id", user.id)
+      .eq("verified", true);
+
+  if (!completedError) {
+    if (window.setCompletedCount) {
+      window.setCompletedCount(completedCount ?? 0);
+    }
+
+    localStorage.setItem(
+      "se_test_completed",
+      completedCount ?? 0
+    );
+  }
+
+  await loadPointHistory();
+
+  for (const btn of document.querySelectorAll(".taskBtn")) {
+    const taskId = Number(btn.dataset.taskId || 0);
+
+    if (!taskId) continue;
+
+    const { data: canComplete, error: canError } =
+      await supabaseClient.rpc("can_complete_task", {
+        p_user_id: user.id,
+        p_task_id: taskId
+      });
+
+    if (canError) {
+      console.error("Görev durumu hatası:", canError);
+      continue;
+    }
+
+    if (canComplete === false) {
+      btn.disabled = true;
+      btn.dataset.done = "1";
+      btn.classList.add("done");
+      btn.textContent =
+        taskId === 3
+          ? "✓ Bugün tamamlandı"
+          : "✓ Tamamlandı";
+    } else {
+      btn.disabled = false;
+      btn.dataset.done = "0";
+      btn.classList.remove("done");
+      btn.textContent = "Görevi Başlat";
+    }
+  }
+}
+
+restoreSessionUI();
  async function getWalletTokenBalance(walletAddress, tokenMint) {
   const rpcUrl = "https://api.mainnet-beta.solana.com";
 
