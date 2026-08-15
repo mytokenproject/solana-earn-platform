@@ -474,7 +474,7 @@ button:active {
   <h2>📋 Anketler</h2>
   <p>Anket görevleri burada listelenecek.</p>
   <div class="task" style="margin-top:14px;">
-    <div class="task-title">📋 Örnek Anket Görevi</div>
+    <div class="task-title" id="surveyTaskPreview">📋 Örnek Anket Görevi</div>
 
   <small>
     Sağlayıcı: Test • Durum: Yakında
@@ -487,13 +487,13 @@ button:active {
     gap:10px;
     margin-top:12px;
   ">
-    <strong style="white-space:nowrap;">+200 puan</strong>
+    <strong style="white-space:nowrap;">+100 puan</strong>
 
-    <button class="secondary"
-      style="width:auto; min-width:140px;"
-      type="button"
-      disabled>
-      Yakında
+    <button class="secondary taskBtn"
+  style="width:auto; min-width:140px;"
+  type="button"
+  data-task-id="7">
+  Görevi Başlat
     </button>
   </div>
   </div>
@@ -975,7 +975,17 @@ if (appTaskPreview && appTask) {
     appTask.title + " • " +
     appTask.reward_points + " puan";
 }
+const surveyTask = (data || []).find(task =>
+  task.type === "survey");
 
+const surveyTaskPreview =
+  document.getElementById("surveyTaskPreview");
+
+if (surveyTaskPreview && surveyTask) {
+  surveyTaskPreview.textContent =
+    surveyTask.title + " • " +
+    surveyTask.reward_points + " puan";
+}
 console.log("Kategori görevleri:", data);
 return data || [];
   }
