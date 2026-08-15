@@ -379,7 +379,7 @@ button:active {
       <small>Oyna, ilerle ve kazan</small>
     </div>
 
-    <div class="task">
+    <div class="task" id="appsCard">
       <div class="task-title">📱 Uygulamalar</div>
       <small>Uygulamaları keşfet</small>
     </div>
@@ -416,9 +416,12 @@ button:active {
   <p>Oyun görevleri burada listelenecek.</p>
   <button class="secondary" id="closeGamesBtn">Geri Dön</button>
     </section>
-
-
-    <section class="card" style="margin-top:14px">
+<section class="card" id="appsSection" style="display:none; margin-top:14px;">
+  <h2>📱 Uygulamalar</h2>
+<p>Uygulama görevleri burada listelenecek.</p>
+<button class="secondary" id="closeAppsBtn">Geri Dön</button>
+</section
+  <section class="card" style="margin-top:14px">
 
       <h2>Görevler</h2>
 
@@ -1380,7 +1383,29 @@ if (gamesCardEl && gamesSectionEl && closeGamesBtnEl) {
     });
   });
 }
+const appsCardEl = document.getElementById("appsCard");
+const appsSectionEl = document.getElementById("appsSection");
+const closeAppsBtnEl = document.getElementById("closeAppsBtn");
 
+if (appsCardEl && appsSectionEl && closeAppsBtnEl) {
+  appsCardEl.style.cursor = "pointer";
+
+  appsCardEl.addEventListener("click", () => {
+    appsSectionEl.style.display = "block";
+    appsSectionEl.scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
+  });
+
+  closeAppsBtnEl.addEventListener("click", () => {
+    appsSectionEl.style.display = "none";
+    appsCardEl.scrollIntoView({
+      behavior: "smooth",
+      block: "center"
+    });
+  });
+  }
   
 </script>
 </body>
