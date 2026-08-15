@@ -931,6 +931,30 @@ window.setCompletedCount = (value) => {
     SUPABASE_KEY
   );
   window.supabaseClient = supabaseClient;
+  async function loadCategoryTasks() {
+  const { data, error } = await supabaseClient
+    .from("tasks")
+    .select("id,title,description,type,reward_points,url,active,repeat_type")
+    .eq("active", true)
+    .in("type", [
+      "game",
+      "app",
+      "survey",
+      "video",
+      "sponsored",
+      "shopping",
+      "web3"
+    ])
+    .order("id", { ascending: true });
+
+  if (error) {
+    console.error("Kategori görevleri alınamadı:", error);
+    return [];
+  }
+
+  console.log("Kategori görevleri:", data);
+  return data || [];
+  }
   async function loadPlatformSettings() {
   const { data, error } = await supabaseClient
     .from("settings")
