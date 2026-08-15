@@ -394,7 +394,7 @@ button:active {
       <small>İzle ve ödül kazan</small>
     </div>
 
-    <div class="task">
+    <div class="task" id="sponsoredCard">
       <div class="task-title">⭐ Sponsorlu Görevler</div>
       <small>Özel kampanyaları tamamla</small>
     </div>
@@ -431,6 +431,12 @@ button:active {
   <p>Video ve reklam görevleri burada listelenecek.</p>
   <button class="secondary" id="closeVideoBtn">Geri Dön</button>
   </section>
+    
+   <section class="card" id="sponsoredSection" style="display:none; margin-top:14px;">
+  <h2>⭐ Sponsorlu Görevler</h2>
+  <p>Sponsorlu görevler ve özel kampanyalar burada listelenecek.</p>
+  <button class="secondary" id="closeSponsoredBtn">Geri Dön</button>
+    </section>
   <section class="card" style="margin-top:14px">
 
       <h2>Görevler</h2>
@@ -1457,6 +1463,29 @@ if (videoCardEl && videoSectionEl && closeVideoBtnEl) {
   closeVideoBtnEl.addEventListener("click", () => {
     videoSectionEl.style.display = "none";
     videoCardEl.scrollIntoView({
+      behavior: "smooth",
+      block: "center"
+    });
+  });
+}
+const sponsoredCardEl = document.getElementById("sponsoredCard");
+const sponsoredSectionEl = document.getElementById("sponsoredSection");
+const closeSponsoredBtnEl = document.getElementById("closeSponsoredBtn");
+
+if (sponsoredCardEl && sponsoredSectionEl && closeSponsoredBtnEl) {
+  sponsoredCardEl.style.cursor = "pointer";
+
+  sponsoredCardEl.addEventListener("click", () => {
+    sponsoredSectionEl.style.display = "block";
+    sponsoredSectionEl.scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
+  });
+
+  closeSponsoredBtnEl.addEventListener("click", () => {
+    sponsoredSectionEl.style.display = "none";
+    sponsoredCardEl.scrollIntoView({
       behavior: "smooth",
       block: "center"
     });
