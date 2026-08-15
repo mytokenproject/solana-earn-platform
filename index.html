@@ -257,10 +257,37 @@ button:active {
 .discover-card .task small {
   font-size: 13px;
   line-height: 1.4;
-  } </style>
-</head>
+} 
+  @media (max-width: 480px) {
+  .discover-card h2 {
+    font-size: 20px;
+    line-height: 1.2;
+    margin-bottom: 0;
+  }
 
-<body>
+  .discover-card > div[style] {
+    gap: 10px !important;
+    margin-top: 12px !important;
+  }
+
+  .discover-card .task {
+    padding: 14px 12px;
+    min-height: 104px;
+  }
+
+  .discover-card .task-title {
+    font-size: 15px;
+    margin-bottom: 5px;
+  }
+
+  .discover-card .task small {
+    font-size: 12px;
+    line-height: 1.35;
+  }
+}
+  </style>
+  </head>
+ <body>
 
   <main class="wrap">
 
