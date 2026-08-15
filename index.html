@@ -420,30 +420,7 @@ button:active {
 <section class="card" id="appsSection" style="display:none; margin-top:14px;">
   <h2>📱 Uygulamalar</h2>
 <p>Uygulama görevleri burada listelenecek.</p>
-  <div class="task" style="margin-top:14px;">
-  <div class="task-title" id="appTaskPreview">📱 Örnek Uygulama Görevi</div>
-
-  <small>
-    Sağlayıcı: Test • Durum: Yakında
-  </small>
-
-  <div style="
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    gap:10px;
-    margin-top:12px;
-  ">
-    <strong style="white-space:nowrap;">+100 puan</strong>
-
-    <button class="secondary taskBtn"
-  style="width:auto; min-width:140px;"
-  type="button"
-  data-task-id="6">
-  Görevi Başlat
-    </button>
-  </div>
-  </div>
+<div id="appTaskList"></div>
 <button class="secondary" id="closeAppsBtn">Geri Dön</button>
 </section>
   <section class="card" id="surveysSection" style="display:none; margin-top:14px;">
@@ -972,18 +949,53 @@ if (gameTaskList) {
     gameTaskList.appendChild(card);
   }
 }
-const appTask = (data || []).find(task =>
-  task.type === "app");
+const appTasks = (data || []).filter(task =>
+  task.type === "app"
+);
 
-const appTaskPreview =
-  document.getElementById("appTaskPreview");
+const appTaskList =
+  document.getElementById("appTaskList");
 
-if (appTaskPreview && appTask) {
-  appTaskPreview.textContent =
-    appTask.title + " • " +
-    appTask.reward_points + " puan";
+if (appTaskList) {
+  appTaskList.innerHTML = "";
+
+  for (const task of appTasks) {
+    const card = document.createElement("div");
+    card.className = "task";
+    card.style.marginTop = "14px";
+
+    const title = document.createElement("div");
+    title.className = "task-title";
+    title.textContent = "📱 " + task.title;
+
+    const meta = document.createElement("small");
+    meta.textContent =
+      "Sağlayıcı: Test • Durum: Aktif";
+
+    const row = document.createElement("div");
+    row.style.cssText =
+      "display:flex;justify-content:space-between;" +
+      "align-items:center;gap:10px;margin-top:12px;";
+
+    const points = document.createElement("strong");
+    points.style.whiteSpace = "nowrap";
+    points.textContent =
+      "+" + task.reward_points + " puan";
+
+    const btn = document.createElement("button");
+    btn.className = "secondary taskBtn";
+    btn.style.cssText =
+      "width:auto;min-width:140px;";
+    btn.type = "button";
+    btn.dataset.taskId = task.id;
+    btn.textContent = "Görevi Başlat";
+
+    row.append(points, btn);
+    card.append(title, meta, row);
+    appTaskList.appendChild(card);
+  }
 }
-const surveyTask = (data || []).find(task =>
+ const surveyTask = (data || []).find(task =>
   task.type === "survey");
 
 const surveyTaskPreview =
