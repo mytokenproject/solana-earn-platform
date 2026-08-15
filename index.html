@@ -389,7 +389,7 @@ button:active {
       <small>Fikrini paylaş ve kazan</small>
     </div>
 
-    <div class="task">
+    <div class="task" id="videoCard">
       <div class="task-title">▶️ Video & Reklam</div>
       <small>İzle ve ödül kazan</small>
     </div>
@@ -425,6 +425,11 @@ button:active {
   <h2>📋 Anketler</h2>
   <p>Anket görevleri burada listelenecek.</p>
   <button class="secondary" id="closeSurveysBtn">Geri Dön</button>
+  </section>
+  <section class="card" id="videoSection" style="display:none; margin-top:14px;">
+  <h2>▶️ Video & Reklam</h2>
+  <p>Video ve reklam görevleri burada listelenecek.</p>
+  <button class="secondary" id="closeVideoBtn">Geri Dön</button>
   </section>
   <section class="card" style="margin-top:14px">
 
@@ -1434,6 +1439,29 @@ if (surveysCardEl && surveysSectionEl && closeSurveysBtnEl) {
     });
   });
 } 
+const videoCardEl = document.getElementById("videoCard");
+const videoSectionEl = document.getElementById("videoSection");
+const closeVideoBtnEl = document.getElementById("closeVideoBtn");
+
+if (videoCardEl && videoSectionEl && closeVideoBtnEl) {
+  videoCardEl.style.cursor = "pointer";
+
+  videoCardEl.addEventListener("click", () => {
+    videoSectionEl.style.display = "block";
+    videoSectionEl.scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
+  });
+
+  closeVideoBtnEl.addEventListener("click", () => {
+    videoSectionEl.style.display = "none";
+    videoCardEl.scrollIntoView({
+      behavior: "smooth",
+      block: "center"
+    });
+  });
+}
 </script>
 </body>
 </html>
