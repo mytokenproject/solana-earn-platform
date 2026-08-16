@@ -1063,7 +1063,11 @@ window.setCompletedCount = (value) => {
 
         walletStatus.textContent =
           "Phantom cüzdanı bulunamadı. Test modunda görevleri yine deneyebilirsin.";
+ const topWalletStatusEl =
+  document.getElementById("topWalletStatus");
 
+if (topWalletStatusEl)
+  topWalletStatusEl.textContent = "Phantom bulunamadı";
         return;
       }
 
