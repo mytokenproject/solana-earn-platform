@@ -1453,7 +1453,7 @@ if (continueAdBtn && adForm) {
   });
   }
   if (submitAdBtn && adTitle && adUrl && adDescription) {
-  submitAdBtn.addEventListener("click", () => {
+  submitAdBtn.addEventListener("click", async () => {
     const title = adTitle.value.trim();
     const url = adUrl.value.trim();
     const description = adDescription.value.trim();
@@ -1477,7 +1477,57 @@ if (continueAdBtn && adForm) {
       return;
     }
 
-    alert("✅ Reklam başvurusu test olarak hazırlandı.");
+    const { data: userData, error: userError } =
+  await supabaseClient.auth.getUser();
+
+if (userError || !userData.user) {
+  alert("Başvuru göndermek için giriş yapmalısınız.");
+  return;
+}
+
+const plan = continueAdBtn?.dataset.plan;
+const price = Number(continueAdBtn?.dataset.price);
+
+if (!plan || !price) {
+  alert("Lütfen reklam paketini yeniden seçin.");
+  return;
+}
+
+const { error: insertError } =
+  await supabaseClient
+    .from("ad_submissions")
+    .insert([
+      {
+        user_id: userData.user.id,
+        title: title,
+        target_url: url,
+        description: description,
+        plan: plan,
+        price_usdc: price,
+        status: "pending"
+      }
+    ]);
+
+if (insertError) {
+  console.error(
+    "Reklam başvurusu kayıt hatası:",
+    insertError
+  );
+
+  alert(
+    "Başvuru kaydedilemedi: " +
+    insertError.message
+  );
+  return;
+}
+
+alert(
+  "✅ Reklam başvurunuz alındı ve incelemeye gönderildi."
+);
+
+adTitle.value = "";
+adUrl.value = "";
+adDescription.value = "";
   });
   }
   function checkTokenAccess(testTokenBalance) {
