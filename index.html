@@ -530,6 +530,24 @@ button:active {
 </button>
      </div>
    </section>
+    <section
+  id="adminAdPanel"
+  class="card"
+  style="display:none; margin-top:14px;"
+>
+  <h2>Reklam Yönetimi</h2>
+
+  <small style="opacity:.75;">
+    Bekleyen reklam başvurularını incele
+  </small>
+
+  <div
+    id="adminAdList"
+    style="margin-top:16px;"
+  >
+    Bekleyen başvuru bulunamadı.
+  </div>
+    </section>
     <section class="card discover-card" style="margin-top:14px">
   <h2>Keşfet & Kazan</h2>
 
@@ -1389,6 +1407,115 @@ const adUrl =
 
 const adDescription =
   document.getElementById("adDescription");
+  const adminAdPanel =
+  document.getElementById("adminAdPanel");
+
+const adminAdList =
+  document.getElementById("adminAdList");
+  async function loadAdminAds() {
+  if (!adminAdPanel || !adminAdList) return;
+
+  const { data: isAdmin, error: adminError } =
+    await supabaseClient.rpc("is_admin");
+
+  if (adminError) {
+    console.error("Admin kontrol hatası:", adminError);
+    return;
+  }
+
+  if (!isAdmin) {
+    adminAdPanel.style.display = "none";
+    return;
+  }
+
+  adminAdPanel.style.display = "block";
+
+  const { data: ads, error: adsError } =
+    await supabaseClient
+      .from("ad_submissions")
+      .select(
+        "id,title,target_url,description,plan,price_usdc,status,created_at"
+      )
+      .eq("status", "pending")
+      .order("created_at", { ascending: false });
+
+  if (adsError) {
+    console.error("Reklamlar alınamadı:", adsError);
+    adminAdList.textContent =
+      "Reklam başvuruları yüklenemedi.";
+    return;
+  }
+
+  if (!ads || ads.length === 0) {
+    adminAdList.textContent =
+      "Bekleyen başvuru bulunamadı.";
+    return;
+  }
+
+  adminAdList.innerHTML = "";
+
+const adminPlanNames = {
+  daily: "Günlük",
+  weekly: "Haftalık",
+  monthly: "Aylık"
+};
+
+ads.forEach(ad => {
+  const item = document.createElement("div");
+  item.className = "task";
+  item.style.marginBottom = "12px";
+
+  const titleEl = document.createElement("div");
+  titleEl.className = "task-title";
+  titleEl.textContent = ad.title;
+
+  const metaEl = document.createElement("small");
+  metaEl.textContent =
+    (adminPlanNames[ad.plan] || ad.plan) +
+    " · " +
+    ad.price_usdc +
+    " USDC";
+
+  const descriptionEl = document.createElement("div");
+  descriptionEl.style.marginTop = "8px";
+  descriptionEl.textContent = ad.description;
+
+  const linkWrap = document.createElement("div");
+  linkWrap.style.marginTop = "8px";
+
+  try {
+    const safeUrl = new URL(ad.target_url);
+
+    if (
+      safeUrl.protocol !== "http:" &&
+      safeUrl.protocol !== "https:"
+    ) {
+      throw new Error("Geçersiz protokol");
+    }
+
+    const linkEl = document.createElement("a");
+    linkEl.href = safeUrl.href;
+    linkEl.target = "_blank";
+    linkEl.rel = "noopener noreferrer";
+    linkEl.textContent = "Reklam bağlantısını aç";
+
+    linkWrap.appendChild(linkEl);
+  } catch {
+    const invalidUrl = document.createElement("small");
+    invalidUrl.textContent = "Geçersiz reklam bağlantısı";
+    linkWrap.appendChild(invalidUrl);
+  }
+
+  item.appendChild(titleEl);
+  item.appendChild(metaEl);
+  item.appendChild(descriptionEl);
+  item.appendChild(linkWrap);
+
+  adminAdList.appendChild(item);
+});
+}
+
+loadAdminAds();
 if (advertiseBtn && adPlans) {
   advertiseBtn.addEventListener("click", () => {
     const isOpen = adPlans.style.display === "block";
