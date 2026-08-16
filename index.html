@@ -541,39 +541,49 @@ button:active {
 
     <section class="card">
 
-      <h2>Hesap Özeti</h2>
+  <h2>Hesap Özeti</h2>
 
-      <div class="grid">
+  <div
+    class="grid"
+    style="
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:12px;
+      margin-top:16px;
+    "
+  >
 
-          <div class="stat">
-  <div class="label">Toplam Puan</div>
-  <div class="value">
-    <span id="balance">0</span>
-  </div>
-</div>
-
-<div class="stat">
-  <div class="label">Kazanç Bakiyesi (Test)</div>
-  <div class="value">
-    <span id="dbBalance">0</span> lamports
-  </div>
-</div>
-
-<div class="stat">
-  <div class="label">Minimum Token Şartı</div>
-  <div class="value">
-    <span id="minTokenBalance">-</span> token
-  </div>
-</div>
-
-<div class="stat">
-  <div class="label">Tamamlanan Görev</div>
-  <div class="value">
-    <span id="completed">0</span>
-  </div>
-</div>
-
+    <div class="stat" style="min-height:110px;">
+      <div class="label">💜 Toplam Puan</div>
+      <div class="value">
+        <span id="balance">0</span>
       </div>
+    </div>
+
+    <div class="stat" style="min-height:110px;">
+      <div class="label">💰 Kazanç Bakiyesi</div>
+      <div class="value">
+        <span id="dbBalance">0</span>
+        <small> lamports</small>
+      </div>
+    </div>
+
+    <div class="stat" style="min-height:110px;">
+      <div class="label">🔐 Minimum Token Şartı</div>
+      <div class="value">
+        <span id="minTokenBalance">-</span>
+        <small> token</small>
+      </div>
+    </div>
+
+    <div class="stat" style="min-height:110px;">
+      <div class="label">✅ Tamamlanan Görev</div>
+      <div class="value">
+        <span id="completed">0</span>
+      </div>
+    </div>
+
+  </div>
 
     </section>
    <section class="card" id="sponsorAdPanel"
