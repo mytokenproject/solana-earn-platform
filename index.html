@@ -517,7 +517,17 @@ button:active {
   <div id="adFormPlan"
     style="margin-top:10px; font-size:14px;">
   </div>
-
+<button
+  id="submitAdBtn"
+  class="secondary"
+  type="button"
+  style="
+    width:auto;
+    margin-top:14px;
+    padding:10px 16px;
+  ">
+  Başvuruyu Gönder
+</button>
      </div>
    </section>
     <section class="card discover-card" style="margin-top:14px">
@@ -1368,6 +1378,17 @@ const continueAdBtn =
 
 const adFormPlan =
   document.getElementById("adFormPlan");
+  const submitAdBtn =
+  document.getElementById("submitAdBtn");
+
+const adTitle =
+  document.getElementById("adTitle");
+
+const adUrl =
+  document.getElementById("adUrl");
+
+const adDescription =
+  document.getElementById("adDescription");
 if (advertiseBtn && adPlans) {
   advertiseBtn.addEventListener("click", () => {
     const isOpen = adPlans.style.display === "block";
@@ -1429,6 +1450,34 @@ if (continueAdBtn && adForm) {
       behavior: "smooth",
       block: "nearest"
     });
+  });
+  }
+  if (submitAdBtn && adTitle && adUrl && adDescription) {
+  submitAdBtn.addEventListener("click", () => {
+    const title = adTitle.value.trim();
+    const url = adUrl.value.trim();
+    const description = adDescription.value.trim();
+
+    if (!title || !url || !description) {
+      alert("Lütfen tüm reklam bilgilerini doldurun.");
+      return;
+    }
+
+    try {
+      const parsedUrl = new URL(url);
+
+      if (
+        parsedUrl.protocol !== "http:" &&
+        parsedUrl.protocol !== "https:"
+      ) {
+        throw new Error();
+      }
+    } catch {
+      alert("Lütfen geçerli bir bağlantı girin.");
+      return;
+    }
+
+    alert("✅ Reklam başvurusu test olarak hazırlandı.");
   });
   }
   function checkTokenAccess(testTokenBalance) {
