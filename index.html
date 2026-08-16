@@ -1638,6 +1638,18 @@ loadAdminAds();
   }
   }
   loadApprovedSponsorAd();
+  const sponsorPanelMove =
+  document.getElementById("sponsorAdPanel");
+
+const heroSectionMove =
+  document.querySelector(".hero");
+
+if (sponsorPanelMove && heroSectionMove) {
+  heroSectionMove.parentNode.insertBefore(
+    sponsorPanelMove,
+    heroSectionMove
+  );
+}
 if (advertiseBtn && adPlans) {
   advertiseBtn.addEventListener("click", () => {
     const isOpen = adPlans.style.display === "block";
