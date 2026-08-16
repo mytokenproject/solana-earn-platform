@@ -483,6 +483,42 @@ button:active {
   Devam Et
 </button>
 </div>
+     <div id="adForm"
+  style="
+    display:none;
+    margin-top:16px;
+    padding-top:14px;
+    border-top:1px solid rgba(255,255,255,.08);
+  ">
+
+  <div class="task-title">Reklam Bilgileri</div>
+
+  <input
+    id="adTitle"
+    type="text"
+    placeholder="Reklam başlığı"
+    style="width:100%; margin-top:12px;"
+  >
+
+  <input
+    id="adUrl"
+    type="url"
+    placeholder="https://..."
+    style="width:100%; margin-top:10px;"
+  >
+
+  <textarea
+    id="adDescription"
+    placeholder="Kısa açıklama"
+    rows="3"
+    style="width:100%; margin-top:10px;">
+  </textarea>
+
+  <div id="adFormPlan"
+    style="margin-top:10px; font-size:14px;">
+  </div>
+
+     </div>
    </section>
     <section class="card discover-card" style="margin-top:14px">
   <h2>Keşfet & Kazan</h2>
@@ -1327,6 +1363,11 @@ const adPlans = document.getElementById("adPlans");
 const selectedAdPlan = document.getElementById("selectedAdPlan");
 const continueAdBtn =
   document.getElementById("continueAdBtn");
+  const adForm =
+  document.getElementById("adForm");
+
+const adFormPlan =
+  document.getElementById("adFormPlan");
 if (advertiseBtn && adPlans) {
   advertiseBtn.addEventListener("click", () => {
     const isOpen = adPlans.style.display === "block";
@@ -1362,7 +1403,34 @@ if (continueAdBtn) {
 }
   });
 });
+if (continueAdBtn && adForm) {
+  continueAdBtn.addEventListener("click", () => {
+    const planNames = {
+      daily: "Günlük",
+      weekly: "Haftalık",
+      monthly: "Aylık"
+    };
 
+    const plan = continueAdBtn.dataset.plan;
+    const price = continueAdBtn.dataset.price;
+
+    adForm.style.display = "block";
+
+    if (adFormPlan) {
+      adFormPlan.textContent =
+        "Seçilen paket: " +
+        planNames[plan] +
+        " · " +
+        price +
+        " USDC";
+    }
+
+    adForm.scrollIntoView({
+      behavior: "smooth",
+      block: "nearest"
+    });
+  });
+  }
   function checkTokenAccess(testTokenBalance) {
   const minimumRequired = Number(
     window.platformSettings?.minimum_token_balance || 0
