@@ -376,14 +376,27 @@ button:active {
     <div>
       <small style="opacity:.75;">SPONSORLU ALAN</small>
 
-      <div class="task-title"
-        style="margin-top:5px;">
-        Hedef kitlene ulaş
-      </div>
+      <div
+  class="task-title"
+  id="sponsorAdTitle"
+  style="margin-top:5px;"
+>
+  Hedef kitlene ulaş
+</div>
 
-      <small>
-        Solana Earn kullanıcılarına reklam ver.
-      </small>
+<small id="sponsorAdDescription">
+  Solana Earn kullanıcılarına reklam ver.
+</small>
+
+<a
+  id="sponsorAdLink"
+  href="#"
+  target="_blank"
+  rel="noopener noreferrer"
+  style="display:none; margin-top:10px;"
+>
+  Reklamı Gör ↗
+</a>
     </div>
 
     <button class="secondary"
@@ -1412,6 +1425,14 @@ const adDescription =
 
 const adminAdList =
   document.getElementById("adminAdList");
+  const sponsorAdTitle =
+  document.getElementById("sponsorAdTitle");
+
+const sponsorAdDescription =
+  document.getElementById("sponsorAdDescription");
+
+const sponsorAdLink =
+  document.getElementById("sponsorAdLink");
   async function loadAdminAds() {
   if (!adminAdPanel || !adminAdList) return;
 
@@ -1566,6 +1587,57 @@ item.appendChild(actionWrap);
 }
 
 loadAdminAds();
+  async function loadApprovedSponsorAd() {
+  if (
+    !sponsorAdTitle ||
+    !sponsorAdDescription ||
+    !sponsorAdLink
+  ) return;
+
+  const { data: ad, error } =
+    await supabaseClient
+      .from("ad_submissions")
+      .select(
+        "title,target_url,description,status,created_at"
+      )
+      .eq("status", "approved")
+      .order("created_at", { ascending: false })
+      .limit(1)
+      .maybeSingle();
+
+  if (error) {
+    console.error(
+      "Sponsorlu reklam yüklenemedi:",
+      error
+    );
+    return;
+  }
+
+  if (!ad) return;
+
+  sponsorAdTitle.textContent = ad.title;
+  sponsorAdDescription.textContent =
+    ad.description;
+
+  try {
+    const safeUrl = new URL(ad.target_url);
+
+    if (
+      safeUrl.protocol !== "http:" &&
+      safeUrl.protocol !== "https:"
+    ) {
+      throw new Error();
+    }
+
+    sponsorAdLink.href = safeUrl.href;
+    sponsorAdLink.style.display =
+      "inline-block";
+  } catch {
+    sponsorAdLink.style.display = "none";
+    sponsorAdLink.removeAttribute("href");
+  }
+  }
+  loadApprovedSponsorAd();
 if (advertiseBtn && adPlans) {
   advertiseBtn.addEventListener("click", () => {
     const isOpen = adPlans.style.display === "block";
