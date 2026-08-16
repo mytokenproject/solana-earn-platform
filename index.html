@@ -451,30 +451,7 @@ button:active {
     <section class="card" id="web3Section" style="display:none; margin-top:14px;">
   <h2>◉ Web3 / Solana</h2>
   <p>Web3 ve Solana görevleri burada listelenecek.</p>
-  <div class="task" style="margin-top:14px;">
-  <div class="task-title">◉ Örnek Web3 / Solana Görevi</div>
-
-  <small>
-    Sağlayıcı: Test • Durum: Aktif
-  </small>
-
-  <div style="
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    gap:10px;
-    margin-top:12px;
-  ">
-    <strong style="white-space:nowrap;">+400 puan</strong>
-
-    <button class="secondary taskBtn"
-  style="width:auto; min-width:140px;"
-  type="button"
-  data-task-id="11">
-  Görevi Başlat
-    </button>
-  </div>
-  </div>
+  <div id="web3TaskList"></div>
       <button class="secondary" id="closeWeb3Btn">Geri Dön</button>
     </section>
   <section class="card" style="margin-top:14px">
@@ -1131,6 +1108,58 @@ if (shoppingTaskList) {
     row.append(points, btn);
     card.append(title, meta, row);
     shoppingTaskList.appendChild(card);
+  }
+}
+const web3Tasks = (data || []).filter(task =>
+  task.type === "web3"
+);
+
+const web3TaskList =
+  document.getElementById("web3TaskList");
+
+if (web3TaskList) {
+  web3TaskList.innerHTML = "";
+
+  for (const task of web3Tasks) {
+    const card =
+      document.createElement("div");
+    card.className = "task";
+    card.style.marginTop = "14px";
+
+    const title =
+      document.createElement("div");
+    title.className = "task-title";
+    title.textContent = "◉ " + task.title;
+
+    const meta =
+      document.createElement("small");
+    meta.textContent =
+      "Sağlayıcı: Test • Durum: Aktif";
+
+    const row =
+      document.createElement("div");
+    row.style.cssText =
+      "display:flex;justify-content:space-between;" +
+      "align-items:center;gap:10px;margin-top:12px;";
+
+    const points =
+      document.createElement("strong");
+    points.style.whiteSpace = "nowrap";
+    points.textContent =
+      "+" + task.reward_points + " puan";
+
+    const btn =
+      document.createElement("button");
+    btn.className = "secondary taskBtn";
+    btn.style.cssText =
+      "width:auto;min-width:140px;";
+    btn.type = "button";
+    btn.dataset.taskId = task.id;
+    btn.textContent = "Görevi Başlat";
+
+    row.append(points, btn);
+    card.append(title, meta, row);
+    web3TaskList.appendChild(card);
   }
 }
   console.log("Kategori görevleri:", data);
