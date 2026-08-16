@@ -435,25 +435,31 @@ button:active {
   ">
 
     <button class="secondary adPlanBtn"
-      type="button"
-      data-plan="daily"
-      style="padding:9px 6px;">
-      Günlük
-    </button>
+  type="button"
+  data-plan="daily"
+  data-price="10"
+  style="padding:9px 6px;">
+  Günlük<br>
+  <small>10 USDC</small>
+</button>
 
-    <button class="secondary adPlanBtn"
-      type="button"
-      data-plan="weekly"
-      style="padding:9px 6px;">
-      Haftalık
-    </button>
+<button class="secondary adPlanBtn"
+  type="button"
+  data-plan="weekly"
+  data-price="50"
+  style="padding:9px 6px;">
+  Haftalık<br>
+  <small>50 USDC</small>
+</button>
 
-    <button class="secondary adPlanBtn"
-      type="button"
-      data-plan="monthly"
-      style="padding:9px 6px;">
-      Aylık
-    </button>
+<button class="secondary adPlanBtn"
+  type="button"
+  data-plan="monthly"
+  data-price="150"
+  style="padding:9px 6px;">
+  Aylık<br>
+  <small>150 USDC</small>
+</button>
 
   </div>
 
@@ -464,7 +470,18 @@ button:active {
       opacity:.8;
     ">
   </div>
-
+<button
+  id="continueAdBtn"
+  class="secondary"
+  type="button"
+  style="
+    display:none;
+    width:auto;
+    margin-top:12px;
+    padding:9px 16px;
+  ">
+  Devam Et
+</button>
 </div>
    </section>
     <section class="card discover-card" style="margin-top:14px">
@@ -1308,7 +1325,8 @@ document.querySelector(".wrap").prepend(accessMessage);
 const advertiseBtn = document.getElementById("advertiseBtn");
 const adPlans = document.getElementById("adPlans");
 const selectedAdPlan = document.getElementById("selectedAdPlan");
-
+const continueAdBtn =
+  document.getElementById("continueAdBtn");
 if (advertiseBtn && adPlans) {
   advertiseBtn.addEventListener("click", () => {
     const isOpen = adPlans.style.display === "block";
@@ -1326,10 +1344,22 @@ document.querySelectorAll(".adPlanBtn").forEach(btn => {
       monthly: "Aylık"
     };
 
-    if (selectedAdPlan) {
-      selectedAdPlan.textContent =
-        "Seçilen reklam planı: " + planNames[btn.dataset.plan];
-    }
+    const price = btn.dataset.price;
+
+if (selectedAdPlan) {
+  selectedAdPlan.textContent =
+    "Seçilen reklam planı: " +
+    planNames[btn.dataset.plan] +
+    " · " +
+    price +
+    " USDC";
+}
+
+if (continueAdBtn) {
+  continueAdBtn.style.display = "inline-block";
+  continueAdBtn.dataset.plan = btn.dataset.plan;
+  continueAdBtn.dataset.price = price;
+}
   });
 });
 
