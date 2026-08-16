@@ -1510,7 +1510,57 @@ ads.forEach(ad => {
   item.appendChild(metaEl);
   item.appendChild(descriptionEl);
   item.appendChild(linkWrap);
+ const actionWrap = document.createElement("div");
+actionWrap.style.marginTop = "12px";
+actionWrap.style.display = "flex";
+actionWrap.style.gap = "8px";
 
+const approveBtn = document.createElement("button");
+approveBtn.className = "secondary";
+approveBtn.type = "button";
+approveBtn.textContent = "✅ Onayla";
+
+approveBtn.addEventListener("click", async () => {
+  const { error } = await supabaseClient
+    .from("ad_submissions")
+    .update({ status: "approved" })
+    .eq("id", ad.id)
+    .eq("status", "pending");
+
+  if (error) {
+    alert("Onaylama hatası: " + error.message);
+    return;
+  }
+
+  alert("✅ Reklam onaylandı.");
+  loadAdminAds();
+});
+
+const rejectBtn = document.createElement("button");
+rejectBtn.className = "secondary";
+rejectBtn.type = "button";
+rejectBtn.textContent = "❌ Reddet";
+
+rejectBtn.addEventListener("click", async () => {
+  const { error } = await supabaseClient
+    .from("ad_submissions")
+    .update({ status: "rejected" })
+    .eq("id", ad.id)
+    .eq("status", "pending");
+
+  if (error) {
+    alert("Reddetme hatası: " + error.message);
+    return;
+  }
+
+  alert("❌ Reklam reddedildi.");
+  loadAdminAds();
+});
+
+actionWrap.appendChild(approveBtn);
+actionWrap.appendChild(rejectBtn);
+
+item.appendChild(actionWrap);
   adminAdList.appendChild(item);
 });
 }
