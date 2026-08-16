@@ -1006,7 +1006,59 @@ if (surveyTaskPreview && surveyTask) {
     surveyTask.title + " • " +
     surveyTask.reward_points + " puan";
 }
-const videoTask = (data || []).find(task =>
+const surveyTasks = (data || []).filter(task =>
+  task.type === "survey"
+);
+
+const surveyTaskList =
+  document.getElementById("surveyTaskList");
+
+if (surveyTaskList) {
+  surveyTaskList.innerHTML = "";
+
+  for (const task of surveyTasks) {
+    const card =
+      document.createElement("div");
+    card.className = "task";
+    card.style.marginTop = "14px";
+
+    const title =
+      document.createElement("div");
+    title.className = "task-title";
+    title.textContent = "📋 " + task.title;
+
+    const meta =
+      document.createElement("small");
+    meta.textContent =
+      "Sağlayıcı: Test • Durum: Aktif";
+
+    const row =
+      document.createElement("div");
+    row.style.cssText =
+      "display:flex;justify-content:space-between;" +
+      "align-items:center;gap:10px;margin-top:12px;";
+
+    const points =
+      document.createElement("strong");
+    points.style.whiteSpace = "nowrap";
+    points.textContent =
+      "+" + task.reward_points + " puan";
+
+    const btn =
+      document.createElement("button");
+    btn.className = "secondary taskBtn";
+    btn.style.cssText =
+      "width:auto;min-width:140px;";
+    btn.type = "button";
+    btn.dataset.taskId = task.id;
+    btn.textContent = "Görevi Başlat";
+
+    row.append(points, btn);
+    card.append(title, meta, row);
+    surveyTaskList.appendChild(card);
+  }
+}
+  const videoTask = (data || []).find(task =>
   task.type === "video");
 
 const videoTaskPreview =
