@@ -523,9 +523,11 @@ button:active {
         Gerçek token veya gerçek para transferi yapılmaz.
       </p>
 <div>
+  <div id="loginFormArea">
 <input id="emailInput" type="email" placeholder="E-posta">
 <input id="passwordInput" type="password" placeholder="Şifre">
 <button id="loginBtn">Giriş Yap</button>
+  </div>
 <div class="status" id="loginStatus">Giriş yapılmadı.</div>
 </div>
       <button class="primary" id="connectBtn">
@@ -2059,11 +2061,23 @@ adDescription.value = "";
 
   testSupabaseConnection();
 const loginBtn = document.getElementById("loginBtn");
+  
+  const loginFormArea =
+document.getElementById("loginFormArea");
+  
 const emailInput = document.getElementById("emailInput");
+  
 const passwordInput = document.getElementById("passwordInput");
+  
 const loginStatus = document.getElementById("loginStatus");
+function setLoginFormVisible(show) {
+  if (!loginFormArea) return;
 
-loginBtn.addEventListener("click", async () => {
+  loginFormArea.style.display =
+    show ? "block" : "none";
+}
+loginBtn.addEventListener("click", 
+ async () => {
   const email = emailInput.value.trim();
   const password = passwordInput.value;
 
@@ -2088,6 +2102,7 @@ loginBtn.addEventListener("click", async () => {
 
   loginStatus.textContent =
     "Giriş başarılı: " + data.user.email;
+   setLoginFormVisible(false);
 const { data: dbBalance, error: 
        balanceError } =
   await supabaseClient
@@ -2180,7 +2195,7 @@ if (earnings) {
 
   if (!session || !session.user) {
     loginStatus.textContent = "Giriş yapılmadı.";
-
+  setLoginFormVisible(true);
     const balanceEl = document.getElementById("balance");
     if (balanceEl) balanceEl.textContent = "0 puan";
 
@@ -2197,7 +2212,7 @@ if (earnings) {
 
   loginStatus.textContent =
     "Oturum geri yüklendi: " + (user.email || "");
-
+ setLoginFormVisible(false);
   const { data: dbBalance, error: balanceError } =
     await supabaseClient
       .from("balances")
@@ -2749,7 +2764,7 @@ if (web3CardEl && web3SectionEl && closeWeb3BtnEl) {
     web3SectionEl.scrollIntoView({
       behavior: "smooth",
       block: "start"
-    });
+    });oturum
   });
 
   closeWeb3BtnEl.addEventListener("click", () => {
