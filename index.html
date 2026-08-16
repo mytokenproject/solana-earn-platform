@@ -539,6 +539,107 @@ button:active {
     padding: 16px;
   }
 }
+/* ===== SOLANA EARN MOBİL YAN MENÜ ===== */
+
+.menu-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(3, 6, 15, 0.68);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  opacity: 0;
+  visibility: hidden;
+  transition: 0.25s ease;
+  z-index: 998;
+}
+
+.menu-overlay.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.side-menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: min(320px, 86vw);
+  height: 100dvh;
+  padding: 22px 18px;
+  background:
+    radial-gradient(
+      circle at 20% 5%,
+      rgba(138, 46, 255, 0.18),
+      transparent 35%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(17, 22, 39, 0.99),
+      rgba(7, 10, 21, 0.99)
+    );
+  border-right: 1px solid rgba(153, 69, 255, 0.35);
+  box-shadow: 20px 0 60px rgba(0, 0, 0, 0.45);
+  transform: translateX(-105%);
+  transition: transform 0.28s ease;
+  z-index: 999;
+}
+
+.side-menu.open {
+  transform: translateX(0);
+}
+
+.side-menu-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 18px;
+  border-bottom: 1px solid rgba(255,255,255,.08);
+}
+
+.side-menu-header strong {
+  display: block;
+  font-size: 20px;
+}
+
+.side-menu-header small {
+  display: block;
+  margin-top: 4px;
+  opacity: .55;
+}
+
+#closeMenuBtn {
+  width: 38px;
+  height: 38px;
+  margin: 0;
+  padding: 0;
+  border-radius: 12px;
+  background: rgba(255,255,255,.05);
+}
+
+.side-menu-nav {
+  display: grid;
+  gap: 8px;
+  margin-top: 18px;
+}
+
+.side-menu-nav button {
+  width: 100%;
+  margin: 0;
+  padding: 13px 14px;
+  text-align: left;
+  border-radius: 14px;
+  background: rgba(255,255,255,.035);
+  border: 1px solid rgba(255,255,255,.07);
+  box-shadow: none;
+  font-size: 15px;
+}
+
+.side-menu-nav button:active {
+  background: rgba(153, 69, 255, 0.14);
+}
+
+body.menu-open {
+  overflow: hidden;
+}
   </style>
   </head>
  <body>
@@ -570,6 +671,54 @@ button:active {
   </div>
 
     </header>
+    <!-- ===== MOBİL YAN MENÜ ===== -->
+
+<div id="menuOverlay" class="menu-overlay"></div>
+
+<aside id="sideMenu" class="side-menu">
+
+  <div class="side-menu-header">
+    <div>
+      <strong>Solana Earn</strong>
+      <small>Reward Platform</small>
+    </div>
+
+    <button id="closeMenuBtn" type="button">✕</button>
+  </div>
+
+  <nav class="side-menu-nav">
+
+    <button type="button" data-target="home">
+      🏠 Ana Sayfa
+    </button>
+
+    <button type="button" data-target="account">
+      👤 Hesap Özeti
+    </button>
+
+    <button type="button" data-target="discover">
+      🚀 Keşfet & Kazan
+    </button>
+
+    <button type="button" data-target="tasks">
+      ✅ Görevler
+    </button>
+
+    <button type="button" data-target="wallets">
+      👛 Cüzdanlar
+    </button>
+
+    <button type="button" data-target="ads">
+      📢 Reklamlar
+    </button>
+
+    <button type="button" data-target="settings">
+      ⚙️ Ayarlar
+    </button>
+
+  </nav>
+
+</aside>
     <section class="hero">
 
       <div class="eyebrow">
@@ -1036,7 +1185,38 @@ const dbBalanceEl =
 
   const connectBtn =
     document.getElementById("connectBtn");
+const menuBtn = document.querySelector(".menu-btn");
+const sideMenu = document.getElementById("sideMenu");
+const menuOverlay = document.getElementById("menuOverlay");
+const closeMenuBtn = document.getElementById("closeMenuBtn");
 
+function openSideMenu() {
+  if (!sideMenu || !menuOverlay) return;
+
+  sideMenu.classList.add("open");
+  menuOverlay.classList.add("show");
+  document.body.classList.add("menu-open");
+}
+
+function closeSideMenu() {
+  if (!sideMenu || !menuOverlay) return;
+
+  sideMenu.classList.remove("open");
+  menuOverlay.classList.remove("show");
+  document.body.classList.remove("menu-open");
+}
+
+if (menuBtn) {
+  menuBtn.addEventListener("click", openSideMenu);
+}
+
+if (closeMenuBtn) {
+  closeMenuBtn.addEventListener("click", closeSideMenu);
+}
+
+if (menuOverlay) {
+  menuOverlay.addEventListener("click", closeSideMenu);
+}
 
   let balance = 0;
 
