@@ -477,6 +477,56 @@ button:active {
     height: 36px;
   }
 }
+    /* ===== GİRİŞ YAPILMIŞ HESAP DURUMU ===== */
+
+.hero.logged-in {
+  padding: 18px 20px;
+  border-color: rgba(20, 241, 149, 0.22);
+  background:
+    radial-gradient(
+      circle at 90% 10%,
+      rgba(20, 241, 149, 0.09),
+      transparent 38%
+    ),
+    linear-gradient(
+      145deg,
+      rgba(18, 24, 38, 0.96),
+      rgba(9, 13, 27, 0.96)
+    );
+}
+
+.hero.logged-in::before {
+  content: "HESAP DURUMU";
+  display: block;
+  margin-bottom: 10px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  color: rgba(20, 241, 149, 0.78);
+}
+
+.hero.logged-in #loginStatus {
+  margin-top: 0;
+  padding: 11px 12px;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.035);
+  border: 1px solid rgba(255,255,255,0.06);
+}
+
+.hero.logged-in #connectBtn {
+  margin-top: 12px;
+  padding: 13px 16px;
+}
+
+.hero.logged-in #walletStatus {
+  margin-top: 9px;
+}
+
+@media (max-width: 480px) {
+  .hero.logged-in {
+    padding: 16px;
+  }
+}
   </style>
   </head>
  <body>
@@ -2080,7 +2130,11 @@ function setLoginFormVisible(show) {
   const hero = document.querySelector(".hero");
   if (!hero) return;
 
-  const eyebrow = hero.querySelector(".eyebrow");
+  hero.classList.toggle("logged-in", loggedIn);
+
+  const eyebrow =
+    hero.querySelector(".eyebrow");
+  
   const title = hero.querySelector("h1");
   const description = hero.querySelector("p");
 
