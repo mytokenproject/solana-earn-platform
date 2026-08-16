@@ -439,30 +439,7 @@ button:active {
    <section class="card" id="sponsoredSection" style="display:none; margin-top:14px;">
   <h2>⭐ Sponsorlu Görevler</h2>
   <p>Sponsorlu görevler ve özel kampanyalar burada listelenecek.</p>
-  <div class="task" style="margin-top:14px;">
-  <div class="task-title">⭐ Örnek Sponsorlu Görev</div>
-
-  <small>
-    Sağlayıcı: Test • Durum: Aktif
-  </small>
-
-  <div style="
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    gap:10px;
-    margin-top:12px;
-  ">
-    <strong style="white-space:nowrap;">+100 puan</strong>
-
-    <button class="secondary taskBtn"
-  style="width:auto; min-width:140px;"
-  type="button"
-  data-task-id="9">
-  Görevi Başlat
-    </button>
-  </div>
-  </div>
+  <div id="sponsoredTaskList"></div>
      <button class="secondary" id="closeSponsoredBtn">Geri Dön</button>
     </section>
     <section class="card" id="shoppingSection" style="display:none; margin-top:14px;">
@@ -1075,6 +1052,58 @@ if (videoTaskList) {
     videoTaskList.appendChild(card);
   }
   }
+   const sponsoredTasks = (data || []).filter(task =>
+  task.type === "sponsored"
+);
+
+const sponsoredTaskList =
+  document.getElementById("sponsoredTaskList");
+
+if (sponsoredTaskList) {
+  sponsoredTaskList.innerHTML = "";
+
+  for (const task of sponsoredTasks) {
+    const card =
+      document.createElement("div");
+    card.className = "task";
+    card.style.marginTop = "14px";
+
+    const title =
+      document.createElement("div");
+    title.className = "task-title";
+    title.textContent = "⭐ " + task.title;
+
+    const meta =
+      document.createElement("small");
+    meta.textContent =
+      "Sağlayıcı: Test • Durum: Aktif";
+
+    const row =
+      document.createElement("div");
+    row.style.cssText =
+      "display:flex;justify-content:space-between;" +
+      "align-items:center;gap:10px;margin-top:12px;";
+
+    const points =
+      document.createElement("strong");
+    points.style.whiteSpace = "nowrap";
+    points.textContent =
+      "+" + task.reward_points + " puan";
+
+    const btn =
+      document.createElement("button");
+    btn.className = "secondary taskBtn";
+    btn.style.cssText =
+      "width:auto;min-width:140px;";
+    btn.type = "button";
+    btn.dataset.taskId = task.id;
+    btn.textContent = "Görevi Başlat";
+
+    row.append(points, btn);
+    card.append(title, meta, row);
+    sponsoredTaskList.appendChild(card);
+  }
+ }
     console.log("Kategori görevleri:", data);
 return data || [];
   }
