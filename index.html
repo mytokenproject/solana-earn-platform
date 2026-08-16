@@ -417,7 +417,55 @@ button:active {
       <small>Aylık</small>
     </div>
   </div>
+<div id="adPlans"
+  style="
+    display:none;
+    margin-top:14px;
+    padding-top:12px;
+    border-top:1px solid rgba(255,255,255,.08);
+  ">
 
+  <small style="opacity:.75;">Reklam süresi seç</small>
+
+  <div style="
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:8px;
+    margin-top:10px;
+  ">
+
+    <button class="secondary adPlanBtn"
+      type="button"
+      data-plan="daily"
+      style="padding:9px 6px;">
+      Günlük
+    </button>
+
+    <button class="secondary adPlanBtn"
+      type="button"
+      data-plan="weekly"
+      style="padding:9px 6px;">
+      Haftalık
+    </button>
+
+    <button class="secondary adPlanBtn"
+      type="button"
+      data-plan="monthly"
+      style="padding:9px 6px;">
+      Aylık
+    </button>
+
+  </div>
+
+  <div id="selectedAdPlan"
+    style="
+      margin-top:10px;
+      font-size:14px;
+      opacity:.8;
+    ">
+  </div>
+
+</div>
    </section>
     <section class="card discover-card" style="margin-top:14px">
   <h2>Keşfet & Kazan</h2>
@@ -1257,7 +1305,35 @@ accessMessage.textContent = testAccessResult
 document.querySelector(".wrap").prepend(accessMessage);
 });
   loadCategoryTasks();
-function checkTokenAccess(testTokenBalance) {
+const advertiseBtn = document.getElementById("advertiseBtn");
+const adPlans = document.getElementById("adPlans");
+const selectedAdPlan = document.getElementById("selectedAdPlan");
+
+if (advertiseBtn && adPlans) {
+  advertiseBtn.addEventListener("click", () => {
+    const isOpen = adPlans.style.display === "block";
+
+    adPlans.style.display = isOpen ? "none" : "block";
+    advertiseBtn.textContent = isOpen ? "Reklam Ver" : "Kapat";
+  });
+}
+
+document.querySelectorAll(".adPlanBtn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    const planNames = {
+      daily: "Günlük",
+      weekly: "Haftalık",
+      monthly: "Aylık"
+    };
+
+    if (selectedAdPlan) {
+      selectedAdPlan.textContent =
+        "Seçilen reklam planı: " + planNames[btn.dataset.plan];
+    }
+  });
+});
+
+  function checkTokenAccess(testTokenBalance) {
   const minimumRequired = Number(
     window.platformSettings?.minimum_token_balance || 0
   );
