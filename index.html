@@ -2076,6 +2076,18 @@ function setLoginFormVisible(show) {
   loginFormArea.style.display =
     show ? "block" : "none";
 }
+  function setLoggedInHero(loggedIn) {
+  const hero = document.querySelector(".hero");
+  if (!hero) return;
+
+  const eyebrow = hero.querySelector(".eyebrow");
+  const title = hero.querySelector("h1");
+  const description = hero.querySelector("p");
+
+  if (eyebrow) eyebrow.style.display = loggedIn ? "none" : "";
+  if (title) title.style.display = loggedIn ? "none" : "";
+  if (description) description.style.display = loggedIn ? "none" : "";
+  }
 loginBtn.addEventListener("click", 
  async () => {
   const email = emailInput.value.trim();
@@ -2103,6 +2115,7 @@ loginBtn.addEventListener("click",
   loginStatus.textContent =
     "Giriş başarılı: " + data.user.email;
    setLoginFormVisible(false);
+   setLoggedInHero(true);
 const { data: dbBalance, error: 
        balanceError } =
   await supabaseClient
@@ -2196,6 +2209,7 @@ if (earnings) {
   if (!session || !session.user) {
     loginStatus.textContent = "Giriş yapılmadı.";
   setLoginFormVisible(true);
+    setLoggedInHero(false);
     const balanceEl = document.getElementById("balance");
     if (balanceEl) balanceEl.textContent = "0 puan";
 
@@ -2213,6 +2227,7 @@ if (earnings) {
   loginStatus.textContent =
     "Oturum geri yüklendi: " + (user.email || "");
  setLoginFormVisible(false);
+    setLoggedInHero(true);
   const { data: dbBalance, error: balanceError } =
     await supabaseClient
       .from("balances")
