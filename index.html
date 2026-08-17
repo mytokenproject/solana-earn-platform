@@ -750,7 +750,7 @@ body.menu-open {
   <p>Authenticator uygulamanızla QR kodunu okutun.</p>
 
   <img id="mfaQrCode" alt="2FA QR Kod">
-
+<p id="mfaSecretText" style="word-break:break-all;"></p>
   <input
     id="mfaCodeInput"
     type="text"
@@ -2379,6 +2379,8 @@ setup2faBtn.addEventListener("click", async () => {
 
   mfaFactorId = data.id;
   mfaQrCode.src = data.totp.qr_code;
+  document.getElementById("mfaSecretText").textContent =
+  "Kurulum anahtarı: " + data.totp.secret;
   mfaSetupPanel.style.display = "block";
 
   mfaSetupStatus.textContent =
