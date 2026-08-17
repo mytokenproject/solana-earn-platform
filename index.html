@@ -2352,6 +2352,7 @@ const verify2faBtn =
 const mfaSetupStatus =
   document.getElementById("mfaSetupStatus");
     let mfaFactorId = null;
+    let mfaLoginMode = false;
 
 setup2faBtn.addEventListener("click", async () => {
   mfaSetupStatus.textContent = "2FA kurulumu hazırlanıyor...";
@@ -2427,7 +2428,15 @@ if (verifyError) {
     "Kod doğrulanamadı. Tekrar deneyin.";
   return;
 }
-
+if (mfaLoginMode) {
+  mfaLoginMode = false;
+  mfaSetupStatus.textContent =
+    "✅ 2FA doğrulandı. Giriş tamamlanıyor...";
+  mfaCodeInput.value = "";
+  mfaSetupPanel.style.display = "none";
+  window.location.reload();
+  return;
+}
 mfaSetupStatus.textContent =
   "✅ 2FA başarıyla etkinleştirildi.";
 
@@ -2495,17 +2504,42 @@ if (aalError) {
   console.error("2FA kontrol hatası:", aalError);
   loginStatus.textContent = "2FA kontrolü başarısız.";
   return;
-}
-
-if (
+  if (
   aalData.nextLevel === "aal2" &&
   aalData.currentLevel !== "aal2"
-) 
-{
+) {
+  const { data: factorsData, error: factorsError } =
+    await supabaseClient.auth.mfa.listFactors();
+
+  if (factorsError) {
+    loginStatus.textContent = "2FA faktörü alınamadı.";
+    return;
+  }
+
+  const totpFactor = factorsData.totp?.find(
+    factor => factor.status === "verified"
+  );
+
+  if (!totpFactor) {
+    loginStatus.textContent = "Doğrulanmış 2FA bulunamadı.";
+    return;
+  }
+
+  mfaFactorId = totpFactor.id;
+  mfaLoginMode = true;
+
+  mfaQrCode.style.display = "none";
+  document.getElementById("mfaSecretText").style.display = "none";
+
+  mfaSetupPanel.querySelector("p").textContent =
+    "Authenticator uygulamasındaki 6 haneli kodu girin.";
+
+  mfaSetupPanel.style.display = "block";
+  mfaSetupStatus.textContent = "";
   loginStatus.textContent = "2FA doğrulaması gerekli.";
-  console.log("2FA gerekli:", aalData);
+
   return;
-}
+  }
   loginStatus.textContent =
     "Giriş başarılı: " + data.user.email;
    setLoginFormVisible(false);
