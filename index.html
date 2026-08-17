@@ -746,6 +746,25 @@ body.menu-open {
       <button class="secondary" id="setup2faBtn">
   🔐 2FA Kur
       </button>
+    <div id="mfaSetupPanel" style="display:none;">
+  <p>Authenticator uygulamanızla QR kodunu okutun.</p>
+
+  <img id="mfaQrCode" alt="2FA QR Kod">
+
+  <input
+    id="mfaCodeInput"
+    type="text"
+    inputmode="numeric"
+    maxlength="6"
+    placeholder="6 haneli kod"
+  >
+
+  <button class="secondary" id="verify2faBtn">
+    2FA Doğrula
+  </button>
+
+  <div class="status" id="mfaSetupStatus"></div>
+    </div>
       <button class="primary" id="connectBtn">
         Cüzdanı Bağla
       </button>
@@ -2317,10 +2336,101 @@ adDescription.value = "";
 
   testSupabaseConnection();
 const loginBtn = document.getElementById("loginBtn");
-  
+  const setup2faBtn = document.getElementById("setup2faBtn");
+  const mfaSetupPanel =
+  document.getElementById("mfaSetupPanel");
+
+const mfaQrCode =
+  document.getElementById("mfaQrCode");
+
+const mfaCodeInput =
+  document.getElementById("mfaCodeInput");
+
+const verify2faBtn =
+  document.getElementById("verify2faBtn");
+
+const mfaSetupStatus =
+  document.getElementById("mfaSetupStatus");
+    let mfaFactorId = null;
+
+setup2faBtn.addEventListener("click", async () => {
+  mfaSetupStatus.textContent = "2FA kurulumu hazırlanıyor...";
+
+  const { data: userData, error: userError } =
+    await supabaseClient.auth.getUser();
+
+  if (userError || !userData.user) {
+    mfaSetupStatus.textContent =
+      "2FA kurmak için önce giriş yapmalısınız.";
+    return;
+  }
+
+  const { data, error } =
+    await supabaseClient.auth.mfa.enroll({
+      factorType: "totp"
+    });
+
+  if (error) {
+    console.error("2FA kurulum hatası:", error);
+    mfaSetupStatus.textContent =
+      "2FA kurulumu başlatılamadı.";
+    return;
+  }
+
+  mfaFactorId = data.id;
+  mfaQrCode.src = data.totp.qr_code;
+  mfaSetupPanel.style.display = "block";
+
+  mfaSetupStatus.textContent =
+    "QR kodunu Authenticator ile okutun.";
+});
   const loginFormArea =
-document.getElementById("loginFormArea");
-  
+  document.getElementById("loginFormArea");
+ verify2faBtn.addEventListener("click", async () => {
+   const code = mfaCodeInput.value.trim();
+   if (!mfaFactorId) {
+  mfaSetupStatus.textContent =
+    "Önce 2FA kurulumunu başlatın.";
+  return;
+}
+
+if (!/^\d{6}$/.test(code)) {
+  mfaSetupStatus.textContent =
+    "Lütfen 6 haneli doğrulama kodunu girin.";
+  return;
+}
+   const { data: challengeData, error: challengeError } =
+  await supabaseClient.auth.mfa.challenge({
+    factorId: mfaFactorId
+  });
+
+if (challengeError) {
+  console.error("2FA challenge hatası:", challengeError);
+  mfaSetupStatus.textContent =
+    "2FA doğrulaması başlatılamadı.";
+  return;
+}
+   const challengeId = challengeData.id;
+
+const { error: verifyError } =
+  await supabaseClient.auth.mfa.verify({
+    factorId: mfaFactorId,
+    challengeId: challengeId,
+    code: code
+  });
+
+if (verifyError) {
+  console.error("2FA doğrulama hatası:", verifyError);
+  mfaSetupStatus.textContent =
+    "Kod doğrulanamadı. Tekrar deneyin.";
+  return;
+}
+
+mfaSetupStatus.textContent =
+  "✅ 2FA başarıyla etkinleştirildi.";
+
+mfaCodeInput.value = "";
+});
 const emailInput = document.getElementById("emailInput");
   
 const passwordInput = document.getElementById("passwordInput");
