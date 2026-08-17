@@ -715,7 +715,9 @@ body.menu-open {
     <button type="button" data-target="settings">
       ⚙️ Ayarlar
     </button>
-
+<button type="button" id="logoutBtn">
+  🚪 Çıkış Yap
+</button>
   </nav>
 
 </aside>
@@ -3070,6 +3072,25 @@ if (web3CardEl && web3SectionEl && closeWeb3BtnEl) {
       behavior: "smooth",
       block: "center"
     });
+  });
+}
+  const logoutBtn = document.getElementById("logoutBtn");
+
+if (logoutBtn) {
+  logoutBtn.addEventListener("click", async () => {
+    logoutBtn.disabled = true;
+
+    const { error } =
+      await supabaseClient.auth.signOut({ scope: "local" });
+
+    if (error) {
+      console.error("Çıkış hatası:", error);
+      alert("Çıkış yapılamadı: " + error.message);
+      logoutBtn.disabled = false;
+      return;
+    }
+
+    window.location.reload();
   });
 }
 </script>
