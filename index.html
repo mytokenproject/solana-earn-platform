@@ -1932,7 +1932,10 @@ loadPlatformSettings().then(() => {
   const testTokenBalance = window.platformSettings?.test_mode ? 120000 : 0;
   const testAccessResult = checkTokenAccess(testTokenBalance);
   console.log("100.000 token erişim testi:", testAccessResult);
-  const accessMessage = document.createElement("div");
+  const accessMessage = 
+document.createElement("div");
+  
+accessMessage.style.display = "none";
 accessMessage.style.marginTop = "12px";
 accessMessage.style.fontWeight = "700";
 accessMessage.textContent = testAccessResult
