@@ -723,18 +723,12 @@ body.menu-open {
 </aside>
     <section class="hero" style="padding:14px 16px;">
 
-      <div class="eyebrow">
-        İzle · Görev Yap · Kazan
-      </div>
 
-     <h1 style="font-size:24px; margin-bottom:6px;">
-  Giriş Yap
-     </h1>
-
-      <p style="font-size:14px; line-height:1.35; margin-bottom:10px;">
-  Test sürümü — gerçek token veya para transferi yok.
-      </p>
 <div>
+  <details>
+  <summary style="cursor:pointer; font-weight:800; padding:10px 12px;">
+    🔐 Giriş Yap
+  </summary>
   <div id="loginFormArea" style="display:grid; gap:6px;">
 <input id="emailInput" type="email" placeholder="E-posta">
 <input id="passwordInput" type="password" placeholder="Şifre">
@@ -760,6 +754,7 @@ body.menu-open {
   <div class="status" id="loginMfaStatus"></div>
   </div>
 <div class="status" id="loginStatus">Giriş yapılmadı.</div>
+  </details>
 </div>
       <button class="secondary" id="setup2faBtn">
   🔐 2FA Kur
