@@ -766,7 +766,7 @@ style="padding:0; margin:0; border:none; background:transparent; box-shadow:none
 <div class="status" id="loginStatus">Giriş yapılmadı.</div>
   
 </div>
-      <button class="secondary" id="setup2faBtn">
+      <button class="secondary" id="setup2faBtn" style="display:none;">
   🔐 2FA Kur
       </button>
     <div id="mfaSetupPanel" style="display:none;">
@@ -788,11 +788,12 @@ style="padding:0; margin:0; border:none; background:transparent; box-shadow:none
 
   <div class="status" id="mfaSetupStatus"></div>
     </div>
-      <button class="primary" id="connectBtn">
+      <button class="primary"
+id="connectBtn" style="display:none;">
         Cüzdanı Bağla
       </button>
 
-      <div class="status" id="walletStatus">
+      <div class="status" id="walletStatus" style="display:none;">
         Cüzdan bağlı değil.
       </div>
     
@@ -2730,7 +2731,15 @@ if (earnings) {
     if (window.setCompletedCount) {
       window.setCompletedCount(0);
     }
+const setupBtnLoggedOut = document.getElementById("setup2faBtn");
+const connectBtnLoggedOut = document.getElementById("connectBtn");
+const walletStatusLoggedOut = document.getElementById("walletStatus");
+const mfaSetupPanelLoggedOut = document.getElementById("mfaSetupPanel");
 
+if (setupBtnLoggedOut) setupBtnLoggedOut.style.display = "none";
+if (connectBtnLoggedOut) connectBtnLoggedOut.style.display = "none";
+if (walletStatusLoggedOut) walletStatusLoggedOut.style.display = "none";
+if (mfaSetupPanelLoggedOut) mfaSetupPanelLoggedOut.style.display = "none";
     return;
   }
 const { data: restoreAalData, error: restoreAalError } =
@@ -2761,6 +2770,17 @@ if (
     "Oturum geri yüklendi: " + (user.email || "");
  setLoginFormVisible(false);
     setLoggedInHero(true);
+    const setup2faBtnEl = document.getElementById("setup2faBtn");
+const connectBtnEl = document.getElementById("connectBtn");
+const walletStatusEl = document.getElementById("walletStatus");
+
+if (connectBtnEl) connectBtnEl.style.display = "";
+if (walletStatusEl) walletStatusEl.style.display = "";
+
+if (setup2faBtnEl) {
+  setup2faBtnEl.style.display =
+    restoreAalData?.nextLevel === "aal1" ? "" : "none";
+}
   const { data: dbBalance, error: balanceError } =
     await supabaseClient
       .from("balances")
