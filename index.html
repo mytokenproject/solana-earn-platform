@@ -3333,6 +3333,28 @@ if (logoutBtn) {
     window.location.reload();
   });
 }
+  {
+  const heroForTop =
+    document.querySelector(".hero");
+
+  const workplaceForTop =
+    document.getElementById("workplaceHeroPanel");
+
+  const sponsorForTop =
+    document.getElementById("sponsorAdPanel");
+
+  if (heroForTop && workplaceForTop && sponsorForTop) {
+    heroForTop.parentNode.insertBefore(
+      sponsorForTop,
+      heroForTop
+    );
+
+    heroForTop.parentNode.insertBefore(
+      workplaceForTop,
+      sponsorForTop
+    );
+  }
+  }
 </script>
 </body>
 </html>
