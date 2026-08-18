@@ -2555,7 +2555,11 @@ function setLoginFormVisible(show) {
   if (!hero) return;
 
   hero.classList.toggle("logged-in", loggedIn);
+const topLoginBtnEl = document.getElementById("topLoginBtn");
 
+if (topLoginBtnEl) {
+  topLoginBtnEl.textContent = loggedIn ? "Hesabım" : "Giriş Yap";
+}
   const eyebrow =
     hero.querySelector(".eyebrow");
   
