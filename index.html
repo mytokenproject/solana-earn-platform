@@ -2574,6 +2574,17 @@ if (aalError) {
     "Giriş başarılı: " + data.user.email;
    setLoginFormVisible(false);
    setLoggedInHero(true);
+   const setup2faBtnLogin = document.getElementById("setup2faBtn");
+const connectBtnLogin = document.getElementById("connectBtn");
+const walletStatusLogin = document.getElementById("walletStatus");
+
+if (connectBtnLogin) connectBtnLogin.style.display = "";
+if (walletStatusLogin) walletStatusLogin.style.display = "";
+
+if (setup2faBtnLogin) {
+  setup2faBtnLogin.style.display =
+    aalData?.nextLevel === "aal1" ? "" : "none";
+}
 const { data: dbBalance, error: 
        balanceError } =
   await supabaseClient
