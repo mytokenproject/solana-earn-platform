@@ -660,7 +660,14 @@ body.menu-open {
   </div>
 
   <div class="topbar-right">
-
+<button
+  type="button"
+  id="topLoginBtn"
+  onclick="const d=document.getElementById('loginDetails'); d.open=true; d.scrollIntoView({behavior:'smooth',block:'start'});"
+  style="padding:8px 10px; font-size:12px; white-space:nowrap;"
+>
+  Giriş Yap
+</button>
     <div class="wallet-mini">
   <strong id="topBalance">0</strong>
   <small id="topWalletStatus">Cüzdan bağlı değil</small>
@@ -724,7 +731,7 @@ body.menu-open {
     <section class="hero" style="padding:14px 16px;">
 
 
-      <details>
+      <details id="loginDetails">
     
   <summary style="cursor:pointer; font-weight:800; padding:10px 12px;">
     🔐 Giriş Yap
