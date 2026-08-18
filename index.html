@@ -741,6 +741,25 @@ body.menu-open {
 <input id="passwordInput" type="password" placeholder="Şifre">
 <button id="loginBtn">Giriş Yap</button>
   </div>
+  <div id="loginMfaPanel" style="display:none; margin-top:12px;">
+  <input
+    id="loginMfaCodeInput"
+    type="text"
+    inputmode="numeric"
+    maxlength="6"
+    placeholder="Authenticator 6 haneli kod"
+  >
+
+  <button
+    id="loginMfaVerifyBtn"
+    type="button"
+    class="secondary"
+  >
+    2FA ile Girişi Doğrula
+  </button>
+
+  <div class="status" id="loginMfaStatus"></div>
+  </div>
 <div class="status" id="loginStatus">Giriş yapılmadı.</div>
 </div>
       <button class="secondary" id="setup2faBtn">
@@ -2435,7 +2454,17 @@ mfaCodeInput.value = "";
 const emailInput = document.getElementById("emailInput");
   
 const passwordInput = document.getElementById("passwordInput");
-  
+const loginMfaPanel =
+  document.getElementById("loginMfaPanel");
+
+const loginMfaCodeInput =
+  document.getElementById("loginMfaCodeInput");
+
+const loginMfaVerifyBtn =
+  document.getElementById("loginMfaVerifyBtn");
+
+const loginMfaStatus =
+  document.getElementById("loginMfaStatus");  
 const loginStatus = document.getElementById("loginStatus");
   const topBalance =
   document.getElementById("topBalance");
@@ -2495,6 +2524,17 @@ if (aalError) {
   loginStatus.textContent = "2FA kontrolü başarısız.";
   return;
 }
+   if (
+  aalData?.currentLevel === "aal1" &&
+  aalData?.nextLevel === "aal2"
+) {
+  loginMfaPanel.style.display = "block";
+  loginMfaStatus.textContent =
+    "Authenticator uygulamasındaki 6 haneli kodu girin.";
+  loginStatus.textContent =
+    "2FA doğrulaması gerekli.";
+  return;
+   }
   loginStatus.textContent =
     "Giriş başarılı: " + data.user.email;
    setLoginFormVisible(false);
@@ -2579,7 +2619,60 @@ if (earnings) {
   }
 }
   
-}); 
+});
+  loginMfaVerifyBtn.addEventListener("click", async () => {
+  const code = loginMfaCodeInput.value.trim();
+
+  if (!/^\d{6}$/.test(code)) {
+    loginMfaStatus.textContent =
+      "Lütfen 6 haneli Authenticator kodunu girin.";
+    return;
+  }
+
+  loginMfaVerifyBtn.disabled = true;
+  loginMfaStatus.textContent = "2FA doğrulanıyor...";
+
+  try {
+    const { data: factorsData, error: factorsError } =
+      await supabaseClient.auth.mfa.listFactors();
+
+    if (factorsError) throw factorsError;
+
+    const totpFactor = factorsData?.totp?.[0];
+
+    if (!totpFactor) {
+      loginMfaStatus.textContent =
+        "Authenticator faktörü bulunamadı.";
+      return;
+    }
+
+    const { error: verifyError } =
+      await supabaseClient.auth.mfa.challengeAndVerify({
+        factorId: totpFactor.id,
+        code: code
+      });
+
+    if (verifyError) {
+      console.error("2FA giriş doğrulama hatası:", verifyError);
+      loginMfaStatus.textContent =
+        "Kod doğrulanamadı. Yeni kodla tekrar deneyin.";
+      return;
+    }
+
+    loginMfaStatus.textContent = "✅ 2FA doğrulandı.";
+    loginMfaCodeInput.value = "";
+    loginMfaPanel.style.display = "none";
+
+    await restoreSessionUI();
+
+  } catch (err) {
+    console.error("2FA giriş hatası:", err);
+    loginMfaStatus.textContent =
+      "2FA doğrulaması sırasında hata oluştu.";
+  } finally {
+    loginMfaVerifyBtn.disabled = false;
+  }
+});
   async function restoreSessionUI() {
   const {
     data: { session },
@@ -2606,7 +2699,28 @@ if (earnings) {
 
     return;
   }
+const { data: restoreAalData, error: restoreAalError } =
+  await supabaseClient.auth.mfa.getAuthenticatorAssuranceLevel();
 
+if (restoreAalError) {
+  console.error("2FA oturum kontrol hatası:", restoreAalError);
+  loginStatus.textContent = "2FA oturum kontrolü başarısız.";
+  setLoggedInHero(false);
+  return;
+}
+
+if (
+  restoreAalData?.currentLevel === "aal1" &&
+  restoreAalData?.nextLevel === "aal2"
+) {
+  setLoginFormVisible(false);
+  setLoggedInHero(false);
+  loginMfaPanel.style.display = "block";
+  loginMfaStatus.textContent =
+    "Authenticator uygulamasındaki 6 haneli kodu girin.";
+  loginStatus.textContent = "2FA doğrulaması gerekli.";
+  return;
+       }
   const user = session.user;
 
   loginStatus.textContent =
