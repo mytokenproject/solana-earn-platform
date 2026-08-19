@@ -782,6 +782,12 @@ body.menu-open {
 <input id="emailInput" type="email" placeholder="E-posta">
 <input id="passwordInput" type="password" placeholder="Şifre">
 <button id="loginBtn" style="padding:10px 12px; font-size:15px;">Giriş Yap</button>
+    <button id="registerBtn" type="button"
+  class="secondary"
+  style="padding:10px 12px; font-size:15px;">
+  Kayıt Ol / Hesap Oluştur
+    </button>
+    
   </div>
   <div id="loginMfaPanel" style="display:none; margin-top:12px;">
   <input
@@ -2530,6 +2536,7 @@ mfaCodeInput.value = "";
 const emailInput = document.getElementById("emailInput");
   
 const passwordInput = document.getElementById("passwordInput");
+  const registerBtn = document.getElementById("registerBtn");
 const loginMfaPanel =
   document.getElementById("loginMfaPanel");
 
@@ -2547,6 +2554,47 @@ const loginStatus = document.getElementById("loginStatus");
 
 const topWalletStatus =
   document.getElementById("topWalletStatus");
+  if (registerBtn) {
+  registerBtn.addEventListener("click", async () => {
+    const email = emailInput.value.trim();
+    const password = passwordInput.value;
+
+    if (!email || !password) {
+      loginStatus.textContent =
+        "Kayıt için e-posta ve şifre gerekli.";
+      return;
+    }
+
+    registerBtn.disabled = true;
+    loginStatus.textContent = "Hesap oluşturuluyor...";
+
+    const { data, error } =
+      await supabaseClient.auth.signUp({
+        email,
+        password
+      });
+
+    registerBtn.disabled = false;
+
+    if (error) {
+      console.error("Kayıt hatası:", error);
+      loginStatus.textContent =
+        "Kayıt başarısız: " + error.message;
+      return;
+    }
+
+    if (data.session) {
+      await supabaseClient.auth.signOut();
+      loginStatus.textContent =
+        "✅ Hesap oluşturuldu. Şimdi Giriş Yap.";
+    } else {
+      loginStatus.textContent =
+        "✅ Hesap oluşturuldu. E-postanı doğruladıktan sonra giriş yap.";
+    }
+
+    passwordInput.value = "";
+  });
+  }
 function setLoginFormVisible(show) {
   if (!loginFormArea) return;
 
