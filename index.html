@@ -3570,7 +3570,28 @@ if (logoutBtn) {
       : '🔕 Bildirimler: Kapalı';
   }
     </script>
-    <div>🎨 Görünüm</div>
+    <button
+  type="button"
+  class="secondary"
+  onclick="const x=document.getElementById('appearanceOptions');x.style.display=x.style.display==='none'?'block':'none';"
+  style="width:100%;text-align:left;padding:10px 12px;margin-bottom:6px;"
+>
+  🎨 Görünüm: Koyu
+</button>
+
+<div
+  id="appearanceOptions"
+  style="
+    display:none;
+    padding:8px 12px 12px;
+    margin-bottom:8px;
+    border:1px solid rgba(139,92,246,.30);
+    border-radius:14px;
+  "
+>
+  <div>✅ 🌙 Koyu</div>
+  <div style="opacity:.55;">📱 Sistem — Yakında</div>
+</div>
   </div>
    </div>
    <nav
