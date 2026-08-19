@@ -3545,7 +3545,31 @@ if (logoutBtn) {
   <div>✅ Türkçe</div>
   <div style="opacity:.55;">🇬🇧 English — Yakında</div>
 </div>
-    <div>🔔 Bildirimler</div>
+    <button
+  id="notificationToggleBtn"
+  type="button"
+  class="secondary"
+  onclick="
+    const on=this.dataset.on!=='true';
+    this.dataset.on=on;
+    this.textContent=on?'🔔 Bildirimler: Açık':'🔕 Bildirimler: Kapalı';
+    localStorage.setItem('workplaceNotifications',on?'on':'off');
+  "
+  style="width:100%;text-align:left;padding:10px 12px;margin-bottom:6px;"
+>
+  🔕 Bildirimler: Kapalı
+    </button>
+    <script>
+  {
+    const btn = document.getElementById('notificationToggleBtn');
+    const saved = localStorage.getItem('workplaceNotifications') === 'on';
+
+    btn.dataset.on = saved ? 'true' : 'false';
+    btn.textContent = saved
+      ? '🔔 Bildirimler: Açık'
+      : '🔕 Bildirimler: Kapalı';
+  }
+    </script>
     <div>🎨 Görünüm</div>
   </div>
    </div>
