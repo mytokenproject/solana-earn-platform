@@ -3523,7 +3523,28 @@ if (logoutBtn) {
   </div>
 
   <div style="margin-top:16px;line-height:1.8;">
-    <div>🌐 Dil: Türkçe</div>
+    <button
+  type="button"
+  class="secondary"
+  onclick="const x=document.getElementById('languageOptions');x.style.display=x.style.display==='none'?'block':'none';"
+  style="width:100%;text-align:left;padding:10px 12px;margin-bottom:6px;"
+>
+  🌐 Dil: Türkçe
+</button>
+
+<div
+  id="languageOptions"
+  style="
+    display:none;
+    padding:8px 12px 12px;
+    margin-bottom:8px;
+    border:1px solid rgba(139,92,246,.30);
+    border-radius:14px;
+  "
+>
+  <div>✅ Türkçe</div>
+  <div style="opacity:.55;">🇬🇧 English — Yakında</div>
+</div>
     <div>🔔 Bildirimler</div>
     <div>🎨 Görünüm</div>
   </div>
