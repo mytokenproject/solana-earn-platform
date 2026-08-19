@@ -2895,6 +2895,9 @@ if (savedWalletError) {
   console.error("Kayıtlı cüzdan yükleme hatası:", savedWalletError);
 } else if (savedWallets && savedWallets.length > 0) {
   const savedWalletAddress = savedWallets[0].address;
+  if (connectBtnEl) {
+  connectBtnEl.textContent = "Cüzdan Bağlı ✓";
+  }
 
   if (walletStatusEl) {
     walletStatusEl.innerHTML =
