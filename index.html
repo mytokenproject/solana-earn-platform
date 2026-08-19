@@ -122,7 +122,38 @@
     0 0 22px rgba(20, 241, 149, 0.08);
   transition: transform 0.18s ease, box-shadow 0.18s ease;
 }
+#mainTasksSection .task {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 3px 10px;
+  padding: 10px 12px;
+  margin: 8px 0;
+  border: 1px solid rgba(153, 69, 255, 0.28);
+  border-radius: 14px;
+}
 
+#mainTasksSection .task-title {
+  font-size: 14px;
+  font-weight: 700;
+  margin: 0;
+}
+
+#mainTasksSection .task small {
+  font-size: 11px;
+  margin: 0;
+}
+
+#mainTasksSection .taskBtn {
+  width: auto;
+  min-width: 105px;
+  padding: 9px 11px;
+  margin-top: 0;
+  font-size: 12px;
+  border-radius: 11px;
+  grid-column: 2;
+  grid-row: 1 / span 2;
+}
 button:active {
   transform: scale(0.98);
 }
