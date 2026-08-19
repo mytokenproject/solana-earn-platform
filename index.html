@@ -2885,6 +2885,34 @@ if (setup2faBtnEl) {
   setup2faBtnEl.style.display =
     restoreAalData?.nextLevel === "aal1" ? "" : "none";
 }
+    const { data: savedWallets, error: savedWalletError } =
+  await supabaseClient
+    .from("wallets")
+    .select("address")
+    .eq("user_id", user.id);
+
+if (savedWalletError) {
+  console.error("Kayıtlı cüzdan yükleme hatası:", savedWalletError);
+} else if (savedWallets && savedWallets.length > 0) {
+  const savedWalletAddress = savedWallets[0].address;
+
+  if (walletStatusEl) {
+    walletStatusEl.innerHTML =
+      "Bağlandı: <span class='wallet'>" +
+      savedWalletAddress +
+      "</span>";
+  }
+
+  const topWalletStatusEl =
+    document.getElementById("topWalletStatus");
+
+  if (topWalletStatusEl) {
+    topWalletStatusEl.textContent =
+      savedWalletAddress.slice(0, 4) +
+      "..." +
+      savedWalletAddress.slice(-4);
+  }
+}
   const { data: dbBalance, error: balanceError } =
     await supabaseClient
       .from("balances")
