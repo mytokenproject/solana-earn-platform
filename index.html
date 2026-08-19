@@ -3492,6 +3492,42 @@ if (logoutBtn) {
   }
   }
 </script>
+   <div
+  id="settingsSheet"
+  style="
+    display:none;
+    position:fixed;
+    left:12px;
+    right:12px;
+    bottom:92px;
+    z-index:10000;
+    padding:18px;
+    border:1px solid rgba(139,92,246,.45);
+    border-radius:22px;
+    background:rgba(10,14,28,.98);
+    backdrop-filter:blur(18px);
+    box-shadow:0 10px 40px rgba(0,0,0,.55);
+  "
+>
+  <div style="display:flex;justify-content:space-between;align-items:center;">
+    <strong style="font-size:20px;">⚙ Ayarlar</strong>
+
+    <button
+      type="button"
+      class="secondary"
+      onclick="document.getElementById('settingsSheet').style.display='none';"
+      style="width:auto;padding:7px 12px;"
+    >
+      ✕
+    </button>
+  </div>
+
+  <div style="margin-top:16px;line-height:1.8;">
+    <div>🌐 Dil: Türkçe</div>
+    <div>🔔 Bildirimler</div>
+    <div>🎨 Görünüm</div>
+  </div>
+   </div>
    <nav
   id="bottomNav"
   style="
@@ -3514,7 +3550,7 @@ if (logoutBtn) {
   <button type="button" class="secondary" onclick="window.scrollTo({top:0,behavior:'smooth'});" style="padding:7px 2px;font-size:12px;min-height:58px;">⌂<br>Anasayfa</button>
 <button type="button" class="secondary" onclick="document.getElementById('discoverExtras').hidden=false;document.getElementById('mainTasksSection').scrollIntoView({behavior:'smooth',block:'start'});" style="padding:7px 2px;font-size:12px;min-height:58px;">✓<br>Görevler</button>
 <button type="button" class="secondary" onclick="document.getElementById('topLoginBtn').click();" style="padding:7px 2px;font-size:12px;min-height:58px;">◇<br>Cüzdanım</button>
-<button type="button" class="secondary" style="padding:7px 2px;font-size:12px;min-height:58px;">⚙<br>Ayarlar</button>
+<button type="button" class="secondary" onclick="document.getElementById('settingsSheet').style.display='block';" style="padding:7px 2px;font-size:12px;min-height:58px;">⚙<br>Ayarlar</button>
  </nav>
 </body>
 </html>
