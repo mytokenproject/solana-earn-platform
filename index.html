@@ -1582,8 +1582,10 @@ if (topWalletStatusEl) topWalletStatusEl.textContent = "Cüzdan bağlı ✅";
 
     } catch (err) {
 
-      walletStatus.textContent =
-        "Cüzdan bağlantısı iptal edildi.";
+      console.error("Phantom bağlantı hatası:", err);
+
+walletStatus.textContent =
+  "Phantom hata: " + (err?.message || String(err));
 const topWalletStatusEl =
   document.getElementById("topWalletStatus");
 
