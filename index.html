@@ -1459,6 +1459,16 @@ async function saveWalletAddress(address) {
       throw walletInsertError;
     }
   }
+  const { error: walletTouchError } =
+  await supabaseClient
+    .from("wallets")
+    .update({ last_connected_at: new Date().toISOString() })
+    .eq("user_id", userId)
+    .eq("address", address);
+
+if (walletTouchError) {
+  throw walletTouchError;
+}
 }  
 const dbBalanceEl =
   document.getElementById("dbBalance");
@@ -3206,7 +3216,7 @@ if (setup2faBtnEl) {
     .from("wallets")
     .select("address")
     .eq("user_id", user.id)
-.order("created_at", { ascending: false })
+.order("last_connected_at", { ascending: false })
 .limit(1);
 
 if (savedWalletError) {
