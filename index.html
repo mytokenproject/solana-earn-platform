@@ -1510,8 +1510,9 @@ if (topWalletStatusEl)
     const provider = window.solflare;
 
     if (!provider) {
-      walletStatus.textContent = "Solflare cüzdanı bulunamadı.";
-      return;
+  walletStatus.textContent = "Solflare açılıyor...";
+  openWalletApp("solflare");
+  return;
     }
 
     const response = await provider.connect();
@@ -1558,10 +1559,11 @@ backpackWalletBtn.addEventListener("click", async () => {
       window.backpack?.solana ||
       window.backpack;
 
-    if (!provider || typeof provider.connect !== "function") {
-      walletStatus.textContent = "Backpack cüzdanı bulunamadı.";
-      return;
-    }
+   if (!provider || typeof provider.connect !== "function") {
+  walletStatus.textContent = "Backpack açılıyor...";
+  openWalletApp("backpack");
+  return;
+   }
 
     const response = await provider.connect();
 
@@ -3846,5 +3848,31 @@ if (logoutBtn) {
 <button type="button" class="secondary" onclick="document.getElementById('topLoginBtn').click();" style="padding:7px 2px;font-size:12px;min-height:58px;">◇<br>Cüzdanım</button>
 <button type="button" class="secondary" onclick="document.getElementById('settingsSheet').style.display='block';" style="padding:7px 2px;font-size:12px;min-height:58px;">⚙<br>Ayarlar</button>
  </nav>
+   <script>
+function openWalletApp(walletName) {
+  const workplaceUrl =
+    "https://mytokenproject.github.io/solana-earn-platform/";
+
+  const encodedUrl = encodeURIComponent(workplaceUrl);
+  const encodedRef = encodeURIComponent(workplaceUrl);
+
+  if (walletName === "solflare") {
+    window.location.href =
+      "https://solflare.com/ul/v1/browse/" +
+      encodedUrl +
+      "?ref=" +
+      encodedRef;
+    return;
+  }
+
+  if (walletName === "backpack") {
+    window.location.href =
+      "https://backpack.app/ul/v1/browse/" +
+      encodedUrl +
+      "?ref=" +
+      encodedRef;
+  }
+}
+   </script>
 </body>
 </html>
