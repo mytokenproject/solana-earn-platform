@@ -1355,9 +1355,44 @@ const phantomWalletBtn =
 
 const solflareWalletBtn =
   document.getElementById("solflareWalletBtn");
-
 const backpackWalletBtn =
-  document.getElementById("backpackWalletBtn");
+document.getElementById("backpackWalletBtn");
+async function saveWalletAddress(address) {
+  const { data: authData, error: authError } =
+    await supabaseClient.auth.getUser();
+
+  if (authError || !authData.user) {
+    throw new Error("Önce hesabınıza giriş yapın.");
+  }
+
+  const userId = authData.user.id;
+
+  const { data: existingWallet, error: walletCheckError } =
+    await supabaseClient
+      .from("wallets")
+      .select("id")
+      .eq("user_id", userId)
+      .eq("address", address)
+      .maybeSingle();
+
+  if (walletCheckError) {
+    throw walletCheckError;
+  }
+
+  if (!existingWallet) {
+    const { error: walletInsertError } =
+      await supabaseClient
+        .from("wallets")
+        .insert({
+          user_id: userId,
+          address: address
+        });
+
+    if (walletInsertError) {
+      throw walletInsertError;
+    }
+  }
+}  
 const dbBalanceEl =
   document.getElementById("dbBalance");
   const completedEl =
@@ -1489,7 +1524,8 @@ if (topWalletStatusEl)
     if (!address) {
       throw new Error("Solflare adresi alınamadı.");
     }
-
+   await saveWalletAddress(address);
+    
     walletStatus.innerHTML =
       "Bağlandı: <span class='wallet'>" +
       address +
