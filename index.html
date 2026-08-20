@@ -1553,13 +1553,16 @@ if (topWalletStatusEl)
         return;
       }
 
+     let phantomPublicKey = provider.publicKey;
 
-      const response =
-        await provider.connect();
+if (!phantomPublicKey) {
+  const response = await provider.connect();
+  phantomPublicKey =
+    response?.publicKey || provider.publicKey;
+}
 
-
-      const address =
-        response.publicKey?.toString() || "";
+const address =
+  phantomPublicKey?.toString() || "";
 if (!address) {
   throw new Error("Phantom adresi alınamadı.");
 }
