@@ -1623,8 +1623,9 @@ if (topWalletStatusEl)
 backpackWalletBtn.addEventListener("click", async () => {
   try {
     const provider =
-      window.backpack?.solana ||
-      window.backpack;
+  window.backpack?.solana ||
+  window.backpack ||
+  window.solana;
 
    if (!provider || typeof provider.connect !== "function") {
   walletStatus.textContent = "Backpack açılıyor...";
