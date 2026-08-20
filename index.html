@@ -1347,6 +1347,17 @@ height:auto; margin-left:auto; margin-right:auto;">
 
   const balanceEl =
     document.getElementById("balance");
+  const walletChooser =
+  document.getElementById("walletChooser");
+
+const phantomWalletBtn =
+  document.getElementById("phantomWalletBtn");
+
+const solflareWalletBtn =
+  document.getElementById("solflareWalletBtn");
+
+const backpackWalletBtn =
+  document.getElementById("backpackWalletBtn");
 const dbBalanceEl =
   document.getElementById("dbBalance");
   const completedEl =
@@ -1406,8 +1417,11 @@ window.setCompletedCount = (value) => {
   completed = Number(value || 0);
   render();
 };
-
-  connectBtn.addEventListener("click", async () => {
+connectBtn.addEventListener("click", () => {
+  walletChooser.style.display =
+    walletChooser.style.display === "none" ? "grid" : "none";
+});
+  phantomWalletBtn.addEventListener("click", async () => {
 
     try {
 
@@ -1455,6 +1469,52 @@ if (topWalletStatusEl)
     }
 
   });
+
+  solflareWalletBtn.addEventListener("click", async () => {
+  try {
+    const provider = window.solflare;
+
+    if (!provider) {
+      walletStatus.textContent = "Solflare cüzdanı bulunamadı.";
+      return;
+    }
+
+    const response = await provider.connect();
+
+    const address =
+      response?.publicKey?.toString() ||
+      provider.publicKey?.toString() ||
+      "";
+
+    if (!address) {
+      throw new Error("Solflare adresi alınamadı.");
+    }
+
+    walletStatus.innerHTML =
+      "Bağlandı: <span class='wallet'>" +
+      address +
+      "</span>";
+
+    const topWalletStatusEl =
+      document.getElementById("topWalletStatus");
+
+    if (topWalletStatusEl)
+      topWalletStatusEl.textContent = "Cüzdan bağlı ✅";
+
+    connectBtn.textContent = "Cüzdan Bağlandı";
+    walletChooser.style.display = "none";
+
+  } catch (err) {
+    walletStatus.textContent =
+      "Solflare bağlantısı iptal edildi.";
+
+    const topWalletStatusEl =
+      document.getElementById("topWalletStatus");
+
+    if (topWalletStatusEl)
+      topWalletStatusEl.textContent = "Cüzdan bağlı değil";
+  }
+});
 
 
 
