@@ -880,6 +880,10 @@ id="connectBtn" style="display:none;">
   <button type="button" class="secondary" id="backpackWalletBtn">
     Backpack
   </button>
+  <button type="button" class="secondary"
+  id="trustWalletBtn">
+  Trust Wallet
+  </button>
 </div>
       <div class="status" id="walletStatus" style="display:none;">
         Cüzdan bağlı değil.
@@ -1355,8 +1359,15 @@ const phantomWalletBtn =
 
 const solflareWalletBtn =
   document.getElementById("solflareWalletBtn");
+  
 const backpackWalletBtn =
+  
 document.getElementById("backpackWalletBtn");
+  
+  const trustWalletBtn =
+    
+  document.getElementById("trustWalletBtn");
+  
 async function saveWalletAddress(address) {
   const { data: authData, error: authError } =
     await supabaseClient.auth.getUser();
@@ -1605,7 +1616,56 @@ backpackWalletBtn.addEventListener("click", async () => {
       topWalletStatusEl.textContent = "Cüzdan bağlı değil";
   }
 });
+trustWalletBtn.addEventListener("click", async () => {
+  try {
+    const provider = window.trustwallet?.solana;
 
+    if (!provider || typeof provider.connect !== "function") {
+      walletStatus.textContent = "Trust Wallet açılıyor...";
+      openWalletApp("trustwallet");
+      return;
+    }
+
+    const response = await provider.connect();
+
+    const address =
+      response?.publicKey?.toString() ||
+      provider.publicKey?.toString() ||
+      "";
+
+    if (!address) {
+      throw new Error("Trust Wallet adresi alınamadı.");
+    }
+
+    await saveWalletAddress(address);
+
+    walletStatus.innerHTML =
+      "Bağlandı: <span class='wallet'>" +
+      address +
+      "</span>";
+
+    const topWalletStatusEl =
+      document.getElementById("topWalletStatus");
+
+    if (topWalletStatusEl)
+      topWalletStatusEl.textContent = "Cüzdan bağlı ✅";
+
+    connectBtn.textContent = "Cüzdan Bağlandı";
+    walletChooser.style.display = "none";
+
+  } catch (err) {
+    console.error("Trust Wallet bağlantı hatası:", err);
+
+    walletStatus.textContent =
+      "Trust Wallet bağlantısı iptal edildi.";
+
+    const topWalletStatusEl =
+      document.getElementById("topWalletStatus");
+
+    if (topWalletStatusEl)
+      topWalletStatusEl.textContent = "Cüzdan bağlı değil";
+  }
+});
 
   
   
@@ -3871,6 +3931,12 @@ function openWalletApp(walletName) {
       encodedUrl +
       "?ref=" +
       encodedRef;
+  }
+  if (walletName === "trustwallet") {
+  window.location.href =
+    "https://link.trustwallet.com/open_url?coin_id=501&url=" +
+    encodedUrl;
+  return;
   }
 }
    </script>
