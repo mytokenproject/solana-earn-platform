@@ -942,29 +942,83 @@ id="connectBtn" style="display:none;">
   style="
     margin-top:-14px;
     width:96%;
-    height:100px;
+    height:76px;
     margin-left:auto;
     margin-right:auto;
+    padding:8px 14px;
     display:flex;
     align-items:center;
     justify-content:center;
-    text-align:center;
-    background:linear-gradient(135deg,#9945FF 0%,#2563eb 48%,#14F195 100%);
-    border:1px solid rgba(255,255,255,0.16);
-    box-shadow:0 0 28px rgba(153,69,255,0.22);
+    gap:12px;
+    background:linear-gradient(135deg,#0d0b18,#111326 55%,#0c1020);
+    border:1px solid rgba(255,255,255,0.12);
+    box-shadow:0 0 22px rgba(153,69,255,0.14);
     overflow:hidden;
   "
 >
   <div
     style="
-      font-size:24px;
-      font-weight:800;
-      letter-spacing:4px;
-      color:#ffffff;
-      text-shadow:0 2px 14px rgba(0,0,0,0.35);
+      width:54px;
+      min-width:54px;
+      height:54px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
     "
   >
-    WORKPLACE
+    <svg viewBox="0 0 70 60" width="54" height="48" aria-hidden="true">
+      <defs>
+        <linearGradient id="wpGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#c44cff"/>
+          <stop offset="58%" stop-color="#7357ff"/>
+          <stop offset="100%" stop-color="#4a6dff"/>
+        </linearGradient>
+
+        <linearGradient id="wpAqua" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#43e6df"/>
+          <stop offset="100%" stop-color="#8effe6"/>
+        </linearGradient>
+      </defs>
+
+      <path
+        d="M6 8 L18 8 L31 45 L40 22 L49 45 L60 8 L69 8 L53 55 L43 55 L35 35 L27 55 L17 55 Z"
+        fill="url(#wpGrad)"
+      />
+
+      <path
+        d="M49 7 L66 7 L59 19 L42 19 Z"
+        fill="url(#wpAqua)"
+      />
+    </svg>
+  </div>
+
+  <div style="min-width:0;">
+    <div
+      style="
+        font-size:21px;
+        font-weight:800;
+        letter-spacing:1.4px;
+        color:#ffffff;
+        line-height:1.05;
+        white-space:nowrap;
+      "
+    >
+      WORKPLACE
+    </div>
+
+    <div
+      style="
+        margin-top:6px;
+        font-size:11px;
+        letter-spacing:.5px;
+        color:rgba(255,255,255,.75);
+        white-space:nowrap;
+      "
+    >
+      İzle <span style="color:#55e8d5;">•</span>
+      Görev Yap <span style="color:#b55cff;">•</span>
+      Kazan
+    </div>
   </div>
   </section>
    <section class="card" id="sponsorAdPanel"
