@@ -1536,8 +1536,11 @@ connectBtn.addEventListener("click", () => {
   phantomWalletBtn.addEventListener("click", async () => {
 
     try {
+      const provider =
+  window.phantom?.solana ||
+  (window.solana?.isPhantom ? window.solana : null);
 
-      if (!window.solana || !window.solana.isPhantom) {
+      if (!provider) {
 
         walletStatus.textContent =
           "Phantom cüzdanı bulunamadı. Test modunda görevleri yine deneyebilirsin.";
@@ -1552,7 +1555,7 @@ if (topWalletStatusEl)
 
 
       const response =
-        await window.solana.connect();
+        await provider.connect();
 
 
       const address =
