@@ -1546,6 +1546,7 @@ connectBtn.addEventListener("click", () => {
 
 if (topWalletStatusEl)
   topWalletStatusEl.textContent = "Phantom bulunamadı";
+        openWalletApp("phantom");
         return;
       }
 
@@ -1556,7 +1557,11 @@ if (topWalletStatusEl)
 
       const address =
         response.publicKey?.toString() || "";
+if (!address) {
+  throw new Error("Phantom adresi alınamadı.");
+}
 
+await saveWalletAddress(address);
 
       walletStatus.innerHTML =
         "Bağlandı: <span class='wallet'>" +
