@@ -911,7 +911,7 @@ id="connectBtn" style="display:none;">
 
     <section class="card" style="padding:14px 16px;">
 
-  <h2>Hesap Özeti</h2>
+  <h2 data-i18n="accountSummary">Hesap Özeti</h2>
 
   <div style="
   display:grid !important;
@@ -921,8 +921,10 @@ id="connectBtn" style="display:none;">
 ">
 
   <div class="stat" style="min-width:0; width:auto; min-height:82px; padding:10px 12px; box-sizing:border-box;">
-    <div class="label" style="font-size:13px; line-height:1.25;">💜 Toplam Puan</div>
-    <div class="value" style="display:block; position:static; font-size:22px; line-height:1.15; margin-top:6px;">
+    <div class="label" data-i18n="totalPoints" style="font-size:13px;
+line-height:1.25;">💜 Toplam Puan</div>  
+
+<div class="value" style="display:block; position:static; font-size:22px; line-height:1.15; margin-top:6px;">
       <span id="balance">0</span>
     </div>
   </div>
@@ -942,7 +944,8 @@ id="connectBtn" style="display:none;">
   </div>
 
   <div class="stat" style="min-width:0; width:auto; min-height:82px; padding:10px 12px; box-sizing:border-box;">
-    <div class="label" style="font-size:13px; line-height:1.25;">✅ Tamamlanan Görev</div>
+    <div class="label" data-i18n="completedTasks" style="font-size:13px; line-height:1.25;">✅ Tamamlanan Görev</div>
+    
     <div class="value" style="display:block; position:static; font-size:22px; line-height:1.15; margin-top:6px;">
       <span id="completed">0</span>
     </div>
@@ -1417,19 +1420,49 @@ height:auto; margin-left:auto; margin-right:auto;">
 <script>
 
 (() => {
-const languageSelect = document.getElementById("languageSelect");
+  
+  const translations = {
+      tr: {
+  accountSummary: "Hesap Özeti",
+  totalPoints: "💜 Toplam Puan",
+  completedTasks: "✅ Tamamlanan Görev",
+  home: "Anasayfa"
+},
+en: {
+  accountSummary: "Account Summary",
+  totalPoints: "💜 Total Points",
+  completedTasks: "✅ Completed Tasks",
+  home: "Home"
+    }
+  };
+
+  const languageSelect =
+    document.getElementById("languageSelect");
 
 const savedLanguage = localStorage.getItem("workplace_language") || "tr";
+function applyTranslations(lang) {
+  const t = translations[lang] || translations.tr;
 
+  const accountSummary = document.querySelector("[data-i18n='accountSummary']");
+  const totalPoints = document.querySelector("[data-i18n='totalPoints']");
+  const completedTasks = document.querySelector("[data-i18n='completedTasks']");
+  const home = document.querySelector("[data-i18n='home']");
+
+  if (accountSummary) accountSummary.textContent = t.accountSummary;
+  if (totalPoints) totalPoints.textContent = t.totalPoints;
+  if (completedTasks) completedTasks.textContent = t.completedTasks;
+  if (home) home.textContent = t.home;
+}
 if (languageSelect) {
   languageSelect.value = savedLanguage;
   document.documentElement.lang = savedLanguage;
-
+applyTranslations(savedLanguage);
   languageSelect.addEventListener("change", () => {
     const selectedLanguage = languageSelect.value;
 
     localStorage.setItem("workplace_language", selectedLanguage);
     document.documentElement.lang = selectedLanguage;
+    applyTranslations(selectedLanguage);
   });
 }
   const balanceEl =
