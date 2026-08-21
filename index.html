@@ -2991,6 +2991,25 @@ if (aalError) {
   loginStatus.textContent = "2FA kontrolü başarısız.";
   return;
 }
+   const { data: isAdmin, error: adminCheckError } =
+  await supabaseClient.rpc("is_current_user_admin");
+
+if (adminCheckError) {
+  console.error("Admin kontrol hatası:", adminCheckError);
+  loginStatus.textContent = "Admin güvenlik kontrolü başarısız.";
+  await supabaseClient.auth.signOut();
+  setLoginFormVisible(true);
+  setLoggedInHero(false);
+  return;
+}
+
+if (isAdmin && aalData?.nextLevel !== "aal2") {
+  loginStatus.textContent = "Admin hesabında 2FA zorunludur.";
+  await supabaseClient.auth.signOut();
+  setLoginFormVisible(true);
+  setLoggedInHero(false);
+  return;
+}
    if (
   aalData?.currentLevel === "aal1" &&
   aalData?.nextLevel === "aal2"
