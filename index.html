@@ -3682,8 +3682,7 @@ const walletStatusLogin = document.getElementById("walletStatus");
 
 if (connectBtnLogin)
   connectBtnLogin.style.display = "";
-if (walletStatusLogin) walletStatusLogin.style.display = "";
-alert("LOGIN Cüzdan: " + (connectBtnLogin ? getComputedStyle(connectBtnLogin).display : "BULUNAMADI"));   
+if (walletStatusLogin) walletStatusLogin.style.display = ""; 
 
 if (setup2faBtnLogin) {
   setup2faBtnLogin.style.display =
@@ -3896,12 +3895,6 @@ if (setup2faBtnEl) {
   setup2faBtnEl.style.display =
     restoreAalData?.nextLevel === "aal1" ? "" : "none";
 }
-    alert(
-  "RESTORE | Cüzdan: " +
-  (connectBtnEl ? getComputedStyle(connectBtnEl).display : "BULUNAMADI") +
-  " | 2FA: " +
-  (setup2faBtnEl ? getComputedStyle(setup2faBtnEl).display : "BULUNAMADI")
-);
     const { data: savedWallets, error: savedWalletError } =
   await supabaseClient
     .from("wallets")
