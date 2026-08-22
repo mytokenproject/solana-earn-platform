@@ -1909,12 +1909,14 @@ if (languageSelect) {
   languageSelect.value = savedLanguage;
   document.documentElement.lang = savedLanguage;
 applyTranslations(savedLanguage);
+  setLoggedInHero(document.querySelector(".hero")?.classList.contains("logged-in"));
   languageSelect.addEventListener("change", () => {
     const selectedLanguage = languageSelect.value;
 
     localStorage.setItem("workplace_language", selectedLanguage);
     document.documentElement.lang = selectedLanguage;
     applyTranslations(selectedLanguage);
+    setLoggedInHero(document.querySelector(".hero")?.classList.contains("logged-in"));
   });
 }
   const balanceEl =
