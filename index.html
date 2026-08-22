@@ -1390,14 +1390,14 @@ height:auto; margin-left:auto; margin-right:auto;">
         </div>
 
         <small>
-          Test ödülü: 5 puan
+          <span data-i18n="testReward5">Test ödülü: 5 puan</span>
         </small>
 
   <button
   class="secondary taskBtn"
   data-points="5"
   data-task-id="3">
-  Görevi Başlat
+  <span data-i18n="startTask">Görevi Başlat</span>
   </button>
 
       </div>
@@ -1405,20 +1405,19 @@ height:auto; margin-left:auto; margin-right:auto;">
     </section>
 
     <button class="secondary" onclick="testMyEarnings()">
-  Kazancımı Test Et
+  <span data-i18n="testEarnings">Kazancımı Test Et</span>
     </button>
     <div id="pointHistoryPanel" style="margin-top:16px;">
-  <h3>Puan Geçmişi</h3>
+  <h3><span data-i18n="pointHistory">Puan Geçmişi</span></h3>
   <div id="pointHistory">
-    Giriş yaptıktan sonra puan geçmişi burada görünecek.
+    <span data-i18n="pointHistoryLoginHint">Giriş yaptıktan sonra puan geçmişi burada görünecek.</span>
   </div>
     </div>
     </div>
 
 
     <div class="notice">
-      Test Mode • Gerçek token bakiyesi kontrolü ve
-      ödül transferi henüz aktif değildir.
+      <span data-i18n="testModeNotice">Test Mode • Gerçek token bakiyesi kontrolü ve ödül transferi henüz aktif değildir.</span>
     </div>
 
   </main>
@@ -1428,20 +1427,455 @@ height:auto; margin-left:auto; margin-right:auto;">
 
 (() => {
   
-  const translations = {
-      tr: {
-  accountSummary: "Hesap Özeti",
-  totalPoints: "💜 Toplam Puan",
-  completedTasks: "✅ Tamamlanan Görev",
-  home: "Anasayfa"
-},
-en: {
-  accountSummary: "Account Summary",
-  totalPoints: "💜 Total Points",
-  completedTasks: "✅ Completed Tasks",
-  home: "Home"
-    }
-  };
+      const translations = {
+  tr: {
+    accountSummary: "Hesap Özeti",
+    totalPoints: "💜 Toplam Puan",
+    completedTasks: "✅ Tamamlanan Görev",
+    home: "Anasayfa",
+    watch: "İzle",
+doTask: "Görev Yap",
+earn: "Kazan",
+sponsoredArea: "SPONSORLU ALAN",
+reachAudience: "Hedef kitlene ulaş",
+sponsorAdDescription: "Workplace kullanıcılarına reklam ver.",
+viewAd: "Reklamı Gör ↗",
+advertise: "Reklam Ver",
+    daily: "Günlük",
+    weekly: "Haftalık",
+    monthly: "Aylık",
+    continue: "Devam Et",
+
+    adInfo: "Reklam Bilgileri",
+    submitAd: "Başvuruyu Gönder",
+    adManagement: "Reklam Yönetimi",
+    reviewPendingAds: "Bekleyen reklam başvurularını incele",
+    noPendingAds: "Bekleyen başvuru bulunamadı.",
+
+    discoverEarn: "Keşfet & Kazan",
+
+    games: "Oyunlar",
+    gamesDesc: "Oyna, ilerle ve kazan",
+
+    apps: "Uygulamalar",
+    appsDesc: "Uygulamaları keşfet",
+
+    surveys: "Anketler",
+    surveysDesc: "Fikrini paylaş ve kazan",
+
+    videoAds: "Video & Reklam",
+    videoAdsDesc: "İzle ve ödül kazan",
+
+    sponsoredTasks: "Sponsorlu Görevler",
+    sponsoredTasksDesc: "Özel kampanyaları tamamla",
+
+    shoppingEarn: "Alışveriş & Kazan",
+    shoppingEarnDesc: "Alışverişlerinden ödül kazan",
+
+    web3Solana: "Web3 / Solana",
+    web3SolanaDesc: "Web3 görevlerini keşfet",
+
+    gamesSectionDesc: "Oyun görevleri burada listelenecek.",
+    appsSectionDesc: "Uygulama görevleri burada listelenecek.",
+    surveysSectionDesc: "Anket görevleri burada listelenecek.",
+    videoSectionDesc: "Video ve reklam görevleri burada listelenecek.",
+    sponsoredSectionDesc: "Sponsorlu görevler ve özel kampanyalar burada listelenecek.",
+    shoppingSectionDesc: "Alışveriş ve cashback görevleri burada listelenecek.",
+    web3SectionDesc: "Web3 ve Solana görevleri burada listelenecek.",
+
+    back: "Geri Dön",
+    tasks: "Görevler",
+
+    watchIntroVideo: "Tanıtım videosunu izle",
+    testReward10: "Test ödülü: 10 puan",
+    startTask: "Görevi Başlat",
+
+    explorePlatform: "Platformu keşfet",
+    testReward25: "Test ödülü: 25 puan",
+
+    dailyLogin: "Günlük giriş",
+    testReward5: "Test ödülü: 5 puan",
+
+    testEarnings: "Kazancımı Test Et",
+    pointHistory: "Puan Geçmişi",
+    pointHistoryLoginHint: "Giriş yaptıktan sonra puan geçmişi burada görünecek.",
+
+    testModeNotice: "Test Mode • Gerçek token bakiyesi kontrolü ve ödül transferi henüz aktif değildir."
+  },
+
+  en: {
+    accountSummary: "Account Summary",
+    totalPoints: "💜 Total Points",
+    completedTasks: "✅ Completed Tasks",
+    home: "Home",
+   watch: "Watch",
+doTask: "Do Tasks",
+earn: "Earn",
+sponsoredArea: "SPONSORED AREA",
+reachAudience: "Reach your target audience",
+sponsorAdDescription: "Advertise to Workplace users.",
+viewAd: "View Ad ↗",
+advertise: "Advertise",
+    daily: "Daily",
+    weekly: "Weekly",
+    monthly: "Monthly",
+    continue: "Continue",
+
+    adInfo: "Ad Information",
+    submitAd: "Submit Application",
+    adManagement: "Ad Management",
+    reviewPendingAds: "Review pending ad applications",
+    noPendingAds: "No pending applications.",
+
+    discoverEarn: "Discover & Earn",
+
+    games: "Games",
+    gamesDesc: "Play, progress and earn",
+
+    apps: "Apps",
+    appsDesc: "Discover apps",
+
+    surveys: "Surveys",
+    surveysDesc: "Share your opinion and earn",
+
+    videoAds: "Video & Ads",
+    videoAdsDesc: "Watch and earn rewards",
+
+    sponsoredTasks: "Sponsored Tasks",
+    sponsoredTasksDesc: "Complete special campaigns",
+
+    shoppingEarn: "Shop & Earn",
+    shoppingEarnDesc: "Earn rewards from your purchases",
+
+    web3Solana: "Web3 / Solana",
+    web3SolanaDesc: "Discover Web3 tasks",
+
+    gamesSectionDesc: "Game tasks will be listed here.",
+    appsSectionDesc: "App tasks will be listed here.",
+    surveysSectionDesc: "Survey tasks will be listed here.",
+    videoSectionDesc: "Video and ad tasks will be listed here.",
+    sponsoredSectionDesc: "Sponsored tasks and special campaigns will be listed here.",
+    shoppingSectionDesc: "Shopping and cashback tasks will be listed here.",
+    web3SectionDesc: "Web3 and Solana tasks will be listed here.",
+
+    back: "Back",
+    tasks: "Tasks",
+
+    watchIntroVideo: "Watch the intro video",
+    testReward10: "Test reward: 10 points",
+    startTask: "Start Task",
+
+    explorePlatform: "Explore the platform",
+    testReward25: "Test reward: 25 points",
+
+    dailyLogin: "Daily login",
+    testReward5: "Test reward: 5 points",
+
+    testEarnings: "Test My Earnings",
+    pointHistory: "Point History",
+    pointHistoryLoginHint: "Your point history will appear here after you sign in.",
+
+    testModeNotice: "Test Mode • Real token balance checks and reward transfers are not active yet."
+  },
+    hi: {
+    accountSummary: "खाता सारांश",
+    totalPoints: "💜 कुल अंक",
+    completedTasks: "✅ पूर्ण किए गए कार्य",
+    home: "होम",
+    watch: "देखें",
+doTask: "कार्य करें",
+earn: "कमाएँ",
+sponsoredArea: "प्रायोजित क्षेत्र",
+reachAudience: "अपने लक्षित दर्शकों तक पहुँचें",
+sponsorAdDescription: "Workplace उपयोगकर्ताओं को विज्ञापन दिखाएँ।",
+viewAd: "विज्ञापन देखें ↗",
+advertise: "विज्ञापन दें",
+    daily: "दैनिक",
+    weekly: "साप्ताहिक",
+    monthly: "मासिक",
+    continue: "जारी रखें",
+
+    adInfo: "विज्ञापन जानकारी",
+    submitAd: "आवेदन भेजें",
+    adManagement: "विज्ञापन प्रबंधन",
+    reviewPendingAds: "लंबित विज्ञापन आवेदनों की समीक्षा करें",
+    noPendingAds: "कोई लंबित आवेदन नहीं है।",
+
+    discoverEarn: "खोजें और कमाएँ",
+
+    games: "गेम्स",
+    gamesDesc: "खेलें, आगे बढ़ें और कमाएँ",
+
+    apps: "ऐप्स",
+    appsDesc: "ऐप्स खोजें",
+
+    surveys: "सर्वेक्षण",
+    surveysDesc: "अपनी राय साझा करें और कमाएँ",
+
+    videoAds: "वीडियो और विज्ञापन",
+    videoAdsDesc: "देखें और पुरस्कार कमाएँ",
+
+    sponsoredTasks: "प्रायोजित कार्य",
+    sponsoredTasksDesc: "विशेष अभियान पूरे करें",
+
+    shoppingEarn: "खरीदारी करें और कमाएँ",
+    shoppingEarnDesc: "अपनी खरीदारी से पुरस्कार कमाएँ",
+
+    web3Solana: "Web3 / Solana",
+    web3SolanaDesc: "Web3 कार्य खोजें",
+
+    gamesSectionDesc: "गेम कार्य यहाँ सूचीबद्ध होंगे।",
+    appsSectionDesc: "ऐप कार्य यहाँ सूचीबद्ध होंगे।",
+    surveysSectionDesc: "सर्वेक्षण कार्य यहाँ सूचीबद्ध होंगे।",
+    videoSectionDesc: "वीडियो और विज्ञापन कार्य यहाँ सूचीबद्ध होंगे।",
+    sponsoredSectionDesc: "प्रायोजित कार्य और विशेष अभियान यहाँ सूचीबद्ध होंगे।",
+    shoppingSectionDesc: "खरीदारी और कैशबैक कार्य यहाँ सूचीबद्ध होंगे।",
+    web3SectionDesc: "Web3 और Solana कार्य यहाँ सूचीबद्ध होंगे।",
+
+    back: "वापस",
+    tasks: "कार्य",
+
+    watchIntroVideo: "परिचय वीडियो देखें",
+    testReward10: "परीक्षण पुरस्कार: 10 अंक",
+    startTask: "कार्य शुरू करें",
+
+    explorePlatform: "प्लेटफ़ॉर्म देखें",
+    testReward25: "परीक्षण पुरस्कार: 25 अंक",
+
+    dailyLogin: "दैनिक लॉगिन",
+    testReward5: "परीक्षण पुरस्कार: 5 अंक",
+
+    testEarnings: "मेरी कमाई का परीक्षण करें",
+    pointHistory: "अंक इतिहास",
+    pointHistoryLoginHint: "साइन इन करने के बाद आपका अंक इतिहास यहाँ दिखाई देगा।",
+
+    testModeNotice: "टेस्ट मोड • वास्तविक टोकन बैलेंस जाँच और पुरस्कार ट्रांसफर अभी सक्रिय नहीं हैं।"
+  },
+
+  "pt-BR": {
+    accountSummary: "Resumo da Conta",
+    totalPoints: "💜 Pontos Totais",
+    completedTasks: "✅ Tarefas Concluídas",
+    home: "Início",
+    watch: "Assistir",
+doTask: "Fazer tarefas",
+earn: "Ganhar",
+sponsoredArea: "ÁREA PATROCINADA",
+reachAudience: "Alcance seu público-alvo",
+sponsorAdDescription: "Anuncie para usuários do Workplace.",
+viewAd: "Ver anúncio ↗",
+advertise: "Anunciar",
+  daily: "Diário",
+    weekly: "Semanal",
+    monthly: "Mensal",
+    continue: "Continuar",
+
+    adInfo: "Informações do Anúncio",
+    submitAd: "Enviar Solicitação",
+    adManagement: "Gerenciamento de Anúncios",
+    reviewPendingAds: "Revisar solicitações de anúncios pendentes",
+    noPendingAds: "Nenhuma solicitação pendente.",
+
+    discoverEarn: "Descubra e Ganhe",
+
+    games: "Jogos",
+    gamesDesc: "Jogue, avance e ganhe",
+
+    apps: "Aplicativos",
+    appsDesc: "Descubra aplicativos",
+
+    surveys: "Pesquisas",
+    surveysDesc: "Compartilhe sua opinião e ganhe",
+
+    videoAds: "Vídeo e Anúncios",
+    videoAdsDesc: "Assista e ganhe recompensas",
+
+    sponsoredTasks: "Tarefas Patrocinadas",
+    sponsoredTasksDesc: "Conclua campanhas especiais",
+
+    shoppingEarn: "Compre e Ganhe",
+    shoppingEarnDesc: "Ganhe recompensas com suas compras",
+
+    web3Solana: "Web3 / Solana",
+    web3SolanaDesc: "Descubra tarefas Web3",
+
+    gamesSectionDesc: "As tarefas de jogos serão listadas aqui.",
+    appsSectionDesc: "As tarefas de aplicativos serão listadas aqui.",
+    surveysSectionDesc: "As tarefas de pesquisas serão listadas aqui.",
+    videoSectionDesc: "As tarefas de vídeo e anúncios serão listadas aqui.",
+    sponsoredSectionDesc: "Tarefas patrocinadas e campanhas especiais serão listadas aqui.",
+    shoppingSectionDesc: "Tarefas de compras e cashback serão listadas aqui.",
+    web3SectionDesc: "As tarefas Web3 e Solana serão listadas aqui.",
+
+    back: "Voltar",
+    tasks: "Tarefas",
+
+    watchIntroVideo: "Assistir ao vídeo de apresentação",
+    testReward10: "Recompensa de teste: 10 pontos",
+    startTask: "Iniciar Tarefa",
+
+    explorePlatform: "Explorar a plataforma",
+    testReward25: "Recompensa de teste: 25 pontos",
+
+    dailyLogin: "Login diário",
+    testReward5: "Recompensa de teste: 5 pontos",
+
+    testEarnings: "Testar Meus Ganhos",
+    pointHistory: "Histórico de Pontos",
+    pointHistoryLoginHint: "Seu histórico de pontos aparecerá aqui após o login.",
+
+    testModeNotice: "Modo de Teste • A verificação do saldo real de tokens e as transferências de recompensas ainda não estão ativas."
+  },
+    id: {
+    accountSummary: "Ringkasan Akun",
+    totalPoints: "💜 Total Poin",
+    completedTasks: "✅ Tugas Selesai",
+    home: "Beranda",
+    watch: "Tonton",
+doTask: "Kerjakan Tugas",
+earn: "Dapatkan",
+sponsoredArea: "AREA SPONSOR",
+reachAudience: "Jangkau audiens target Anda",
+sponsorAdDescription: "Pasang iklan kepada pengguna Workplace.",
+viewAd: "Lihat Iklan ↗",
+advertise: "Pasang Iklan",
+    daily: "Harian",
+    weekly: "Mingguan",
+    monthly: "Bulanan",
+    continue: "Lanjutkan",
+
+    adInfo: "Informasi Iklan",
+    submitAd: "Kirim Pengajuan",
+    adManagement: "Manajemen Iklan",
+    reviewPendingAds: "Tinjau pengajuan iklan yang tertunda",
+    noPendingAds: "Tidak ada pengajuan yang tertunda.",
+
+    discoverEarn: "Jelajahi & Dapatkan",
+
+    games: "Game",
+    gamesDesc: "Mainkan, maju, dan dapatkan hadiah",
+
+    apps: "Aplikasi",
+    appsDesc: "Jelajahi aplikasi",
+
+    surveys: "Survei",
+    surveysDesc: "Bagikan pendapat dan dapatkan hadiah",
+
+    videoAds: "Video & Iklan",
+    videoAdsDesc: "Tonton dan dapatkan hadiah",
+
+    sponsoredTasks: "Tugas Bersponsor",
+    sponsoredTasksDesc: "Selesaikan kampanye khusus",
+
+    shoppingEarn: "Belanja & Dapatkan",
+    shoppingEarnDesc: "Dapatkan hadiah dari belanja Anda",
+
+    web3Solana: "Web3 / Solana",
+    web3SolanaDesc: "Jelajahi tugas Web3",
+
+    gamesSectionDesc: "Tugas game akan ditampilkan di sini.",
+    appsSectionDesc: "Tugas aplikasi akan ditampilkan di sini.",
+    surveysSectionDesc: "Tugas survei akan ditampilkan di sini.",
+    videoSectionDesc: "Tugas video dan iklan akan ditampilkan di sini.",
+    sponsoredSectionDesc: "Tugas bersponsor dan kampanye khusus akan ditampilkan di sini.",
+    shoppingSectionDesc: "Tugas belanja dan cashback akan ditampilkan di sini.",
+    web3SectionDesc: "Tugas Web3 dan Solana akan ditampilkan di sini.",
+
+    back: "Kembali",
+    tasks: "Tugas",
+
+    watchIntroVideo: "Tonton video pengenalan",
+    testReward10: "Hadiah uji coba: 10 poin",
+    startTask: "Mulai Tugas",
+
+    explorePlatform: "Jelajahi platform",
+    testReward25: "Hadiah uji coba: 25 poin",
+
+    dailyLogin: "Login harian",
+    testReward5: "Hadiah uji coba: 5 poin",
+
+    testEarnings: "Uji Penghasilan Saya",
+    pointHistory: "Riwayat Poin",
+    pointHistoryLoginHint: "Riwayat poin Anda akan muncul di sini setelah login.",
+
+    testModeNotice: "Mode Uji Coba • Pemeriksaan saldo token asli dan transfer hadiah belum aktif."
+  },
+
+  "pt-PT": {
+    accountSummary: "Resumo da Conta",
+    totalPoints: "💜 Total de Pontos",
+    completedTasks: "✅ Tarefas Concluídas",
+    home: "Início",
+    watch: "Ver",
+doTask: "Fazer Tarefas",
+earn: "Ganhar",
+sponsoredArea: "ÁREA PATROCINADA",
+reachAudience: "Alcança o teu público-alvo",
+sponsorAdDescription: "Anuncia aos utilizadores do Workplace.",
+viewAd: "Ver anúncio ↗",
+advertise: "Anunciar",
+    daily: "Diário",
+    weekly: "Semanal",
+    monthly: "Mensal",
+    continue: "Continuar",
+
+    adInfo: "Informações do Anúncio",
+    submitAd: "Enviar Candidatura",
+    adManagement: "Gestão de Anúncios",
+    reviewPendingAds: "Rever candidaturas de anúncios pendentes",
+    noPendingAds: "Não existem candidaturas pendentes.",
+
+    discoverEarn: "Descobrir & Ganhar",
+
+    games: "Jogos",
+    gamesDesc: "Joga, progride e ganha",
+
+    apps: "Aplicações",
+    appsDesc: "Descobre aplicações",
+
+    surveys: "Inquéritos",
+    surveysDesc: "Partilha a tua opinião e ganha",
+
+    videoAds: "Vídeo & Anúncios",
+    videoAdsDesc: "Assiste e ganha recompensas",
+
+    sponsoredTasks: "Tarefas Patrocinadas",
+    sponsoredTasksDesc: "Conclui campanhas especiais",
+
+    shoppingEarn: "Comprar & Ganhar",
+    shoppingEarnDesc: "Ganha recompensas com as tuas compras",
+
+    web3Solana: "Web3 / Solana",
+    web3SolanaDesc: "Descobre tarefas Web3",
+
+    gamesSectionDesc: "As tarefas de jogos serão apresentadas aqui.",
+    appsSectionDesc: "As tarefas de aplicações serão apresentadas aqui.",
+    surveysSectionDesc: "As tarefas de inquéritos serão apresentadas aqui.",
+    videoSectionDesc: "As tarefas de vídeo e anúncios serão apresentadas aqui.",
+    sponsoredSectionDesc: "As tarefas patrocinadas e campanhas especiais serão apresentadas aqui.",
+    shoppingSectionDesc: "As tarefas de compras e cashback serão apresentadas aqui.",
+    web3SectionDesc: "As tarefas Web3 e Solana serão apresentadas aqui.",
+
+    back: "Voltar",
+    tasks: "Tarefas",
+
+    watchIntroVideo: "Ver o vídeo de apresentação",
+    testReward10: "Recompensa de teste: 10 pontos",
+    startTask: "Iniciar Tarefa",
+
+    explorePlatform: "Explorar a plataforma",
+    testReward25: "Recompensa de teste: 25 pontos",
+
+    dailyLogin: "Início de sessão diário",
+    testReward5: "Recompensa de teste: 5 pontos",
+
+    testEarnings: "Testar os Meus Ganhos",
+    pointHistory: "Histórico de Pontos",
+    pointHistoryLoginHint: "O teu histórico de pontos aparecerá aqui depois de iniciares sessão.",
+
+    testModeNotice: "Modo de Teste • A verificação do saldo real de tokens e as transferências de recompensas ainda não estão ativas."
+      }
+};
 
   const languageSelect =
     document.getElementById("languageSelect");
@@ -1450,15 +1884,14 @@ const savedLanguage = localStorage.getItem("workplace_language") || "tr";
 function applyTranslations(lang) {
   const t = translations[lang] || translations.tr;
 
-  const accountSummary = document.querySelector("[data-i18n='accountSummary']");
-  const totalPoints = document.querySelector("[data-i18n='totalPoints']");
-  const completedTasks = document.querySelector("[data-i18n='completedTasks']");
-  const home = document.querySelector("[data-i18n='home']");
+  document.querySelectorAll("[data-i18n]").forEach((el) => {
+    const key = el.dataset.i18n;
+    const value = t[key] ?? translations.tr?.[key];
 
-  if (accountSummary) accountSummary.textContent = t.accountSummary;
-  if (totalPoints) totalPoints.textContent = t.totalPoints;
-  if (completedTasks) completedTasks.textContent = t.completedTasks;
-  if (home) home.textContent = t.home;
+    if (value !== undefined) {
+      el.textContent = value;
+    }
+  });
 }
 if (languageSelect) {
   languageSelect.value = savedLanguage;
