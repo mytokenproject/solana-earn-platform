@@ -811,7 +811,7 @@ body.menu-open {
 >
    <summary style="display:none;"></summary> 
   <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
-  <strong style="font-size:18px;">Hesabım</strong>
+  <strong style="font-size:18px;" data-i18n="myAccount">Hesabım</strong>
 
   <button
     type="button"
@@ -1433,6 +1433,8 @@ height:auto; margin-left:auto; margin-right:auto;">
     totalPoints: "💜 Toplam Puan",
     completedTasks: "✅ Tamamlanan Görev",
     home: "Anasayfa",
+    myAccount: "Hesabım",
+login: "Giriş Yap",
     watch: "İzle",
 doTask: "Görev Yap",
 earn: "Kazan",
@@ -1508,6 +1510,8 @@ advertise: "Reklam Ver",
     totalPoints: "💜 Total Points",
     completedTasks: "✅ Completed Tasks",
     home: "Home",
+    myAccount: "My Account",
+login: "Sign In",
    watch: "Watch",
 doTask: "Do Tasks",
 earn: "Earn",
@@ -1582,6 +1586,8 @@ advertise: "Advertise",
     totalPoints: "💜 कुल अंक",
     completedTasks: "✅ पूर्ण किए गए कार्य",
     home: "होम",
+      myAccount: "मेरा खाता",
+login: "साइन इन करें",
     watch: "देखें",
 doTask: "कार्य करें",
 earn: "कमाएँ",
@@ -1657,6 +1663,8 @@ advertise: "विज्ञापन दें",
     totalPoints: "💜 Pontos Totais",
     completedTasks: "✅ Tarefas Concluídas",
     home: "Início",
+    myAccount: "Minha Conta",
+login: "Entrar",
     watch: "Assistir",
 doTask: "Fazer tarefas",
 earn: "Ganhar",
@@ -1731,6 +1739,8 @@ advertise: "Anunciar",
     totalPoints: "💜 Total Poin",
     completedTasks: "✅ Tugas Selesai",
     home: "Beranda",
+      myAccount: "Akun Saya",
+login: "Masuk",
     watch: "Tonton",
 doTask: "Kerjakan Tugas",
 earn: "Dapatkan",
@@ -1806,6 +1816,8 @@ advertise: "Pasang Iklan",
     totalPoints: "💜 Total de Pontos",
     completedTasks: "✅ Tarefas Concluídas",
     home: "Início",
+    myAccount: "A Minha Conta",
+login: "Iniciar Sessão",
     watch: "Ver",
 doTask: "Fazer Tarefas",
 earn: "Ganhar",
@@ -3448,7 +3460,12 @@ function setLoginFormVisible(show) {
 const topLoginBtnEl = document.getElementById("topLoginBtn");
 
 if (topLoginBtnEl) {
-  topLoginBtnEl.textContent = loggedIn ? "Hesabım" : "Giriş Yap";
+  const currentLang =
+    localStorage.getItem("workplace_language") || "tr";
+  const t = translations[currentLang] || translations.tr;
+
+  topLoginBtnEl.textContent =
+    loggedIn ? t.myAccount : t.login;
 }
   const eyebrow =
     hero.querySelector(".eyebrow");
