@@ -3684,7 +3684,6 @@ if (connectBtnLogin)
   connectBtnLogin.style.display = "";
 if (walletStatusLogin) walletStatusLogin.style.display = "";
    
-alert("TEST-3684");
 
 if (setup2faBtnLogin) {
   setup2faBtnLogin.style.display =
@@ -3892,7 +3891,7 @@ const walletStatusEl = document.getElementById("walletStatus");
 
 if (connectBtnEl) connectBtnEl.style.display = "";
 if (walletStatusEl) walletStatusEl.style.display = "";
-
+alert("Cüzdan: " + (connectBtnEl ? getComputedStyle(connectBtnEl).display : "BULUNAMADI"));
 if (setup2faBtnEl) {
   setup2faBtnEl.style.display =
     restoreAalData?.nextLevel === "aal1" ? "" : "none";
