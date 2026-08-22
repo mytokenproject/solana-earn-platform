@@ -3680,8 +3680,11 @@ if (isAdmin && aalData?.nextLevel !== "aal2") {
 const connectBtnLogin = document.getElementById("connectBtn");
 const walletStatusLogin = document.getElementById("walletStatus");
 
-if (connectBtnLogin) connectBtnLogin.style.display = "block";
+if (connectBtnLogin)
+  connectBtnLogin.style.display = "";
 if (walletStatusLogin) walletStatusLogin.style.display = "";
+   
+loginStatus.textContent += " | TEST-3684";
 
 if (setup2faBtnLogin) {
   setup2faBtnLogin.style.display =
