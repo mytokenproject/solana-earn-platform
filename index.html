@@ -930,14 +930,14 @@ line-height:1.25;">💜 Toplam Puan</div>
   </div>
 
   <div class="stat" style="min-width:0; width:auto; min-height:82px; padding:10px 12px; box-sizing:border-box;">
-    <div class="label" style="font-size:13px; line-height:1.25;">💰 Kazanç Bakiyesi</div>
+    <div class="label" data-i18n="earningsBalance" style="font-size:13px; line-height:1.25;">💰 Kazanç Bakiyesi</div>
     <div class="value" style="display:block; position:static; font-size:22px; line-height:1.15; margin-top:6px;">
       <span id="dbBalance">0</span> <small>lamports</small>
     </div>
   </div>
 
   <div class="stat" style="min-width:0; width:auto; min-height:82px; padding:10px 12px; box-sizing:border-box;">
-    <div class="label" style="font-size:11px; line-height:1.25; white-space:nowrap;">🔐 Minimum Token Şartı</div>
+    <div class="label" data-i18n="minimumTokenRequirement" style="font-size:11px; line-height:1.25; white-space:nowrap;">🔐 Minimum Token Şartı</div>
     <div class="value" style="display:block; position:static; font-size:22px; line-height:1.15; margin-top:6px;">
       <span id="minTokenBalance">-</span> <small>token</small>
     </div>
@@ -1033,9 +1033,9 @@ line-height:1.25;">💜 Toplam Puan</div>
         white-space:nowrap;
       "
     >
-      İzle <span style="color:#55e8d5;">•</span>
-      Görev Yap <span style="color:#b55cff;">•</span>
-      Kazan
+      <span data-i18n="watch">İzle</span> <span style="color:#55e8d5;">•</span>
+      <span data-i18n="doTask">Görev Yap</span> <span style="color:#b55cff;">•</span>
+      <span data-i18n="earn">Kazan</span>
     </div>
   </div>
   </section>
@@ -1050,22 +1050,24 @@ height:auto; margin-left:auto; margin-right:auto;">
     gap:12px;
   ">
     <div>
-      <small style="opacity:.75;">SPONSORLU ALAN</small>
+      <small data-i18n="sponsoredArea" style="opacity:.75;">SPONSORLU ALAN</small>
 
       <div
   class="task-title"
   id="sponsorAdTitle"
+  data-i18n="reachAudience"
   style="margin-top:5px;"
 >
   Hedef kitlene ulaş
-</div>
+      </div>
 
-<small id="sponsorAdDescription">
+<small id="sponsorAdDescription" data-i18n="sponsorAdDescription">
   Workplace kullanıcılarına reklam ver.
 </small>
 
 <a
   id="sponsorAdLink"
+  data-i18n="viewAd"
   href="#"
   target="_blank"
   rel="noopener noreferrer"
@@ -1076,9 +1078,10 @@ height:auto; margin-left:auto; margin-right:auto;">
     </div>
 
     <button class="secondary"
-      id="advertiseBtn"
-      type="button"
-      style="
+  id="advertiseBtn"
+  data-i18n="advertise"
+  type="button"
+  style="
         width:auto;
         min-width:96px;
         padding:10px 14px;
@@ -1095,15 +1098,15 @@ height:auto; margin-left:auto; margin-right:auto;">
     text-align:center;
   ">
     <div>
-      <small>Günlük</small>
+      <small data-i18n="daily">Günlük</small>
     </div>
 
     <div>
-      <small>Haftalık</small>
+      <small data-i18n="weekly">Haftalık</small>
     </div>
 
     <div>
-      <small>Aylık</small>
+      <small data-i18n="monthly">Aylık</small>
     </div>
   </div>
 <div id="adPlans"
@@ -1114,7 +1117,7 @@ height:auto; margin-left:auto; margin-right:auto;">
     border-top:1px solid rgba(255,255,255,.08);
   ">
 
-  <small style="opacity:.75;">Reklam süresi seç</small>
+  <small data-i18n="selectAdDuration" style="opacity:.75;">Reklam süresi seç</small>
 
   <div style="
     display:grid;
@@ -1128,7 +1131,7 @@ height:auto; margin-left:auto; margin-right:auto;">
   data-plan="daily"
   data-price="10"
   style="padding:9px 6px;">
-  Günlük<br>
+  <span data-i18n="daily">Günlük</span><br>
   <small>10 USDC</small>
 </button>
 
@@ -1137,7 +1140,7 @@ height:auto; margin-left:auto; margin-right:auto;">
   data-plan="weekly"
   data-price="50"
   style="padding:9px 6px;">
-  Haftalık<br>
+  <span data-i18n="weekly">Haftalık</span><br>
   <small>50 USDC</small>
 </button>
 
@@ -1146,7 +1149,7 @@ height:auto; margin-left:auto; margin-right:auto;">
   data-plan="monthly"
   data-price="150"
   style="padding:9px 6px;">
-  Aylık<br>
+  <span data-i18n="monthly">Aylık</span><br>
   <small>150 USDC</small>
 </button>
 
@@ -1169,7 +1172,7 @@ height:auto; margin-left:auto; margin-right:auto;">
     margin-top:12px;
     padding:9px 16px;
   ">
-  Devam Et
+  <span data-i18n="continue">Devam Et</span>
 </button>
 </div>
      <div id="adForm"
@@ -1180,7 +1183,7 @@ height:auto; margin-left:auto; margin-right:auto;">
     border-top:1px solid rgba(255,255,255,.08);
   ">
 
-  <div class="task-title">Reklam Bilgileri</div>
+  <div class="task-title"><span data-i18n="adInfo">Reklam Bilgileri</span></div>
 
   <input
     id="adTitle"
@@ -1215,7 +1218,7 @@ height:auto; margin-left:auto; margin-right:auto;">
     margin-top:14px;
     padding:10px 16px;
   ">
-  Başvuruyu Gönder
+  <span data-i18n="submitAd">Başvuruyu Gönder</span>
 </button>
      </div>
    </section>
@@ -1224,23 +1227,23 @@ height:auto; margin-left:auto; margin-right:auto;">
   class="card"
   style="display:none; margin-top:14px;"
 >
-  <h2>Reklam Yönetimi</h2>
+  <h2><span data-i18n="adManagement">Reklam Yönetimi</span></h2>
 
   <small style="opacity:.75;">
-    Bekleyen reklam başvurularını incele
+    <span data-i18n="reviewPendingAds">Bekleyen reklam başvurularını incele</span>
   </small>
 
   <div
     id="adminAdList"
     style="margin-top:16px;"
   >
-    Bekleyen başvuru bulunamadı.
+    <span data-i18n="noPendingAds">Bekleyen başvuru bulunamadı.</span>
   </div>
     </section>
     <section class="card discover-card" style="margin-top:14px">
   <details id="discoverMenu" ontoggle="document.getElementById('discoverExtras').hidden = !this.open">
   <summary style="cursor:pointer; font-size:22px; font-weight:700;">
-    🚀 Keşfet & Kazan
+    🚀 <span data-i18n="discoverEarn">Keşfet & Kazan</span>
   </summary>
 
   <div style="
@@ -1251,107 +1254,111 @@ height:auto; margin-left:auto; margin-right:auto;">
   ">
 
     <div class="task" id="gamesCard">
-      <div class="task-title">🎮 Oyunlar</div>
-      <small>Oyna, ilerle ve kazan</small>
-    </div>
+      <div class="task-title">🎮 <span data-i18n="games">Oyunlar</span></div>
+      <small><span data-i18n="gamesDesc">Oyna, ilerle ve kazan</span></small>
 
     <div class="task" id="appsCard">
-      <div class="task-title">📱 Uygulamalar</div>
-      <small>Uygulamaları keşfet</small>
-    </div>
+      <div class="task-title">📱 <span data-i18n="apps">Uygulamalar</span></div>
+      <small><span data-i18n="appsDesc">Uygulamaları keşfet</span></small>
 
     <div class="task" id="surveysCard">
-      <div class="task-title">📋 Anketler</div>
-      <small>Fikrini paylaş ve kazan</small>
+      <div class="task-title">📋 <span data-i18n="surveys">Anketler</span></div>
+      <small><span data-i18n="surveysDesc">Fikrini paylaş ve kazan</span></small>
     </div>
 
     <div class="task" id="videoCard">
-      <div class="task-title">▶️ Video & Reklam</div>
-      <small>İzle ve ödül kazan</small>
+      <div class="task-title">▶️ <span data-i18n="videoAds">Video & Reklam</span></div>
+      <small><span data-i18n="videoAdsDesc">İzle ve ödül kazan</span></small>
     </div>
-
     <div class="task" id="sponsoredCard">
-      <div class="task-title">⭐ Sponsorlu Görevler</div>
-      <small>Özel kampanyaları tamamla</small>
+      <div class="task-title">⭐ <span data-i18n="sponsoredTasks">Sponsorlu Görevler</span></div>
+      <small><span data-i18n="sponsoredTasksDesc">Özel kampanyaları tamamla</span></small>
     </div>
 
     <div class="task" id="shoppingCard">
-      <div class="task-title">🛍️ Alışveriş & Kazan</div>
-      <small>Alışverişlerinden ödül kazan</small>
+      <div class="task-title">🛍️ <span data-i18n="shoppingEarn">Alışveriş & Kazan</span></div>
+      <small><span data-i18n="shoppingEarnDesc">Alışverişlerinden ödül kazan</span></small>
     </div>
 
     <div class="task" id="web3Card" style="grid-column:1 / -1">
-      <div class="task-title">◎ Web3 / Solana</div>
-      <small>Web3 görevlerini keşfet</small>
+      <div class="task-title">◉ <span data-i18n="web3Solana">Web3 / Solana</span></div>
+      <small><span data-i18n="web3SolanaDesc">Web3 görevlerini keşfet</span></small>
     </div>
 
    </div>
   </details>
     </section>
     <section class="card" id="gamesSection" style="display:none; margin-top:14px;">
-  <h2>🎮 Oyunlar</h2>
-  <p>Oyun görevleri burada listelenecek.</p>
+  <h2>🎮 <span data-i18n="games">Oyunlar</span></h2>
+  <p><span data-i18n="gamesSectionDesc">Oyun görevleri burada listelenecek.</span></p>
   <div id="gameTaskList"></div>
-  <button class="secondary" id="closeGamesBtn">Geri Dön</button>
+  <button class="secondary"
+  id="closeGamesBtn"><span data-i18n="back">Geri Dön</span></button>
     </section>
 <section class="card" id="appsSection" style="display:none; margin-top:14px;">
-  <h2>📱 Uygulamalar</h2>
-<p>Uygulama görevleri burada listelenecek.</p>
+  <h2>📱 <span data-i18n="apps">Uygulamalar</span></h2>
+<p><span data-i18n="appsSectionDesc">Uygulama görevleri burada listelenecek.</span></p>
 <div id="appTaskList"></div>
-<button class="secondary" id="closeAppsBtn">Geri Dön</button>
+<button class="secondary"
+  id="closeAppsBtn"><span data-i18n="back">Geri Dön</span></button>
 </section>
   <section class="card" id="surveysSection" style="display:none; margin-top:14px;">
-  <h2>📋 Anketler</h2>
-  <p>Anket görevleri burada listelenecek.</p>
+  <h2>📋 <span data-i18n="surveys">Anketler</span></h2>
+  <p><span data-i18n="surveysSectionDesc">Anket görevleri burada listelenecek.</span></p>
   <div id="surveyTaskList"></div>
-    <button class="secondary" id="closeSurveysBtn">Geri Dön</button>
+    <button class="secondary"
+  id="closeSurveysBtn"><span data-i18n="back">Geri Dön</span></button>
   </section>
   <section class="card" id="videoSection" style="display:none; margin-top:14px;">
-  <h2>▶️ Video & Reklam</h2>
-  <p>Video ve reklam görevleri burada listelenecek.</p>
+  <h2>▶️ <span data-i18n="videoAds">Video & Reklam</span></h2>
+  <p><span data-i18n="videoSectionDesc">Video ve reklam görevleri burada listelenecek.</span></p>
 <div id="videoTaskList"></div>
-    <button class="secondary" id="closeVideoBtn">Geri Dön</button>
+    <button class="secondary"
+  id="closeVideoBtn"><span data-i18n="back">Geri Dön</span></button>
   </section>
     
    <section class="card" id="sponsoredSection" style="display:none; margin-top:14px;">
-  <h2>⭐ Sponsorlu Görevler</h2>
-  <p>Sponsorlu görevler ve özel kampanyalar burada listelenecek.</p>
+  <h2>⭐ <span data-i18n="sponsoredTasks">Sponsorlu Görevler</span></h2>
+  <p><span data-i18n="sponsoredSectionDesc">Sponsorlu görevler ve özel kampanyalar burada listelenecek.</span></p>
   <div id="sponsoredTaskList"></div>
-     <button class="secondary" id="closeSponsoredBtn">Geri Dön</button>
+     <button class="secondary"
+  id="closeSponsoredBtn"><span data-i18n="back">Geri Dön</span></button>
     </section>
     <section class="card" id="shoppingSection" style="display:none; margin-top:14px;">
-  <h2>🛍️ Alışveriş & Kazan</h2>
-  <p>Alışveriş ve cashback görevleri burada listelenecek.</p>
+  <h2>🛍️ <span data-i18n="shoppingEarn">Alışveriş & Kazan</span></h2>
+  <p><span data-i18n="shoppingSectionDesc">Alışveriş ve cashback görevleri burada listelenecek.</span></p>
   <div id="shoppingTaskList"></div>
-      <button class="secondary" id="closeShoppingBtn">Geri Dön</button>
+      <button class="secondary"
+  id="closeShoppingBtn"><span data-i18n="back">Geri Dön</span></button>
     </section>
     <section class="card" id="web3Section" style="display:none; margin-top:14px;">
-  <h2>◉ Web3 / Solana</h2>
-  <p>Web3 ve Solana görevleri burada listelenecek.</p>
+  <h2>◉ <span data-i18n="web3Solana">Web3 / Solana</span></h2>
+  <p><span data-i18n="web3SectionDesc">Web3 ve Solana görevleri burada listelenecek.</span></p>
   <div id="web3TaskList"></div>
-      <button class="secondary" id="closeWeb3Btn">Geri Dön</button>
+      <button class="secondary"
+  id="closeWeb3Btn"><span data-i18n="back">Geri Dön</span></button>
     </section>
     <div id="discoverExtras" hidden>
       
   <section class="card" id="mainTasksSection" style="margin-top:14px">
 
-      <h2>Görevler</h2>
+      <h2><span data-i18n="tasks">Görevler</span></h2>
 
 
       <div class="task">
 
         <div class="task-title">
-          🎬 Tanıtım videosunu izle
+        🎬 <span data-i18n="watchIntroVideo">Tanıtım videosunu izle</span>
         </div>
 
         <small>
-          Test ödülü: 10 puan
+          <span data-i18n="testReward10">Test ödülü: 10 puan</span>
         </small>
 
         <button
   class="secondary taskBtn"
   data-points="10" data-task-id="1">
-  Görevi Başlat
+  <span data-i18n="startTask">Görevi Başlat</span>
         </button>
 
       </div>
@@ -1360,17 +1367,17 @@ height:auto; margin-left:auto; margin-right:auto;">
       <div class="task">
 
         <div class="task-title">
-          🎯 Platformu keşfet
+          🎯 <span data-i18n="explorePlatform">Platformu keşfet</span>
         </div>
 
         <small>
-          Test ödülü: 25 puan
+          <span data-i18n="testReward25">Test ödülü: 25 puan</span>
         </small>
 
         <button
           class="secondary taskBtn"
           data-points="25" data-task-id="2">
-          Görevi Başlat
+          <span data-i18n="startTask">Görevi Başlat</span>
         </button>
 
       </div>
@@ -1379,7 +1386,7 @@ height:auto; margin-left:auto; margin-right:auto;">
       <div class="task">
 
         <div class="task-title">
-          📅 Günlük giriş
+          📅 <span data-i18n="dailyLogin">Günlük giriş</span>
         </div>
 
         <small>
