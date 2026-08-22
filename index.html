@@ -720,7 +720,24 @@ data-i18n="login"
   <option value="id">ID</option>
   <option value="pt-PT">PT-PT</option>
 </select>
-    
+   <div class="language-menu-wrap" style="position:relative;">
+  <button type="button" id="languageMenuBtn" style="padding:7px 10px; min-width:78px; border:1px solid rgba(139,92,246,.45); border-radius:12px; background:#111629; color:#fff; font-size:13px; white-space:nowrap;">
+    🇹🇷 TR ▾
+  </button>
+
+  <div id="languageMenu" class="language-menu" hidden style="position:absolute; top:calc(100% + 6px); right:0; z-index:10000; min-width:105px; padding:6px; border:1px solid rgba(139,92,246,.45); border-radius:14px; background:#111629; box-shadow:0 10px 30px rgba(0,0,0,.45);">
+    <button type="button" data-lang="tr" style="display:block; width:100%; padding:8px 10px; border:0; border-radius:9px; background:transparent; color:#fff; font-size:13px; text-align:left; white-space:nowrap;">🇹🇷 TR</button>
+    <button type="button" data-lang="en" style="display:block; width:100%; padding:8px 10px; border:0; border-radius:9px; background:transparent; color:#fff; font-size:13px; text-align:left; white-space:nowrap;">🇬🇧 EN</button>
+
+<button type="button" data-lang="hi" style="display:block; width:100%; padding:8px 10px; border:0; border-radius:9px; background:transparent; color:#fff; font-size:13px; text-align:left; white-space:nowrap;">🇮🇳 HI</button>
+
+<button type="button" data-lang="pt-BR" style="display:block; width:100%; padding:8px 10px; border:0; border-radius:9px; background:transparent; color:#fff; font-size:13px; text-align:left; white-space:nowrap;">🇧🇷 PT-BR</button>
+
+<button type="button" data-lang="id" style="display:block; width:100%; padding:8px 10px; border:0; border-radius:9px; background:transparent; color:#fff; font-size:13px; text-align:left; white-space:nowrap;">🇮🇩 ID</button>
+
+<button type="button" data-lang="pt-PT" style="display:block; width:100%; padding:8px 10px; border:0; border-radius:9px; background:transparent; color:#fff; font-size:13px; text-align:left; white-space:nowrap;">🇵🇹 PT-PT</button>
+  </div>
+   </div> 
     <button class="bell-btn" type="button">🔔</button>
 
   </div>
@@ -1922,8 +1939,44 @@ advertise: "Anunciar",
 
   const languageSelect =
     document.getElementById("languageSelect");
+  const languageMenuBtn = document.getElementById("languageMenuBtn");
+const languageMenu = document.getElementById("languageMenu");
+const languageMenuOptions = languageMenu?.querySelectorAll("[data-lang]") || [];
 
 const savedLanguage = localStorage.getItem("workplace_language") || "tr";
+  const languageLabels = {
+  tr: "🇹🇷 TR ▾",
+  en: "🇬🇧 EN ▾",
+  hi: "🇮🇳 HI ▾",
+  "pt-BR": "🇧🇷 PT-BR ▾",
+  id: "🇮🇩 ID ▾",
+  "pt-PT": "🇵🇹 PT-PT ▾"
+};
+
+if (languageMenuBtn && languageMenu) {
+  languageMenuBtn.textContent =
+    languageLabels[savedLanguage] || languageLabels.tr;
+
+  languageMenuBtn.addEventListener("click", () => {
+    languageMenu.hidden = !languageMenu.hidden;
+  });
+
+  languageMenuOptions.forEach((option) => {
+    option.addEventListener("click", () => {
+      const lang = option.dataset.lang;
+
+      languageMenuBtn.textContent =
+        languageLabels[lang] || languageLabels.tr;
+
+      languageMenu.hidden = true;
+
+      if (languageSelect) {
+        languageSelect.value = lang;
+        languageSelect.dispatchEvent(new Event("change"));
+      }
+    });
+  });
+  }
 function applyTranslations(lang) {
   const t = translations[lang] || translations.tr;
 
