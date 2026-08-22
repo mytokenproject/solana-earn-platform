@@ -3683,7 +3683,7 @@ const walletStatusLogin = document.getElementById("walletStatus");
 if (connectBtnLogin)
   connectBtnLogin.style.display = "";
 if (walletStatusLogin) walletStatusLogin.style.display = "";
-   
+alert("LOGIN Cüzdan: " + (connectBtnLogin ? getComputedStyle(connectBtnLogin).display : "BULUNAMADI"));   
 
 if (setup2faBtnLogin) {
   setup2faBtnLogin.style.display =
