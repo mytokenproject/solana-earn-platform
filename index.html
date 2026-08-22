@@ -1436,6 +1436,9 @@ height:auto; margin-left:auto; margin-right:auto;">
    earningsBalance: "💰 Kazanç Bakiyesi",
 minimumTokenRequirement: "🔐 Minimum Token Şartı",
     home: "Anasayfa",
+    tasksNav: "Görevler",
+walletNav: "Cüzdanım",
+settingsNav: "Ayarlar",
     myAccount: "Hesabım",
 login: "Giriş Yap",
     watch: "İzle",
@@ -1515,6 +1518,9 @@ advertise: "Reklam Ver",
     earningsBalance: "💰 Earnings Balance",
 minimumTokenRequirement: "🔐 Minimum Token Requirement",
     home: "Home",
+    tasksNav: "Tasks",
+walletNav: "My Wallet",
+settingsNav: "Settings",
     myAccount: "My Account",
 login: "Sign In",
    watch: "Watch",
@@ -1593,6 +1599,9 @@ advertise: "Advertise",
       earningsBalance: "💰 कमाई शेष",
 minimumTokenRequirement: "🔐 न्यूनतम टोकन आवश्यकता",
     home: "होम",
+      tasksNav: "कार्य",
+walletNav: "मेरा वॉलेट",
+settingsNav: "सेटिंग्स",
       myAccount: "मेरा खाता",
 login: "साइन इन करें",
     watch: "देखें",
@@ -1672,6 +1681,9 @@ advertise: "विज्ञापन दें",
     earningsBalance: "💰 Saldo de Ganhos",
 minimumTokenRequirement: "🔐 Requisito Mínimo de Tokens",
     home: "Início",
+    tasksNav: "Tarefas",
+walletNav: "Minha Carteira",
+settingsNav: "Configurações",
     myAccount: "Minha Conta",
 login: "Entrar",
     watch: "Assistir",
@@ -1750,6 +1762,9 @@ advertise: "Anunciar",
       earningsBalance: "💰 Saldo Penghasilan",
 minimumTokenRequirement: "🔐 Persyaratan Token Minimum",
     home: "Beranda",
+      tasksNav: "Tugas",
+walletNav: "Dompet Saya",
+settingsNav: "Pengaturan",
       myAccount: "Akun Saya",
 login: "Masuk",
     watch: "Tonton",
@@ -1829,6 +1844,9 @@ advertise: "Pasang Iklan",
     earningsBalance: "💰 Saldo de Rendimentos",
 minimumTokenRequirement: "🔐 Requisito Mínimo de Tokens",
     home: "Início",
+    tasksNav: "Tarefas",
+walletNav: "A Minha Carteira",
+settingsNav: "Definições",
     myAccount: "A Minha Conta",
 login: "Iniciar Sessão",
     watch: "Ver",
@@ -4557,10 +4575,10 @@ if (logoutBtn) {
     box-shadow:0 10px 35px rgba(0,0,0,.45);
   "
 >
-  <button type="button" class="secondary" onclick="window.scrollTo({top:0,behavior:'smooth'});" style="padding:7px 2px;font-size:12px;min-height:58px;">⌂<br>Anasayfa</button>
-<button type="button" class="secondary" onclick="document.getElementById('discoverExtras').hidden=false;document.getElementById('mainTasksSection').scrollIntoView({behavior:'smooth',block:'start'});" style="padding:7px 2px;font-size:12px;min-height:58px;">✓<br>Görevler</button>
-<button type="button" class="secondary" onclick="document.getElementById('topLoginBtn').click();" style="padding:7px 2px;font-size:12px;min-height:58px;">◇<br>Cüzdanım</button>
-<button type="button" class="secondary" onclick="document.getElementById('settingsSheet').style.display='block';" style="padding:7px 2px;font-size:12px;min-height:58px;">⚙<br>Ayarlar</button>
+  <button type="button" class="secondary" onclick="window.scrollTo({top:0,behavior:'smooth'});" style="padding:7px 2px;font-size:12px;min-height:58px;">⌂<br><span data-i18n="home">Anasayfa</span></button>
+<button type="button" class="secondary" onclick="document.getElementById('discoverExtras').hidden=false;document.getElementById('mainTasksSection').scrollIntoView({behavior:'smooth',block:'start'});" style="padding:7px 2px;font-size:12px;min-height:58px;">✓<br><span data-i18n="tasksNav">Görevler</span></button>
+<button type="button" class="secondary" onclick="document.getElementById('topLoginBtn').click();" style="padding:7px 2px;font-size:12px;min-height:58px;">◇<br><span data-i18n="walletNav">Cüzdanım</span></button>
+<button type="button" class="secondary" onclick="document.getElementById('settingsSheet').style.display='block';" style="padding:7px 2px;font-size:12px;min-height:58px;">⚙<br><span data-i18n="settingsNav">Ayarlar</span></button>
  </nav>
    <script>
 function openWalletApp(walletName) {
