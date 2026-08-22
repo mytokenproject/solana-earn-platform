@@ -1910,7 +1910,7 @@ if (languageSelect) {
   languageSelect.value = savedLanguage;
   document.documentElement.lang = savedLanguage;
 applyTranslations(savedLanguage);
-  setLoggedInHero(document.querySelector(".hero")?.classList.contains("logged-in"));
+  
   languageSelect.addEventListener("change", () => {
     const selectedLanguage = languageSelect.value;
 
@@ -1919,6 +1919,9 @@ applyTranslations(savedLanguage);
     applyTranslations(selectedLanguage);
     setLoggedInHero(document.querySelector(".hero")?.classList.contains("logged-in"));
   });
+  setLoggedInHero(
+  document.querySelector(".hero")?.classList.contains("logged-in")
+);
 }
   window.addEventListener("pageshow", () => {
   const lang =
