@@ -3456,19 +3456,23 @@ function setLoginFormVisible(show) {
 }
   function setLoggedInHero(loggedIn) {
   const hero = document.querySelector(".hero");
-  if (!hero) return;
-
-  hero.classList.toggle("logged-in", loggedIn);
-const topLoginBtnEl = document.getElementById("topLoginBtn");
+    const topLoginBtnEl =
+  document.getElementById("topLoginBtn");
 
 if (topLoginBtnEl) {
   const currentLang =
     localStorage.getItem("workplace_language") || "tr";
-  const t = translations[currentLang] || translations.tr;
+
+  const t =
+    translations[currentLang] || translations.tr;
 
   topLoginBtnEl.textContent =
     loggedIn ? t.myAccount : t.login;
 }
+  if (!hero) return;
+
+  hero.classList.toggle("logged-in", loggedIn);
+
   const eyebrow =
     hero.querySelector(".eyebrow");
   
