@@ -1920,6 +1920,20 @@ applyTranslations(savedLanguage);
     setLoggedInHero(document.querySelector(".hero")?.classList.contains("logged-in"));
   });
 }
+  window.addEventListener("pageshow", () => {
+  const lang =
+    localStorage.getItem("workplace_language") || "tr";
+
+  if (languageSelect) {
+    languageSelect.value = lang;
+  }
+
+  document.documentElement.lang = lang;
+  applyTranslations(lang);
+  setLoggedInHero(
+    document.querySelector(".hero")?.classList.contains("logged-in")
+  );
+});
   const balanceEl =
     document.getElementById("balance");
   const walletChooser =
