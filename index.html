@@ -1936,6 +1936,7 @@ function applyTranslations(lang) {
     }
   });
 }
+  window.applyTranslations = applyTranslations;
 if (languageSelect) {
   languageSelect.value = savedLanguage;
   document.documentElement.lang = savedLanguage;
@@ -4592,6 +4593,12 @@ if (logoutBtn) {
 <button type="button" class="secondary" onclick="document.getElementById('settingsSheet').style.display='block';" style="padding:7px 2px;font-size:12px;min-height:58px;">⚙<br><span data-i18n="settingsNav">Ayarlar</span></button>
  </nav>
    <script>
+     const bottomNavLanguage =
+  localStorage.getItem("workplace_language") || "tr";
+
+if (window.applyTranslations) {
+  window.applyTranslations(bottomNavLanguage);
+     }
 function openWalletApp(walletName) {
   const workplaceUrl =
     "https://mytokenproject.github.io/solana-earn-platform/";
