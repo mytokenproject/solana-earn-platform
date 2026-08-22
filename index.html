@@ -1967,6 +1967,17 @@ applyTranslations(savedLanguage);
     document.querySelector(".hero")?.classList.contains("logged-in")
   );
 });
+  window.addEventListener("load", () => {
+  const lang =
+    localStorage.getItem("workplace_language") || "tr";
+
+  if (languageSelect) {
+    languageSelect.value = lang;
+  }
+
+  document.documentElement.lang = lang;
+  applyTranslations(lang);
+});
   const balanceEl =
     document.getElementById("balance");
   const walletChooser =
