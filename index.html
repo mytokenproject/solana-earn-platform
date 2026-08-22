@@ -3598,6 +3598,8 @@ if (topLoginBtnEl) {
   topLoginBtnEl.textContent =
     loggedIn ? t.myAccount : t.login;
 }
+    const logoutBtnEl = document.getElementById("logoutBtn");
+if (logoutBtnEl) logoutBtnEl.style.display = loggedIn ? "" : "none";
   if (!hero) return;
 
   hero.classList.toggle("logged-in", loggedIn);
