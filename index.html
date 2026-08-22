@@ -1952,7 +1952,19 @@ const savedLanguage = localStorage.getItem("workplace_language") || "tr";
   id: "🇮🇩 ID ▾",
   "pt-PT": "🇵🇹 PT-PT ▾"
 };
+function updateSettingsLanguageStatus(lang) {
+  const el = document.getElementById("settingsLanguageStatus");
+  if (el) {
+    el.textContent =
+      "🌐 " + (languageLabels[lang] || languageLabels.tr).replace(" ▾", "");
+  }
+}
 
+window.addEventListener("load", () => {
+  updateSettingsLanguageStatus(
+    localStorage.getItem("workplace_language") || "tr"
+  );
+});
 if (languageMenuBtn && languageMenu) {
   languageMenuBtn.textContent =
     languageLabels[savedLanguage] || languageLabels.tr;
@@ -1968,6 +1980,8 @@ if (languageMenuBtn && languageMenu) {
       languageMenuBtn.textContent =
         languageLabels[lang] || languageLabels.tr;
 
+  updateSettingsLanguageStatus(lang);
+      
       languageMenu.hidden = true;
 
       if (languageSelect) {
@@ -4550,28 +4564,13 @@ if (logoutBtn) {
   </div>
 
   <div style="margin-top:16px;line-height:1.8;">
-    <button
-  type="button"
+    <div
+  id="settingsLanguageStatus"
   class="secondary"
-  onclick="const x=document.getElementById('languageOptions');x.style.display=x.style.display==='none'?'block':'none';"
-  style="width:100%;text-align:left;padding:10px 12px;margin-bottom:6px;"
+  style="width:100%; text-align:left; padding:10px 12px; margin-bottom:6px; box-sizing:border-box;"
 >
-  🌐 Dil: Türkçe
-</button>
-
-<div
-  id="languageOptions"
-  style="
-    display:none;
-    padding:8px 12px 12px;
-    margin-bottom:8px;
-    border:1px solid rgba(139,92,246,.30);
-    border-radius:14px;
-  "
->
-  <div>✅ Türkçe</div>
-  <div style="opacity:.55;">🇬🇧 English — Yakında</div>
-</div>
+  🌐 🇹🇷 TR
+    </div>
     <button
   id="notificationToggleBtn"
   type="button"
