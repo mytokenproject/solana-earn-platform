@@ -3583,7 +3583,7 @@ function setLoginFormVisible(show) {
     show ? "block" : "none";
 }
   function setLoggedInHero(loggedIn) {
-  const hero = document.querySelector(".hero");
+  const hero = document.getElementById("loginSheet");
     const topLoginBtnEl =
   document.getElementById("topLoginBtn");
 
@@ -3891,7 +3891,7 @@ const walletStatusEl = document.getElementById("walletStatus");
 
 if (connectBtnEl) connectBtnEl.style.display = "";
 if (walletStatusEl) walletStatusEl.style.display = "";
-alert("Cüzdan: " + (connectBtnEl ? getComputedStyle(connectBtnEl).display : "BULUNAMADI"));
+
 if (setup2faBtnEl) {
   setup2faBtnEl.style.display =
     restoreAalData?.nextLevel === "aal1" ? "" : "none";
