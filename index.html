@@ -2004,6 +2004,8 @@ function applyTranslations(lang) {
   });
 }
   window.applyTranslations = applyTranslations;
+  window.translations = translations;
+  
 if (languageSelect) {
   languageSelect.value = savedLanguage;
   document.documentElement.lang = savedLanguage;
@@ -2017,9 +2019,10 @@ applyTranslations(savedLanguage);
     applyTranslations(selectedLanguage);
     setLoggedInHero(document.querySelector(".hero")?.classList.contains("logged-in"));
   });
-  setLoggedInHero(
-  document.querySelector(".hero")?.classList.contains("logged-in")
-);
+  if (typeof window.setLoggedInHero === "function") {
+  window.setLoggedInHero(
+    document.querySelector(".hero")?.classList.contains("logged-in")
+  );
 }
   window.addEventListener("pageshow", () => {
   const lang =
@@ -3594,7 +3597,9 @@ if (topLoginBtnEl) {
     localStorage.getItem("workplace_language") || "tr";
 
   const t =
-    translations[currentLang] || translations.tr;
+  window.translations?.[currentLang] ||
+  window.translations?.tr ||
+  {};
 
   topLoginBtnEl.textContent =
     loggedIn ? t.myAccount : t.login;
