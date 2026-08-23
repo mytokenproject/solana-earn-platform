@@ -3898,6 +3898,7 @@ if (setup2faBtnEl) {
   setup2faBtnEl.style.display =
     restoreAalData?.nextLevel === "aal1" ? "block" : "none";
 }
+    loginStatus.textContent += " | DEBUG R C:" + getComputedStyle(connectBtnEl).display + " / " + connectBtnEl.getClientRects().length + " | 2FA:" + getComputedStyle(setup2faBtnEl).display;
     const { data: savedWallets, error: savedWalletError } =
   await supabaseClient
     .from("wallets")
