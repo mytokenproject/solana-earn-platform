@@ -3683,12 +3683,12 @@ const connectBtnLogin = document.getElementById("connectBtn");
 const walletStatusLogin = document.getElementById("walletStatus");
 
 if (connectBtnLogin)
-  connectBtnLogin.style.display = "";
-if (walletStatusLogin) walletStatusLogin.style.display = ""; 
+  connectBtnLogin.style.display = "block";
+if (walletStatusLogin) walletStatusLogin.style.display = "block";
 
 if (setup2faBtnLogin) {
   setup2faBtnLogin.style.display =
-    aalData?.nextLevel === "aal1" ? "" : "none";
+    aalData?.nextLevel === "aal1" ? "block" : "none";
 }
 const { data: dbBalance, error: 
        balanceError } =
