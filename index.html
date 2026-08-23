@@ -3890,12 +3890,12 @@ if (
 const connectBtnEl = document.getElementById("connectBtn");
 const walletStatusEl = document.getElementById("walletStatus");
 
-if (connectBtnEl) connectBtnEl.style.display = "";
-if (walletStatusEl) walletStatusEl.style.display = "";
+if (connectBtnEl) connectBtnEl.style.display = "block";
+if (walletStatusEl) walletStatusEl.style.display = "block";
 
 if (setup2faBtnEl) {
   setup2faBtnEl.style.display =
-    restoreAalData?.nextLevel === "aal1" ? "" : "none";
+    restoreAalData?.nextLevel === "aal1" ? "block" : "none";
 }
     const { data: savedWallets, error: savedWalletError } =
   await supabaseClient
