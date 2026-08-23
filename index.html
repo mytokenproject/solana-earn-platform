@@ -3690,6 +3690,7 @@ if (setup2faBtnLogin) {
   setup2faBtnLogin.style.display =
     aalData?.nextLevel === "aal1" ? "block" : "none";
 }
+   loginStatus.textContent += " | DEBUG C:" + getComputedStyle(connectBtnLogin).display + " / " + connectBtnLogin.getClientRects().length + " | 2FA:" + getComputedStyle(setup2faBtnLogin).display;
 const { data: dbBalance, error: 
        balanceError } =
   await supabaseClient
