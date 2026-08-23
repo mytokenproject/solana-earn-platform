@@ -3602,7 +3602,50 @@ if (topLoginBtnEl) {
   if (!hero) return;
 
   hero.classList.toggle("logged-in", loggedIn);
+const connectBtnHero = document.getElementById("connectBtn");
+const walletStatusHero = document.getElementById("walletStatus");
+const setup2faBtnHero = document.getElementById("setup2faBtn");
 
+if (connectBtnHero) {
+  connectBtnHero.style.setProperty(
+    "display",
+    loggedIn ? "block" : "none",
+    "important"
+  );
+}
+
+if (walletStatusHero) {
+  walletStatusHero.style.setProperty(
+    "display",
+    loggedIn ? "block" : "none",
+    "important"
+  );
+}
+
+if (!loggedIn) {
+  if (setup2faBtnHero) {
+    setup2faBtnHero.style.setProperty(
+      "display",
+      "none",
+      "important"
+    );
+  }
+} else if (setup2faBtnHero) {
+  supabaseClient.auth.mfa
+    .getAuthenticatorAssuranceLevel()
+    .then(({ data, error }) => {
+      if (error) {
+        console.error("2FA görünürlük kontrol hatası:", error);
+        return;
+      }
+
+      setup2faBtnHero.style.setProperty(
+        "display",
+        data?.nextLevel === "aal1" ? "block" : "none",
+        "important"
+      );
+    });
+  }
   const eyebrow =
     hero.querySelector(".eyebrow");
   
