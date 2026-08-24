@@ -840,10 +840,11 @@ data-i18n="login"
   <div>
       
   <div id="loginFormArea" style="display:grid; gap:6px;">
-<input id="emailInput" type="email" placeholder="E-posta">
-<input id="passwordInput" type="password" placeholder="Şifre">
-<button id="loginBtn" style="padding:10px 12px; font-size:15px;">Giriş Yap</button>
+<input id="emailInput" type="email" placeholder="E-posta" data-i18n-placeholder="emailPlaceholder">
+<input id="passwordInput" type="password" placeholder="Şifre" data-i18n-placeholder="passwordPlaceholder">
+<button id="loginBtn" data-i18n="login" style="padding:10px 12px; font-size:15px;">Giriş Yap</button>
     <button id="registerBtn" type="button"
+      data-i18n="register"
   class="secondary"
   style="padding:10px 12px; font-size:15px;">
   Kayıt Ol / Hesap Oluştur
@@ -869,7 +870,7 @@ data-i18n="login"
 
   <div class="status" id="loginMfaStatus"></div>
   </div>
-<div class="status" id="loginStatus">Giriş yapılmadı.</div>
+<div class="status" id="loginStatus" data-i18n="loginStatusLoggedOut">Giriş yapılmadı.</div>
   
 </div>
       <button class="secondary" id="setup2faBtn">
@@ -1458,6 +1459,10 @@ walletNav: "Cüzdanım",
 settingsNav: "Ayarlar",
     myAccount: "Hesabım",
 login: "Giriş Yap",
+    emailPlaceholder: "E-posta",
+passwordPlaceholder: "Şifre",
+register: "Kayıt Ol / Hesap Oluştur",
+loginStatusLoggedOut: "Giriş yapılmadı.",
     watch: "İzle",
 doTask: "Görev Yap",
 earn: "Kazan",
@@ -1540,6 +1545,10 @@ walletNav: "My Wallet",
 settingsNav: "Settings",
     myAccount: "My Account",
 login: "Sign In",
+    emailPlaceholder: "Email",
+passwordPlaceholder: "Password",
+register: "Sign Up / Create Account",
+loginStatusLoggedOut: "Not signed in.",
    watch: "Watch",
 doTask: "Do Tasks",
 earn: "Earn",
@@ -1621,6 +1630,10 @@ walletNav: "मेरा वॉलेट",
 settingsNav: "सेटिंग्स",
       myAccount: "मेरा खाता",
 login: "साइन इन करें",
+      emailPlaceholder: "ईमेल",
+passwordPlaceholder: "पासवर्ड",
+register: "साइन अप / खाता बनाएँ",
+loginStatusLoggedOut: "साइन इन नहीं किया गया है।",
     watch: "देखें",
 doTask: "कार्य करें",
 earn: "कमाएँ",
@@ -1703,6 +1716,10 @@ walletNav: "Minha Carteira",
 settingsNav: "Configurações",
     myAccount: "Minha Conta",
 login: "Entrar",
+    emailPlaceholder: "E-mail",
+passwordPlaceholder: "Senha",
+register: "Cadastre-se / Criar conta",
+loginStatusLoggedOut: "Você não está conectado.",
     watch: "Assistir",
 doTask: "Fazer tarefas",
 earn: "Ganhar",
@@ -1784,6 +1801,10 @@ walletNav: "Dompet Saya",
 settingsNav: "Pengaturan",
       myAccount: "Akun Saya",
 login: "Masuk",
+      emailPlaceholder: "Email",
+passwordPlaceholder: "Kata sandi",
+register: "Daftar / Buat Akun",
+loginStatusLoggedOut: "Belum masuk.",
     watch: "Tonton",
 doTask: "Kerjakan Tugas",
 earn: "Dapatkan",
@@ -1866,6 +1887,10 @@ walletNav: "A Minha Carteira",
 settingsNav: "Definições",
     myAccount: "A Minha Conta",
 login: "Iniciar Sessão",
+    emailPlaceholder: "E-mail",
+passwordPlaceholder: "Palavra-passe",
+register: "Registar / Criar conta",
+loginStatusLoggedOut: "Não tem sessão iniciada.",
     watch: "Ver",
 doTask: "Fazer Tarefas",
 earn: "Ganhar",
@@ -2002,6 +2027,14 @@ function applyTranslations(lang) {
       el.textContent = value;
     }
   });
+  document.querySelectorAll("[data-i18n-placeholder]").forEach((el) => {
+  const key = el.dataset.i18nPlaceholder;
+  const value = t[key] ?? translations.tr?.[key];
+
+  if (value !== undefined) {
+    el.placeholder = value;
+  }
+});
 }
   window.applyTranslations = applyTranslations;
   window.translations = translations;
@@ -3885,7 +3918,8 @@ if (earnings) {
   }
 
   if (!session || !session.user) {
-    loginStatus.textContent = "Giriş yapılmadı.";
+    loginStatus.dataset.i18n = "loginStatusLoggedOut";
+window.applyTranslations?.(localStorage.getItem("workplace_language") || "tr");
   setLoginFormVisible(true);
     setLoggedInHero(false);
     const balanceEl = document.getElementById("balance");
