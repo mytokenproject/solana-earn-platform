@@ -903,8 +903,8 @@ data-i18n="login"
   <div class="status" id="mfaSetupStatus"></div>
     </div>
       <button class="primary"
-id="connectBtn">
-        Cüzdanı Bağla
+  id="connectBtn">
+  Cüzdanı Bağla
       </button>
 <div id="walletChooser" style="display:none; margin-top:10px;">
   <button type="button" class="secondary" id="phantomWalletBtn">
@@ -923,10 +923,13 @@ id="connectBtn">
   Trust Wallet
   </button>
 </div>
-      <div class="status" id="walletStatus" style="display:none;">
-        Cüzdan bağlı değil.
+      <div class="status" id="walletStatus"
+  style="display:none;">
+  Cüzdan bağlı değil.
       </div>
-        <button type="button" id="logoutBtn" style="display:none;">
+        <button type="button" id="logoutBtn"
+  data-i18n="logout"
+  style="display:none;">
   🚪 Çıkış Yap
 </button>
     
@@ -1470,6 +1473,7 @@ login: "Giriş Yap",
 passwordPlaceholder: "Şifre",
 register: "Kayıt Ol / Hesap Oluştur",
 loginStatusLoggedOut: "Giriş yapılmadı.",
+    logout: "🚪 Çıkış Yap",
     accountStatusTitle: "Hesap Durumu",
 accountStatusSessionActive: "Oturum: Aktif",
 accountStatus2FAOn: "2FA: Açık",
@@ -1563,6 +1567,7 @@ login: "Sign In",
 passwordPlaceholder: "Password",
 register: "Sign Up / Create Account",
 loginStatusLoggedOut: "Not signed in.",
+    logout: "🚪 Sign Out",
     accountStatusTitle: "Account Status",
 accountStatusSessionActive: "Session: Active",
 accountStatus2FAOn: "2FA: On",
@@ -1655,7 +1660,8 @@ login: "साइन इन करें",
 passwordPlaceholder: "पासवर्ड",
 register: "साइन अप / खाता बनाएँ",
 loginStatusLoggedOut: "साइन इन नहीं किया गया है।",
- accountStatusTitle: "खाता स्थिति",
+logout: "🚪 साइन आउट करें",
+      accountStatusTitle: "खाता स्थिति",
 accountStatusSessionActive: "सत्र: सक्रिय",
 accountStatus2FAOn: "2FA: चालू",
 accountStatus2FAOff: "2FA: बंद",
@@ -1748,6 +1754,7 @@ login: "Entrar",
 passwordPlaceholder: "Senha",
 register: "Cadastre-se / Criar conta",
 loginStatusLoggedOut: "Você não está conectado.",
+    logout: "🚪 Sair",
     accountStatusTitle: "Status da Conta",
 accountStatusSessionActive: "Sessão: Ativa",
 accountStatus2FAOn: "2FA: Ativado",
@@ -1840,6 +1847,7 @@ login: "Masuk",
 passwordPlaceholder: "Kata sandi",
 register: "Daftar / Buat Akun",
 loginStatusLoggedOut: "Belum masuk.",
+      logout: "🚪 Keluar",
       accountStatusTitle: "Status Akun",
 accountStatusSessionActive: "Sesi: Aktif",
 accountStatus2FAOn: "2FA: Aktif",
@@ -1933,6 +1941,7 @@ login: "Iniciar Sessão",
 passwordPlaceholder: "Palavra-passe",
 register: "Registar / Criar conta",
 loginStatusLoggedOut: "Não tem sessão iniciada.",
+    logout: "🚪 Terminar sessão",
     accountStatusTitle: "Estado da Conta",
 accountStatusSessionActive: "Sessão: Ativa",
 accountStatus2FAOn: "2FA: Ativada",
