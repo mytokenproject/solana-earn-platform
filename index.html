@@ -858,13 +858,15 @@ data-i18n="login"
     inputmode="numeric"
     maxlength="6"
     placeholder="Authenticator 6 haneli kod"
+ data-i18n-placeholder="loginMfaPlaceholder"
   >
 
   <button
     id="loginMfaVerifyBtn"
-    type="button"
-    class="secondary"
-  >
+type="button"
+class="secondary"
+data-i18n="loginMfaVerify"
+>
     2FA ile Girişi Doğrula
   </button>
 
@@ -1474,6 +1476,16 @@ passwordPlaceholder: "Şifre",
 register: "Kayıt Ol / Hesap Oluştur",
 loginStatusLoggedOut: "Giriş yapılmadı.",
     logout: "🚪 Çıkış Yap",
+    loginMfaPlaceholder: "Authenticator 6 haneli kod",
+loginMfaVerify: "2FA ile Girişi Doğrula",
+loginMfaHint: "Authenticator uygulamasındaki 6 haneli kodu girin.",
+loginMfaRequired: "2FA doğrulaması gerekli.",
+  loginMfaInvalidCode: "Lütfen 6 haneli Authenticator kodunu girin.",
+loginMfaVerifying: "2FA doğrulanıyor...",
+loginMfaNoFactor: "Authenticator faktörü bulunamadı.",
+loginMfaVerifyFailed: "Kod doğrulanamadı. Yeni kodla tekrar deneyin.",
+loginMfaVerified: "✅ 2FA doğrulandı.",
+loginMfaError: "2FA doğrulaması sırasında hata oluştu.",
     accountStatusTitle: "Hesap Durumu",
 accountStatusSessionActive: "Oturum: Aktif",
 accountStatus2FAOn: "2FA: Açık",
@@ -1568,6 +1580,16 @@ passwordPlaceholder: "Password",
 register: "Sign Up / Create Account",
 loginStatusLoggedOut: "Not signed in.",
     logout: "🚪 Sign Out",
+    loginMfaPlaceholder: "Authenticator 6-digit code",
+loginMfaVerify: "Verify Sign-In with 2FA",
+loginMfaHint: "Enter the 6-digit code from your authenticator app.",
+loginMfaRequired: "2FA verification required.",
+    loginMfaInvalidCode: "Please enter the 6-digit Authenticator code.",
+loginMfaVerifying: "Verifying 2FA...",
+loginMfaNoFactor: "Authenticator factor not found.",
+loginMfaVerifyFailed: "Code could not be verified. Please try again with a new code.",
+loginMfaVerified: "✅ 2FA verified.",
+loginMfaError: "An error occurred during 2FA verification.",
     accountStatusTitle: "Account Status",
 accountStatusSessionActive: "Session: Active",
 accountStatus2FAOn: "2FA: On",
@@ -1661,6 +1683,16 @@ passwordPlaceholder: "पासवर्ड",
 register: "साइन अप / खाता बनाएँ",
 loginStatusLoggedOut: "साइन इन नहीं किया गया है।",
 logout: "🚪 साइन आउट करें",
+      loginMfaPlaceholder: "ऑथेंटिकेटर 6-अंकीय कोड",
+loginMfaVerify: "2FA से साइन-इन सत्यापित करें",
+loginMfaHint: "अपने ऑथेंटिकेटर ऐप से 6-अंकीय कोड दर्ज करें।",
+loginMfaRequired: "2FA सत्यापन आवश्यक है।",
+      loginMfaInvalidCode: "कृपया 6-अंकीय Authenticator कोड दर्ज करें।",
+loginMfaVerifying: "2FA सत्यापित किया जा रहा है...",
+loginMfaNoFactor: "Authenticator फ़ैक्टर नहीं मिला।",
+loginMfaVerifyFailed: "कोड सत्यापित नहीं हो सका। कृपया नए कोड के साथ फिर प्रयास करें।",
+loginMfaVerified: "✅ 2FA सत्यापित हुआ।",
+loginMfaError: "2FA सत्यापन के दौरान एक त्रुटि हुई।",
       accountStatusTitle: "खाता स्थिति",
 accountStatusSessionActive: "सत्र: सक्रिय",
 accountStatus2FAOn: "2FA: चालू",
@@ -1755,6 +1787,16 @@ passwordPlaceholder: "Senha",
 register: "Cadastre-se / Criar conta",
 loginStatusLoggedOut: "Você não está conectado.",
     logout: "🚪 Sair",
+    loginMfaPlaceholder: "Código de 6 dígitos do autenticador",
+loginMfaVerify: "Verificar login com 2FA",
+loginMfaHint: "Digite o código de 6 dígitos do seu aplicativo autenticador.",
+loginMfaRequired: "A verificação 2FA é necessária.",
+    loginMfaInvalidCode: "Digite o código de 6 dígitos do Authenticator.",
+loginMfaVerifying: "Verificando 2FA...",
+loginMfaNoFactor: "Fator do Authenticator não encontrado.",
+loginMfaVerifyFailed: "Não foi possível verificar o código. Tente novamente com um novo código.",
+loginMfaVerified: "✅ 2FA verificado.",
+loginMfaError: "Ocorreu um erro durante a verificação 2FA.",
     accountStatusTitle: "Status da Conta",
 accountStatusSessionActive: "Sessão: Ativa",
 accountStatus2FAOn: "2FA: Ativado",
@@ -1848,6 +1890,16 @@ passwordPlaceholder: "Kata sandi",
 register: "Daftar / Buat Akun",
 loginStatusLoggedOut: "Belum masuk.",
       logout: "🚪 Keluar",
+      loginMfaPlaceholder: "Kode autentikator 6 digit",
+loginMfaVerify: "Verifikasi masuk dengan 2FA",
+loginMfaHint: "Masukkan kode 6 digit dari aplikasi autentikator Anda.",
+loginMfaRequired: "Verifikasi 2FA diperlukan.",
+      loginMfaInvalidCode: "Masukkan kode Authenticator 6 digit.",
+loginMfaVerifying: "Memverifikasi 2FA...",
+loginMfaNoFactor: "Faktor Authenticator tidak ditemukan.",
+loginMfaVerifyFailed: "Kode tidak dapat diverifikasi. Silakan coba lagi dengan kode baru.",
+loginMfaVerified: "✅ 2FA terverifikasi.",
+loginMfaError: "Terjadi kesalahan saat verifikasi 2FA.",
       accountStatusTitle: "Status Akun",
 accountStatusSessionActive: "Sesi: Aktif",
 accountStatus2FAOn: "2FA: Aktif",
@@ -1942,6 +1994,16 @@ passwordPlaceholder: "Palavra-passe",
 register: "Registar / Criar conta",
 loginStatusLoggedOut: "Não tem sessão iniciada.",
     logout: "🚪 Terminar sessão",
+    loginMfaPlaceholder: "Código de 6 dígitos do autenticador",
+loginMfaVerify: "Verificar início de sessão com 2FA",
+loginMfaHint: "Introduza o código de 6 dígitos da sua aplicação autenticadora.",
+loginMfaRequired: "É necessária a verificação 2FA.",
+    loginMfaInvalidCode: "Introduza o código de 6 dígitos do Authenticator.",
+loginMfaVerifying: "A verificar 2FA...",
+loginMfaNoFactor: "Fator do Authenticator não encontrado.",
+loginMfaVerifyFailed: "Não foi possível verificar o código. Tente novamente com um novo código.",
+loginMfaVerified: "✅ 2FA verificado.",
+loginMfaError: "Ocorreu um erro durante a verificação 2FA.",
     accountStatusTitle: "Estado da Conta",
 accountStatusSessionActive: "Sessão: Ativa",
 accountStatus2FAOn: "2FA: Ativada",
@@ -3808,10 +3870,13 @@ if (isAdmin && aalData?.nextLevel !== "aal2") {
   aalData?.nextLevel === "aal2"
 ) {
   loginMfaPanel.style.display = "block";
-  loginMfaStatus.textContent =
-    "Authenticator uygulamasındaki 6 haneli kodu girin.";
-  loginStatus.textContent =
-    "2FA doğrulaması gerekli.";
+  const loginLang =
+  localStorage.getItem("workplace_language") || "tr";
+const loginText =
+  translations[loginLang] || translations.tr;
+
+loginMfaStatus.textContent = loginText.loginMfaHint;
+loginStatus.textContent = loginText.loginMfaRequired;
   return;
    }
   loginStatus.textContent =
@@ -3914,14 +3979,19 @@ if (earnings) {
   loginMfaVerifyBtn.addEventListener("click", async () => {
   const code = loginMfaCodeInput.value.trim();
 
-  if (!/^\d{6}$/.test(code)) {
+ const verifyLang =
+  localStorage.getItem("workplace_language") || "tr";
+const verifyText =
+  translations[verifyLang] || translations.tr;
+    if (!/^\d{6}$/.test(code)) {
     loginMfaStatus.textContent =
-      "Lütfen 6 haneli Authenticator kodunu girin.";
+  verifyText.loginMfaInvalidCode;
     return;
   }
 
   loginMfaVerifyBtn.disabled = true;
-  loginMfaStatus.textContent = "2FA doğrulanıyor...";
+  loginMfaStatus.textContent =
+  verifyText.loginMfaVerifying;
 
   try {
     const { data: factorsData, error: factorsError } =
@@ -3933,7 +4003,7 @@ if (earnings) {
 
     if (!totpFactor) {
       loginMfaStatus.textContent =
-        "Authenticator faktörü bulunamadı.";
+  verifyText.loginMfaNoFactor;
       return;
     }
 
@@ -3946,11 +4016,12 @@ if (earnings) {
     if (verifyError) {
       console.error("2FA giriş doğrulama hatası:", verifyError);
       loginMfaStatus.textContent =
-        "Kod doğrulanamadı. Yeni kodla tekrar deneyin.";
+      verifyText.loginMfaVerifyFailed;
       return;
     }
 
-    loginMfaStatus.textContent = "✅ 2FA doğrulandı.";
+    loginMfaStatus.textContent =
+    verifyText.loginMfaVerified;
     loginMfaCodeInput.value = "";
     loginMfaPanel.style.display = "none";
 
@@ -3959,7 +4030,7 @@ if (earnings) {
   } catch (err) {
     console.error("2FA giriş hatası:", err);
     loginMfaStatus.textContent =
-      "2FA doğrulaması sırasında hata oluştu.";
+    verifyText.loginMfaError;
   } finally {
     loginMfaVerifyBtn.disabled = false;
   }
@@ -4017,9 +4088,13 @@ if (
   setLoginFormVisible(false);
   setLoggedInHero(false);
   loginMfaPanel.style.display = "block";
-  loginMfaStatus.textContent =
-    "Authenticator uygulamasındaki 6 haneli kodu girin.";
-  loginStatus.textContent = "2FA doğrulaması gerekli.";
+  const restoreLang =
+  localStorage.getItem("workplace_language") || "tr";
+const restoreText =
+  translations[restoreLang] || translations.tr;
+
+loginMfaStatus.textContent = restoreText.loginMfaHint;
+loginStatus.textContent = restoreText.loginMfaRequired;
   return;
        }
   const user = session.user;
