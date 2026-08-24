@@ -873,6 +873,13 @@ data-i18n="login"
 <div class="status" id="loginStatus" data-i18n="loginStatusLoggedOut">Giriş yapılmadı.</div>
   
 </div>
+        <div id="accountStatusCard" style="display:none;">
+  <strong data-i18n="accountStatusTitle">Hesap Durumu</strong>
+          <div id="accountStatus2FA">2FA: -</div>
+  <div id="accountStatusWallet">Cüzdan: -</div>       
+          <div id="accountStatusSession">Oturum: -</div>
+  <div id="accountStatusWP" data-i18n="accountStatusWPWaiting">WP Erişimi: -</div>    
+        </div>
       <button class="secondary" id="setup2faBtn">
   🔐 2FA Kur
       </button>
@@ -1463,6 +1470,13 @@ login: "Giriş Yap",
 passwordPlaceholder: "Şifre",
 register: "Kayıt Ol / Hesap Oluştur",
 loginStatusLoggedOut: "Giriş yapılmadı.",
+    accountStatusTitle: "Hesap Durumu",
+accountStatusSessionActive: "Oturum: Aktif",
+accountStatus2FAOn: "2FA: Açık",
+accountStatus2FAOff: "2FA: Kapalı",
+accountStatusWalletConnected: "Cüzdan: Bağlı",
+accountStatusWalletDisconnected: "Cüzdan: Bağlı değil",
+accountStatusWPWaiting: "WP Erişimi: -",
     watch: "İzle",
 doTask: "Görev Yap",
 earn: "Kazan",
@@ -1549,6 +1563,13 @@ login: "Sign In",
 passwordPlaceholder: "Password",
 register: "Sign Up / Create Account",
 loginStatusLoggedOut: "Not signed in.",
+    accountStatusTitle: "Account Status",
+accountStatusSessionActive: "Session: Active",
+accountStatus2FAOn: "2FA: On",
+accountStatus2FAOff: "2FA: Off",
+accountStatusWalletConnected: "Wallet: Connected",
+accountStatusWalletDisconnected: "Wallet: Not connected",
+accountStatusWPWaiting: "WP Access: -",
    watch: "Watch",
 doTask: "Do Tasks",
 earn: "Earn",
@@ -1634,7 +1655,14 @@ login: "साइन इन करें",
 passwordPlaceholder: "पासवर्ड",
 register: "साइन अप / खाता बनाएँ",
 loginStatusLoggedOut: "साइन इन नहीं किया गया है।",
-    watch: "देखें",
+ accountStatusTitle: "खाता स्थिति",
+accountStatusSessionActive: "सत्र: सक्रिय",
+accountStatus2FAOn: "2FA: चालू",
+accountStatus2FAOff: "2FA: बंद",
+accountStatusWalletConnected: "वॉलेट: जुड़ा हुआ",
+accountStatusWalletDisconnected: "वॉलेट: जुड़ा नहीं है",
+accountStatusWPWaiting: "WP एक्सेस: -",
+      watch: "देखें",
 doTask: "कार्य करें",
 earn: "कमाएँ",
 sponsoredArea: "प्रायोजित क्षेत्र",
@@ -1720,6 +1748,13 @@ login: "Entrar",
 passwordPlaceholder: "Senha",
 register: "Cadastre-se / Criar conta",
 loginStatusLoggedOut: "Você não está conectado.",
+    accountStatusTitle: "Status da Conta",
+accountStatusSessionActive: "Sessão: Ativa",
+accountStatus2FAOn: "2FA: Ativado",
+accountStatus2FAOff: "2FA: Desativado",
+accountStatusWalletConnected: "Carteira: Conectada",
+accountStatusWalletDisconnected: "Carteira: Não conectada",
+accountStatusWPWaiting: "Acesso WP: -",
     watch: "Assistir",
 doTask: "Fazer tarefas",
 earn: "Ganhar",
@@ -1805,6 +1840,13 @@ login: "Masuk",
 passwordPlaceholder: "Kata sandi",
 register: "Daftar / Buat Akun",
 loginStatusLoggedOut: "Belum masuk.",
+      accountStatusTitle: "Status Akun",
+accountStatusSessionActive: "Sesi: Aktif",
+accountStatus2FAOn: "2FA: Aktif",
+accountStatus2FAOff: "2FA: Nonaktif",
+accountStatusWalletConnected: "Dompet: Terhubung",
+accountStatusWalletDisconnected: "Dompet: Tidak terhubung",
+accountStatusWPWaiting: "Akses WP: -",
     watch: "Tonton",
 doTask: "Kerjakan Tugas",
 earn: "Dapatkan",
@@ -1891,6 +1933,13 @@ login: "Iniciar Sessão",
 passwordPlaceholder: "Palavra-passe",
 register: "Registar / Criar conta",
 loginStatusLoggedOut: "Não tem sessão iniciada.",
+    accountStatusTitle: "Estado da Conta",
+accountStatusSessionActive: "Sessão: Ativa",
+accountStatus2FAOn: "2FA: Ativada",
+accountStatus2FAOff: "2FA: Desativada",
+accountStatusWalletConnected: "Carteira: Ligada",
+accountStatusWalletDisconnected: "Carteira: Não ligada",
+accountStatusWPWaiting: "Acesso WP: -",
     watch: "Ver",
 doTask: "Fazer Tarefas",
 earn: "Ganhar",
@@ -3939,7 +3988,8 @@ if (setupBtnLoggedOut) setupBtnLoggedOut.style.display = "none";
 if (connectBtnLoggedOut) connectBtnLoggedOut.style.display = "none";
 if (walletStatusLoggedOut) walletStatusLoggedOut.style.display = "none";
 if (mfaSetupPanelLoggedOut) mfaSetupPanelLoggedOut.style.display = "none";
-    return;
+ const accountStatusCard = document.getElementById("accountStatusCard");
+if (accountStatusCard) accountStatusCard.style.display = "none";   return;
   }
 const { data: restoreAalData, error: restoreAalError } =
   await supabaseClient.auth.mfa.getAuthenticatorAssuranceLevel();
@@ -3969,6 +4019,26 @@ if (
     "Oturum geri yüklendi: " + (user.email || "");
  setLoginFormVisible(false);
     setLoggedInHero(true);
+    const accountStatusCard = document.getElementById("accountStatusCard");
+    const accountStatusSession = document.getElementById("accountStatusSession");
+const accountStatus2FA = document.getElementById("accountStatus2FA");
+    const accountStatusWallet = document.getElementById("accountStatusWallet");
+
+if (accountStatusCard) accountStatusCard.style.display = "block";
+if (accountStatusSession) {
+  const lang = localStorage.getItem("workplace_language") || "tr";
+  accountStatusSession.textContent =
+    (translations[lang] || translations.tr).accountStatusSessionActive;
+}
+    if (accountStatus2FA) {
+  const lang = localStorage.getItem("workplace_language") || "tr";
+  const t = translations[lang] || translations.tr;
+
+  accountStatus2FA.textContent =
+    restoreAalData?.nextLevel === "aal2"
+      ? t.accountStatus2FAOn
+      : t.accountStatus2FAOff;
+    }
     const setup2faBtnEl = document.getElementById("setup2faBtn");
 const connectBtnEl = document.getElementById("connectBtn");
 const walletStatusEl = document.getElementById("walletStatus");
@@ -3987,11 +4057,19 @@ if (setup2faBtnEl) {
     .eq("user_id", user.id)
 .order("last_connected_at", { ascending: false })
 .limit(1);
-
+    const statusLang =
+  localStorage.getItem("workplace_language") || "tr";
+const statusT = translations[statusLang] || translations.tr;
+if (accountStatusWallet)
+  accountStatusWallet.textContent =
+    statusT.accountStatusWalletDisconnected;
 if (savedWalletError) {
   console.error("Kayıtlı cüzdan yükleme hatası:", savedWalletError);
 } else if (savedWallets && savedWallets.length > 0) {
   const savedWalletAddress = savedWallets[0].address;
+  if (accountStatusWallet)
+  accountStatusWallet.textContent =
+    statusT.accountStatusWalletConnected;
   if (connectBtnEl) {
   connectBtnEl.textContent = "Cüzdan Bağlı ✓";
   }
