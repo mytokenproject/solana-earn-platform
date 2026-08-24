@@ -4014,8 +4014,11 @@ if (
   return;
        }
   const user = session.user;
-
-  loginStatus.textContent =
+    
+  loginStatus.removeAttribute("data-i18n"
+  ); 
+ 
+    loginStatus.textContent =
     "Oturum geri yüklendi: " + (user.email || "");
  setLoginFormVisible(false);
     setLoggedInHero(true);
