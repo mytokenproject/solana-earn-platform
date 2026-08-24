@@ -2017,8 +2017,9 @@ applyTranslations(savedLanguage);
     localStorage.setItem("workplace_language", selectedLanguage);
     document.documentElement.lang = selectedLanguage;
     applyTranslations(selectedLanguage);
-    setLoggedInHero(document.querySelector(".hero")?.classList.contains("logged-in"));
+    window.setLoggedInHero?.(document.querySelector(".hero")?.classList.contains("logged-in"));
   });
+}
   if (typeof window.setLoggedInHero === "function") {
   window.setLoggedInHero(
     document.querySelector(".hero")?.classList.contains("logged-in")
@@ -2034,7 +2035,7 @@ applyTranslations(savedLanguage);
 
   document.documentElement.lang = lang;
   applyTranslations(lang);
-  setLoggedInHero(
+  window.setLoggedInHero?.(
     document.querySelector(".hero")?.classList.contains("logged-in")
   );
 });
