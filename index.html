@@ -1463,6 +1463,7 @@ height:auto; margin-left:auto; margin-right:auto;">
     totalPoints: "💜 Toplam Puan",
     completedTasks: "✅ Tamamlanan Görev",
    earningsBalance: "💰 Kazanç Bakiyesi",
+    balanceLabel: "Bakiye",
 minimumTokenRequirement: "🔐 Minimum Token Şartı",
     home: "Anasayfa",
     tasksNav: "Görevler",
@@ -1568,6 +1569,7 @@ advertise: "Reklam Ver",
     totalPoints: "💜 Total Points",
     completedTasks: "✅ Completed Tasks",
     earningsBalance: "💰 Earnings Balance",
+    balanceLabel: "Balance",
 minimumTokenRequirement: "🔐 Minimum Token Requirement",
     home: "Home",
     tasksNav: "Tasks",
@@ -1672,6 +1674,7 @@ advertise: "Advertise",
     totalPoints: "💜 कुल अंक",
     completedTasks: "✅ पूर्ण किए गए कार्य",
       earningsBalance: "💰 कमाई शेष",
+      balanceLabel: "शेष",
 minimumTokenRequirement: "🔐 न्यूनतम टोकन आवश्यकता",
     home: "होम",
       tasksNav: "कार्य",
@@ -1777,6 +1780,7 @@ advertise: "विज्ञापन दें",
     totalPoints: "💜 Pontos Totais",
     completedTasks: "✅ Tarefas Concluídas",
     earningsBalance: "💰 Saldo de Ganhos",
+    balanceLabel: "Saldo",
 minimumTokenRequirement: "🔐 Requisito Mínimo de Tokens",
     home: "Início",
     tasksNav: "Tarefas",
@@ -1881,6 +1885,7 @@ advertise: "Anunciar",
     totalPoints: "💜 Total Poin",
     completedTasks: "✅ Tugas Selesai",
       earningsBalance: "💰 Saldo Penghasilan",
+      balanceLabel: "Saldo",
 minimumTokenRequirement: "🔐 Persyaratan Token Minimum",
     home: "Beranda",
       tasksNav: "Tugas",
@@ -1986,6 +1991,7 @@ advertise: "Pasang Iklan",
     totalPoints: "💜 Total de Pontos",
     completedTasks: "✅ Tarefas Concluídas",
     earningsBalance: "💰 Saldo de Rendimentos",
+    balanceLabel: "Saldo",
 minimumTokenRequirement: "🔐 Requisito Mínimo de Tokens",
     home: "Início",
     tasksNav: "Tarefas",
@@ -3916,10 +3922,15 @@ if (balanceError) {
 
  if (topBalance) topBalance.textContent = (dbBalance.sol_lamports ?? 0) + " lamports";
     document.getElementById("dbBalance").textContent = dbBalance.sol_lamports ?? 0;
-  loginStatus.textContent +=
-    " | Bakiye: " + 
-    dbBalance.sol_lamports +
-    " lamports";
+  const loginBalanceLang =
+  localStorage.getItem("workplace_language") || "tr";
+const loginBalanceText =
+  translations[loginBalanceLang] || translations.tr;
+
+loginStatus.textContent +=
+  " | " + loginBalanceText.balanceLabel + ": " +
+  dbBalance.sol_lamports +
+  " lamports";
   }
   const { count: completedCount, error: completedError } =
   await supabaseClient
@@ -4201,9 +4212,9 @@ if (topBalance) topBalance.textContent =
   (dbBalance.sol_lamports ?? 0) + " lamports";
     
     loginStatus.textContent +=
-      " | Bakiye: " +
-      (dbBalance.sol_lamports ?? 0) +
-      " lamports";
+  " | " + restoreStatusText.balanceLabel + ": " +
+  (dbBalance.sol_lamports ?? 0) +
+  " lamports";
   }
 
   const { data: pointRows, error: pointError } =
