@@ -3588,7 +3588,10 @@ if (adFormPlan) {
     const description = adDescription.value.trim();
 
     if (!title || !url || !description) {
-      alert("Lütfen tüm reklam bilgilerini doldurun.");
+      alert(
+  (translations[localStorage.getItem("workplace_language")] || translations.tr)
+    .adFormRequired
+);
       return;
     }
 
