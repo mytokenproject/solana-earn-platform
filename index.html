@@ -1551,7 +1551,7 @@ advertise: "Reklam Ver",
     watchIntroVideo: "Tanıtım videosunu izle",
     testReward10: "Test ödülü: 10 puan",
     startTask: "Görevi Başlat",
-
+    taskCompleted: "Tamamlandı",
     explorePlatform: "Platformu keşfet",
     testReward25: "Test ödülü: 25 puan",
 
@@ -1660,7 +1660,7 @@ advertise: "Advertise",
     watchIntroVideo: "Watch the intro video",
     testReward10: "Test reward: 10 points",
     startTask: "Start Task",
-
+    taskCompleted: "Completed",
     explorePlatform: "Explore the platform",
     testReward25: "Test reward: 25 points",
 
@@ -1768,7 +1768,7 @@ advertise: "विज्ञापन दें",
     watchIntroVideo: "परिचय वीडियो देखें",
     testReward10: "परीक्षण पुरस्कार: 10 अंक",
     startTask: "कार्य शुरू करें",
-
+    taskCompleted: "पूर्ण हुआ",
     explorePlatform: "प्लेटफ़ॉर्म देखें",
     testReward25: "परीक्षण पुरस्कार: 25 अंक",
 
@@ -1877,7 +1877,7 @@ advertise: "Anunciar",
     watchIntroVideo: "Assistir ao vídeo de apresentação",
     testReward10: "Recompensa de teste: 10 pontos",
     startTask: "Iniciar Tarefa",
-
+    taskCompleted: "Concluída",
     explorePlatform: "Explorar a plataforma",
     testReward25: "Recompensa de teste: 25 pontos",
 
@@ -1985,7 +1985,7 @@ advertise: "Pasang Iklan",
     watchIntroVideo: "Tonton video pengenalan",
     testReward10: "Hadiah uji coba: 10 poin",
     startTask: "Mulai Tugas",
-
+    taskCompleted: "Selesai",
     explorePlatform: "Jelajahi platform",
     testReward25: "Hadiah uji coba: 25 poin",
 
@@ -2094,7 +2094,7 @@ advertise: "Anunciar",
     watchIntroVideo: "Ver o vídeo de apresentação",
     testReward10: "Recompensa de teste: 10 pontos",
     startTask: "Iniciar Tarefa",
-
+    taskCompleted: "Concluída",
     explorePlatform: "Explorar a plataforma",
     testReward25: "Recompensa de teste: 25 pontos",
 
@@ -2647,7 +2647,9 @@ trustWalletBtn.addEventListener("click", async () => {
   const btn = event.target.closest(".taskBtn");
 
   if (!btn) return;
-
+const taskText =
+  translations[localStorage.getItem("workplace_language") || "tr"] ||
+  translations.tr;
       const taskId = Number(btn.dataset.taskId || 0);
 
       if (!taskId) {
@@ -2680,7 +2682,7 @@ trustWalletBtn.addEventListener("click", async () => {
         alert(error.message);
 
         btn.disabled = false;
-        btn.textContent = "Görevi Başlat";
+        btn.textContent = taskText.startTask;
         return;
       }
 
@@ -2690,7 +2692,7 @@ trustWalletBtn.addEventListener("click", async () => {
         alert("Görev sonucu alınamadı.");
 
         btn.disabled = false;
-        btn.textContent = "Görevi Başlat";
+        btn.textContent = taskText.startTask;
         return;
       }
 
@@ -2698,7 +2700,7 @@ trustWalletBtn.addEventListener("click", async () => {
       completed += 1;
 
       btn.dataset.done = "1";
-      btn.textContent = "✓ Tamamlandı";
+      btn.textContent = "✓ " + taskText.taskCompleted;
       btn.classList.add("done");
 
       render();
