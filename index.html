@@ -3465,7 +3465,10 @@ if (advertiseBtn && adPlans) {
     const isOpen = adPlans.style.display === "block";
 
     adPlans.style.display = isOpen ? "none" : "block";
-    advertiseBtn.textContent = isOpen ? "Reklam Ver" : "Kapat";
+    const adLang =
+  localStorage.getItem("workplace_language") || "tr";
+const adText = translations[adLang] || translations.tr;
+advertiseBtn.textContent = isOpen ? adText.advertise : adText.close;
   });
 }
 
