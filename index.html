@@ -4703,9 +4703,17 @@ descriptionEl.textContent =
   (item.task_id
     ? historyTaskLabel + " #" + item.task_id
     : historyTaskLabel);
+    const historyLocale = {
+  tr: "tr-TR",
+  en: "en-US",
+  hi: "hi-IN",
+  "pt-BR": "pt-BR",
+  id: "id-ID",
+  "pt-PT": "pt-PT"
+}[historyLang] || "tr-TR";
     const dateEl = document.createElement("small");
     dateEl.textContent = item.created_at
-      ? new Date(item.created_at).toLocaleString("tr-TR")
+      ? new Date(item.created_at).toLocaleString(historyLocale)
       : "";
 
     row.appendChild(pointsEl);
