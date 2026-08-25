@@ -1487,6 +1487,7 @@ loginMfaVerified: "✅ 2FA doğrulandı.",
 loginMfaError: "2FA doğrulaması sırasında hata oluştu.",
     accountStatusTitle: "Hesap Durumu",
 accountStatusSessionActive: "Oturum: Aktif",
+sessionRestored: "Oturum geri yüklendi:",
 accountStatus2FAOn: "2FA: Açık",
 accountStatus2FAOff: "2FA: Kapalı",
 accountStatusWalletConnected: "Cüzdan: Bağlı",
@@ -1591,6 +1592,7 @@ loginMfaVerified: "✅ 2FA verified.",
 loginMfaError: "An error occurred during 2FA verification.",
     accountStatusTitle: "Account Status",
 accountStatusSessionActive: "Session: Active",
+sessionRestored: "Session restored:",
 accountStatus2FAOn: "2FA: On",
 accountStatus2FAOff: "2FA: Off",
 accountStatusWalletConnected: "Wallet: Connected",
@@ -1694,6 +1696,7 @@ loginMfaVerified: "✅ 2FA सत्यापित हुआ।",
 loginMfaError: "2FA सत्यापन के दौरान एक त्रुटि हुई।",
       accountStatusTitle: "खाता स्थिति",
 accountStatusSessionActive: "सत्र: सक्रिय",
+sessionRestored: "सत्र पुनर्स्थापित:",
 accountStatus2FAOn: "2FA: चालू",
 accountStatus2FAOff: "2FA: बंद",
 accountStatusWalletConnected: "वॉलेट: जुड़ा हुआ",
@@ -1798,6 +1801,7 @@ loginMfaVerified: "✅ 2FA verificado.",
 loginMfaError: "Ocorreu um erro durante a verificação 2FA.",
     accountStatusTitle: "Status da Conta",
 accountStatusSessionActive: "Sessão: Ativa",
+sessionRestored: "Sessão restaurada:",
 accountStatus2FAOn: "2FA: Ativado",
 accountStatus2FAOff: "2FA: Desativado",
 accountStatusWalletConnected: "Carteira: Conectada",
@@ -1902,6 +1906,7 @@ loginMfaError: "Terjadi kesalahan saat verifikasi 2FA.",
       accountStatusTitle: "Status Akun",
 accountStatusSessionActive: "Sesi: Aktif",
 accountStatus2FAOn: "2FA: Aktif",
+sessionRestored: "Sesi dipulihkan:",
 accountStatus2FAOff: "2FA: Nonaktif",
 accountStatusWalletConnected: "Dompet: Terhubung",
 accountStatusWalletDisconnected: "Dompet: Tidak terhubung",
@@ -2005,6 +2010,7 @@ loginMfaVerified: "✅ 2FA verificado.",
 loginMfaError: "Ocorreu um erro durante a verificação 2FA.",
     accountStatusTitle: "Estado da Conta",
 accountStatusSessionActive: "Sessão: Ativa",
+sessionRestored: "Sessão restaurada:",
 accountStatus2FAOn: "2FA: Ativada",
 accountStatus2FAOff: "2FA: Desativada",
 accountStatusWalletConnected: "Carteira: Ligada",
@@ -4102,8 +4108,9 @@ loginStatus.textContent = restoreText.loginMfaRequired;
   ); 
  
 
-loginStatus.textContent =
-  "Oturum geri yüklendi: " + (user.email || "");
+const restoreStatusLang = localStorage.getItem("workplace_language") || "tr";
+const restoreStatusText = translations[restoreStatusLang] || translations.tr;
+loginStatus.textContent = restoreStatusText.sessionRestored + " " + (user.email || "");
  setLoginFormVisible(false);
     setLoggedInHero(true);
     const accountStatusCard = document.getElementById("accountStatusCard");
