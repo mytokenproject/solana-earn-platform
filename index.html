@@ -3480,19 +3480,34 @@ advertiseBtn.textContent = isOpen ? adText.advertise : adText.close;
 
 document.querySelectorAll(".adPlanBtn").forEach(btn => {
   btn.addEventListener("click", () => {
-    const planNames = {
-      daily: "Günlük",
-      weekly: "Haftalık",
-      monthly: "Aylık"
-    };
+    const planLang =
+  localStorage.getItem("workplace_language") || "tr";
+const planText =
+  translations[planLang] || translations.tr;
 
-    const price = btn.dataset.price;
+const planNames = {
+  daily: planText.daily,
+  weekly: planText.weekly,
+  monthly: planText.monthly
+};
+
+const selectedPlanLabel = {
+  tr: "Seçilen reklam planı:",
+  en: "Selected ad plan:",
+  hi: "चयनित विज्ञापन योजना:",
+  "pt-BR": "Plano de anúncio selecionado:",
+  id: "Paket iklan yang dipilih:",
+  "pt-PT": "Plano de anúncio selecionado:"
+}[planLang] || "Seçilen reklam planı:";
+
+const price = btn.dataset.price;
 
 if (selectedAdPlan) {
   selectedAdPlan.textContent =
-    "Seçilen reklam planı: " +
+    selectedPlanLabel +
+    " " +
     planNames[btn.dataset.plan] +
-    " · " +
+    " " +
     price +
     " USDC";
 }
