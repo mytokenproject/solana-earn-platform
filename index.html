@@ -3521,24 +3521,39 @@ if (continueAdBtn) {
 });
 if (continueAdBtn && adForm) {
   continueAdBtn.addEventListener("click", () => {
-    const planNames = {
-      daily: "Günlük",
-      weekly: "Haftalık",
-      monthly: "Aylık"
-    };
+    const continueLang =
+  localStorage.getItem("workplace_language") || "tr";
+const continueText =
+  translations[continueLang] || translations.tr;
 
-    const plan = continueAdBtn.dataset.plan;
-    const price = continueAdBtn.dataset.price;
+const planNames = {
+  daily: continueText.daily,
+  weekly: continueText.weekly,
+  monthly: continueText.monthly
+};
 
-    adForm.style.display = "block";
+const selectedPackageLabel = {
+  tr: "Seçilen paket:",
+  en: "Selected package:",
+  hi: "चयनित पैकेज:",
+  "pt-BR": "Pacote selecionado:",
+  id: "Paket yang dipilih:",
+  "pt-PT": "Pacote selecionado:"
+}[continueLang] || "Seçilen paket:";
 
-    if (adFormPlan) {
-      adFormPlan.textContent =
-        "Seçilen paket: " +
-        planNames[plan] +
-        " · " +
-        price +
-        " USDC";
+const plan = continueAdBtn.dataset.plan;
+const price = continueAdBtn.dataset.price;
+
+adForm.style.display = "block";
+
+if (adFormPlan) {
+  adFormPlan.textContent =
+    selectedPackageLabel +
+    " " +
+    planNames[plan] +
+    " · " +
+    price +
+    " USDC";
     }
 
     adForm.scrollIntoView({
