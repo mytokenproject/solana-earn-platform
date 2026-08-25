@@ -1552,6 +1552,7 @@ advertise: "Reklam Ver",
     testReward10: "Test ödülü: 10 puan",
     startTask: "Görevi Başlat",
     taskCompleted: "Tamamlandı",
+    taskCompletedToday: "Bugün tamamlandı",
     explorePlatform: "Platformu keşfet",
     testReward25: "Test ödülü: 25 puan",
 
@@ -1661,6 +1662,7 @@ advertise: "Advertise",
     testReward10: "Test reward: 10 points",
     startTask: "Start Task",
     taskCompleted: "Completed",
+    taskCompletedToday: "Completed today",
     explorePlatform: "Explore the platform",
     testReward25: "Test reward: 25 points",
 
@@ -1769,6 +1771,7 @@ advertise: "विज्ञापन दें",
     testReward10: "परीक्षण पुरस्कार: 10 अंक",
     startTask: "कार्य शुरू करें",
     taskCompleted: "पूर्ण हुआ",
+    taskCompletedToday: "आज पूर्ण हुआ",
     explorePlatform: "प्लेटफ़ॉर्म देखें",
     testReward25: "परीक्षण पुरस्कार: 25 अंक",
 
@@ -1878,6 +1881,7 @@ advertise: "Anunciar",
     testReward10: "Recompensa de teste: 10 pontos",
     startTask: "Iniciar Tarefa",
     taskCompleted: "Concluída",
+    taskCompletedToday: "Concluída hoje",
     explorePlatform: "Explorar a plataforma",
     testReward25: "Recompensa de teste: 25 pontos",
 
@@ -1986,6 +1990,7 @@ advertise: "Pasang Iklan",
     testReward10: "Hadiah uji coba: 10 poin",
     startTask: "Mulai Tugas",
     taskCompleted: "Selesai",
+   taskCompletedToday: "Selesai hari ini",
     explorePlatform: "Jelajahi platform",
     testReward25: "Hadiah uji coba: 25 poin",
 
@@ -2095,6 +2100,7 @@ advertise: "Anunciar",
     testReward10: "Recompensa de teste: 10 pontos",
     startTask: "Iniciar Tarefa",
     taskCompleted: "Concluída",
+    taskCompletedToday: "Concluída hoje",
     explorePlatform: "Explorar a plataforma",
     testReward25: "Recompensa de teste: 25 pontos",
 
@@ -3993,6 +3999,9 @@ if (earnings) {
     console.error("Görev durum hatası:", canError);
     continue;
   }
+    const taskStateTextRestore =
+  translations[localStorage.getItem("workplace_language") || "tr"] ||
+  translations.tr;
 
   if (canComplete === false) {
     btn.disabled = true;
@@ -4000,14 +4009,14 @@ if (earnings) {
     btn.classList.add("done");
 
     btn.textContent =
-      taskId === 3
-        ? "✓ Bugün tamamlandı"
-        : "✓ Tamamlandı";
+  taskId === 3
+    ? "✓ " + taskStateTextRestore.taskCompletedToday
+    : "✓ " + taskStateTextRestore.taskCompleted;
   } else {
     btn.disabled = false;
     btn.dataset.done = "0";
     btn.classList.remove("done");
-    btn.textContent = "Görevi Başlat";
+    btn.textContent = taskStateTextRestore.startTask;
   }
 }
   
@@ -4295,20 +4304,23 @@ if (topBalance) topBalance.textContent =
       console.error("Görev durumu hatası:", canError);
       continue;
     }
+    const taskStateTextRestore2 =
+  translations[localStorage.getItem("workplace_language") || "tr"] ||
+  translations.tr;
 
     if (canComplete === false) {
       btn.disabled = true;
       btn.dataset.done = "1";
       btn.classList.add("done");
       btn.textContent =
-        taskId === 3
-          ? "✓ Bugün tamamlandı"
-          : "✓ Tamamlandı";
+  taskId === 3
+    ? "✓ " + taskStateTextRestore2.taskCompletedToday
+    : "✓ " + taskStateTextRestore2.taskCompleted;
     } else {
       btn.disabled = false;
       btn.dataset.done = "0";
       btn.classList.remove("done");
-      btn.textContent = "Görevi Başlat";
+      btn.textContent = taskStateTextRestore2.startTask;
     }
   }
 }
