@@ -1470,6 +1470,8 @@ minimumTokenRequirement: "🔐 Minimum Token Şartı",
     tasksNav: "Görevler",
 walletNav: "Cüzdanım",
 settingsNav: "Ayarlar",
+    notificationsOn: "Bildirimler: Açık",
+notificationsOff: "Bildirimler: Kapalı",
     myAccount: "Hesabım",
 login: "Giriş Yap",
     emailPlaceholder: "E-posta",
@@ -1580,6 +1582,8 @@ minimumTokenRequirement: "🔐 Minimum Token Requirement",
     tasksNav: "Tasks",
 walletNav: "My Wallet",
 settingsNav: "Settings",
+    notificationsOn: "Notifications: On",
+notificationsOff: "Notifications: Off",
     myAccount: "My Account",
 login: "Sign In",
     emailPlaceholder: "Email",
@@ -1689,6 +1693,8 @@ minimumTokenRequirement: "🔐 न्यूनतम टोकन आवश्�
       tasksNav: "कार्य",
 walletNav: "मेरा वॉलेट",
 settingsNav: "सेटिंग्स",
+      notificationsOn: "सूचनाएँ: चालू",
+notificationsOff: "सूचनाएँ: बंद",
       myAccount: "मेरा खाता",
 login: "साइन इन करें",
       emailPlaceholder: "ईमेल",
@@ -1798,6 +1804,8 @@ minimumTokenRequirement: "🔐 Requisito Mínimo de Tokens",
     home: "Início",
     tasksNav: "Tarefas",
 walletNav: "Minha Carteira",
+    notificationsOn: "Notificações: Ativadas",
+notificationsOff: "Notificações: Desativadas",
 settingsNav: "Configurações",
     myAccount: "Minha Conta",
 login: "Entrar",
@@ -1908,6 +1916,8 @@ minimumTokenRequirement: "🔐 Persyaratan Token Minimum",
       tasksNav: "Tugas",
 walletNav: "Dompet Saya",
 settingsNav: "Pengaturan",
+      notificationsOn: "Notifikasi: Aktif",
+notificationsOff: "Notifikasi: Nonaktif",
       myAccount: "Akun Saya",
 login: "Masuk",
       emailPlaceholder: "Email",
@@ -2018,6 +2028,8 @@ minimumTokenRequirement: "🔐 Requisito Mínimo de Tokens",
     tasksNav: "Tarefas",
 walletNav: "A Minha Carteira",
 settingsNav: "Definições",
+    notificationsOn: "Notificações: Ativadas",
+notificationsOff: "Notificações: Desativadas",
     myAccount: "A Minha Conta",
 login: "Iniciar Sessão",
     emailPlaceholder: "E-mail",
@@ -4901,9 +4913,18 @@ if (logoutBtn) {
   class="secondary"
   onclick="
     const on=this.dataset.on!=='true';
-    this.dataset.on=on;
-    this.textContent=on?'🔔 Bildirimler: Açık':'🔕 Bildirimler: Kapalı';
-    localStorage.setItem('workplaceNotifications',on?'on':'off');
+this.dataset.on=on;
+
+const notifyLang =
+  localStorage.getItem('workplace_language') || 'tr';
+const notifyText =
+  translations[notifyLang] || translations.tr;
+
+this.textContent = on
+  ? '🔔 ' + notifyText.notificationsOn
+  : '🔕 ' + notifyText.notificationsOff;
+
+localStorage.setItem('workplaceNotifications',on?'on':'off');
   "
   style="width:100%;text-align:left;padding:10px 12px;margin-bottom:6px;"
 >
@@ -4915,9 +4936,14 @@ if (logoutBtn) {
     const saved = localStorage.getItem('workplaceNotifications') === 'on';
 
     btn.dataset.on = saved ? 'true' : 'false';
-    btn.textContent = saved
-      ? '🔔 Bildirimler: Açık'
-      : '🔕 Bildirimler: Kapalı';
+   const notifyLangRestore =
+  localStorage.getItem('workplace_language') || 'tr';
+const notifyTextRestore =
+  translations[notifyLangRestore] || translations.tr;
+
+btn.textContent = saved
+  ? '🔔 ' + notifyTextRestore.notificationsOn
+  : '🔕 ' + notifyTextRestore.notificationsOff;
   }
     </script>
     <button
