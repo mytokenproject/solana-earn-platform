@@ -1461,6 +1461,7 @@ height:auto; margin-left:auto; margin-right:auto;">
   tr: {
     accountSummary: "Hesap Özeti",
     totalPoints: "💜 Toplam Puan",
+    pointsUnit: "puan",
     completedTasks: "✅ Tamamlanan Görev",
    earningsBalance: "💰 Kazanç Bakiyesi",
     balanceLabel: "Bakiye",
@@ -1560,13 +1561,16 @@ advertise: "Reklam Ver",
     testEarnings: "Kazancımı Test Et",
     pointHistory: "Puan Geçmişi",
     pointHistoryLoginHint: "Giriş yaptıktan sonra puan geçmişi burada görünecek.",
-
+ pointHistoryEmpty: "Henüz puan kazancı yok.",
+    pointHistoryError: "Puan geçmişi alınamadı.",
+    pointHistoryLoading: "Puan geçmişi yükleniyor...",
     testModeNotice: "Test Mode • Gerçek token bakiyesi kontrolü ve ödül transferi henüz aktif değildir."
   },
 
   en: {
     accountSummary: "Account Summary",
     totalPoints: "💜 Total Points",
+    pointsUnit: "points",
     completedTasks: "✅ Completed Tasks",
     earningsBalance: "💰 Earnings Balance",
     balanceLabel: "Balance",
@@ -1666,12 +1670,15 @@ advertise: "Advertise",
     testEarnings: "Test My Earnings",
     pointHistory: "Point History",
     pointHistoryLoginHint: "Your point history will appear here after you sign in.",
-
+  pointHistoryEmpty: "No points earned yet.",
+    pointHistoryError: "Point history could not be loaded.",
+    pointHistoryLoading: "Loading point history...",
     testModeNotice: "Test Mode • Real token balance checks and reward transfers are not active yet."
   },
     hi: {
     accountSummary: "खाता सारांश",
     totalPoints: "💜 कुल अंक",
+      pointsUnit: "अंक",
     completedTasks: "✅ पूर्ण किए गए कार्य",
       earningsBalance: "💰 कमाई शेष",
       balanceLabel: "शेष",
@@ -1771,13 +1778,16 @@ advertise: "विज्ञापन दें",
     testEarnings: "मेरी कमाई का परीक्षण करें",
     pointHistory: "अंक इतिहास",
     pointHistoryLoginHint: "साइन इन करने के बाद आपका अंक इतिहास यहाँ दिखाई देगा।",
-
-    testModeNotice: "टेस्ट मोड • वास्तविक टोकन बैलेंस जाँच और पुरस्कार ट्रांसफर अभी सक्रिय नहीं हैं।"
+  pointHistoryEmpty: "अभी तक कोई अंक अर्जित नहीं हुआ।",
+   pointHistoryError: "अंक इतिहास लोड नहीं किया जा सका।",
+    pointHistoryLoading: "अंक इतिहास लोड हो रहा है...",
+   testModeNotice: "टेस्ट मोड • वास्तविक टोकन बैलेंस जाँच और पुरस्कार ट्रांसफर अभी सक्रिय नहीं हैं।"
   },
 
   "pt-BR": {
     accountSummary: "Resumo da Conta",
     totalPoints: "💜 Pontos Totais",
+    pointsUnit: "pontos",
     completedTasks: "✅ Tarefas Concluídas",
     earningsBalance: "💰 Saldo de Ganhos",
     balanceLabel: "Saldo",
@@ -1877,12 +1887,15 @@ advertise: "Anunciar",
     testEarnings: "Testar Meus Ganhos",
     pointHistory: "Histórico de Pontos",
     pointHistoryLoginHint: "Seu histórico de pontos aparecerá aqui após o login.",
-
+  pointHistoryEmpty: "Ainda não há pontos ganhos.",
+    pointHistoryError: "Não foi possível carregar o histórico de pontos.",
+    pointHistoryLoading: "Carregando histórico de pontos...",
     testModeNotice: "Modo de Teste • A verificação do saldo real de tokens e as transferências de recompensas ainda não estão ativas."
   },
     id: {
     accountSummary: "Ringkasan Akun",
     totalPoints: "💜 Total Poin",
+      pointsUnit: "poin",
     completedTasks: "✅ Tugas Selesai",
       earningsBalance: "💰 Saldo Penghasilan",
       balanceLabel: "Saldo",
@@ -1982,13 +1995,16 @@ advertise: "Pasang Iklan",
     testEarnings: "Uji Penghasilan Saya",
     pointHistory: "Riwayat Poin",
     pointHistoryLoginHint: "Riwayat poin Anda akan muncul di sini setelah login.",
-
-    testModeNotice: "Mode Uji Coba • Pemeriksaan saldo token asli dan transfer hadiah belum aktif."
+  pointHistoryEmpty: "Belum ada poin yang diperoleh.",
+    pointHistoryError: "Riwayat poin tidak dapat dimuat.",
+    pointHistoryLoading: "Memuat riwayat poin...",
+      testModeNotice: "Mode Uji Coba • Pemeriksaan saldo token asli dan transfer hadiah belum aktif."
   },
 
   "pt-PT": {
     accountSummary: "Resumo da Conta",
     totalPoints: "💜 Total de Pontos",
+    pointsUnit: "pontos",
     completedTasks: "✅ Tarefas Concluídas",
     earningsBalance: "💰 Saldo de Rendimentos",
     balanceLabel: "Saldo",
@@ -2088,7 +2104,9 @@ advertise: "Anunciar",
     testEarnings: "Testar os Meus Ganhos",
     pointHistory: "Histórico de Pontos",
     pointHistoryLoginHint: "O teu histórico de pontos aparecerá aqui depois de iniciares sessão.",
-
+  pointHistoryEmpty: "Ainda não há pontos ganhos.",
+    pointHistoryError: "Não foi possível carregar o histórico de pontos.",
+    pointHistoryLoading: "A carregar o histórico de pontos...",
     testModeNotice: "Modo de Teste • A verificação do saldo real de tokens e as transferências de recompensas ainda não estão ativas."
       }
 };
@@ -4068,7 +4086,14 @@ window.applyTranslations?.(localStorage.getItem("workplace_language") || "tr");
   setLoginFormVisible(true);
     setLoggedInHero(false);
     const balanceEl = document.getElementById("balance");
-    if (balanceEl) balanceEl.textContent = "0 puan";
+    const loggedOutPointsLang =
+  localStorage.getItem("workplace_language") || "tr";
+const loggedOutPointsText =
+  translations[loggedOutPointsLang] || translations.tr;
+
+if (balanceEl) {
+  balanceEl.textContent = "0 " + loggedOutPointsText.pointsUnit;
+}
 
     document.getElementById("dbBalance").textContent = 0;
 
@@ -4232,7 +4257,8 @@ if (topBalance) topBalance.textContent =
     const balanceEl = document.getElementById("balance");
 
     if (balanceEl) {
-      balanceEl.textContent = totalPoints + " puan";
+  balanceEl.textContent =
+    totalPoints + " " + restoreStatusText.pointsUnit;
     }
 
   }
@@ -4533,7 +4559,11 @@ document.getElementById("dbBalance").textContent = totalLamports;
 
   if (!historyEl) return;
 
-  historyEl.textContent = "Puan geçmişi yükleniyor...";
+  const historyLoadingText =
+  translations[localStorage.getItem("workplace_language") || "tr"] ||
+  translations.tr;
+
+historyEl.textContent = historyLoadingText.pointHistoryLoading;
 
   const {
     data: { user },
@@ -4541,9 +4571,12 @@ document.getElementById("dbBalance").textContent = totalLamports;
   } = await supabaseClient.auth.getUser();
 
   if (userError || !user) {
-    historyEl.textContent =
-      "Puan geçmişini görmek için giriş yap.";
-    return;
+  const historyLoginText =
+    translations[localStorage.getItem("workplace_language") || "tr"] ||
+    translations.tr;
+
+  historyEl.textContent = historyLoginText.pointHistoryLoginHint;
+  return;
   }
 
   const { data: history, error } = await supabaseClient
@@ -4553,14 +4586,23 @@ document.getElementById("dbBalance").textContent = totalLamports;
     .order("created_at", { ascending: false });
 
   if (error) {
-    console.error("Puan geçmişi hatası:", error);
-    historyEl.textContent = "Puan geçmişi alınamadı.";
-    return;
+  console.error("Puan geçmişi hatası:", error);
+
+  const historyErrorText =
+    translations[localStorage.getItem("workplace_language") || "tr"] ||
+    translations.tr;
+
+  historyEl.textContent = historyErrorText.pointHistoryError;
+  return;
   }
 
   if (!history || history.length === 0) {
-    historyEl.textContent = "Henüz puan kazancı yok.";
-    return;
+  const historyEmptyText =
+    translations[localStorage.getItem("workplace_language") || "tr"] ||
+    translations.tr;
+
+  historyEl.textContent = historyEmptyText.pointHistoryEmpty;
+  return;
   }
     const totalPoints = history.reduce(
   (sum, item) => sum + Number(item.points || 0),
@@ -4568,9 +4610,12 @@ document.getElementById("dbBalance").textContent = totalLamports;
 );
 
 const balanceEl = document.getElementById("balance");
-
+const historyPointsText =
+  translations[localStorage.getItem("workplace_language") || "tr"] ||
+  translations.tr;
 if (balanceEl) {
-  balanceEl.textContent = totalPoints + " puan";
+  balanceEl.textContent =
+  totalPoints + " " + historyPointsText.pointsUnit;
 }
 
   historyEl.innerHTML = "";
@@ -4582,7 +4627,7 @@ if (balanceEl) {
 
     const pointsEl = document.createElement("strong");
     pointsEl.textContent =
-      "+" + Number(item.points || 0) + " puan";
+  "+" + Number(item.points || 0) + " " + historyPointsText.pointsUnit;
 
     const descriptionEl = document.createElement("div");
     descriptionEl.textContent =
