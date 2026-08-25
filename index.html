@@ -4146,11 +4146,12 @@ if (setup2faBtnEl) {
 .order("last_connected_at", { ascending: false })
 .limit(1);
     const statusLang =
-  localStorage.getItem("workplace_language") || "tr";
+  localStorage.getItem("workplace_language");
+
 const statusT = translations[statusLang] || translations.tr;
-if (accountStatusWallet)
-  accountStatusWallet.textContent =
-    statusT.accountStatusWalletDisconnected;
+
+accountStatusWallet.textContent =
+  statusT.accountStatusWalletDisconnected;
 if (savedWalletError) {
   console.error("Kayıtlı cüzdan yükleme hatası:", savedWalletError);
 } else if (savedWallets && savedWallets.length > 0) {
