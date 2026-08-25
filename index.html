@@ -1470,6 +1470,9 @@ minimumTokenRequirement: "🔐 Minimum Token Şartı",
     tasksNav: "Görevler",
 walletNav: "Cüzdanım",
 settingsNav: "Ayarlar",
+    appearanceDark: "Görünüm: Koyu",
+appearanceDarkOption: "Koyu",
+appearanceSystemSoon: "Sistem — Yakında",
     notificationsOn: "Bildirimler: Açık",
 notificationsOff: "Bildirimler: Kapalı",
     myAccount: "Hesabım",
@@ -1582,6 +1585,9 @@ minimumTokenRequirement: "🔐 Minimum Token Requirement",
     tasksNav: "Tasks",
 walletNav: "My Wallet",
 settingsNav: "Settings",
+    appearanceDark: "Appearance: Dark",
+appearanceDarkOption: "Dark",
+appearanceSystemSoon: "System — Coming Soon",
     notificationsOn: "Notifications: On",
 notificationsOff: "Notifications: Off",
     myAccount: "My Account",
@@ -1693,6 +1699,9 @@ minimumTokenRequirement: "🔐 न्यूनतम टोकन आवश्�
       tasksNav: "कार्य",
 walletNav: "मेरा वॉलेट",
 settingsNav: "सेटिंग्स",
+      appearanceDark: "दिखावट: डार्क",
+appearanceDarkOption: "डार्क",
+appearanceSystemSoon: "सिस्टम — जल्द आ रहा है",
       notificationsOn: "सूचनाएँ: चालू",
 notificationsOff: "सूचनाएँ: बंद",
       myAccount: "मेरा खाता",
@@ -1807,6 +1816,9 @@ walletNav: "Minha Carteira",
     notificationsOn: "Notificações: Ativadas",
 notificationsOff: "Notificações: Desativadas",
 settingsNav: "Configurações",
+    appearanceDark: "Aparência: Escura",
+appearanceDarkOption: "Escura",
+appearanceSystemSoon: "Sistema — Em breve",
     myAccount: "Minha Conta",
 login: "Entrar",
     emailPlaceholder: "E-mail",
@@ -1916,6 +1928,9 @@ minimumTokenRequirement: "🔐 Persyaratan Token Minimum",
       tasksNav: "Tugas",
 walletNav: "Dompet Saya",
 settingsNav: "Pengaturan",
+      appearanceDark: "Tampilan: Gelap",
+appearanceDarkOption: "Gelap",
+appearanceSystemSoon: "Sistem — Segera hadir",
       notificationsOn: "Notifikasi: Aktif",
 notificationsOff: "Notifikasi: Nonaktif",
       myAccount: "Akun Saya",
@@ -2028,6 +2043,9 @@ minimumTokenRequirement: "🔐 Requisito Mínimo de Tokens",
     tasksNav: "Tarefas",
 walletNav: "A Minha Carteira",
 settingsNav: "Definições",
+    appearanceDark: "Aparência: Escura",
+appearanceDarkOption: "Escura",
+appearanceSystemSoon: "Sistema — Em breve",
     notificationsOn: "Notificações: Ativadas",
 notificationsOff: "Notificações: Desativadas",
     myAccount: "A Minha Conta",
@@ -4893,7 +4911,7 @@ if (logoutBtn) {
   "
 >
   <div style="display:flex;justify-content:space-between;align-items:center;">
-    <strong style="font-size:20px;">⚙ Ayarlar</strong>
+    <strong style="font-size:20px;">⚙ <span data-i18n="settingsNav">Ayarlar</span></strong>
 
     <button
       type="button"
@@ -4952,7 +4970,7 @@ btn.textContent = saved
   onclick="const x=document.getElementById('appearanceOptions');x.style.display=x.style.display==='none'?'block':'none';"
   style="width:100%;text-align:left;padding:10px 12px;margin-bottom:6px;"
 >
-  🎨 Görünüm: Koyu
+  🎨 <span data-i18n="appearanceDark">Görünüm: Koyu</span>
 </button>
 
 <div
@@ -4965,8 +4983,8 @@ btn.textContent = saved
     border-radius:14px;
   "
 >
-  <div>✅ 🌙 Koyu</div>
-  <div style="opacity:.55;">📱 Sistem — Yakında</div>
+  <div>✅ 🌙 <span data-i18n="appearanceDarkOption">Koyu</span></div>
+  <div style="opacity:.55;">📱 <span data-i18n="appearanceSystemSoon">Sistem — Yakında</span></div>
 </div>
   </div>
    </div>
