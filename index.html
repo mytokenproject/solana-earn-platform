@@ -4674,10 +4674,35 @@ if (balanceEl) {
   "+" + Number(item.points || 0) + " " + historyPointsText.pointsUnit;
 
     const descriptionEl = document.createElement("div");
-    descriptionEl.textContent =
-      item.description ||
-      (item.task_id ? "Görev #" + item.task_id : "Görev");
+    const historyLang =
+  localStorage.getItem("workplace_language") || "tr";
+const historyText =
+  translations[historyLang] || translations.tr;
 
+const historyDescriptionMap = {
+  "Günlük giriş": historyText.dailyLogin,
+  "Örnek Oyun Görevi": historyText.games,
+  "Örnek Uygulama Görevi": historyText.apps,
+  "Örnek Anket Görevi": historyText.surveys,
+  "Örnek Video Görevi": historyText.videoAds,
+  "Örnek Sponsorlu Görev": historyText.sponsoredTasks,
+  "Örnek Alışveriş Görevi": historyText.shoppingEarn,
+  "Örnek Web3 / Solana Görevi": historyText.web3Solana
+};
+const historyTaskLabel = {
+  tr: "Görev",
+  en: "Task",
+  hi: "कार्य",
+  "pt-BR": "Tarefa",
+  id: "Tugas",
+  "pt-PT": "Tarefa"
+}[historyLang] || "Görev";
+descriptionEl.textContent =
+  historyDescriptionMap[item.description] ||
+  item.description ||
+  (item.task_id
+    ? historyTaskLabel + " #" + item.task_id
+    : historyTaskLabel);
     const dateEl = document.createElement("small");
     dateEl.textContent = item.created_at
       ? new Date(item.created_at).toLocaleString("tr-TR")
