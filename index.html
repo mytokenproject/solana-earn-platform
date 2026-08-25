@@ -1475,6 +1475,7 @@ login: "Giriş Yap",
 passwordPlaceholder: "Şifre",
 register: "Kayıt Ol / Hesap Oluştur",
 loginStatusLoggedOut: "Giriş yapılmadı.",
+    sessionRestored: "Oturum geri yüklendi",
     logout: "🚪 Çıkış Yap",
     loginMfaPlaceholder: "Authenticator 6 haneli kod",
 loginMfaVerify: "2FA ile Girişi Doğrula",
@@ -1579,6 +1580,7 @@ login: "Sign In",
 passwordPlaceholder: "Password",
 register: "Sign Up / Create Account",
 loginStatusLoggedOut: "Not signed in.",
+    sessionRestored: "Session restored",
     logout: "🚪 Sign Out",
     loginMfaPlaceholder: "Authenticator 6-digit code",
 loginMfaVerify: "Verify Sign-In with 2FA",
@@ -1682,7 +1684,8 @@ login: "साइन इन करें",
 passwordPlaceholder: "पासवर्ड",
 register: "साइन अप / खाता बनाएँ",
 loginStatusLoggedOut: "साइन इन नहीं किया गया है।",
-logout: "🚪 साइन आउट करें",
+sessionRestored: "Oturum geri yüklendi",
+      logout: "🚪 साइन आउट करें",
       loginMfaPlaceholder: "ऑथेंटिकेटर 6-अंकीय कोड",
 loginMfaVerify: "2FA से साइन-इन सत्यापित करें",
 loginMfaHint: "अपने ऑथेंटिकेटर ऐप से 6-अंकीय कोड दर्ज करें।",
@@ -1786,6 +1789,7 @@ login: "Entrar",
 passwordPlaceholder: "Senha",
 register: "Cadastre-se / Criar conta",
 loginStatusLoggedOut: "Você não está conectado.",
+    sessionRestored: "Oturum geri yüklendi",
     logout: "🚪 Sair",
     loginMfaPlaceholder: "Código de 6 dígitos do autenticador",
 loginMfaVerify: "Verificar login com 2FA",
@@ -1889,6 +1893,7 @@ login: "Masuk",
 passwordPlaceholder: "Kata sandi",
 register: "Daftar / Buat Akun",
 loginStatusLoggedOut: "Belum masuk.",
+      sessionRestored: "Oturum geri yüklendi",
       logout: "🚪 Keluar",
       loginMfaPlaceholder: "Kode autentikator 6 digit",
 loginMfaVerify: "Verifikasi masuk dengan 2FA",
@@ -1993,6 +1998,7 @@ login: "Iniciar Sessão",
 passwordPlaceholder: "Palavra-passe",
 register: "Registar / Criar conta",
 loginStatusLoggedOut: "Não tem sessão iniciada.",
+    sessionRestored: "Oturum geri yüklendi",
     logout: "🚪 Terminar sessão",
     loginMfaPlaceholder: "Código de 6 dígitos do autenticador",
 loginMfaVerify: "Verificar início de sessão com 2FA",
@@ -4102,8 +4108,10 @@ loginStatus.textContent = restoreText.loginMfaRequired;
   loginStatus.removeAttribute("data-i18n"
   ); 
  
-    loginStatus.textContent =
-    "Oturum geri yüklendi: " + (user.email || "");
+
+loginStatus.textContent =
+  restoreText.sessionRestored + ": " +
+  (user.email || "");
  setLoginFormVisible(false);
     setLoggedInHero(true);
     const accountStatusCard = document.getElementById("accountStatusCard");
