@@ -3639,7 +3639,17 @@ const plan = continueAdBtn?.dataset.plan;
 const price = Number(continueAdBtn?.dataset.price);
 
 if (!plan || !price) {
-  alert("Lütfen reklam paketini yeniden seçin.");
+  alert(
+  ({
+    tr: "Lütfen reklam paketini yeniden seçin.",
+    en: "Please select the ad package again.",
+    hi: "कृपया विज्ञापन पैकेज फिर से चुनें।",
+    "pt-BR": "Por favor, selecione o pacote de anúncio novamente.",
+    id: "Silakan pilih kembali paket iklan.",
+    "pt-PT": "Por favor, selecione novamente o pacote de anúncio."
+  })[localStorage.getItem("workplace_language") || "tr"] ||
+  "Lütfen reklam paketini yeniden seçin."
+);
   return;
 }
 
@@ -3664,10 +3674,17 @@ if (insertError) {
     insertError
   );
 
-  alert(
-    "Başvuru kaydedilemedi: " +
-    insertError.message
-  );
+ alert(
+  ({
+    tr: "Başvuru kaydedilemedi. Lütfen tekrar deneyin.",
+    en: "The application could not be saved. Please try again.",
+    hi: "आवेदन सहेजा नहीं जा सका। कृपया पुनः प्रयास करें।",
+    "pt-BR": "Não foi possível salvar a solicitação. Tente novamente.",
+    id: "Pengajuan tidak dapat disimpan. Silakan coba lagi.",
+    "pt-PT": "Não foi possível guardar o pedido. Tente novamente."
+  })[localStorage.getItem("workplace_language") || "tr"] ||
+  "Başvuru kaydedilemedi. Lütfen tekrar deneyin."
+);
   return;
 }
 
