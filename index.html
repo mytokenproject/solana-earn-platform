@@ -1566,6 +1566,11 @@ advertise: "Reklam Ver",
     startTask: "Görevi Başlat",
     taskCompleted: "Tamamlandı",
     taskCompletedToday: "Bugün tamamlandı",
+    taskNotLinked: "Bu görev henüz Supabase sistemine bağlanmadı.",
+    taskLoginRequired: "Görevi tamamlamak için önce giriş yapmalısın.",
+    taskProcessing: "İşleniyor...",
+    taskNoResult: "Görev sonucu alınamadı.",
+    taskCompletedRewardPrefix: "Görev tamamlandı! +",
     explorePlatform: "Platformu keşfet",
     testReward25: "Test ödülü: 25 puan",
 
@@ -1688,6 +1693,11 @@ advertise: "Advertise",
     startTask: "Start Task",
     taskCompleted: "Completed",
     taskCompletedToday: "Completed today",
+    taskNotLinked: "This task is not yet connected to the Supabase system.",
+    taskLoginRequired: "You must sign in before completing a task.",
+    taskProcessing: "Processing...",
+    taskNoResult: "The task result could not be retrieved.",
+    taskCompletedRewardPrefix: "Task completed! +",
     explorePlatform: "Explore the platform",
     testReward25: "Test reward: 25 points",
 
@@ -1809,6 +1819,11 @@ advertise: "विज्ञापन दें",
     startTask: "कार्य शुरू करें",
     taskCompleted: "पूर्ण हुआ",
     taskCompletedToday: "आज पूर्ण हुआ",
+taskNotLinked: "यह कार्य अभी Supabase सिस्टम से जुड़ा नहीं है।",
+      taskLoginRequired: "कार्य पूरा करने से पहले आपको साइन इन करना होगा।",
+      taskProcessing: "प्रक्रिया जारी है...",
+      taskNoResult: "कार्य का परिणाम प्राप्त नहीं हो सका।",
+      taskCompletedRewardPrefix: "कार्य पूरा हुआ! +",
     explorePlatform: "प्लेटफ़ॉर्म देखें",
     testReward25: "परीक्षण पुरस्कार: 25 अंक",
 
@@ -1931,6 +1946,11 @@ advertise: "Anunciar",
     startTask: "Iniciar Tarefa",
     taskCompleted: "Concluída",
     taskCompletedToday: "Concluída hoje",
+    taskNotLinked: "Esta tarefa ainda não está conectada ao sistema Supabase.",
+    taskLoginRequired: "Você precisa fazer login antes de concluir uma tarefa.",
+    taskProcessing: "Processando...",
+    taskNoResult: "Não foi possível obter o resultado da tarefa.",
+    taskCompletedRewardPrefix: "Tarefa concluída! +",
     explorePlatform: "Explorar a plataforma",
     testReward25: "Recompensa de teste: 25 pontos",
 
@@ -2052,6 +2072,11 @@ advertise: "Pasang Iklan",
     startTask: "Mulai Tugas",
     taskCompleted: "Selesai",
    taskCompletedToday: "Selesai hari ini",
+      taskNotLinked: "Tugas ini belum terhubung ke sistem Supabase.",
+      taskLoginRequired: "Anda harus login sebelum menyelesaikan tugas.",
+      taskProcessing: "Memproses...",
+      taskNoResult: "Hasil tugas tidak dapat diperoleh.",
+      taskCompletedRewardPrefix: "Tugas selesai! +",
     explorePlatform: "Jelajahi platform",
     testReward25: "Hadiah uji coba: 25 poin",
 
@@ -2174,6 +2199,11 @@ advertise: "Anunciar",
     startTask: "Iniciar Tarefa",
     taskCompleted: "Concluída",
     taskCompletedToday: "Concluída hoje",
+    taskNotLinked: "Esta tarefa ainda não está ligada ao sistema Supabase.",
+    taskLoginRequired: "Tem de iniciar sessão antes de concluir uma tarefa.",
+    taskProcessing: "A processar...",
+    taskNoResult: "Não foi possível obter o resultado da tarefa.",
+    taskCompletedRewardPrefix: "Tarefa concluída! +",
     explorePlatform: "Explorar a plataforma",
     testReward25: "Recompensa de teste: 25 pontos",
 
@@ -2732,7 +2762,7 @@ const taskText =
       const taskId = Number(btn.dataset.taskId || 0);
 
       if (!taskId) {
-        alert("Bu görev henüz Supabase sistemine bağlanmadı.");
+        alert(taskText.taskNotLinked);
         return;
       }
 
@@ -2742,12 +2772,12 @@ const taskText =
       } = await supabaseClient.auth.getUser();
 
       if (userError || !user) {
-        alert("Görevi tamamlamak için önce giriş yapmalısın.");
+        alert(taskText.taskLoginRequired);
         return;
       }
 
       btn.disabled = true;
-      btn.textContent = "İşleniyor...";
+      btn.textContent = taskText.taskProcessing;
 
       const { data, error } = await supabaseClient.rpc(
         "complete_my_task_and_reward",
@@ -2768,7 +2798,7 @@ const taskText =
       const result = data && data[0];
 
       if (!result) {
-        alert("Görev sonucu alınamadı.");
+        alert(taskText.taskNoResult);
 
         btn.disabled = false;
         btn.textContent = taskText.startTask;
@@ -2785,10 +2815,11 @@ const taskText =
       render();
 
       alert(
-        "Görev tamamlandı! +" +
-        result.earned_points +
-        " puan"
-      );
+  taskText.taskCompletedRewardPrefix +
+  result.earned_points +
+  " " +
+  taskText.pointsUnit
+);
     });
 
   render();
