@@ -1483,6 +1483,7 @@ passwordPlaceholder: "Şifre",
     adTitlePlaceholder: "Reklam başlığı",
 adDescriptionPlaceholder: "Kısa açıklama",
     adFormRequired: "Lütfen tüm reklam bilgilerini doldurun.",
+    adInvalidUrl: "Lütfen geçerli bir bağlantı girin.",
 register: "Kayıt Ol / Hesap Oluştur",
 loginStatusLoggedOut: "Giriş yapılmadı.",
     logout: "🚪 Çıkış Yap",
@@ -1603,6 +1604,7 @@ passwordPlaceholder: "Password",
     adTitlePlaceholder: "Ad title",
 adDescriptionPlaceholder: "Short description",
     adFormRequired: "Please fill in all ad information.",
+    adInvalidUrl: "Please enter a valid URL.",
 register: "Sign Up / Create Account",
 loginStatusLoggedOut: "Not signed in.",
     logout: "🚪 Sign Out",
@@ -1722,6 +1724,7 @@ passwordPlaceholder: "पासवर्ड",
       adTitlePlaceholder: "विज्ञापन शीर्षक",
 adDescriptionPlaceholder: "संक्षिप्त विवरण",
       adFormRequired: "कृपया सभी विज्ञापन जानकारी भरें.",
+  adInvalidUrl: "कृपया एक मान्य लिंक दर्ज करें.",
 register: "साइन अप / खाता बनाएँ",
 loginStatusLoggedOut: "साइन इन नहीं किया गया है।",
       logout: "🚪 साइन आउट करें",
@@ -1842,6 +1845,7 @@ passwordPlaceholder: "Senha",
     adTitlePlaceholder: "Título do anúncio",
 adDescriptionPlaceholder: "Descrição curta",
     adFormRequired: "Por favor, preencha todas as informações do anúncio.",
+    adInvalidUrl: "Por favor, insira um URL válido.",
 register: "Cadastre-se / Criar conta",
 loginStatusLoggedOut: "Você não está conectado.",
     logout: "🚪 Sair",
@@ -1961,6 +1965,7 @@ passwordPlaceholder: "Kata sandi",
       adTitlePlaceholder: "Judul iklan",
 adDescriptionPlaceholder: "Deskripsi singkat",
       adFormRequired: "Silakan isi semua informasi iklan.",
+      adInvalidUrl: "Silakan masukkan URL yang valid.",
 register: "Daftar / Buat Akun",
 loginStatusLoggedOut: "Belum masuk.",
       logout: "🚪 Keluar",
@@ -2081,6 +2086,7 @@ passwordPlaceholder: "Palavra-passe",
     adTitlePlaceholder: "Título do anúncio",
 adDescriptionPlaceholder: "Descrição curta",
     adFormRequired: "Por favor, preencha todas as informações do anúncio.",
+    adInvalidUrl: "Por favor, introduza um URL válido.",
 register: "Registar / Criar conta",
 loginStatusLoggedOut: "Não tem sessão iniciada.",
    logout: "🚪 Terminar sessão",
@@ -3605,7 +3611,10 @@ if (adFormPlan) {
         throw new Error();
       }
     } catch {
-      alert("Lütfen geçerli bir bağlantı girin.");
+      alert(
+  (translations[localStorage.getItem("workplace_language")] || translations.tr)
+    .adInvalidUrl
+);
       return;
     }
 
