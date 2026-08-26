@@ -1484,6 +1484,7 @@ passwordPlaceholder: "Şifre",
 adDescriptionPlaceholder: "Kısa açıklama",
     adFormRequired: "Lütfen tüm reklam bilgilerini doldurun.",
     adInvalidUrl: "Lütfen geçerli bir bağlantı girin.",
+    adLoginRequired: "Başvuru göndermek için giriş yapmalısınız.",
 register: "Kayıt Ol / Hesap Oluştur",
 loginStatusLoggedOut: "Giriş yapılmadı.",
     logout: "🚪 Çıkış Yap",
@@ -1605,6 +1606,7 @@ passwordPlaceholder: "Password",
 adDescriptionPlaceholder: "Short description",
     adFormRequired: "Please fill in all ad information.",
     adInvalidUrl: "Please enter a valid URL.",
+    adLoginRequired: "You must sign in to submit an application.",
 register: "Sign Up / Create Account",
 loginStatusLoggedOut: "Not signed in.",
     logout: "🚪 Sign Out",
@@ -1725,6 +1727,7 @@ passwordPlaceholder: "पासवर्ड",
 adDescriptionPlaceholder: "संक्षिप्त विवरण",
       adFormRequired: "कृपया सभी विज्ञापन जानकारी भरें.",
   adInvalidUrl: "कृपया एक मान्य लिंक दर्ज करें.",
+      adLoginRequired: "आवेदन जमा करने के लिए आपको साइन इन करना होगा.",
 register: "साइन अप / खाता बनाएँ",
 loginStatusLoggedOut: "साइन इन नहीं किया गया है।",
       logout: "🚪 साइन आउट करें",
@@ -1846,6 +1849,7 @@ passwordPlaceholder: "Senha",
 adDescriptionPlaceholder: "Descrição curta",
     adFormRequired: "Por favor, preencha todas as informações do anúncio.",
     adInvalidUrl: "Por favor, insira um URL válido.",
+    adLoginRequired: "Você precisa entrar para enviar uma solicitação.",
 register: "Cadastre-se / Criar conta",
 loginStatusLoggedOut: "Você não está conectado.",
     logout: "🚪 Sair",
@@ -1966,6 +1970,7 @@ passwordPlaceholder: "Kata sandi",
 adDescriptionPlaceholder: "Deskripsi singkat",
       adFormRequired: "Silakan isi semua informasi iklan.",
       adInvalidUrl: "Silakan masukkan URL yang valid.",
+      adLoginRequired: "Anda harus masuk untuk mengirim pengajuan.",
 register: "Daftar / Buat Akun",
 loginStatusLoggedOut: "Belum masuk.",
       logout: "🚪 Keluar",
@@ -2087,6 +2092,7 @@ passwordPlaceholder: "Palavra-passe",
 adDescriptionPlaceholder: "Descrição curta",
     adFormRequired: "Por favor, preencha todas as informações do anúncio.",
     adInvalidUrl: "Por favor, introduza um URL válido.",
+    adLoginRequired: "Tem de iniciar sessão para enviar uma candidatura.",
 register: "Registar / Criar conta",
 loginStatusLoggedOut: "Não tem sessão iniciada.",
    logout: "🚪 Terminar sessão",
@@ -3622,7 +3628,10 @@ if (adFormPlan) {
   await supabaseClient.auth.getUser();
 
 if (userError || !userData.user) {
-  alert("Başvuru göndermek için giriş yapmalısınız.");
+  alert(
+  (translations[localStorage.getItem("workplace_language")] || translations.tr)
+    .adLoginRequired
+);
   return;
 }
 
