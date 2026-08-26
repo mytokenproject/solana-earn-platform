@@ -3672,6 +3672,14 @@ if (insertError) {
 }
 
 alert(
+  ({
+    tr: "✅ Reklam başvurunuz alındı ve incelemeye gönderildi.",
+    en: "✅ Your ad application has been received and submitted for review.",
+    hi: "✅ आपका विज्ञापन आवेदन प्राप्त हो गया है और समीक्षा के लिए भेज दिया गया है।",
+    "pt-BR": "✅ Sua solicitação de anúncio foi recebida e enviada para análise.",
+    id: "✅ Pengajuan iklan Anda telah diterima dan dikirim untuk ditinjau.",
+    "pt-PT": "✅ O seu pedido de anúncio foi recebido e enviado para análise."
+  })[localStorage.getItem("workplace_language") || "tr"] ||
   "✅ Reklam başvurunuz alındı ve incelemeye gönderildi."
 );
 
