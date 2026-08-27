@@ -1517,6 +1517,11 @@ tokenMinimumRequired: "Gerekli minimum:",
 minimumTokenCondition: "Minimum token şartı:",
     walletConnectionFailed: "Cüzdan bağlantısı başarısız oldu.",
     supabaseNotReady: "Supabase bağlantısı hazır değil.",
+    taskCompletionFailed: "Görev tamamlanamadı.",
+taskRewardAdded: "Görev tamamlandı ve ödül eklendi!",
+taskCannotCompleteNow: "Bu görev şu anda tamamlanamaz.",
+genericError: "Bir hata oluştu.",
+supabaseErrorPrefix: "Supabase hata:",
 accountStatusWPWaiting: "WP Erişimi: -",
     watch: "İzle",
 doTask: "Görev Yap",
@@ -1656,6 +1661,11 @@ tokenMinimumRequired: "Required minimum:",
 minimumTokenCondition: "Minimum token requirement:",
     walletConnectionFailed: "Wallet connection failed.",
     supabaseNotReady: "Supabase connection is not ready.",
+    taskCompletionFailed: "Task could not be completed.",
+taskRewardAdded: "Task completed and reward added!",
+taskCannotCompleteNow: "This task cannot be completed right now.",
+genericError: "An error occurred.",
+supabaseErrorPrefix: "Supabase error:",
 accountStatusWPWaiting: "WP Access: -",
    watch: "Watch",
 doTask: "Do Tasks",
@@ -1794,6 +1804,11 @@ tokenMinimumRequired: "आवश्यक न्यूनतम:",
 minimumTokenCondition: "न्यूनतम टोकन आवश्यकता:",
       walletConnectionFailed: "वॉलेट कनेक्शन विफल हो गया।",
       supabaseNotReady: "Supabase कनेक्शन अभी तैयार नहीं है।",
+      taskCompletionFailed: "कार्य पूरा नहीं किया जा सका।",
+taskRewardAdded: "कार्य पूरा हुआ और इनाम जोड़ दिया गया!",
+taskCannotCompleteNow: "यह कार्य अभी पूरा नहीं किया जा सकता।",
+genericError: "एक त्रुटि हुई।",
+supabaseErrorPrefix: "Supabase त्रुटि:",
   accountStatusWPWaiting: "WP एक्सेस: -",
       watch: "देखें",
 doTask: "कार्य करें",
@@ -1932,6 +1947,11 @@ tokenMinimumRequired: "Mínimo necessário:",
 minimumTokenCondition: "Requisito mínimo de tokens:",
     walletConnectionFailed: "Falha na conexão da carteira.",
     supabaseNotReady: "A conexão com o Supabase ainda não está pronta.",
+    taskCompletionFailed: "Não foi possível concluir a tarefa.",
+taskRewardAdded: "Tarefa concluída e recompensa adicionada!",
+taskCannotCompleteNow: "Esta tarefa não pode ser concluída agora.",
+genericError: "Ocorreu um erro.",
+supabaseErrorPrefix: "Erro do Supabase:",
 accountStatusWalletDisconnected: "Carteira: Não conectada",
 accountStatusWPWaiting: "Acesso WP: -",
     watch: "Assistir",
@@ -2071,6 +2091,11 @@ tokenMinimumRequired: "Minimum yang diperlukan:",
 minimumTokenCondition: "Persyaratan minimum token:",
       walletConnectionFailed: "Koneksi dompet gagal.",
       supabaseNotReady: "Koneksi Supabase belum siap.",
+      taskCompletionFailed: "Tugas tidak dapat diselesaikan.",
+taskRewardAdded: "Tugas selesai dan hadiah telah ditambahkan!",
+taskCannotCompleteNow: "Tugas ini tidak dapat diselesaikan saat ini.",
+genericError: "Terjadi kesalahan.",
+supabaseErrorPrefix: "Kesalahan Supabase:",
 accountStatusWPWaiting: "Akses WP: -",
     watch: "Tonton",
 doTask: "Kerjakan Tugas",
@@ -2209,6 +2234,11 @@ tokenMinimumRequired: "Mínimo necessário:",
 minimumTokenCondition: "Requisito mínimo de tokens:",
     walletConnectionFailed: "Falha na ligação da carteira.",
     supabaseNotReady: "A ligação ao Supabase ainda não está pronta.",
+    taskCompletionFailed: "Não foi possível concluir a tarefa.",
+taskRewardAdded: "Tarefa concluída e recompensa adicionada!",
+taskCannotCompleteNow: "Esta tarefa não pode ser concluída neste momento.",
+genericError: "Ocorreu um erro.",
+supabaseErrorPrefix: "Erro do Supabase:",
 accountStatusWalletDisconnected: "Carteira: Não ligada",
 accountStatusWPWaiting: "Acesso WP: -",
     watch: "Ver",
@@ -4761,18 +4791,30 @@ async function completeTask(taskId) {
 
     if (error) {
       console.error("Görev tamamlama hatası:", error);
-      alert("Görev tamamlanamadı.");
+      alert(
+  (translations[localStorage.getItem("workplace_language")] || translations.tr)
+    .taskCompletionFailed
+);
       return;
     }
 
     if (data === true) {
-      alert("Görev tamamlandı ve ödül eklendi!");
+      alert(
+  (translations[localStorage.getItem("workplace_language")] || translations.tr)
+    .taskRewardAdded
+);
     } else {
-      alert("Bu görev şu anda tamamlanamaz.");
+      alert(
+  (translations[localStorage.getItem("workplace_language")] || translations.tr)
+    .taskCannotCompleteNow
+);
     }
   } catch (error) {
     console.error(error);
-    alert("Bir hata oluştu.");
+    alert(
+  (translations[localStorage.getItem("workplace_language")] || translations.tr)
+    .genericError
+);
   }
 }
   // === KAZANÇ MOTORU HAZIRLIK ===
@@ -4798,10 +4840,11 @@ async function getMyEarnings() {
   if (error) {
   console.error("Kazanç bilgisi alınamadı:", error);
 
-  alert(
-    "Supabase hata: " +
-    (error.message || JSON.stringify(error))
-  );
+ alert(
+  (translations[localStorage.getItem("workplace_language")] || translations.tr)
+    .supabaseErrorPrefix + " " +
+  (error.message || JSON.stringify(error))
+);
 
   return null;
   }
