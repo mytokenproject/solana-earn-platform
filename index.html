@@ -3684,6 +3684,8 @@ const adUrl =
 
 const adDescription =
   document.getElementById("adDescription");
+ const adminBtn =
+  document.getElementById("adminBtn");
   const adminAdPanel =
   document.getElementById("adminAdPanel");
 
@@ -3709,11 +3711,12 @@ const sponsorAdLink =
   }
 
   if (!isAdmin) {
-    adminAdPanel.style.display = "none";
-    return;
-  }
+  if (adminBtn) adminBtn.style.display = "none";
+  adminAdPanel.style.display = "none";
+  return;
+}
 
-  adminAdPanel.style.display = "block";
+if (adminBtn) adminBtn.style.display = "inline-flex";
 
   const { data: ads, error: adsError } =
     await supabaseClient
@@ -3840,8 +3843,8 @@ rejectBtn.addEventListener("click", async () => {
 
   alert("❌ Reklam reddedildi.");
   loadAdminAds();
-});
-
+  ));
+  
 actionWrap.appendChild(approveBtn);
 actionWrap.appendChild(rejectBtn);
 
@@ -3851,6 +3854,22 @@ item.appendChild(actionWrap);
 }
 
 loadAdminAds();
+  if (adminBtn && adminAdPanel) {
+  adminBtn.addEventListener("click", () => {
+    const isOpen =
+      adminAdPanel.style.display === "block";
+
+    adminAdPanel.style.display =
+      isOpen ? "none" : "block";
+
+    if (!isOpen) {
+      adminAdPanel.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
+    }
+  });
+  }
   async function loadApprovedSponsorAd() {
   if (
     !sponsorAdTitle ||
