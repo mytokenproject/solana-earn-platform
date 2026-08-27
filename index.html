@@ -1526,6 +1526,7 @@ supabaseErrorPrefix: "Supabase hata:",
 earningsEngineRunning: "Kazanç Motoru çalışıyor!",
 recordCountLabel: "Kayıt sayısı:",
 totalEarningsLabel: "Toplam kazanç:",
+ logoutFailedPrefix: "Çıkış yapılamadı:",
 accountStatusWPWaiting: "WP Erişimi: -",
     watch: "İzle",
 doTask: "Görev Yap",
@@ -1673,7 +1674,7 @@ supabaseErrorPrefix: "Supabase error:",
     earningsInfoUnavailable: "Earnings information could not be retrieved.",
 earningsEngineRunning: "Earnings Engine is running!",
 recordCountLabel: "Record count:",
-totalEarningsLabel: "Total earnings:",
+totalEarningsLabel: "Total earnings:",  logoutFailedPrefix: "Could not sign out:",
 accountStatusWPWaiting: "WP Access: -",
    watch: "Watch",
 doTask: "Do Tasks",
@@ -1821,6 +1822,7 @@ supabaseErrorPrefix: "Supabase त्रुटि:",
 earningsEngineRunning: "कमाई इंजन चल रहा है!",
 recordCountLabel: "रिकॉर्ड संख्या:",
 totalEarningsLabel: "कुल कमाई:",
+   logoutFailedPrefix: "साइन आउट नहीं किया जा सका:",
   accountStatusWPWaiting: "WP एक्सेस: -",
       watch: "देखें",
 doTask: "कार्य करें",
@@ -1968,6 +1970,7 @@ supabaseErrorPrefix: "Erro do Supabase:",
 earningsEngineRunning: "O mecanismo de ganhos está funcionando!",
 recordCountLabel: "Número de registros:",
 totalEarningsLabel: "Ganhos totais:",
+  logoutFailedPrefix: "Não foi possível sair:",
 accountStatusWalletDisconnected: "Carteira: Não conectada",
 accountStatusWPWaiting: "Acesso WP: -",
     watch: "Assistir",
@@ -2116,6 +2119,7 @@ supabaseErrorPrefix: "Kesalahan Supabase:",
 earningsEngineRunning: "Mesin penghasilan sedang berjalan!",
 recordCountLabel: "Jumlah catatan:",
 totalEarningsLabel: "Total penghasilan:",
+  logoutFailedPrefix: "Tidak dapat keluar:",
 accountStatusWPWaiting: "Akses WP: -",
     watch: "Tonton",
 doTask: "Kerjakan Tugas",
@@ -2263,6 +2267,7 @@ supabaseErrorPrefix: "Erro do Supabase:",
 earningsEngineRunning: "O motor de ganhos está a funcionar!",
 recordCountLabel: "Número de registos:",
 totalEarningsLabel: "Ganhos totais:",
+logoutFailedPrefix: "Não foi possível terminar sessão:",
 accountStatusWalletDisconnected: "Carteira: Não ligada",
 accountStatusWPWaiting: "Acesso WP: -",
     watch: "Ver",
@@ -5210,7 +5215,10 @@ if (logoutBtn) {
 
     if (error) {
       console.error("Çıkış hatası:", error);
-      alert("Çıkış yapılamadı: " + error.message);
+       alert(
+  (translations[localStorage.getItem("workplace_language")] || translations.tr)
+    .logoutFailedPrefix + " " + error.message
+);
       logoutBtn.disabled = false;
       return;
     }
@@ -5294,7 +5302,7 @@ localStorage.setItem('workplaceNotifications',on?'on':'off');
   "
   style="width:100%;text-align:left;padding:10px 12px;margin-bottom:6px;"
 >
-  🔕 Bildirimler: Kapalı
+  🔕 
     </button>
     <script>
   {
