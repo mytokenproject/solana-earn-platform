@@ -5673,5 +5673,118 @@ if (walletName === "phantom") {
   }
 }
    </script>
+  <script>
+(() => {
+  const ids = [
+    "gameTaskList","appTaskList","surveyTaskList","videoTaskList",
+    "sponsoredTaskList","shoppingTaskList","web3TaskList"
+  ];
+
+  const icons = ["🎮","📱","📋","▶️","⭐","🛍️","◉"];
+
+  const originalTitles = [
+    "Örnek Oyun Görevi",
+    "Örnek Uygulama Görevi",
+    "Örnek Anket Görevi",
+    "Örnek Video Görevi",
+    "Örnek Sponsorlu Görev",
+    "Örnek Alışveriş Görevi",
+    "Örnek Web3 / Solana Görevi"
+  ];
+
+  const titles = {
+    tr: originalTitles,
+    en: [
+      "Sample Game Task","Sample App Task","Sample Survey Task",
+      "Sample Video Task","Sample Sponsored Task",
+      "Sample Shopping Task","Sample Web3 / Solana Task"
+    ],
+    hi: [
+      "उदाहरण गेम कार्य","उदाहरण ऐप कार्य","उदाहरण सर्वेक्षण कार्य",
+      "उदाहरण वीडियो कार्य","उदाहरण प्रायोजित कार्य",
+      "उदाहरण शॉपिंग कार्य","उदाहरण Web3 / Solana कार्य"
+    ],
+    "pt-BR": [
+      "Tarefa de Jogo de Exemplo","Tarefa de Aplicativo de Exemplo",
+      "Tarefa de Pesquisa de Exemplo","Tarefa de Vídeo de Exemplo",
+      "Tarefa Patrocinada de Exemplo","Tarefa de Compras de Exemplo",
+      "Tarefa Web3 / Solana de Exemplo"
+    ],
+    id: [
+      "Contoh Tugas Game","Contoh Tugas Aplikasi","Contoh Tugas Survei",
+      "Contoh Tugas Video","Contoh Tugas Bersponsor",
+      "Contoh Tugas Belanja","Contoh Tugas Web3 / Solana"
+    ],
+    "pt-PT": [
+      "Tarefa de Jogo de Exemplo","Tarefa de Aplicação de Exemplo",
+      "Tarefa de Inquérito de Exemplo","Tarefa de Vídeo de Exemplo",
+      "Tarefa Patrocinada de Exemplo","Tarefa de Compras de Exemplo",
+      "Tarefa Web3 / Solana de Exemplo"
+    ]
+  };
+
+  function refreshDynamicTaskLanguage() {
+    const lang = localStorage.getItem("workplace_language") || "tr";
+    const t = window.translations?.[lang] || window.translations?.tr;
+    if (!t) return;
+
+    ids.forEach((id, i) => {
+      document.querySelectorAll("#" + id + " .task").forEach(card => {
+        const title = card.querySelector(".task-title");
+        const meta = card.querySelector("small");
+        const points = card.querySelector("strong");
+        const btn = card.querySelector("button.taskBtn");
+
+        if (title) {
+          if (
+            !card.dataset.wpDemo &&
+            originalTitles.some(x => title.textContent.includes(x))
+          ) {
+            card.dataset.wpDemo = "1";
+          }
+
+          if (card.dataset.wpDemo === "1") {
+            title.textContent =
+              icons[i] + " " + (titles[lang] || titles.tr)[i];
+          }
+        }
+
+        if (meta) meta.textContent = t.taskProviderTestActive;
+
+        if (points) {
+          const n = points.textContent.match(/\d+/);
+          if (n) points.textContent = "+" + n[0] + " " + t.pointsUnit;
+        }
+
+        if (btn) {
+          if (btn.dataset.done === "1" || btn.classList.contains("done")) {
+            btn.textContent = "✓ " + t.taskCompleted;
+          } else if (btn.disabled) {
+            btn.textContent = t.taskProcessing;
+          } else {
+            btn.textContent = t.startTask;
+          }
+        }
+      });
+    });
+  }
+
+  document.getElementById("languageSelect")
+    ?.addEventListener("change", () =>
+      setTimeout(refreshDynamicTaskLanguage, 0)
+    );
+
+  ids.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) {
+      new MutationObserver(refreshDynamicTaskLanguage)
+        .observe(el, { childList: true });
+    }
+  });
+
+  window.addEventListener("load", refreshDynamicTaskLanguage);
+  refreshDynamicTaskLanguage();
+})();
+  </script>
 </body>
 </html>
