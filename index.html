@@ -4527,14 +4527,14 @@ if (savedWalletError) {
   accountStatusWallet.textContent =
     statusT.accountStatusWalletConnected;
   if (connectBtnEl) {
-  connectBtnEl.textContent = "Cüzdan Bağlı ✓";
+  connectBtnEl.textContent = statusT.walletConnectedButton;
   }
 
   if (walletStatusEl) {
     walletStatusEl.innerHTML =
-      "Bağlandı: <span class='wallet'>" +
-      savedWalletAddress +
-      "</span>";
+  statusT.walletConnectedLabel + " <span class='wallet'>" +
+  savedWalletAddress +
+  "</span>";
   }
 
   const topWalletStatusEl =
