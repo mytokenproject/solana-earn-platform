@@ -5767,6 +5767,16 @@ if (walletName === "phantom") {
         }
       });
     });
+    document.querySelectorAll("#mainTasksSection .taskBtn").forEach(btn => {
+  const taskId = Number(btn.dataset.taskId || 0);
+
+  if (btn.dataset.done === "1" || btn.classList.contains("done")) {
+    btn.textContent =
+      "✓ " + (taskId === 3 ? t.taskCompletedToday : t.taskCompleted);
+  } else if (!btn.disabled) {
+    btn.textContent = t.startTask;
+  }
+});
   }
 
   document.getElementById("languageSelect")
