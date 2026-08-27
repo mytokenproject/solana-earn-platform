@@ -1547,6 +1547,7 @@ tokenMinimumRequired: "Gerekli minimum:",
     walletConnectedButton: "Cüzdan Bağlı ✓",
 minimumTokenCondition: "Minimum token şartı:",
     walletConnectionFailed: "Cüzdan bağlantısı başarısız oldu.",
+    walletOpening: "Cüzdan açılıyor...",
     supabaseNotReady: "Supabase bağlantısı hazır değil.",
     taskCompletionFailed: "Görev tamamlanamadı.",
 taskRewardAdded: "Görev tamamlandı ve ödül eklendi!",
@@ -1721,6 +1722,7 @@ tokenMinimumRequired: "Required minimum:",
     walletConnectedButton: "Wallet Connected ✓",
 minimumTokenCondition: "Minimum token requirement:",
     walletConnectionFailed: "Wallet connection failed.",
+    walletOpening: "Opening wallet...",
     supabaseNotReady: "Supabase connection is not ready.",
     taskCompletionFailed: "Task could not be completed.",
 taskRewardAdded: "Task completed and reward added!",
@@ -1893,6 +1895,7 @@ tokenMinimumRequired: "आवश्यक न्यूनतम:",
       walletConnectedButton: "वॉलेट कनेक्टेड ✓",
 minimumTokenCondition: "न्यूनतम टोकन आवश्यकता:",
       walletConnectionFailed: "वॉलेट कनेक्शन विफल हो गया।",
+      walletOpening: "वॉलेट खोला जा रहा है...",
       supabaseNotReady: "Supabase कनेक्शन अभी तैयार नहीं है।",
       taskCompletionFailed: "कार्य पूरा नहीं किया जा सका।",
 taskRewardAdded: "कार्य पूरा हुआ और इनाम जोड़ दिया गया!",
@@ -2066,6 +2069,7 @@ tokenMinimumRequired: "Mínimo necessário:",
     walletConnectedLabel: "Carteira conectada:",
 minimumTokenCondition: "Requisito mínimo de tokens:",
     walletConnectionFailed: "Falha na conexão da carteira.",
+    walletOpening: "Abrindo a carteira...",
     supabaseNotReady: "A conexão com o Supabase ainda não está pronta.",
     taskCompletionFailed: "Não foi possível concluir a tarefa.",
 taskRewardAdded: "Tarefa concluída e recompensa adicionada!",
@@ -2240,6 +2244,7 @@ tokenMinimumRequired: "Minimum yang diperlukan:",
       walletConnectedButton: "Dompet Terhubung ✓",
 minimumTokenCondition: "Persyaratan minimum token:",
       walletConnectionFailed: "Koneksi dompet gagal.",
+      walletOpening: "Membuka dompet...",
       supabaseNotReady: "Koneksi Supabase belum siap.",
       taskCompletionFailed: "Tugas tidak dapat diselesaikan.",
 taskRewardAdded: "Tugas selesai dan hadiah telah ditambahkan!",
@@ -2413,6 +2418,7 @@ tokenMinimumRequired: "Mínimo necessário:",
     walletConnectedButton: "Carteira Ligada ✓",
 minimumTokenCondition: "Requisito mínimo de tokens:",
     walletConnectionFailed: "Falha na ligação da carteira.",
+    walletOpening: "A abrir a carteira...",
     supabaseNotReady: "A ligação ao Supabase ainda não está pronta.",
     taskCompletionFailed: "Não foi possível concluir a tarefa.",
 taskRewardAdded: "Tarefa concluída e recompensa adicionada!",
@@ -2757,7 +2763,10 @@ connectBtn.addEventListener("click", () => {
     walletChooser.style.display === "none" ? "grid" : "none";
 });
   phantomWalletBtn.addEventListener("click", async () => {
-
+const phantomLang =
+  localStorage.getItem("workplace_language") || "tr";
+const phantomText =
+  translations[phantomLang] || translations.tr;
     try {
       const provider =
   window.phantom?.solana ||
@@ -2766,12 +2775,13 @@ connectBtn.addEventListener("click", () => {
       if (!provider) {
 
         walletStatus.textContent =
-          "Phantom cüzdanı bulunamadı. Test modunda görevleri yine deneyebilirsin.";
+  phantomText.walletPhantomNotFound;
  const topWalletStatusEl =
   document.getElementById("topWalletStatus");
 
 if (topWalletStatusEl)
-  topWalletStatusEl.textContent = "Phantom bulunamadı";
+  topWalletStatusEl.textContent =
+    phantomText.accountStatusWalletDisconnected;
         openWalletApp("phantom");
         return;
       }
@@ -2793,37 +2803,46 @@ if (!address) {
 await saveWalletAddress(address);
 
       walletStatus.innerHTML =
-        "Bağlandı: <span class='wallet'>" +
-        address +
-        "</span>";
+  phantomText.walletConnectedLabel +
+  " <span class='wallet'>" +
+  address +
+  "</span>";
 const topWalletStatusEl = document.getElementById("topWalletStatus");
-if (topWalletStatusEl) topWalletStatusEl.textContent = "Cüzdan bağlı ✅";
+if (topWalletStatusEl)
+  topWalletStatusEl.textContent =
+    phantomText.accountStatusWalletConnected;
 
-      connectBtn.textContent =
-        "Cüzdan Bağlandı";
+    connectBtn.textContent =
+  phantomText.walletConnectedButton;
 
 
     } catch (err) {
 
       console.error("Phantom bağlantı hatası:", err);
 
-walletStatus.textContent =
-  "Phantom hata: " + (err?.message || String(err));
+ walletStatus.textContent =
+  phantomText.walletConnectionFailed;
 const topWalletStatusEl =
   document.getElementById("topWalletStatus");
 
 if (topWalletStatusEl)
-  topWalletStatusEl.textContent = "Cüzdan bağlı değil";
+  topWalletStatusEl.textContent =
+  phantomText.accountStatusWalletDisconnected;
     }
 
   });
 
   solflareWalletBtn.addEventListener("click", async () => {
+  const solflareLang =
+  localStorage.getItem("workplace_language") || "tr";
+const solflareText =
+  translations[solflareLang] || translations.tr;
   try {
     const provider = window.solflare;
 
     if (!provider) {
-  walletStatus.textContent = "Solflare açılıyor...";
+  walletStatus.textContent =
+  solflareText.walletOpening;
   openWalletApp("solflare");
   return;
     }
@@ -2841,32 +2860,40 @@ if (topWalletStatusEl)
    await saveWalletAddress(address);
     
     walletStatus.innerHTML =
-      "Bağlandı: <span class='wallet'>" +
-      address +
-      "</span>";
+  solflareText.walletConnectedLabel +
+  " <span class='wallet'>" +
+  address +
+  "</span>";
 
     const topWalletStatusEl =
       document.getElementById("topWalletStatus");
 
     if (topWalletStatusEl)
-      topWalletStatusEl.textContent = "Cüzdan bağlı ✅";
+      topWalletStatusEl.textContent =
+  solflareText.accountStatusWalletConnected;
 
-    connectBtn.textContent = "Cüzdan Bağlandı";
+    connectBtn.textContent =
+  solflareText.walletConnectedButton;
     walletChooser.style.display = "none";
 
   } catch (err) {
     walletStatus.textContent =
-      "Solflare bağlantısı iptal edildi.";
+  solflareText.walletConnectionFailed;
 
     const topWalletStatusEl =
       document.getElementById("topWalletStatus");
 
     if (topWalletStatusEl)
-      topWalletStatusEl.textContent = "Cüzdan bağlı değil";
+      topWalletStatusEl.textContent =
+  solflareText.accountStatusWalletDisconnected;
   }
 });
   
 backpackWalletBtn.addEventListener("click", async () => {
+  const backpackLang =
+  localStorage.getItem("workplace_language") || "tr";
+const backpackText =
+  translations[backpackLang] || translations.tr;
   try {
     const provider =
   window.backpack?.solana ||
@@ -2874,7 +2901,8 @@ backpackWalletBtn.addEventListener("click", async () => {
   window.solana;
 
    if (!provider || typeof provider.connect !== "function") {
-  walletStatus.textContent = "Backpack açılıyor...";
+  walletStatus.textContent =
+  backpackText.walletOpening;
   openWalletApp("backpack");
   return;
    }
@@ -2893,38 +2921,47 @@ backpackWalletBtn.addEventListener("click", async () => {
     await saveWalletAddress(address);
 
     walletStatus.innerHTML =
-      "Bağlandı: <span class='wallet'>" +
-      address +
-      "</span>";
+  backpackText.walletConnectedLabel +
+  " <span class='wallet'>" +
+  address +
+  "</span>";
 
     const topWalletStatusEl =
       document.getElementById("topWalletStatus");
 
     if (topWalletStatusEl)
-      topWalletStatusEl.textContent = "Cüzdan bağlı ✅";
+  topWalletStatusEl.textContent =
+    backpackText.accountStatusWalletConnected;
 
-    connectBtn.textContent = "Cüzdan Bağlandı";
+    connectBtn.textContent =
+  backpackText.walletConnectedButton;
     walletChooser.style.display = "none";
 
   } catch (err) {
     console.error("Backpack bağlantı hatası:", err);
 
     walletStatus.textContent =
-      "Backpack bağlantısı iptal edildi.";
+  backpackText.walletConnectionFailed;
 
     const topWalletStatusEl =
       document.getElementById("topWalletStatus");
 
     if (topWalletStatusEl)
-      topWalletStatusEl.textContent = "Cüzdan bağlı değil";
+  topWalletStatusEl.textContent =
+    backpackText.accountStatusWalletDisconnected;
   }
 });
 trustWalletBtn.addEventListener("click", async () => {
+  const trustWalletLang =
+  localStorage.getItem("workplace_language") || "tr";
+const trustWalletText =
+  translations[trustWalletLang] || translations.tr;
   try {
     const provider = window.trustwallet?.solana;
 
     if (!provider || typeof provider.connect !== "function") {
-      walletStatus.textContent = "Trust Wallet açılıyor...";
+      walletStatus.textContent =
+  trustWalletText.walletOpening;
       openWalletApp("trustwallet");
       return;
     }
@@ -2943,31 +2980,34 @@ trustWalletBtn.addEventListener("click", async () => {
     await saveWalletAddress(address);
 
     walletStatus.innerHTML =
-      "Bağlandı: <span class='wallet'>" +
-      address +
-      "</span>";
+  trustWalletText.walletConnectedLabel +
+  " <span class='wallet'>" +
+  address +
+  "</span>";
 
     const topWalletStatusEl =
       document.getElementById("topWalletStatus");
 
     if (topWalletStatusEl)
-      topWalletStatusEl.textContent = "Cüzdan bağlı ✅";
+  topWalletStatusEl.textContent =
+    trustWalletText.accountStatusWalletConnected;
 
-    connectBtn.textContent = "Cüzdan Bağlandı";
+    connectBtn.textContent =
+  trustWalletText.walletConnectedButton;
     walletChooser.style.display = "none";
 
   } catch (err) {
     console.error("Trust Wallet bağlantı hatası:", err);
 
-    walletStatus.textContent =
-      "Trust Wallet bağlantısı iptal edildi.";
+   walletStatus.textContent =
+  trustWalletText.walletConnectionFailed;
 
     const topWalletStatusEl =
       document.getElementById("topWalletStatus");
 
     if (topWalletStatusEl)
-      topWalletStatusEl.textContent = "Cüzdan bağlı değil";
-  }
+  topWalletStatusEl.textContent =
+    trustWalletText.accountStatusWalletDisconnected;
 });
 
   
