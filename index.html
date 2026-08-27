@@ -1522,6 +1522,10 @@ taskRewardAdded: "Görev tamamlandı ve ödül eklendi!",
 taskCannotCompleteNow: "Bu görev şu anda tamamlanamaz.",
 genericError: "Bir hata oluştu.",
 supabaseErrorPrefix: "Supabase hata:",
+    earningsInfoUnavailable: "Kazanç bilgisi alınamadı.",
+earningsEngineRunning: "Kazanç Motoru çalışıyor!",
+recordCountLabel: "Kayıt sayısı:",
+totalEarningsLabel: "Toplam kazanç:",
 accountStatusWPWaiting: "WP Erişimi: -",
     watch: "İzle",
 doTask: "Görev Yap",
@@ -1666,6 +1670,10 @@ taskRewardAdded: "Task completed and reward added!",
 taskCannotCompleteNow: "This task cannot be completed right now.",
 genericError: "An error occurred.",
 supabaseErrorPrefix: "Supabase error:",
+    earningsInfoUnavailable: "Earnings information could not be retrieved.",
+earningsEngineRunning: "Earnings Engine is running!",
+recordCountLabel: "Record count:",
+totalEarningsLabel: "Total earnings:",
 accountStatusWPWaiting: "WP Access: -",
    watch: "Watch",
 doTask: "Do Tasks",
@@ -1809,6 +1817,10 @@ taskRewardAdded: "कार्य पूरा हुआ और इनाम ज
 taskCannotCompleteNow: "यह कार्य अभी पूरा नहीं किया जा सकता।",
 genericError: "एक त्रुटि हुई।",
 supabaseErrorPrefix: "Supabase त्रुटि:",
+      earningsInfoUnavailable: "कमाई की जानकारी प्राप्त नहीं की जा सकी।",
+earningsEngineRunning: "कमाई इंजन चल रहा है!",
+recordCountLabel: "रिकॉर्ड संख्या:",
+totalEarningsLabel: "कुल कमाई:",
   accountStatusWPWaiting: "WP एक्सेस: -",
       watch: "देखें",
 doTask: "कार्य करें",
@@ -1952,6 +1964,10 @@ taskRewardAdded: "Tarefa concluída e recompensa adicionada!",
 taskCannotCompleteNow: "Esta tarefa não pode ser concluída agora.",
 genericError: "Ocorreu um erro.",
 supabaseErrorPrefix: "Erro do Supabase:",
+    earningsInfoUnavailable: "Não foi possível obter as informações de ganhos.",
+earningsEngineRunning: "O mecanismo de ganhos está funcionando!",
+recordCountLabel: "Número de registros:",
+totalEarningsLabel: "Ganhos totais:",
 accountStatusWalletDisconnected: "Carteira: Não conectada",
 accountStatusWPWaiting: "Acesso WP: -",
     watch: "Assistir",
@@ -2096,6 +2112,10 @@ taskRewardAdded: "Tugas selesai dan hadiah telah ditambahkan!",
 taskCannotCompleteNow: "Tugas ini tidak dapat diselesaikan saat ini.",
 genericError: "Terjadi kesalahan.",
 supabaseErrorPrefix: "Kesalahan Supabase:",
+      earningsInfoUnavailable: "Informasi penghasilan tidak dapat diperoleh.",
+earningsEngineRunning: "Mesin penghasilan sedang berjalan!",
+recordCountLabel: "Jumlah catatan:",
+totalEarningsLabel: "Total penghasilan:",
 accountStatusWPWaiting: "Akses WP: -",
     watch: "Tonton",
 doTask: "Kerjakan Tugas",
@@ -2239,6 +2259,10 @@ taskRewardAdded: "Tarefa concluída e recompensa adicionada!",
 taskCannotCompleteNow: "Esta tarefa não pode ser concluída neste momento.",
 genericError: "Ocorreu um erro.",
 supabaseErrorPrefix: "Erro do Supabase:",
+    earningsInfoUnavailable: "Não foi possível obter as informações de ganhos.",
+earningsEngineRunning: "O motor de ganhos está a funcionar!",
+recordCountLabel: "Número de registos:",
+totalEarningsLabel: "Ganhos totais:",
 accountStatusWalletDisconnected: "Carteira: Não ligada",
 accountStatusWPWaiting: "Acesso WP: -",
     watch: "Ver",
@@ -4855,7 +4879,10 @@ async function testMyEarnings() {
   const earnings = await getMyEarnings();
 
   if (earnings === null) {
-    alert("Kazanç bilgisi alınamadı.");
+    alert(
+  (translations[localStorage.getItem("workplace_language")] || translations.tr)
+    .earningsInfoUnavailable
+);
     return;
   }
 
@@ -4864,11 +4891,14 @@ async function testMyEarnings() {
     0
   );
 
-  alert(
-    "Kazanç Motoru çalışıyor!\n" +
-    "Kayıt sayısı: " + earnings.length + "\n" +
-    "Toplam kazanç: " + totalLamports + " lamports"
-  );
+  const earningsText =
+  translations[localStorage.getItem("workplace_language")] || translations.tr;
+
+alert(
+  earningsText.earningsEngineRunning + "\n" +
+  earningsText.recordCountLabel + " " + earnings.length + "\n" +
+  earningsText.totalEarningsLabel + " " + totalLamports + " lamports"
+);
 }
 async function showSupabaseBalance() {
   const earnings = await getMyEarnings();
@@ -5158,7 +5188,7 @@ if (web3CardEl && web3SectionEl && closeWeb3BtnEl) {
     web3SectionEl.scrollIntoView({
       behavior: "smooth",
       block: "start"
-    });oturum
+    });
   });
 
   closeWeb3BtnEl.addEventListener("click", () => {
