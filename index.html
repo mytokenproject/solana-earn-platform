@@ -5777,6 +5777,59 @@ if (walletName === "phantom") {
     btn.textContent = t.startTask;
   }
 });
+    const accountCard = document.getElementById("accountStatusCard");
+
+if (accountCard && accountCard.style.display !== "none") {
+  const status2FA = document.getElementById("accountStatus2FA");
+  const setupBtn = document.getElementById("setup2faBtn");
+  const sessionStatus = document.getElementById("accountStatusSession");
+  const accountWallet = document.getElementById("accountStatusWallet");
+  const walletStatusEl = document.getElementById("walletStatus");
+  const connectBtnEl = document.getElementById("connectBtn");
+
+  if (status2FA) {
+    status2FA.textContent =
+      setupBtn?.style.display === "none"
+        ? t.accountStatus2FAOn
+        : t.accountStatus2FAOff;
+  }
+
+  if (sessionStatus)
+    sessionStatus.textContent = t.accountStatusSessionActive;
+
+  const walletAddress =
+    walletStatusEl?.querySelector(".wallet")?.textContent?.trim() || "";
+
+  if (walletAddress) {
+    if (accountWallet)
+      accountWallet.textContent = t.accountStatusWalletConnected;
+
+    if (connectBtnEl)
+      connectBtnEl.textContent = t.walletConnectedButton;
+
+    walletStatusEl.innerHTML =
+      t.walletConnectedLabel +
+      " <span class='wallet'>" +
+      walletAddress +
+      "</span>";
+  }
+
+  const loginStatusEl = document.getElementById("loginStatus");
+  const email =
+    loginStatusEl?.textContent.match(
+      /[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/i
+    )?.[0];
+
+  if (loginStatusEl && email) {
+    const balance =
+      document.getElementById("dbBalance")?.textContent?.trim() || "0";
+
+    loginStatusEl.textContent =
+      t.sessionRestored + " " + email +
+      " | " + t.balanceLabel + ": " +
+      balance + " lamports";
+  }
+    }
   }
 
   document.getElementById("languageSelect")
