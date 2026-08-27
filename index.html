@@ -5830,6 +5830,36 @@ if (accountCard && accountCard.style.display !== "none") {
       balance + " lamports";
   }
     }
+    const adPlanText = document.getElementById("adFormPlan");
+const adContinue = document.getElementById("continueAdBtn");
+
+if (
+  adPlanText &&
+  adContinue?.dataset.plan &&
+  adContinue?.dataset.price
+) {
+  const packageLabel = {
+    tr: "Seçilen paket:",
+    en: "Selected package:",
+    hi: "चयनित पैकेज:",
+    "pt-BR": "Pacote selecionado:",
+    id: "Paket yang dipilih:",
+    "pt-PT": "Pacote selecionado:"
+  }[lang] || "Seçilen paket:";
+
+  const planNames = {
+    daily: t.daily,
+    weekly: t.weekly,
+    monthly: t.monthly
+  };
+
+  adPlanText.textContent =
+    packageLabel + " " +
+    planNames[adContinue.dataset.plan] +
+    " · " +
+    adContinue.dataset.price +
+    " USDC";
+}
   }
 
   document.getElementById("languageSelect")
