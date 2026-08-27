@@ -887,20 +887,25 @@ data-i18n="loginMfaVerify"
   🔐 2FA Kur
       </button>
     <div id="mfaSetupPanel" style="display:none;">
-  <p>Authenticator uygulamanızla QR kodunu okutun.</p>
+  <p data-i18n="mfaSetupScanQr">Authenticator uygulamanızla QR kodunu okutun.</p>
 
-  <img id="mfaQrCode" alt="2FA QR Kod">
+  <img id="mfaQrCode" alt="2FA QR">
 <p id="mfaSecretText" style="word-break:break-all;"></p>
   <input
     id="mfaCodeInput"
     type="text"
     inputmode="numeric"
     maxlength="6"
-    placeholder="6 haneli kod"
+    placeholder="Authenticator 6 haneli kod"
+data-i18n-placeholder="loginMfaPlaceholder"
   >
 
-  <button class="secondary" id="verify2faBtn">
-    2FA Doğrula
+  <button
+  class="secondary"
+  id="verify2faBtn"
+  data-i18n="mfaSetupVerifyButton"
+>
+  2FA Doğrula
   </button>
 
   <div class="status" id="mfaSetupStatus"></div>
@@ -1523,6 +1528,7 @@ mfaSetupInvalidCode: "Lütfen 6 haneli doğrulama kodunu girin.",
 mfaSetupChallengeFailed: "2FA doğrulaması başlatılamadı.",
 mfaSetupVerifyFailed: "Kod doğrulanamadı. Tekrar deneyin.",
 mfaSetupSuccess: "✅ 2FA başarıyla etkinleştirildi.",
+    mfaSetupVerifyButton: "2FA Doğrula",
 accountStatusSessionActive: "Oturum: Aktif",
 sessionRestored: "Oturum geri yüklendi:",
 accountStatus2FAOn: "2FA: Açık",
@@ -1683,6 +1689,7 @@ loginMfaVerifying: "Verifying 2FA...",
 loginMfaNoFactor: "Authenticator factor not found.",
 loginMfaVerifyFailed: "Code could not be verified. Please try again with a new code.",
 loginMfaVerified: "✅ 2FA verified.",
+    mfaSetupVerifyButton: "Verify 2FA",
 loginMfaError: "An error occurred during 2FA verification.",
     accountStatusTitle: "Account Status",
     setup2fa: "🔐 Set Up 2FA",
@@ -1854,6 +1861,7 @@ loginMfaVerifying: "2FA सत्यापित किया जा रहा �
 loginMfaNoFactor: "Authenticator फ़ैक्टर नहीं मिला।",
 loginMfaVerifyFailed: "कोड सत्यापित नहीं हो सका। कृपया नए कोड के साथ फिर प्रयास करें।",
 loginMfaVerified: "✅ 2FA सत्यापित हुआ।",
+      mfaSetupVerifyButton: "2FA सत्यापित करें",
 loginMfaError: "2FA सत्यापन के दौरान एक त्रुटि हुई।",
       accountStatusTitle: "खाता स्थिति",
       setup2fa: "🔐 2FA सेट करें",
@@ -2027,6 +2035,7 @@ loginMfaVerifying: "Verificando 2FA...",
 loginMfaNoFactor: "Fator do Authenticator não encontrado.",
 loginMfaVerifyFailed: "Não foi possível verificar o código. Tente novamente com um novo código.",
 loginMfaVerified: "✅ 2FA verificado.",
+    mfaSetupVerifyButton: "Verificar 2FA",
 loginMfaError: "Ocorreu um erro durante a verificação 2FA.",
     accountStatusTitle: "Status da Conta",
     setup2fa: "🔐 Configurar 2FA",
@@ -2199,6 +2208,7 @@ loginMfaVerifying: "Memverifikasi 2FA...",
 loginMfaNoFactor: "Faktor Authenticator tidak ditemukan.",
 loginMfaVerifyFailed: "Kode tidak dapat diverifikasi. Silakan coba lagi dengan kode baru.",
 loginMfaVerified: "✅ 2FA terverifikasi.",
+      mfaSetupVerifyButton: "Verifikasi 2FA",
 loginMfaError: "Terjadi kesalahan saat verifikasi 2FA.",
       accountStatusTitle: "Status Akun",
       setup2fa: "🔐 Siapkan 2FA",
@@ -2372,6 +2382,7 @@ loginMfaVerifying: "A verificar 2FA...",
 loginMfaNoFactor: "Fator do Authenticator não encontrado.",
 loginMfaVerifyFailed: "Não foi possível verificar o código. Tente novamente com um novo código.",
 loginMfaVerified: "✅ 2FA verificado.",
+    mfaSetupVerifyButton: "Verificar 2FA",
 loginMfaError: "Ocorreu um erro durante a verificação 2FA.",
     accountStatusTitle: "Estado da Conta",
     setup2fa: "🔐 Configurar 2FA",
