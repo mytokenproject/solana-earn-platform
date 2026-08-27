@@ -1618,6 +1618,7 @@ advertise: "Reklam Ver",
     watchIntroVideo: "Tanıtım videosunu izle",
     testReward10: "Test ödülü: 10 puan",
     startTask: "Görevi Başlat",
+    taskProviderTestActive: "Sağlayıcı: Test • Durum: Aktif",
     taskCompleted: "Tamamlandı",
     taskCompletedToday: "Bugün tamamlandı",
     taskNotLinked: "Bu görev henüz Supabase sistemine bağlanmadı.",
@@ -1792,6 +1793,7 @@ advertise: "Advertise",
     watchIntroVideo: "Watch the intro video",
     testReward10: "Test reward: 10 points",
     startTask: "Start Task",
+    taskProviderTestActive: "Provider: Test • Status: Active",
     taskCompleted: "Completed",
     taskCompletedToday: "Completed today",
     taskNotLinked: "This task is not yet connected to the Supabase system.",
@@ -1966,6 +1968,7 @@ advertise: "विज्ञापन दें",
     watchIntroVideo: "परिचय वीडियो देखें",
     testReward10: "परीक्षण पुरस्कार: 10 अंक",
     startTask: "कार्य शुरू करें",
+     taskProviderTestActive: "प्रदाता: टेस्ट • स्थिति: सक्रिय",
     taskCompleted: "पूर्ण हुआ",
     taskCompletedToday: "आज पूर्ण हुआ",
 taskNotLinked: "यह कार्य अभी Supabase सिस्टम से जुड़ा नहीं है।",
@@ -2141,6 +2144,7 @@ advertise: "Anunciar",
     watchIntroVideo: "Assistir ao vídeo de apresentação",
     testReward10: "Recompensa de teste: 10 pontos",
     startTask: "Iniciar Tarefa",
+    taskProviderTestActive: "Provedor: Teste • Status: Ativo",
     taskCompleted: "Concluída",
     taskCompletedToday: "Concluída hoje",
     taskNotLinked: "Esta tarefa ainda não está conectada ao sistema Supabase.",
@@ -2315,6 +2319,7 @@ advertise: "Pasang Iklan",
     watchIntroVideo: "Tonton video pengenalan",
     testReward10: "Hadiah uji coba: 10 poin",
     startTask: "Mulai Tugas",
+      taskProviderTestActive: "Penyedia: Tes • Status: Aktif",
     taskCompleted: "Selesai",
    taskCompletedToday: "Selesai hari ini",
       taskNotLinked: "Tugas ini belum terhubung ke sistem Supabase.",
@@ -2490,6 +2495,7 @@ advertise: "Anunciar",
     watchIntroVideo: "Ver o vídeo de apresentação",
     testReward10: "Recompensa de teste: 10 pontos",
     startTask: "Iniciar Tarefa",
+    taskProviderTestActive: "Fornecedor: Teste • Estado: Ativo",
     taskCompleted: "Concluída",
     taskCompletedToday: "Concluída hoje",
     taskNotLinked: "Esta tarefa ainda não está ligada ao sistema Supabase.",
@@ -3196,7 +3202,10 @@ const gameTaskList =
 
 if (gameTaskList) {
   gameTaskList.innerHTML = "";
-
+const gameTaskLang =
+  localStorage.getItem("workplace_language") || "tr";
+const gameTaskText =
+  translations[gameTaskLang] || translations.tr;
   for (const task of gameTasks) {
     const card = document.createElement("div");
     card.className = "task";
@@ -3208,7 +3217,7 @@ if (gameTaskList) {
 
     const meta = document.createElement("small");
     meta.textContent =
-      "Sağlayıcı: Test • Durum: Aktif";
+  gameTaskText.taskProviderTestActive;
 
     const row = document.createElement("div");
     row.style.cssText =
@@ -3218,7 +3227,7 @@ if (gameTaskList) {
     const points = document.createElement("strong");
     points.style.whiteSpace = "nowrap";
     points.textContent =
-      "+" + task.reward_points + " puan";
+  "+" + task.reward_points + " " + gameTaskText.pointsUnit;
 
     const btn = document.createElement("button");
     btn.className = "secondary taskBtn";
@@ -3226,7 +3235,8 @@ if (gameTaskList) {
       "width:auto;min-width:140px;";
     btn.type = "button";
     btn.dataset.taskId = task.id;
-    btn.textContent = "Görevi Başlat";
+    btn.textContent =
+  gameTaskText.startTask;
 
     row.append(points, btn);
     card.append(title, meta, row);
@@ -3242,7 +3252,10 @@ const appTaskList =
 
 if (appTaskList) {
   appTaskList.innerHTML = "";
-
+const appTaskLang =
+  localStorage.getItem("workplace_language") || "tr";
+const appTaskText =
+  translations[appTaskLang] || translations.tr;
   for (const task of appTasks) {
     const card = document.createElement("div");
     card.className = "task";
@@ -3254,7 +3267,7 @@ if (appTaskList) {
 
     const meta = document.createElement("small");
     meta.textContent =
-      "Sağlayıcı: Test • Durum: Aktif";
+  appTaskText.taskProviderTestActive;
 
     const row = document.createElement("div");
     row.style.cssText =
@@ -3264,7 +3277,7 @@ if (appTaskList) {
     const points = document.createElement("strong");
     points.style.whiteSpace = "nowrap";
     points.textContent =
-      "+" + task.reward_points + " puan";
+  "+" + task.reward_points + " " + appTaskText.pointsUnit;
 
     const btn = document.createElement("button");
     btn.className = "secondary taskBtn";
@@ -3272,7 +3285,8 @@ if (appTaskList) {
       "width:auto;min-width:140px;";
     btn.type = "button";
     btn.dataset.taskId = task.id;
-    btn.textContent = "Görevi Başlat";
+    btn.textContent =
+  appTaskText.startTask;
 
     row.append(points, btn);
     card.append(title, meta, row);
@@ -3284,11 +3298,15 @@ if (appTaskList) {
 
 const surveyTaskPreview =
   document.getElementById("surveyTaskPreview");
-
+const surveyTaskLang =
+  localStorage.getItem("workplace_language") || "tr";
+const surveyTaskText =
+  translations[surveyTaskLang] || translations.tr;
 if (surveyTaskPreview && surveyTask) {
   surveyTaskPreview.textContent =
-    surveyTask.title + " • " +
-    surveyTask.reward_points + " puan";
+  surveyTask.title + " • " +
+  surveyTask.reward_points + " " +
+  surveyTaskText.pointsUnit;
 }
 const surveyTasks = (data || []).filter(task =>
   task.type === "survey"
@@ -3314,7 +3332,7 @@ if (surveyTaskList) {
     const meta =
       document.createElement("small");
     meta.textContent =
-      "Sağlayıcı: Test • Durum: Aktif";
+  surveyTaskText.taskProviderTestActive;
 
     const row =
       document.createElement("div");
@@ -3326,7 +3344,8 @@ if (surveyTaskList) {
       document.createElement("strong");
     points.style.whiteSpace = "nowrap";
     points.textContent =
-      "+" + task.reward_points + " puan";
+  "+" + task.reward_points + " " +
+  surveyTaskText.pointsUnit;
 
     const btn =
       document.createElement("button");
@@ -3335,7 +3354,8 @@ if (surveyTaskList) {
       "width:auto;min-width:140px;";
     btn.type = "button";
     btn.dataset.taskId = task.id;
-    btn.textContent = "Görevi Başlat";
+    btn.textContent =
+  surveyTaskText.startTask;
 
     row.append(points, btn);
     card.append(title, meta, row);
@@ -3346,12 +3366,18 @@ if (surveyTaskList) {
   task.type === "video");
 
 const videoTaskPreview =
-  document.getElementById("videoTaskPreview");
+document.getElementById("videoTaskPreview");  
+  const videoTaskLang =
+  
+  localStorage.getItem("workplace_language") || "tr";
+const videoTaskText =
+  translations[videoTaskLang] || translations.tr;
 
 if (videoTaskPreview && videoTask) {
   videoTaskPreview.textContent =
-    videoTask.title + " • " +
-    videoTask.reward_points + " puan";
+  videoTask.title + " • " +
+  videoTask.reward_points + " " +
+  videoTaskText.pointsUnit;
   }
   const videoTasks = (data || []).filter(task =>
   task.type === "video"
@@ -3377,7 +3403,7 @@ if (videoTaskList) {
     const meta =
       document.createElement("small");
     meta.textContent =
-      "Sağlayıcı: Test • Durum: Aktif";
+  videoTaskText.taskProviderTestActive;
 
     const row =
       document.createElement("div");
@@ -3389,7 +3415,8 @@ if (videoTaskList) {
       document.createElement("strong");
     points.style.whiteSpace = "nowrap";
     points.textContent =
-      "+" + task.reward_points + " puan";
+  "+" + task.reward_points + " " +
+  videoTaskText.pointsUnit;
 
     const btn =
       document.createElement("button");
@@ -3398,7 +3425,8 @@ if (videoTaskList) {
       "width:auto;min-width:140px;";
     btn.type = "button";
     btn.dataset.taskId = task.id;
-    btn.textContent = "Görevi Başlat";
+    btn.textContent =
+  videoTaskText.startTask;
 
     row.append(points, btn);
     card.append(title, meta, row);
@@ -3414,7 +3442,10 @@ const sponsoredTaskList =
 
 if (sponsoredTaskList) {
   sponsoredTaskList.innerHTML = "";
-
+const sponsoredTaskLang =
+  localStorage.getItem("workplace_language") || "tr";
+const sponsoredTaskText =
+  translations[sponsoredTaskLang] || translations.tr;
   for (const task of sponsoredTasks) {
     const card =
       document.createElement("div");
@@ -3429,7 +3460,7 @@ if (sponsoredTaskList) {
     const meta =
       document.createElement("small");
     meta.textContent =
-      "Sağlayıcı: Test • Durum: Aktif";
+  sponsoredTaskText.taskProviderTestActive;
 
     const row =
       document.createElement("div");
@@ -3441,7 +3472,8 @@ if (sponsoredTaskList) {
       document.createElement("strong");
     points.style.whiteSpace = "nowrap";
     points.textContent =
-      "+" + task.reward_points + " puan";
+  "+" + task.reward_points + " " +
+  sponsoredTaskText.pointsUnit;
 
     const btn =
       document.createElement("button");
@@ -3450,7 +3482,8 @@ if (sponsoredTaskList) {
       "width:auto;min-width:140px;";
     btn.type = "button";
     btn.dataset.taskId = task.id;
-    btn.textContent = "Görevi Başlat";
+    btn.textContent =
+  sponsoredTaskText.startTask;
 
     row.append(points, btn);
     card.append(title, meta, row);
@@ -3466,7 +3499,10 @@ const shoppingTaskList =
 
 if (shoppingTaskList) {
   shoppingTaskList.innerHTML = "";
-
+const shoppingTaskLang =
+  localStorage.getItem("workplace_language") || "tr";
+const shoppingTaskText =
+  translations[shoppingTaskLang] || translations.tr;
   for (const task of shoppingTasks) {
     const card =
       document.createElement("div");
@@ -3481,7 +3517,7 @@ if (shoppingTaskList) {
     const meta =
       document.createElement("small");
     meta.textContent =
-      "Sağlayıcı: Test • Durum: Aktif";
+  shoppingTaskText.taskProviderTestActive;
 
     const row =
       document.createElement("div");
@@ -3493,7 +3529,8 @@ if (shoppingTaskList) {
       document.createElement("strong");
     points.style.whiteSpace = "nowrap";
     points.textContent =
-      "+" + task.reward_points + " puan";
+  "+" + task.reward_points + " " +
+  shoppingTaskText.pointsUnit;
 
     const btn =
       document.createElement("button");
@@ -3502,7 +3539,8 @@ if (shoppingTaskList) {
       "width:auto;min-width:140px;";
     btn.type = "button";
     btn.dataset.taskId = task.id;
-    btn.textContent = "Görevi Başlat";
+    btn.textContent =
+  shoppingTaskText.startTask;
 
     row.append(points, btn);
     card.append(title, meta, row);
@@ -3518,7 +3556,10 @@ const web3TaskList =
 
 if (web3TaskList) {
   web3TaskList.innerHTML = "";
-
+const web3TaskLang =
+  localStorage.getItem("workplace_language") || "tr";
+const web3TaskText =
+  translations[web3TaskLang] || translations.tr;
   for (const task of web3Tasks) {
     const card =
       document.createElement("div");
@@ -3533,7 +3574,7 @@ if (web3TaskList) {
     const meta =
       document.createElement("small");
     meta.textContent =
-      "Sağlayıcı: Test • Durum: Aktif";
+  web3TaskText.taskProviderTestActive;
 
     const row =
       document.createElement("div");
@@ -3544,8 +3585,9 @@ if (web3TaskList) {
     const points =
       document.createElement("strong");
     points.style.whiteSpace = "nowrap";
-    points.textContent =
-      "+" + task.reward_points + " puan";
+   points.textContent =
+  "+" + task.reward_points + " " +
+  web3TaskText.pointsUnit;
 
     const btn =
       document.createElement("button");
@@ -3554,7 +3596,8 @@ if (web3TaskList) {
       "width:auto;min-width:140px;";
     btn.type = "button";
     btn.dataset.taskId = task.id;
-    btn.textContent = "Görevi Başlat";
+    btn.textContent =
+  web3TaskText.startTask;
 
     row.append(points, btn);
     card.append(title, meta, row);
