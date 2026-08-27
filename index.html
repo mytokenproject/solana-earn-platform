@@ -1509,6 +1509,14 @@ accountStatusWalletDisconnected: "Cüzdan: Bağlı değil",
     walletLoginRequired: "Önce hesabınıza giriş yapın.",
     walletCheckFailed: "Cüzdan kontrol edilirken hata oluştu.",
     walletSaveFailed: "Cüzdan Supabase'e kaydedilemedi.",
+    tokenAccessDenied: "Platform erişimi reddedildi.",
+tokenBalanceLabel: "Token bakiyesi:",
+tokenMinimumRequired: "Gerekli minimum:",
+    tokenMintMissing: "Token mint adresi tanımlı değil.",
+    walletConnectedLabel: "Cüzdan bağlandı:",
+minimumTokenCondition: "Minimum token şartı:",
+    walletConnectionFailed: "Cüzdan bağlantısı başarısız oldu.",
+    supabaseNotReady: "Supabase bağlantısı hazır değil.",
 accountStatusWPWaiting: "WP Erişimi: -",
     watch: "İzle",
 doTask: "Görev Yap",
@@ -1640,6 +1648,14 @@ accountStatusWalletDisconnected: "Wallet: Not connected",
     walletLoginRequired: "Please sign in to your account first.",
     walletCheckFailed: "An error occurred while checking the wallet.",
     walletSaveFailed: "The wallet could not be saved to Supabase.",
+    tokenAccessDenied: "Platform access denied.",
+tokenBalanceLabel: "Token balance:",
+tokenMinimumRequired: "Required minimum:",
+    tokenMintMissing: "Token mint address is not defined.",
+    walletConnectedLabel: "Wallet connected:",
+minimumTokenCondition: "Minimum token requirement:",
+    walletConnectionFailed: "Wallet connection failed.",
+    supabaseNotReady: "Supabase connection is not ready.",
 accountStatusWPWaiting: "WP Access: -",
    watch: "Watch",
 doTask: "Do Tasks",
@@ -1770,6 +1786,14 @@ accountStatusWalletDisconnected: "वॉलेट: जुड़ा नहीं 
 walletLoginRequired: "कृपया पहले अपने खाते में साइन इन करें।",
       walletCheckFailed: "वॉलेट की जाँच करते समय एक त्रुटि हुई।",
       walletSaveFailed: "वॉलेट को Supabase में सहेजा नहीं जा सका।",
+      tokenAccessDenied: "प्लेटफ़ॉर्म एक्सेस अस्वीकृत कर दिया गया।",
+tokenBalanceLabel: "टोकन बैलेंस:",
+tokenMinimumRequired: "आवश्यक न्यूनतम:",
+      tokenMintMissing: "टोकन मिंट पता परिभाषित नहीं है।",
+      walletConnectedLabel: "वॉलेट कनेक्ट हो गया:",
+minimumTokenCondition: "न्यूनतम टोकन आवश्यकता:",
+      walletConnectionFailed: "वॉलेट कनेक्शन विफल हो गया।",
+      supabaseNotReady: "Supabase कनेक्शन अभी तैयार नहीं है।",
   accountStatusWPWaiting: "WP एक्सेस: -",
       watch: "देखें",
 doTask: "कार्य करें",
@@ -1900,6 +1924,14 @@ accountStatusWalletConnected: "Carteira: Conectada",
     walletLoginRequired: "Por favor, entre na sua conta primeiro.",
     walletCheckFailed: "Ocorreu um erro ao verificar a carteira.",
     walletSaveFailed: "Não foi possível salvar a carteira no Supabase.",
+    tokenAccessDenied: "Acesso à plataforma negado.",
+tokenBalanceLabel: "Saldo de tokens:",
+tokenMinimumRequired: "Mínimo necessário:",
+    tokenMintMissing: "O endereço de mint do token não está definido.",
+    walletConnectedLabel: "Carteira conectada:",
+minimumTokenCondition: "Requisito mínimo de tokens:",
+    walletConnectionFailed: "Falha na conexão da carteira.",
+    supabaseNotReady: "A conexão com o Supabase ainda não está pronta.",
 accountStatusWalletDisconnected: "Carteira: Não conectada",
 accountStatusWPWaiting: "Acesso WP: -",
     watch: "Assistir",
@@ -2031,6 +2063,14 @@ accountStatusWalletDisconnected: "Dompet: Tidak terhubung",
       walletLoginRequired: "Silakan masuk ke akun Anda terlebih dahulu.",
       walletCheckFailed: "Terjadi kesalahan saat memeriksa dompet.",
       walletSaveFailed: "Dompet tidak dapat disimpan ke Supabase.",
+      tokenAccessDenied: "Akses ke platform ditolak.",
+tokenBalanceLabel: "Saldo token:",
+tokenMinimumRequired: "Minimum yang diperlukan:",
+      tokenMintMissing: "Alamat mint token belum ditentukan.",
+      walletConnectedLabel: "Dompet terhubung:",
+minimumTokenCondition: "Persyaratan minimum token:",
+      walletConnectionFailed: "Koneksi dompet gagal.",
+      supabaseNotReady: "Koneksi Supabase belum siap.",
 accountStatusWPWaiting: "Akses WP: -",
     watch: "Tonton",
 doTask: "Kerjakan Tugas",
@@ -2161,6 +2201,14 @@ accountStatusWalletConnected: "Carteira: Ligada",
     walletLoginRequired: "Inicie sessão na sua conta primeiro.",
     walletCheckFailed: "Ocorreu um erro ao verificar a carteira.",
     walletSaveFailed: "Não foi possível guardar a carteira no Supabase.",
+    tokenAccessDenied: "Acesso à plataforma negado.",
+tokenBalanceLabel: "Saldo de tokens:",
+tokenMinimumRequired: "Mínimo necessário:",
+    tokenMintMissing: "O endereço de mint do token não está definido.",
+    walletConnectedLabel: "Carteira ligada:",
+minimumTokenCondition: "Requisito mínimo de tokens:",
+    walletConnectionFailed: "Falha na ligação da carteira.",
+    supabaseNotReady: "A ligação ao Supabase ainda não está pronta.",
 accountStatusWalletDisconnected: "Carteira: Não ligada",
 accountStatusWPWaiting: "Acesso WP: -",
     watch: "Ver",
@@ -4645,19 +4693,26 @@ if (tokenMint) {
   console.log("Gerçek token bakiyesi:", realTokenBalance);
 
   if (realTokenBalance < minRequired) {
-    alert(
-      "Platform erişimi reddedildi.\n" +
-      "Token bakiyesi: " +
-      realTokenBalance.toLocaleString("tr-TR") +
-      "\nGerekli minimum: " +
-      minRequired.toLocaleString("tr-TR")
-    );
+    const tokenText =
+  translations[localStorage.getItem("workplace_language")] || translations.tr;
+
+alert(
+  tokenText.tokenAccessDenied + "\n" +
+  tokenText.tokenBalanceLabel + " " +
+  realTokenBalance.toLocaleString("tr-TR") +
+  "\n" +
+  tokenText.tokenMinimumRequired + " " +
+  minRequired.toLocaleString("tr-TR")
+);
     return;
   }
 
   console.log("Token şartı sağlandı.");
 } else if (!window.platformSettings?.test_mode) {
-  alert("Token mint adresi tanımlı değil.");
+  alert(
+  (translations[localStorage.getItem("workplace_language")] || translations.tr)
+    .tokenMintMissing
+);
   return;
 } else {
   console.log(
@@ -4667,17 +4722,24 @@ if (tokenMint) {
 
     console.log("Bağlanan cüzdan:", walletAddress);
 
-    alert(
-      "Cüzdan bağlandı: " +
-      walletAddress +
-      "\nMinimum token şartı: " +
-      minRequired.toLocaleString("tr-TR") +
-      " token"
-    );
+    const walletText =
+  translations[localStorage.getItem("workplace_language")] || translations.tr;
+
+alert(
+  walletText.walletConnectedLabel + " " +
+  walletAddress +
+  "\n" +
+  walletText.minimumTokenCondition + " " +
+  minRequired.toLocaleString("tr-TR") +
+  " token"
+);
 
     } catch (error) {
     console.error("Cüzdan bağlantı hatası:", error);
-    alert("Cüzdan bağlantısı başarısız oldu.");
+    alert(
+  (translations[localStorage.getItem("workplace_language")] || translations.tr)
+    .walletConnectionFailed
+);
   }
 }
 </script> 
@@ -4685,7 +4747,10 @@ if (tokenMint) {
 async function completeTask(taskId) {
   try {
     if (!window.supabaseClient) {
-      alert("Supabase bağlantısı hazır değil.");
+      alert(
+  (translations[localStorage.getItem("workplace_language")] || translations.tr)
+    .supabaseNotReady
+);
       return;
     }
 
