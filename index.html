@@ -5866,7 +5866,35 @@ if (
     ?.addEventListener("change", () =>
       setTimeout(refreshDynamicTaskLanguage, 0)
     );
+document.getElementById("languageSelect")
+  ?.addEventListener("change", () => {
+    setTimeout(() => {
+      const lang =
+        localStorage.getItem("workplace_language") || "tr";
 
+      const t =
+        window.translations?.[lang] ||
+        window.translations?.tr;
+
+      if (!t) return;
+
+      const notifyBtn =
+        document.getElementById("notificationToggleBtn");
+
+      if (notifyBtn) {
+        const on = notifyBtn.dataset.on === "true";
+
+        notifyBtn.textContent =
+          on
+            ? "🔔 " + t.notificationsOn
+            : "🔕 " + t.notificationsOff;
+      }
+
+      if (typeof loadPointHistory === "function") {
+        loadPointHistory();
+      }
+    }, 0);
+  });
   ids.forEach(id => {
     const el = document.getElementById(id);
     if (el) {
