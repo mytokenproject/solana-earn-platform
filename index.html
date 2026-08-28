@@ -3767,6 +3767,14 @@ const adDescription =
 
 const adminAdList =
   document.getElementById("adminAdList");
+  const adminPendingTab =
+  document.getElementById("adminPendingTab");
+
+const adminApprovedTab =
+  document.getElementById("adminApprovedTab");
+
+const adminRejectedTab =
+  document.getElementById("adminRejectedTab");
   const sponsorAdTitle =
   document.getElementById("sponsorAdTitle");
 
@@ -3775,7 +3783,7 @@ const sponsorAdDescription =
 
 const sponsorAdLink =
   document.getElementById("sponsorAdLink");
-  async function loadAdminAds() {
+  async function loadAdminAds(status = "pending") {
   if (!adminAdPanel || !adminAdList) return;
 
   const { data: isAdmin, error: adminError } =
@@ -3800,7 +3808,7 @@ if (adminBtn) adminBtn.style.display = "inline-flex";
       .select(
         "id,title,target_url,description,plan,price_usdc,status,created_at"
       )
-      .eq("status", "pending")
+      .eq("status", status)
       .order("created_at", { ascending: false });
 
   if (adsError) {
@@ -3928,7 +3936,23 @@ item.appendChild(actionWrap);
   adminAdList.appendChild(item);
 });
 }
+if (adminPendingTab) {
+  adminPendingTab.addEventListener("click", () => {
+    loadAdminAds("pending");
+  });
+}
 
+if (adminApprovedTab) {
+  adminApprovedTab.addEventListener("click", () => {
+    loadAdminAds("approved");
+  });
+}
+
+if (adminRejectedTab) {
+  adminRejectedTab.addEventListener("click", () => {
+    loadAdminAds("rejected");
+  });
+  }
 loadAdminAds();
   if (adminBtn && adminAdPanel) {
   adminBtn.addEventListener("click", () => {
