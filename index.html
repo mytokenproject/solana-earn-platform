@@ -1670,6 +1670,8 @@ advertise: "Reklam Ver",
     submitAd: "Başvuruyu Gönder",
     adManagement: "Reklam Yönetimi",
     reviewPendingAds: "Bekleyen reklam başvurularını incele",
+    reviewApprovedAds: "Onaylanan reklamları görüntüle",
+reviewRejectedAds: "Reddedilen reklamları görüntüle",
     noPendingAds: "Bekleyen başvuru bulunamadı.",
 
     discoverEarn: "Keşfet & Kazan",
@@ -1845,6 +1847,8 @@ advertise: "Advertise",
     submitAd: "Submit Application",
     adManagement: "Ad Management",
     reviewPendingAds: "Review pending ad applications",
+    reviewApprovedAds: "View approved ads",
+reviewRejectedAds: "View rejected ads",
     noPendingAds: "No pending applications.",
 
     discoverEarn: "Discover & Earn",
@@ -2020,6 +2024,8 @@ advertise: "विज्ञापन दें",
     submitAd: "आवेदन भेजें",
     adManagement: "विज्ञापन प्रबंधन",
     reviewPendingAds: "लंबित विज्ञापन आवेदनों की समीक्षा करें",
+      reviewApprovedAds: "स्वीकृत विज्ञापन देखें",
+reviewRejectedAds: "अस्वीकृत विज्ञापन देखें",
     noPendingAds: "कोई लंबित आवेदन नहीं है।",
 
     discoverEarn: "खोजें और कमाएँ",
@@ -2196,6 +2202,8 @@ advertise: "Anunciar",
     submitAd: "Enviar Solicitação",
     adManagement: "Gerenciamento de Anúncios",
     reviewPendingAds: "Revisar solicitações de anúncios pendentes",
+    reviewApprovedAds: "Ver anúncios aprovados",
+reviewRejectedAds: "Ver anúncios rejeitados",
     noPendingAds: "Nenhuma solicitação pendente.",
 
     discoverEarn: "Descubra e Ganhe",
@@ -2371,6 +2379,8 @@ advertise: "Pasang Iklan",
     submitAd: "Kirim Pengajuan",
     adManagement: "Manajemen Iklan",
     reviewPendingAds: "Tinjau pengajuan iklan yang tertunda",
+      reviewApprovedAds: "Lihat iklan yang disetujui",
+reviewRejectedAds: "Lihat iklan yang ditolak",
     noPendingAds: "Tidak ada pengajuan yang tertunda.",
 
     discoverEarn: "Jelajahi & Dapatkan",
@@ -2547,6 +2557,8 @@ advertise: "Anunciar",
     submitAd: "Enviar Candidatura",
     adManagement: "Gestão de Anúncios",
     reviewPendingAds: "Rever candidaturas de anúncios pendentes",
+    reviewApprovedAds: "Ver anúncios aprovados",
+reviewRejectedAds: "Ver anúncios rejeitados",
     noPendingAds: "Não existem candidaturas pendentes.",
 
     discoverEarn: "Descobrir & Ganhar",
@@ -3941,21 +3953,36 @@ if (status === "pending") {
 }
 if (adminPendingTab) {
   adminPendingTab.addEventListener("click", () => {
-    if (adminAdHint) adminAdHint.textContent = "Bekleyen reklam başvurularını incele";
+    if (adminAdHint) {
+  adminAdHint.dataset.i18n = "reviewPendingAds";
+  window.applyTranslations?.(
+    localStorage.getItem("workplace_language") || "tr"
+  );
+    }
     loadAdminAds("pending");
   });
 }
 
 if (adminApprovedTab) {
   adminApprovedTab.addEventListener("click", () => {
-    if (adminAdHint) adminAdHint.textContent = "Onaylanan reklamları görüntüle";
+    if (adminAdHint) {
+  adminAdHint.dataset.i18n = "reviewApprovedAds";
+  window.applyTranslations?.(
+    localStorage.getItem("workplace_language") || "tr"
+  );
+    }
     loadAdminAds("approved");
   });
 }
 
 if (adminRejectedTab) {
   adminRejectedTab.addEventListener("click", () => {
-    if (adminAdHint) adminAdHint.textContent = "Reddedilen reklamları görüntüle";
+    if (adminAdHint) {
+  adminAdHint.dataset.i18n = "reviewRejectedAds";
+  window.applyTranslations?.(
+    localStorage.getItem("workplace_language") || "tr"
+  );
+    }
     loadAdminAds("rejected");
   });
   }
