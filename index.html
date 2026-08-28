@@ -3770,6 +3770,33 @@ document.querySelector(".wrap").prepend(accessMessage);
   loadCategoryTasks();
 const advertiseBtn = document.getElementById("advertiseBtn");
 const adPlans = document.getElementById("adPlans");
+  async function loadAdPlansFromSupabase() {
+  const { data, error } = await supabaseClient
+    .from("ad_plans")
+    .select("plan_key, price_usdc, is_active")
+    .eq("is_active", true);
+
+  if (error) {
+    console.error("Reklam planları yüklenemedi:", error);
+    return;
+  }
+
+  data.forEach(plan => {
+    const btn = document.querySelector(
+      `.adPlanBtn[data-plan="${plan.plan_key}"]`
+    );
+
+    if (!btn) return;
+
+    btn.dataset.price = plan.price_usdc;
+
+    const priceText = btn.querySelector("small");
+    if (priceText) {
+      priceText.textContent = `${plan.price_usdc} USDC`;
+    }
+  });
+  }
+  loadAdPlansFromSupabase();
 const selectedAdPlan = document.getElementById("selectedAdPlan");
 const continueAdBtn =
   document.getElementById("continueAdBtn");
