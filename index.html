@@ -1367,6 +1367,82 @@ height:auto; margin-left:auto; margin-right:auto;">
   >
     <span data-i18n="noPendingAds">Bekleyen başvuru bulunamadı.</span>
   </div>
+    <div
+  id="adminAdPlansManager"
+  style="
+    margin-top:18px;
+    padding-top:16px;
+    border-top:1px solid rgba(255,255,255,.10);
+  "
+>
+  <h3 style="margin:0 0 12px;">💰 Reklam Planları</h3>
+
+  <div style="display:grid; gap:10px;">
+
+    <div style="display:grid; grid-template-columns:1fr 110px auto; gap:8px; align-items:center;">
+      <strong>Günlük</strong>
+      <input
+        id="adminDailyPrice"
+        type="number"
+        min="0"
+        step="1"
+        placeholder="10"
+        style="width:100%;"
+      >
+      <label>
+        <input id="adminDailyActive" type="checkbox">
+        Aktif
+      </label>
+    </div>
+
+    <div style="display:grid; grid-template-columns:1fr 110px auto; gap:8px; align-items:center;">
+      <strong>Haftalık</strong>
+      <input
+        id="adminWeeklyPrice"
+        type="number"
+        min="0"
+        step="1"
+        placeholder="50"
+        style="width:100%;"
+      >
+      <label>
+        <input id="adminWeeklyActive" type="checkbox">
+        Aktif
+      </label>
+    </div>
+
+    <div style="display:grid; grid-template-columns:1fr 110px auto; gap:8px; align-items:center;">
+      <strong>Aylık</strong>
+      <input
+        id="adminMonthlyPrice"
+        type="number"
+        min="0"
+        step="1"
+        placeholder="150"
+        style="width:100%;"
+      >
+      <label>
+        <input id="adminMonthlyActive" type="checkbox">
+        Aktif
+      </label>
+    </div>
+
+  </div>
+
+  <button
+    id="saveAdPlansBtn"
+    type="button"
+    class="secondary"
+    style="margin-top:14px;"
+  >
+    💾 Kaydet
+  </button>
+
+  <div
+    id="adminAdPlansStatus"
+    style="margin-top:10px; font-size:13px; opacity:.8;"
+  ></div>
+    </div>
     </section>
     <section class="card discover-card" style="margin-top:14px">
   <details id="discoverMenu" ontoggle="document.getElementById('discoverExtras').hidden = !this.open">
@@ -3780,6 +3856,9 @@ const adPlans = document.getElementById("adPlans");
     console.error("Reklam planları yüklenemedi:", error);
     return;
   }
+document.querySelectorAll(".adPlanBtn").forEach(btn => {
+  btn.style.display = "none";
+});
 
   data.forEach(plan => {
     const btn = document.querySelector(
@@ -3787,7 +3866,7 @@ const adPlans = document.getElementById("adPlans");
     );
 
     if (!btn) return;
-
+   btn.style.display = "";
     btn.dataset.price = plan.price_usdc;
 
     const priceText = btn.querySelector("small");
@@ -4031,6 +4110,123 @@ if (adminRejectedTab) {
     loadAdminAds("rejected");
   });
   }
+  async function loadAdminAdPlans() {
+  const { data: isAdmin, error: adminError } =
+    await supabaseClient.rpc("is_admin");
+
+  if (adminError || !isAdmin) return;
+
+  const { data, error } = await supabaseClient
+    .from("ad_plans")
+    .select("plan_key, price_usdc, is_active")
+    .order("id");
+
+  if (error) {
+    console.error("Admin reklam planları yüklenemedi:", error);
+    return;
+  }
+
+  const fields = {
+    daily: {
+      price: "adminDailyPrice",
+      active: "adminDailyActive"
+    },
+    weekly: {
+      price: "adminWeeklyPrice",
+      active: "adminWeeklyActive"
+    },
+    monthly: {
+      price: "adminMonthlyPrice",
+      active: "adminMonthlyActive"
+    }
+  };
+
+  data.forEach(plan => {
+    const field = fields[plan.plan_key];
+    if (!field) return;
+
+    const priceEl = document.getElementById(field.price);
+    const activeEl = document.getElementById(field.active);
+
+    if (priceEl) priceEl.value = plan.price_usdc;
+    if (activeEl) activeEl.checked = plan.is_active;
+  });
+  }
+  const saveAdPlansBtn =
+  document.getElementById("saveAdPlansBtn");
+
+if (saveAdPlansBtn) {
+  saveAdPlansBtn.addEventListener("click", async () => {
+    const statusEl =
+      document.getElementById("adminAdPlansStatus");
+
+    const plans = [
+      {
+        key: "daily",
+        price: Number(
+          document.getElementById("adminDailyPrice")?.value
+        ),
+        active:
+          document.getElementById("adminDailyActive")?.checked
+      },
+      {
+        key: "weekly",
+        price: Number(
+          document.getElementById("adminWeeklyPrice")?.value
+        ),
+        active:
+          document.getElementById("adminWeeklyActive")?.checked
+      },
+      {
+        key: "monthly",
+        price: Number(
+          document.getElementById("adminMonthlyPrice")?.value
+        ),
+        active:
+          document.getElementById("adminMonthlyActive")?.checked
+      }
+    ];
+
+    if (plans.some(p => !Number.isFinite(p.price) || p.price < 0)) {
+      if (statusEl) {
+        statusEl.textContent = "❌ Geçerli bir fiyat gir.";
+      }
+      return;
+    }
+
+    if (statusEl) {
+      statusEl.textContent = "Kaydediliyor...";
+    }
+
+    for (const plan of plans) {
+      const { error } = await supabaseClient.rpc(
+        "admin_update_ad_plan",
+        {
+          p_plan_key: plan.key,
+          p_price_usdc: plan.price,
+          p_is_active: plan.active
+        }
+      );
+
+      if (error) {
+        console.error("Reklam planı güncellenemedi:", error);
+
+        if (statusEl) {
+          statusEl.textContent =
+            "❌ Kaydetme hatası: " + error.message;
+        }
+        return;
+      }
+    }
+
+    if (statusEl) {
+      statusEl.textContent = "✅ Reklam planları kaydedildi.";
+    }
+
+    await loadAdminAdPlans();
+    await loadAdPlansFromSupabase();
+  });
+}
 loadAdminAds();
   if (adminBtn && adminAdPanel) {
   adminBtn.addEventListener("click", () => {
@@ -4041,6 +4237,7 @@ loadAdminAds();
       isOpen ? "none" : "block";
 
     if (!isOpen) {
+      loadAdminAdPlans();
       adminAdPanel.scrollIntoView({
         behavior: "smooth",
         block: "start"
