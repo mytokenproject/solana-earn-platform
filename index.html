@@ -3932,7 +3932,9 @@ rejectBtn.addEventListener("click", async () => {
 actionWrap.appendChild(approveBtn);
 actionWrap.appendChild(rejectBtn);
 
-item.appendChild(actionWrap);
+if (status === "pending") {
+  item.appendChild(actionWrap);
+}
   adminAdList.appendChild(item);
 });
 }
