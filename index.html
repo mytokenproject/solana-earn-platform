@@ -1323,7 +1323,7 @@ height:auto; margin-left:auto; margin-right:auto;">
   <h2><span data-i18n="adManagement">Reklam Yönetimi</span></h2>
 
   <small style="opacity:.75;">
-    <span data-i18n="reviewPendingAds">Bekleyen reklam başvurularını incele</span>
+    <span id="adminAdHint" data-i18n="reviewPendingAds">Bekleyen reklam başvurularını incele</span>
   </small>
 <div
   id="adminAdTabs"
@@ -3769,7 +3769,8 @@ const adminAdList =
   document.getElementById("adminAdList");
   const adminPendingTab =
   document.getElementById("adminPendingTab");
-
+const adminAdHint =
+  document.getElementById("adminAdHint");
 const adminApprovedTab =
   document.getElementById("adminApprovedTab");
 
@@ -3940,18 +3941,21 @@ if (status === "pending") {
 }
 if (adminPendingTab) {
   adminPendingTab.addEventListener("click", () => {
+    if (adminAdHint) adminAdHint.textContent = "Bekleyen reklam başvurularını incele";
     loadAdminAds("pending");
   });
 }
 
 if (adminApprovedTab) {
   adminApprovedTab.addEventListener("click", () => {
+    if (adminAdHint) adminAdHint.textContent = "Onaylanan reklamları görüntüle";
     loadAdminAds("approved");
   });
 }
 
 if (adminRejectedTab) {
   adminRejectedTab.addEventListener("click", () => {
+    if (adminAdHint) adminAdHint.textContent = "Reddedilen reklamları görüntüle";
     loadAdminAds("rejected");
   });
   }
