@@ -960,18 +960,25 @@ data-i18n-placeholder="loginMfaPlaceholder"
      </section>
 
 
-    <section class="card" style="padding:14px 16px;">
+    <section class="card" style="
+  width:96%;
+  margin-left:auto;
+  margin-right:auto;
+  padding:10px 12px;
+">
 
-  <h2 data-i18n="accountSummary">Hesap Özeti</h2>
+  <h2 data-i18n="accountSummary" style="font-size:17px; margin:0 0 8px;">
+  Hesap Özeti
+  </h2>
 
   <div style="
   display:grid !important;
   grid-template-columns:repeat(2,minmax(0,1fr)) !important;
-  gap:10px;
-  margin-top:12px;
+  gap:6px;
+margin-top:6px;
 ">
 
-  <div class="stat" style="min-width:0; width:auto; min-height:82px; padding:10px 12px; box-sizing:border-box;">
+  <div class="stat" style="min-width:0; width:auto; min-height:64px; padding:7px 9px; box-sizing:border-box;">
     <div class="label" data-i18n="totalPoints" style="font-size:13px;
 line-height:1.25;">💜 Toplam Puan</div>  
 
@@ -980,21 +987,21 @@ line-height:1.25;">💜 Toplam Puan</div>
     </div>
   </div>
 
-  <div class="stat" style="min-width:0; width:auto; min-height:82px; padding:10px 12px; box-sizing:border-box;">
+  <div class="stat" style="min-width:0; width:auto; min-height:64px; padding:7px 9px; box-sizing:border-box;">
     <div class="label" data-i18n="earningsBalance" style="font-size:13px; line-height:1.25;">💰 Kazanç Bakiyesi</div>
     <div class="value" style="display:block; position:static; font-size:22px; line-height:1.15; margin-top:6px;">
       <span id="dbBalance">0</span> <small>lamports</small>
     </div>
   </div>
 
-  <div class="stat" style="min-width:0; width:auto; min-height:82px; padding:10px 12px; box-sizing:border-box;">
+  <div class="stat" style="min-width:0; width:auto; min-height:64px; padding:7px 9px; box-sizing:border-box;">
     <div class="label" data-i18n="minimumTokenRequirement" style="font-size:11px; line-height:1.25; white-space:nowrap;">🔐 Minimum Token Şartı</div>
     <div class="value" style="display:block; position:static; font-size:22px; line-height:1.15; margin-top:6px;">
       <span id="minTokenBalance">-</span> <small>token</small>
     </div>
   </div>
 
-  <div class="stat" style="min-width:0; width:auto; min-height:82px; padding:10px 12px; box-sizing:border-box;">
+  <div class="stat" style="min-width:0; width:auto; min-height:64px; padding:7px 9px; box-sizing:border-box;">
     <div class="label" data-i18n="completedTasks" style="font-size:13px; line-height:1.25;">✅ Tamamlanan Görev</div>
     
     <div class="value" style="display:block; position:static; font-size:22px; line-height:1.15; margin-top:6px;">
