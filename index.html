@@ -1325,7 +1325,42 @@ height:auto; margin-left:auto; margin-right:auto;">
   <small style="opacity:.75;">
     <span data-i18n="reviewPendingAds">Bekleyen reklam başvurularını incele</span>
   </small>
+<div
+  id="adminAdTabs"
+  style="
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:6px;
+    margin-top:14px;
+  "
+>
+  <button
+    id="adminPendingTab"
+    type="button"
+    class="secondary"
+    style="margin:0; padding:8px 5px; font-size:12px;"
+  >
+    ⏳ Bekleyen
+  </button>
 
+  <button
+    id="adminApprovedTab"
+    type="button"
+    class="secondary"
+    style="margin:0; padding:8px 5px; font-size:12px;"
+  >
+    ✅ Onaylanan
+  </button>
+
+  <button
+    id="adminRejectedTab"
+    type="button"
+    class="secondary"
+    style="margin:0; padding:8px 5px; font-size:12px;"
+  >
+    ❌ Reddedilen
+  </button>
+</div>
   <div
     id="adminAdList"
     style="margin-top:16px;"
