@@ -1273,11 +1273,22 @@ height:auto; margin-left:auto; margin-right:auto;">
   <span data-i18n="submitAd">Başvuruyu Gönder</span>
 </button>
      </div>
-   </section>
-    <section
+   <section
   id="adminAdPanel"
   class="card"
-  style="display:none; margin-top:14px;"
+  style="
+    display:none;
+    position:fixed;
+    top:78px;
+    left:50%;
+    transform:translateX(-50%);
+    width:min(620px,92vw);
+    max-height:78vh;
+    overflow-y:auto;
+    margin:0;
+    z-index:10020;
+    box-shadow:0 24px 70px rgba(0,0,0,.65);
+  "
 >
   <h2><span data-i18n="adManagement">Reklam Yönetimi</span></h2>
 
