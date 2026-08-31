@@ -5743,13 +5743,29 @@ const closeAppsBtnEl = document.getElementById("closeAppsBtn");
 if (appsCardEl && appsSectionEl && closeAppsBtnEl) {
   appsCardEl.style.cursor = "pointer";
 
-  appsCardEl.addEventListener("click", () => {
-    appsSectionEl.style.display = "block";
-    appsSectionEl.scrollIntoView({
-      behavior: "smooth",
-      block: "start"
-    });
-  });
+  appsCardEl.addEventListener("click", async () => {
+  try {
+    const {
+      data: { session },
+      error
+    } = await supabaseClient.auth.getSession();
+
+    if (error || !session?.user?.id) {
+      alert("Ayet tekliflerini görüntülemek için giriş yapmalısınız.");
+      return;
+    }
+
+    const userId = encodeURIComponent(session.user.id);
+
+    const ayetUrl =
+      `https://offerwall.ayet.io/offers?adSlot=29134&externalIdentifier=${userId}`;
+
+    window.location.href = ayetUrl;
+  } catch (error) {
+    console.error("Ayet Offerwall hatası:", error);
+    alert("Teklif duvarı şu anda açılamadı.");
+  }
+});
 
   closeAppsBtnEl.addEventListener("click", () => {
     appsSectionEl.style.display = "none";
