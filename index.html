@@ -5766,13 +5766,31 @@ const closeSurveysBtnEl = document.getElementById("closeSurveysBtn");
 if (surveysCardEl && surveysSectionEl && closeSurveysBtnEl) {
   surveysCardEl.style.cursor = "pointer";
 
-  surveysCardEl.addEventListener("click", () => {
-    surveysSectionEl.style.display = "block";
-    surveysSectionEl.scrollIntoView({
-      behavior: "smooth",
-      block: "start"
-    });
-  });
+  surveysCardEl.addEventListener("click", async () => {
+  try {
+    const { data, error } = await supabaseClient.functions.invoke(
+      "cpx-offerwall",
+      { body: {} }
+    );
+
+    if (error) {
+      console.error("CPX offerwall error:", error);
+      alert("CPX anketleri şu anda açılamadı.");
+      return;
+    }
+
+    if (!data || !data.url) {
+      console.error("CPX URL bulunamadı:", data);
+      alert("CPX bağlantısı oluşturulamadı.");
+      return;
+    }
+
+    window.location.href = data.url;
+  } catch (error) {
+    console.error("CPX unexpected error:", error);
+    alert("CPX bağlantısı sırasında bir hata oluştu.");
+  }
+});
 
   closeSurveysBtnEl.addEventListener("click", () => {
     surveysSectionEl.style.display = "none";
