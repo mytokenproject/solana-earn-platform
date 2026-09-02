@@ -5227,13 +5227,13 @@ if (topBalance) topBalance.textContent =
 
   const { data: pointRows, error: pointError } =
     await supabaseClient
-      .from("point_earnings")
-      .select("points")
+      .from("balances")
+      .select("test_points")
       .eq("user_id", user.id);
 
   if (!pointError && pointRows) {
     const totalPoints = pointRows.reduce(
-      (sum, item) => sum + Number(item.points || 0),
+      (sum, item) => sum + Number(item.test_points || 0),
       0
     );
 
