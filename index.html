@@ -5638,10 +5638,18 @@ historyEl.textContent = historyLoadingText.pointHistoryLoading;
   historyEl.textContent = historyEmptyText.pointHistoryEmpty;
   return;
   }
-    const totalPoints = history.reduce(
-  (sum, item) => sum + Number(item.points || 0),
-  0
-);
+    const { data: pointsBalance, error: pointsBalanceError } =
+  await supabaseClient
+    .from("balances")
+    .select("test_points")
+    .eq("user_id", user.id)
+    .maybeSingle();
+
+if (pointsBalanceError) {
+  console.error("Puan bakiyesi hatası:", pointsBalanceError);
+}
+
+const totalPoints = Number(pointsBalance?.test_points || 0);
 
 const balanceEl = document.getElementById("balance");
 const historyPointsText =
