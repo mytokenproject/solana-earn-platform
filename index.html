@@ -2958,7 +2958,10 @@ if (menuOverlay) {
   }
 window.setCompletedCount = (value) => {
   completed = Number(value || 0);
-  render();
+
+  if (completedEl) {
+    completedEl.textContent = completed;
+  }
 };
 connectBtn.addEventListener("click", () => {
   walletChooser.style.display =
@@ -5636,7 +5639,6 @@ historyEl.textContent = historyLoadingText.pointHistoryLoading;
     translations.tr;
 
   historyEl.textContent = historyEmptyText.pointHistoryEmpty;
-  return;
   }
     const { data: pointsBalance, error: pointsBalanceError } =
   await supabaseClient
