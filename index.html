@@ -5763,12 +5763,28 @@ const closeGamesBtnEl = document.getElementById("closeGamesBtn");
 if (gamesCardEl && gamesSectionEl && closeGamesBtnEl) {
   gamesCardEl.style.cursor = "pointer";
 
-  gamesCardEl.addEventListener("click", () => {
-    gamesSectionEl.style.display = "block";
-    gamesSectionEl.scrollIntoView({
-      behavior: "smooth",
-      block: "start"
-    });
+  gamesCardEl.addEventListener("click", async () => {
+    try {
+      const {
+        data: { session },
+        error
+      } = await supabaseClient.auth.getSession();
+
+      if (error || !session?.user?.id) {
+        alert("Offerwall.GG oyunlarını açmak için giriş yapmalısınız.");
+        return;
+      }
+
+      const userId = encodeURIComponent(session.user.id);
+
+      const offerwallGamesUrl =
+        `https://offerwall.gg/wall/4cc30c3d03f126f51e53fbc48910a0fa?userId=${userId}&category=game&sort=payout`;
+
+      window.location.href = offerwallGamesUrl;
+    } catch (error) {
+      console.error("Offerwall.GG oyunlar hatası:", error);
+      alert("Oyunlar şu anda açılamadı.");
+    }
   });
 
   closeGamesBtnEl.addEventListener("click", () => {
