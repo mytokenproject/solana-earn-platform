@@ -1474,6 +1474,10 @@ height:auto; margin-left:auto; margin-right:auto;">
       <div class="task-title">▶️ <span data-i18n="videoAds">Video & Reklam</span></div>
       <small><span data-i18n="videoAdsDesc">İzle ve ödül kazan</span></small>
     </div>
+    <div class="task" id="offerwallggCard" style="cursor:pointer;" onclick="const s=document.getElementById('offerwallggSection'); s.style.display='block'; s.scrollIntoView({behavior:'smooth',block:'start'});">
+  <div class="task-title">🎯 Offerwall.GG</div>
+  <small>Teklif, anket ve oyun görevleriyle USDC kazan</small>
+    </div>
     <div class="task" id="sponsoredCard">
       <div class="task-title">⭐ <span data-i18n="sponsoredTasks">Sponsorlu Görevler</span></div>
       <small><span data-i18n="sponsoredTasksDesc">Özel kampanyaları tamamla</span></small>
@@ -1528,7 +1532,20 @@ height:auto; margin-left:auto; margin-right:auto;">
      <button class="secondary"
   id="closeSponsoredBtn"><span data-i18n="back">Geri Dön</span></button>
     </section>
-    <section class="card" id="shoppingSection" style="display:none; margin-top:14px;">
+    <section class="card" id="offerwallggSection" style="display:none; margin-top:14px;">
+  <h2>🎯 Offerwall.GG</h2>
+  <p>Teklifleri, anketleri ve oyun görevlerini tamamlayarak USDC kazan.</p>
+
+  <button class="primary" id="openOfferwallggBtn">
+    Offerwall.GG'yi Aç
+  </button>
+
+  <button class="secondary" id="closeOfferwallggBtn" onclick="document.getElementById('offerwallggSection').style.display='none'; document.getElementById('offerwallggCard').scrollIntoView({behavior:'smooth',block:'center'});">
+    Geri Dön
+  </button>
+    </section>
+    <section class="card"  
+      id="shoppingSection" style="display:none; margin-top:14px;">
   <h2>🛍️ <span data-i18n="shoppingEarn">Alışveriş & Kazan</span></h2>
   <p><span data-i18n="shoppingSectionDesc">Alışveriş ve cashback görevleri burada listelenecek.</span></p>
   <div id="shoppingTaskList"></div>
@@ -3354,7 +3371,23 @@ const taskText =
   taskText.pointsUnit
 );
     });
+document.getElementById("openOfferwallggBtn")?.addEventListener("click", async () => {
+  const {
+    data: { user },
+    error
+  } = await supabaseClient.auth.getUser();
 
+  if (error || !user) {
+    alert("Offerwall.GG'yi açmak için giriş yapmalısınız.");
+    return;
+  }
+
+  const offerwallUrl =
+    "https://offerwall.gg/wall/4cc30c3d03f126f51e53fbc48910a0fa?userId=" +
+    encodeURIComponent(user.id);
+
+  window.location.href = offerwallUrl;
+});
   render();
 
 })();
