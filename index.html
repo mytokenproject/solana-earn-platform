@@ -6669,14 +6669,38 @@ if (submitUsdcWithdrawBtn) {
       return;
     }
 
-    const savedWalletAddress =
-      localStorage.getItem("workplace_wallet_address");
+    let savedWalletAddress =
+  localStorage.getItem("workplace_wallet_address");
 
-    if (!savedWalletAddress) {
-      withdrawUsdcStatus.textContent =
-        "❌ Önce Solana cüzdanınızı bağlayın.";
-      return;
-    }
+// localStorage boşsa ekrandaki kayıtlı cüzdan bilgisini kullan
+if (!savedWalletAddress) {
+  const walletStatusText =
+    document.getElementById("topWalletStatus")?.textContent || "";
+
+  if (
+    walletStatusText &&
+    !walletStatusText.includes("bağlı değil") &&
+    !walletStatusText.includes("Bağlı değil")
+  ) {
+    savedWalletAddress = walletStatusText.trim();
+  }
+}
+
+if (!savedWalletAddress) {
+  withdrawUsdcStatus.textContent =
+    "❌ Kayıtlı Solana cüzdanı bulunamadı.";
+  return;
+}
+
+// Çekim panelinde cüzdanı göster
+if (withdrawWalletAddress) {
+  withdrawWalletAddress.textContent =
+    savedWalletAddress.length > 12
+      ? savedWalletAddress.slice(0, 6) +
+        "..." +
+        savedWalletAddress.slice(-6)
+      : savedWalletAddress;
+}
 
     const { data: balanceData, error: balanceError } =
       await supabaseClient
