@@ -6758,6 +6758,27 @@ if (withdrawWalletAddress) {
     withdrawUsdcAmount.value = "";
   });
 }
+    function refreshWithdrawWalletAddress() {
+  const withdrawWalletAddress =
+    document.getElementById("withdrawWalletAddress");
+
+  if (!withdrawWalletAddress) return;
+
+  const savedWalletAddress =
+    localStorage.getItem("workplace_wallet_address");
+
+  if (savedWalletAddress) {
+    withdrawWalletAddress.textContent =
+      savedWalletAddress.slice(0, 6) +
+      "..." +
+      savedWalletAddress.slice(-6);
+  } else {
+    withdrawWalletAddress.textContent =
+      "Cüzdan bağlı değil";
+  }
+}
+
+refreshWithdrawWalletAddress();
   </script>
 </body>
 </html>
