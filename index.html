@@ -5095,7 +5095,7 @@ if (setup2faBtnLogin) {
        balanceError } =
   await supabaseClient
     .from("balances")
-    .select("sol_lamports")
+    .select("sol_lamports, usdc_balance")
     .eq("user_id", data.user.id)
     .maybeSingle();
 console.log("Balance result:", dbBalance, balanceError);
@@ -5106,7 +5106,13 @@ if (balanceError) {
   if (!balanceError && dbBalance) {
 
  if (topBalance) topBalance.textContent = (dbBalance.sol_lamports ?? 0) + " lamports";
-    document.getElementById("dbBalance").textContent = dbBalance.sol_lamports ?? 0;
+ const withdrawUsdcBalanceEl =
+  document.getElementById("withdrawUsdcBalance");
+
+if (withdrawUsdcBalanceEl) {
+  withdrawUsdcBalanceEl.textContent =
+    Number(dbBalance.usdc_balance ?? 0).toFixed(2) + " USDC";
+     }   document.getElementById("dbBalance").textContent = dbBalance.sol_lamports ?? 0;
   const loginBalanceLang =
   localStorage.getItem("workplace_language") || "tr";
 const loginBalanceText =
@@ -5395,7 +5401,7 @@ if (savedWalletError) {
   const { data: dbBalance, error: balanceError } =
     await supabaseClient
       .from("balances")
-      .select("sol_lamports")
+      .select("sol_lamports, usdc_balance")
       .eq("user_id", user.id)
       .maybeSingle();
 
@@ -5405,7 +5411,13 @@ if (savedWalletError) {
     
 if (topBalance) topBalance.textContent =
   (dbBalance.sol_lamports ?? 0) + " lamports";
-    
+  const withdrawUsdcBalanceEl =
+  document.getElementById("withdrawUsdcBalance");
+
+if (withdrawUsdcBalanceEl) {
+  withdrawUsdcBalanceEl.textContent =
+    Number(dbBalance.usdc_balance ?? 0).toFixed(2) + " USDC";
+}  
     loginStatus.textContent +=
   " | " + restoreStatusText.balanceLabel + ": " +
   (dbBalance.sol_lamports ?? 0) +
