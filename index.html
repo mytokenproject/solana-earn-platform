@@ -1478,6 +1478,11 @@ height:auto; margin-left:auto; margin-right:auto;">
   <div class="task-title">🎯 Offerwall.GG</div>
   <small>Teklif, anket ve oyun görevleriyle USDC kazan</small>
     </div>
+    <div class="task" id="gamwallCard" style="cursor:pointer;"
+  onclick="const s=document.getElementById('gamwallSection'); s.style.display='block'; s.scrollIntoView({behavior:'smooth',block:'start'});">
+  <div class="task-title">💰 Gamwall</div>
+  <small>Teklifleri ve görevleri tamamlayarak USDC kazan</small>
+    </div>
     <div class="task" id="sponsoredCard">
       <div class="task-title">⭐ <span data-i18n="sponsoredTasks">Sponsorlu Görevler</span></div>
       <small><span data-i18n="sponsoredTasksDesc">Özel kampanyaları tamamla</span></small>
@@ -1541,6 +1546,19 @@ height:auto; margin-left:auto; margin-right:auto;">
   </button>
 
   <button class="secondary" id="closeOfferwallggBtn" onclick="document.getElementById('offerwallggSection').style.display='none'; document.getElementById('offerwallggCard').scrollIntoView({behavior:'smooth',block:'center'});">
+    Geri Dön
+  </button>
+    </section>
+    <section class="card" id="gamwallSection" style="display:none; margin-top:14px;">
+  <h2>💰 Gamwall</h2>
+  <p>Teklifleri ve görevleri tamamlayarak USDC kazan.</p>
+
+  <button class="primary" id="openGamwallBtn">
+    Gamwall'ı Aç
+  </button>
+
+  <button class="secondary" id="closeGamwallBtn"
+    onclick="document.getElementById('gamwallSection').style.display='none'; document.getElementById('gamwallCard').scrollIntoView({behavior:'smooth',block:'center'});">
     Geri Dön
   </button>
     </section>
@@ -3387,6 +3405,23 @@ document.getElementById("openOfferwallggBtn")?.addEventListener("click", async (
     encodeURIComponent(user.id);
 
   window.location.href = offerwallUrl;
+});
+  document.getElementById("openGamwallBtn")?.addEventListener("click", async () => {
+  const {
+    data: { user },
+    error
+  } = await supabaseClient.auth.getUser();
+
+  if (error || !user) {
+    alert("Gamwall'ı açmak için giriş yapmalısınız.");
+    return;
+  }
+
+  const gamwallUrl =
+    "https://gamwall.com/offerwall.php?placement_id=59&user_id=" +
+    encodeURIComponent(user.id);
+
+  window.location.href = gamwallUrl;
 });
   render();
 
