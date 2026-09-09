@@ -6636,6 +6636,104 @@ if (withdrawUsdcMenuBtn && withdrawUsdcPanel) {
     }
   });
 }
+  const submitUsdcWithdrawBtn =
+document.getElementById("submitUsdcWithdrawBtn");
+
+const withdrawUsdcAmount =
+document.getElementById("withdrawUsdcAmount");
+
+const withdrawUsdcStatus =
+document.getElementById("withdrawUsdcStatus");
+
+const withdrawWalletAddress =
+document.getElementById("withdrawWalletAddress");
+
+if (submitUsdcWithdrawBtn) {
+  submitUsdcWithdrawBtn.addEventListener("click", async () => {
+    withdrawUsdcStatus.textContent = "";
+
+    const amount = Number(withdrawUsdcAmount?.value);
+
+    if (!Number.isFinite(amount) || amount < 10 || amount > 250) {
+      withdrawUsdcStatus.textContent =
+        "❌ Çekim miktarı 10 - 250 USDC arasında olmalı.";
+      return;
+    }
+
+    const { data: userData, error: userError } =
+      await supabaseClient.auth.getUser();
+
+    if (userError || !userData?.user) {
+      withdrawUsdcStatus.textContent =
+        "❌ Önce hesabınıza giriş yapmalısınız.";
+      return;
+    }
+
+    const savedWalletAddress =
+      localStorage.getItem("workplace_wallet_address");
+
+    if (!savedWalletAddress) {
+      withdrawUsdcStatus.textContent =
+        "❌ Önce Solana cüzdanınızı bağlayın.";
+      return;
+    }
+
+    const { data: balanceData, error: balanceError } =
+      await supabaseClient
+        .from("balances")
+        .select("usdc_balance")
+        .eq("user_id", userData.user.id)
+        .maybeSingle();
+
+    if (balanceError) {
+      console.error("USDC bakiye hatası:", balanceError);
+      withdrawUsdcStatus.textContent =
+        "❌ Bakiye kontrol edilemedi.";
+      return;
+    }
+
+    const currentBalance =
+      Number(balanceData?.usdc_balance ?? 0);
+
+    if (currentBalance < amount) {
+      withdrawUsdcStatus.textContent =
+        "❌ Yetersiz USDC bakiyesi.";
+      return;
+    }
+
+    submitUsdcWithdrawBtn.disabled = true;
+    withdrawUsdcStatus.textContent =
+      "⏳ Çekim talebi oluşturuluyor...";
+
+    const { error: withdrawError } =
+      await supabaseClient
+        .from("withdrawals")
+        .insert([
+          {
+            user_id: userData.user.id,
+            amount: amount,
+            currency: "USDC",
+            wallet_address: savedWalletAddress,
+            status: "pending"
+          }
+        ]);
+
+    submitUsdcWithdrawBtn.disabled = false;
+
+    if (withdrawError) {
+      console.error("Çekim kayıt hatası:", withdrawError);
+      withdrawUsdcStatus.textContent =
+        "❌ Çekim talebi oluşturulamadı: " +
+        withdrawError.message;
+      return;
+    }
+
+    withdrawUsdcStatus.textContent =
+      "✅ USDC çekim talebi başarıyla oluşturuldu.";
+
+    withdrawUsdcAmount.value = "";
+  });
+}
   </script>
 </body>
 </html>
