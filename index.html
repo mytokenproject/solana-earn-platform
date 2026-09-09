@@ -960,58 +960,59 @@ data-i18n-placeholder="loginMfaPlaceholder"
      </section>
 
 
-    <section class="card" style="
-  width:96%;
-  margin-left:auto;
-  margin-right:auto;
-  padding:10px 12px;
-">
+    <!-- HESAP ÖZETİ -->
+<section class="account-summary-section">
 
-  <h2 data-i18n="accountSummary" style="font-size:17px; margin:0 0 8px;">
-  Hesap Özeti
-  </h2>
+  <button
+    type="button"
+    class="account-summary-toggle"
+    id="accountSummaryToggle"
+    aria-expanded="false"
+    aria-controls="accountSummaryMenu"
+  >
+    <span>👤 Hesap Özeti</span>
+    <span id="accountSummaryArrow">▼</span>
+  </button>
 
-  <div style="
-  display:grid !important;
-  grid-template-columns:repeat(2,minmax(0,1fr)) !important;
-  gap:6px;
-margin-top:6px;
-">
+  <div
+    class="account-summary-menu"
+    id="accountSummaryMenu"
+    style="display: none;"
+  >
 
-  <div class="stat" style="min-width:0; width:auto; min-height:64px; padding:7px 9px; box-sizing:border-box;">
-    <div class="label" data-i18n="totalPoints" style="font-size:13px;
-line-height:1.25;">💜 Toplam Puan</div>  
+    <!-- CÜZDANIM -->
+    <button
+      type="button"
+      class="account-summary-item"
+      id="walletMenuBtn"
+    >
+      <span>👛</span>
+      <span>Cüzdanım</span>
+    </button>
 
-<div class="value" style="display:block; position:static; font-size:22px; line-height:1.15; margin-top:6px;">
-      <span id="balance">0</span>
-    </div>
+    <!-- USDC ÇEKİMİ -->
+    <button
+      type="button"
+      class="account-summary-item"
+      id="withdrawUsdcMenuBtn"
+    >
+      <span>💵</span>
+      <span>USDC Çekimi</span>
+    </button>
+
+    <!-- LİDERLİK PANOSU -->
+    <button
+      type="button"
+      class="account-summary-item"
+      id="leaderboardMenuBtn"
+    >
+      <span>🏆</span>
+      <span>Liderlik Panosu</span>
+    </button>
+
   </div>
 
-  <div class="stat" style="min-width:0; width:auto; min-height:64px; padding:7px 9px; box-sizing:border-box;">
-    <div class="label" data-i18n="earningsBalance" style="font-size:13px; line-height:1.25;">💰 Kazanç Bakiyesi</div>
-    <div class="value" style="display:block; position:static; font-size:22px; line-height:1.15; margin-top:6px;">
-      <span id="dbBalance">0</span> <small>lamports</small>
-    </div>
-  </div>
-
-  <div class="stat" style="min-width:0; width:auto; min-height:64px; padding:7px 9px; box-sizing:border-box;">
-    <div class="label" data-i18n="minimumTokenRequirement" style="font-size:11px; line-height:1.25; white-space:nowrap;">🔐 Minimum Token Şartı</div>
-    <div class="value" style="display:block; position:static; font-size:22px; line-height:1.15; margin-top:6px;">
-      <span id="minTokenBalance">-</span> <small>token</small>
-    </div>
-  </div>
-
-  <div class="stat" style="min-width:0; width:auto; min-height:64px; padding:7px 9px; box-sizing:border-box;">
-    <div class="label" data-i18n="completedTasks" style="font-size:13px; line-height:1.25;">✅ Tamamlanan Görev</div>
-    
-    <div class="value" style="display:block; position:static; font-size:22px; line-height:1.15; margin-top:6px;">
-      <span id="completed">0</span>
-    </div>
-  </div>
-
-  </div>
-
-    </section>
+</section>
   <section
   class="card"
   id="workplaceHeroPanel"
@@ -3428,6 +3429,47 @@ document.getElementById("openOfferwallggBtn")?.addEventListener("click", async (
 })();
 
 </script>
+
+<!-- HESAP ÖZETİ STİLİ -->
+<style>
+.account-summary-section {
+  margin: 16px 0;
+}
+
+.account-summary-toggle {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,0.12);
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.account-summary-menu {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.account-summary-item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 13px 16px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.10);
+  cursor: pointer;
+  font-size: 15px;
+  text-align: left;
+}
+</style>
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
@@ -6443,6 +6485,25 @@ document.getElementById("languageSelect")
   window.addEventListener("load", refreshDynamicTaskLanguage);
   refreshDynamicTaskLanguage();
 })();
+    const accountSummaryToggle = document.getElementById("accountSummaryToggle");
+const accountSummaryMenu = document.getElementById("accountSummaryMenu");
+const accountSummaryArrow = document.getElementById("accountSummaryArrow");
+
+if (accountSummaryToggle && accountSummaryMenu) {
+  accountSummaryToggle.addEventListener("click", () => {
+    const isOpen = accountSummaryMenu.style.display === "flex";
+
+    accountSummaryMenu.style.display = isOpen ? "none" : "flex";
+    accountSummaryToggle.setAttribute(
+      "aria-expanded",
+      isOpen ? "false" : "true"
+    );
+
+    if (accountSummaryArrow) {
+      accountSummaryArrow.textContent = isOpen ? "▼" : "▲";
+    }
+  });
+    }
   </script>
 </body>
 </html>
