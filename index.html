@@ -6579,6 +6579,10 @@ if (accountSummaryToggle && accountSummaryMenu) {
     const isOpen = accountSummaryMenu.style.display === "flex";
 
     accountSummaryMenu.style.display = isOpen ? "none" : "flex";
+    if (isOpen) {
+  const withdrawUsdcPanel = document.getElementById("withdrawUsdcPanel");
+  if (withdrawUsdcPanel) withdrawUsdcPanel.style.display = "none";
+    }
     accountSummaryToggle.setAttribute(
       "aria-expanded",
       isOpen ? "false" : "true"
