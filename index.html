@@ -1013,6 +1013,80 @@ data-i18n-placeholder="loginMfaPlaceholder"
   </div>
 
 </section>
+    <!-- USDC ÇEKİM PANELİ -->
+<section
+  id="withdrawUsdcPanel"
+  class="card"
+  style="
+    display:none;
+    margin-top:12px;
+    padding:18px;
+  "
+>
+  <h3 style="margin-top:0;">💵 USDC Çekimi</h3>
+
+  <div style="margin-bottom:12px;">
+    <small>Mevcut USDC Bakiyesi</small>
+    <div
+      id="withdrawUsdcBalance"
+      style="font-size:22px;font-weight:700;margin-top:4px;"
+    >
+      0.00 USDC
+    </div>
+  </div>
+
+  <label for="withdrawUsdcAmount">
+    Çekilecek Miktar
+  </label>
+
+  <input
+    id="withdrawUsdcAmount"
+    type="number"
+    min="10"
+    max="250"
+    step="0.01"
+    placeholder="10 - 250 USDC"
+    style="
+      width:100%;
+      margin-top:8px;
+      padding:12px;
+      border-radius:10px;
+    "
+  />
+
+  <div style="margin-top:12px;">
+    <small>Solana Cüzdanı</small>
+    <div
+      id="withdrawWalletAddress"
+      style="
+        margin-top:4px;
+        word-break:break-all;
+        font-size:13px;
+      "
+    >
+      Cüzdan bağlı değil
+    </div>
+  </div>
+
+  <button
+    type="button"
+    id="submitUsdcWithdrawBtn"
+    class="primary"
+    style="width:100%;margin-top:16px;"
+  >
+    USDC Çek
+  </button>
+
+  <div
+    id="withdrawUsdcStatus"
+    class="status"
+    style="margin-top:10px;"
+  ></div>
+
+  <small style="display:block;margin-top:12px;opacity:.75;">
+    Minimum 10 USDC · Maksimum 250 USDC
+  </small>
+</section>
   <section
   class="card"
   id="workplaceHeroPanel"
@@ -6526,6 +6600,28 @@ if (
         block: "center"
       });
     }, 100);
+  });
+}
+    const withdrawUsdcMenuBtn =
+  document.getElementById("withdrawUsdcMenuBtn");
+
+const withdrawUsdcPanel =
+  document.getElementById("withdrawUsdcPanel");
+
+if (withdrawUsdcMenuBtn && withdrawUsdcPanel) {
+  withdrawUsdcMenuBtn.addEventListener("click", () => {
+    const isOpen =
+      withdrawUsdcPanel.style.display !== "none";
+
+    withdrawUsdcPanel.style.display =
+      isOpen ? "none" : "block";
+
+    if (!isOpen) {
+      withdrawUsdcPanel.scrollIntoView({
+        behavior: "smooth",
+        block: "center"
+      });
+    }
   });
 }
   </script>
