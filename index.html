@@ -6505,11 +6505,20 @@ if (accountSummaryToggle && accountSummaryMenu) {
   });
     }
     const walletMenuBtn = document.getElementById("walletMenuBtn");
-const connectBtnForSummary = document.getElementById("connectBtn");
+const walletChooserForSummary = document.getElementById("walletChooser");
 
-if (walletMenuBtn && connectBtnForSummary) {
+if (walletMenuBtn && walletChooserForSummary) {
   walletMenuBtn.addEventListener("click", () => {
-    connectBtnForSummary.click();
+    const isOpen = walletChooserForSummary.style.display !== "none";
+
+    walletChooserForSummary.style.display = isOpen ? "none" : "block";
+
+    if (!isOpen) {
+      walletChooserForSummary.scrollIntoView({
+        behavior: "smooth",
+        block: "center"
+      });
+    }
   });
 }
   </script>
