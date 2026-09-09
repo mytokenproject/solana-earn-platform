@@ -6504,6 +6504,14 @@ if (accountSummaryToggle && accountSummaryMenu) {
     }
   });
     }
+    const walletMenuBtn = document.getElementById("walletMenuBtn");
+const connectBtnForSummary = document.getElementById("connectBtn");
+
+if (walletMenuBtn && connectBtnForSummary) {
+  walletMenuBtn.addEventListener("click", () => {
+    connectBtnForSummary.click();
+  });
+}
   </script>
 </body>
 </html>
