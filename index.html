@@ -6624,7 +6624,7 @@ const withdrawUsdcPanel =
   document.getElementById("withdrawUsdcPanel");
 
 if (withdrawUsdcMenuBtn && withdrawUsdcPanel) {
-  withdrawUsdcMenuBtn.addEventListener("click", () => {
+  withdrawUsdcMenuBtn.addEventListener("click", async () => {
     const isOpen =
       withdrawUsdcPanel.style.display !== "none";
 
@@ -6632,6 +6632,31 @@ if (withdrawUsdcMenuBtn && withdrawUsdcPanel) {
       isOpen ? "none" : "block";
 
     if (!isOpen) {
+      const { data: userData, error: userError } =
+        await supabaseClient.auth.getUser();
+
+      if (!userError && userData?.user) {
+        const { data: balanceData, error: balanceError } =
+          await supabaseClient
+            .from("balances")
+            .select("usdc_balance")
+            .eq("user_id", userData.user.id)
+            .maybeSingle();
+
+        if (!balanceError) {
+          const withdrawUsdcBalanceEl =
+            document.getElementById("withdrawUsdcBalance");
+
+          if (withdrawUsdcBalanceEl) {
+            withdrawUsdcBalanceEl.textContent =
+              Number(balanceData?.usdc_balance ?? 0).toFixed(2) +
+              " USDC";
+          }
+        }
+      }
+
+      refreshWithdrawWalletAddress();
+
       withdrawUsdcPanel.scrollIntoView({
         behavior: "smooth",
         block: "center"
