@@ -898,6 +898,49 @@ data-i18n="loginMfaVerify"
           <div id="accountStatusSession">Oturum: -</div>
   <div id="accountStatusWP" data-i18n="accountStatusWPWaiting">WP Erişimi: -</div>    
         </div>
+        <button
+  type="button"
+  class="secondary"
+  id="changeWalletBtn"
+  style="display:none;"
+>
+  🔄 Cüzdanı Değiştir
+</button>
+
+<div
+  id="changeWalletPanel"
+  style="display:none; margin-top:12px;"
+>
+  <input
+    id="newWalletAddressInput"
+    type="text"
+    placeholder="Yeni Solana cüzdan adresi"
+    autocomplete="off"
+    style="width:100%;"
+  >
+
+  <input
+    id="changeWalletMfaCodeInput"
+    type="text"
+    inputmode="numeric"
+    maxlength="6"
+    placeholder="Authenticator 6 haneli kod"
+    style="width:100%; margin-top:10px;"
+  >
+
+  <button
+    type="button"
+    class="primary"
+    id="confirmWalletChangeBtn"
+  >
+    🔐 Cüzdan Değişikliğini Onayla
+  </button>
+
+  <div
+    class="status"
+    id="changeWalletStatus"
+  ></div>
+</div>
       <button class="secondary" id="setup2faBtn" data-i18n="setup2fa">
   🔐 2FA Kur
       </button>
