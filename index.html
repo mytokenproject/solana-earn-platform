@@ -3320,9 +3320,8 @@ if (walletTouchError) {
           throw new Error(
   translations[localStorage.getItem("workplace_language") || "tr"]?.changeWalletMfaFailed
   || translations.tr.changeWalletMfaFailed
-);
-        );
-      }
+ );
+}
 
       await saveWalletAddress(newAddress);
 
