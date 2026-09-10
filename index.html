@@ -6732,31 +6732,36 @@ if (withdrawWalletAddress) {
     withdrawUsdcStatus.textContent =
       "⏳ Çekim talebi oluşturuluyor...";
 
-    const { error: withdrawError } =
-      await supabaseClient
-        .from("withdrawals")
-        .insert([
-          {
-            user_id: userData.user.id,
-            amount: amount,
-            currency: "USDC",
-            wallet_address: savedWalletAddress,
-            status: "pending"
-          }
-        ]);
+    const { data: withdrawalId, error: withdrawError } =
+  await supabaseClient.rpc("create_usdc_withdrawal", {
+    p_amount: amount,
+    p_wallet_address: savedWalletAddress
+  });
 
-    submitUsdcWithdrawBtn.disabled = false;
+submitUsdcWithdrawBtn.disabled = false;
 
-    if (withdrawError) {
-      console.error("Çekim kayıt hatası:", withdrawError);
-      withdrawUsdcStatus.textContent =
-        "❌ Çekim talebi oluşturulamadı: " +
-        withdrawError.message;
-      return;
-    }
+if (withdrawError) {
+  console.error("Çekim kayıt hatası:", withdrawError);
 
+  if (withdrawError.message.includes("INSUFFICIENT_BALANCE")) {
     withdrawUsdcStatus.textContent =
-      "✅ USDC çekim talebi başarıyla oluşturuldu.";
+      "❌ Yetersiz USDC bakiyesi.";
+  } else if (withdrawError.message.includes("INVALID_AMOUNT")) {
+    withdrawUsdcStatus.textContent =
+      "❌ Çekim miktarı 10 - 250 USDC arasında olmalı.";
+  } else if (withdrawError.message.includes("INVALID_WALLET")) {
+    withdrawUsdcStatus.textContent =
+      "❌ Geçerli Solana cüzdanı bulunamadı.";
+  } else {
+    withdrawUsdcStatus.textContent =
+      "❌ Çekim talebi oluşturulamadı.";
+  }
+
+  return;
+}
+
+withdrawUsdcStatus.textContent =
+  "✅ USDC çekim talebi oluşturuldu.";
 
     withdrawUsdcAmount.value = "";
   });
