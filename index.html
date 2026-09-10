@@ -4994,7 +4994,7 @@ if (topLoginBtnEl) {
 const connectBtnHero = document.getElementById("connectBtn");
 const walletStatusHero = document.getElementById("walletStatus");
 const setup2faBtnHero = document.getElementById("setup2faBtn");
-
+const changeWalletBtnHero = document.getElementById("changeWalletBtn");
 if (connectBtnHero) {
   connectBtnHero.style.setProperty(
     "display",
@@ -5019,6 +5019,13 @@ if (!loggedIn) {
       "important"
     );
   }
+  if (changeWalletBtnHero) {
+  changeWalletBtnHero.style.setProperty(
+    "display",
+    "none",
+    "important"
+  );
+  }
 } else if (setup2faBtnHero) {
   supabaseClient.auth.mfa
     .getAuthenticatorAssuranceLevel()
@@ -5033,6 +5040,13 @@ if (!loggedIn) {
         data?.nextLevel === "aal1" ? "block" : "none",
         "important"
       );
+      if (changeWalletBtnHero) {
+  changeWalletBtnHero.style.setProperty(
+    "display",
+    data?.nextLevel === "aal2" ? "block" : "none",
+    "important"
+  );
+      }
     });
   }
   const eyebrow =
