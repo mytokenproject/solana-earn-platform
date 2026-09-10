@@ -1013,7 +1013,7 @@ data-i18n-placeholder="loginMfaPlaceholder"
     aria-expanded="false"
     aria-controls="accountSummaryMenu"
   >
-    <span>👤 Hesap Özeti</span>
+    <span>👤 <span data-i18n="accountSummary">Hesap Özeti</span></span>
     <span id="accountSummaryArrow">▼</span>
   </button>
 
@@ -1030,7 +1030,7 @@ data-i18n-placeholder="loginMfaPlaceholder"
       id="walletMenuBtn"
     >
       <span>👛</span>
-      <span>Cüzdanım</span>
+      <span data-i18n="myWallet">Cüzdanım</span>
     </button>
 
     <!-- USDC ÇEKİMİ -->
@@ -1040,7 +1040,7 @@ data-i18n-placeholder="loginMfaPlaceholder"
       id="withdrawUsdcMenuBtn"
     >
       <span>💵</span>
-      <span>USDC Çekimi</span>
+      <span data-i18n="usdcWithdrawal">USDC Çekimi</span>
     </button>
 
     <!-- LİDERLİK PANOSU -->
@@ -1050,7 +1050,7 @@ data-i18n-placeholder="loginMfaPlaceholder"
       id="leaderboardMenuBtn"
     >
       <span>🏆</span>
-      <span>Liderlik Panosu</span>
+      <span data-i18n="leaderboard">Liderlik Panosu</span>
     </button>
 
   </div>
@@ -1786,6 +1786,9 @@ height:auto; margin-left:auto; margin-right:auto;">
       const translations = {
   tr: {
     accountSummary: "Hesap Özeti",
+    myWallet: "Cüzdanım",
+usdcWithdrawal: "USDC Çekimi",
+leaderboard: "Liderlik Panosu",
     totalPoints: "💜 Toplam Puan",
     pointsUnit: "puan",
     completedTasks: "✅ Tamamlanan Görev",
@@ -1967,6 +1970,9 @@ adminRejectedTab: "Reddedilen",
 
   en: {
     accountSummary: "Account Summary",
+    myWallet: "My Wallet",
+usdcWithdrawal: "USDC Withdrawal",
+leaderboard: "Leaderboard",
     totalPoints: "💜 Total Points",
     pointsUnit: "points",
     completedTasks: "✅ Completed Tasks",
@@ -2146,6 +2152,9 @@ adminRejectedTab: "Rejected",
   },
     hi: {
     accountSummary: "खाता सारांश",
+      myWallet: "मेरा वॉलेट",
+usdcWithdrawal: "USDC निकासी",
+leaderboard: "लीडरबोर्ड",
     totalPoints: "💜 कुल अंक",
       pointsUnit: "अंक",
     completedTasks: "✅ पूर्ण किए गए कार्य",
@@ -2327,6 +2336,9 @@ taskNotLinked: "यह कार्य अभी Supabase सिस्टम स
 
   "pt-BR": {
     accountSummary: "Resumo da Conta",
+    myWallet: "Minha Carteira",
+usdcWithdrawal: "Saque de USDC",
+leaderboard: "Classificação",
     totalPoints: "💜 Pontos Totais",
     pointsUnit: "pontos",
     completedTasks: "✅ Tarefas Concluídas",
@@ -2507,6 +2519,9 @@ adminRejectedTab: "Rejeitados",
   },
     id: {
     accountSummary: "Ringkasan Akun",
+      myWallet: "Dompet Saya",
+usdcWithdrawal: "Penarikan USDC",
+leaderboard: "Papan Peringkat",
     totalPoints: "💜 Total Poin",
       pointsUnit: "poin",
     completedTasks: "✅ Tugas Selesai",
@@ -2688,6 +2703,9 @@ adminRejectedTab: "Ditolak",
 
   "pt-PT": {
     accountSummary: "Resumo da Conta",
+    myWallet: "A Minha Carteira",
+usdcWithdrawal: "Levantamento de USDC",
+leaderboard: "Classificação",
     totalPoints: "💜 Total de Pontos",
     pointsUnit: "pontos",
     completedTasks: "✅ Tarefas Concluídas",
