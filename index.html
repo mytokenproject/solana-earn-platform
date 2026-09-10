@@ -904,7 +904,7 @@ data-i18n="loginMfaVerify"
   id="changeWalletBtn"
   style="display:none;"
 >
-  🔄 Cüzdanı Değiştir
+  <span data-i18n="changeWallet">↪️ Cüzdanı Değiştir</span>
 </button>
 
 <div
@@ -912,28 +912,30 @@ data-i18n="loginMfaVerify"
   style="display:none; margin-top:12px;"
 >
   <input
-    id="newWalletAddressInput"
-    type="text"
-    placeholder="Yeni Solana cüzdan adresi"
-    autocomplete="off"
-    style="width:100%;"
-  >
+  id="newWalletAddressInput"
+  type="text"
+  placeholder="Yeni Solana cüzdan adresi"
+  data-i18n-placeholder="newWalletAddressPlaceholder"
+  autocomplete="off"
+  style="width:100%;"
+>
 
   <input
-    id="changeWalletMfaCodeInput"
-    type="text"
-    inputmode="numeric"
-    maxlength="6"
-    placeholder="Authenticator 6 haneli kod"
-    style="width:100%; margin-top:10px;"
-  >
+  id="changeWalletMfaCodeInput"
+  type="text"
+  inputmode="numeric"
+  maxlength="6"
+  placeholder="Authenticator 6 haneli kod"
+  data-i18n-placeholder="changeWalletMfaPlaceholder"
+  style="width:100%; margin-top:10px;"
+>
 
   <button
     type="button"
     class="primary"
     id="confirmWalletChangeBtn"
   >
-    🔐 Cüzdan Değişikliğini Onayla
+    <span data-i18n="confirmWalletChange">🔐 Cüzdan Değişikliğini Onayla</span>
   </button>
 
   <div
@@ -1793,6 +1795,10 @@ withdrawAmount: "Çekilecek Miktar",
 solanaWallet: "Solana Cüzdanı",
 withdrawUsdcButton: "USDC Çek",
 withdrawLimits: "Minimum 10 USDC · Maksimum 250 USDC",
+    changeWallet: "↪️ Cüzdanı Değiştir",
+newWalletAddressPlaceholder: "Yeni Solana cüzdan adresi",
+changeWalletMfaPlaceholder: "Authenticator 6 haneli kod",
+confirmWalletChange: "🔐 Cüzdan Değişikliğini Onayla",
 leaderboard: "Liderlik Panosu",
     totalPoints: "💜 Toplam Puan",
     pointsUnit: "puan",
@@ -1982,6 +1988,10 @@ withdrawAmount: "Withdrawal Amount",
 solanaWallet: "Solana Wallet",
 withdrawUsdcButton: "Withdraw USDC",
 withdrawLimits: "Minimum 10 USDC · Maximum 250 USDC",
+    changeWallet: "↪️ Change Wallet",
+newWalletAddressPlaceholder: "New Solana wallet address",
+changeWalletMfaPlaceholder: "6-digit Authenticator code",
+confirmWalletChange: "🔐 Confirm Wallet Change",
 leaderboard: "Leaderboard",
     totalPoints: "💜 Total Points",
     pointsUnit: "points",
@@ -2169,7 +2179,11 @@ withdrawAmount: "निकासी राशि",
 solanaWallet: "Solana वॉलेट",
 withdrawUsdcButton: "USDC निकालें",
 withdrawLimits: "न्यूनतम 10 USDC · अधिकतम 250 USDC",
-leaderboard: "लीडरबोर्ड",
+changeWallet: "↪️ वॉलेट बदलें",
+newWalletAddressPlaceholder: "नया Solana वॉलेट पता",
+changeWalletMfaPlaceholder: "Authenticator का 6 अंकों का कोड",
+confirmWalletChange: "🔐 वॉलेट बदलाव की पुष्टि करें",
+      leaderboard: "लीडरबोर्ड",
     totalPoints: "💜 कुल अंक",
       pointsUnit: "अंक",
     completedTasks: "✅ पूर्ण किए गए कार्य",
@@ -2358,6 +2372,10 @@ withdrawAmount: "Valor do Saque",
 solanaWallet: "Carteira Solana",
 withdrawUsdcButton: "Sacar USDC",
 withdrawLimits: "Mínimo 10 USDC · Máximo 250 USDC",
+    changeWallet: "↪️ Alterar Carteira",
+newWalletAddressPlaceholder: "Novo endereço da carteira Solana",
+changeWalletMfaPlaceholder: "Código de 6 dígitos do Authenticator",
+confirmWalletChange: "🔐 Confirmar Alteração da Carteira",
 leaderboard: "Classificação",
     totalPoints: "💜 Pontos Totais",
     pointsUnit: "pontos",
@@ -2546,6 +2564,10 @@ withdrawAmount: "Jumlah Penarikan",
 solanaWallet: "Dompet Solana",
 withdrawUsdcButton: "Tarik USDC",
 withdrawLimits: "Minimum 10 USDC · Maksimum 250 USDC",
+      changeWallet: "↪️ Ganti Dompet",
+newWalletAddressPlaceholder: "Alamat dompet Solana baru",
+changeWalletMfaPlaceholder: "Kode Authenticator 6 digit",
+confirmWalletChange: "🔐 Konfirmasi Perubahan Dompet",
 leaderboard: "Papan Peringkat",
     totalPoints: "💜 Total Poin",
       pointsUnit: "poin",
@@ -2735,6 +2757,10 @@ withdrawAmount: "Montante a Levantar",
 solanaWallet: "Carteira Solana",
 withdrawUsdcButton: "Levantar USDC",
 withdrawLimits: "Mínimo 10 USDC · Máximo 250 USDC",
+    changeWallet: "↪️ Alterar Carteira",
+newWalletAddressPlaceholder: "Novo endereço da carteira Solana",
+changeWalletMfaPlaceholder: "Código de 6 dígitos do Authenticator",
+confirmWalletChange: "🔐 Confirmar Alteração da Carteira",
 leaderboard: "Classificação",
     totalPoints: "💜 Total de Pontos",
     pointsUnit: "pontos",
