@@ -3009,6 +3009,7 @@ async function saveWalletAddress(address) {
 if (walletTouchError) {
   throw walletTouchError;
 }
+  localStorage.setItem("workplace_wallet_address", address);
 }  
 const dbBalanceEl =
   document.getElementById("dbBalance");
