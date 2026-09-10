@@ -3006,7 +3006,11 @@ document.getElementById("backpackWalletBtn");
   const trustWalletBtn =
     
   document.getElementById("trustWalletBtn");
-  
+  const changeWalletBtn =
+  document.getElementById("changeWalletBtn");
+
+const changeWalletPanel =
+  document.getElementById("changeWalletPanel");
 async function saveWalletAddress(address) {
   const { data: authData, error: authError } =
     await supabaseClient.auth.getUser();
@@ -3053,7 +3057,15 @@ if (walletTouchError) {
   throw walletTouchError;
 }
   localStorage.setItem("workplace_wallet_address", address);
-}  
+}
+  if (changeWalletBtn && changeWalletPanel) {
+  changeWalletBtn.addEventListener("click", () => {
+    changeWalletPanel.style.display =
+      changeWalletPanel.style.display === "none"
+        ? "block"
+        : "none";
+  });
+  }
 const dbBalanceEl =
   document.getElementById("dbBalance");
   const completedEl =
