@@ -6698,22 +6698,23 @@ if (submitUsdcWithdrawBtn) {
       return;
     }
 
-    let savedWalletAddress =
-  localStorage.getItem("workplace_wallet_address");
+  const { data: walletRows, error: walletError } =
+  await supabaseClient
+    .from("wallets")
+    .select("address")
+    .eq("user_id", userData.user.id)
+    .order("last_connected_at", { ascending: false })
+    .limit(1);
 
-// localStorage boşsa ekrandaki kayıtlı cüzdan bilgisini kullan
-if (!savedWalletAddress) {
-  const walletStatusText =
-    document.getElementById("topWalletStatus")?.textContent || "";
-
-  if (
-    walletStatusText &&
-    !walletStatusText.includes("bağlı değil") &&
-    !walletStatusText.includes("Bağlı değil")
-  ) {
-    savedWalletAddress = walletStatusText.trim();
-  }
+if (walletError) {
+  console.error("Cüzdan sorgu hatası:", walletError);
+  withdrawUsdcStatus.textContent =
+    "❌ Cüzdan bilgisi alınamadı.";
+  return;
 }
+
+const savedWalletAddress =
+  walletRows?.[0]?.address?.trim() || "";
 
 if (!savedWalletAddress) {
   withdrawUsdcStatus.textContent =
