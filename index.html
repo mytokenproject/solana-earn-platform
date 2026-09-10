@@ -1066,10 +1066,10 @@ data-i18n-placeholder="loginMfaPlaceholder"
     padding:18px;
   "
 >
-  <h3 style="margin-top:0;">💵 USDC Çekimi</h3>
+  <h3 style="margin-top:0;">💵 <span data-i18n="usdcWithdrawal">USDC Çekimi</span></h3>
 
   <div style="margin-bottom:12px;">
-    <small>Mevcut USDC Bakiyesi</small>
+    <small data-i18n="currentUsdcBalance">Mevcut USDC Bakiyesi</small>
     <div
       id="withdrawUsdcBalance"
       style="font-size:22px;font-weight:700;margin-top:4px;"
@@ -1078,8 +1078,8 @@ data-i18n-placeholder="loginMfaPlaceholder"
     </div>
   </div>
 
-  <label for="withdrawUsdcAmount">
-    Çekilecek Miktar
+  <label for="withdrawUsdcAmount" data-i18n="withdrawAmount">
+  Çekilecek Miktar
   </label>
 
   <input
@@ -1098,7 +1098,7 @@ data-i18n-placeholder="loginMfaPlaceholder"
   />
 
   <div style="margin-top:12px;">
-    <small>Solana Cüzdanı</small>
+    <small data-i18n="solanaWallet">Solana Cüzdanı</small>
     <div
       id="withdrawWalletAddress"
       style="
@@ -1116,7 +1116,7 @@ data-i18n-placeholder="loginMfaPlaceholder"
     class="primary"
     style="width:100%;margin-top:16px;"
   >
-    USDC Çek
+    <span data-i18n="withdrawUsdcButton">USDC Çek</span>
   </button>
 
   <div
@@ -1126,7 +1126,7 @@ data-i18n-placeholder="loginMfaPlaceholder"
   ></div>
 
   <small style="display:block;margin-top:12px;opacity:.75;">
-    Minimum 10 USDC · Maksimum 250 USDC
+    <span data-i18n="withdrawLimits">Minimum 10 USDC · Maksimum 250 USDC</span>
   </small>
 </section>
   <section
@@ -1788,6 +1788,11 @@ height:auto; margin-left:auto; margin-right:auto;">
     accountSummary: "Hesap Özeti",
     myWallet: "Cüzdanım",
 usdcWithdrawal: "USDC Çekimi",
+    currentUsdcBalance: "Mevcut USDC Bakiyesi",
+withdrawAmount: "Çekilecek Miktar",
+solanaWallet: "Solana Cüzdanı",
+withdrawUsdcButton: "USDC Çek",
+withdrawLimits: "Minimum 10 USDC · Maksimum 250 USDC",
 leaderboard: "Liderlik Panosu",
     totalPoints: "💜 Toplam Puan",
     pointsUnit: "puan",
@@ -1972,6 +1977,11 @@ adminRejectedTab: "Reddedilen",
     accountSummary: "Account Summary",
     myWallet: "My Wallet",
 usdcWithdrawal: "USDC Withdrawal",
+    currentUsdcBalance: "Current USDC Balance",
+withdrawAmount: "Withdrawal Amount",
+solanaWallet: "Solana Wallet",
+withdrawUsdcButton: "Withdraw USDC",
+withdrawLimits: "Minimum 10 USDC · Maximum 250 USDC",
 leaderboard: "Leaderboard",
     totalPoints: "💜 Total Points",
     pointsUnit: "points",
@@ -2154,6 +2164,11 @@ adminRejectedTab: "Rejected",
     accountSummary: "खाता सारांश",
       myWallet: "मेरा वॉलेट",
 usdcWithdrawal: "USDC निकासी",
+      currentUsdcBalance: "वर्तमान USDC शेष",
+withdrawAmount: "निकासी राशि",
+solanaWallet: "Solana वॉलेट",
+withdrawUsdcButton: "USDC निकालें",
+withdrawLimits: "न्यूनतम 10 USDC · अधिकतम 250 USDC",
 leaderboard: "लीडरबोर्ड",
     totalPoints: "💜 कुल अंक",
       pointsUnit: "अंक",
@@ -2338,6 +2353,11 @@ taskNotLinked: "यह कार्य अभी Supabase सिस्टम स
     accountSummary: "Resumo da Conta",
     myWallet: "Minha Carteira",
 usdcWithdrawal: "Saque de USDC",
+    currentUsdcBalance: "Saldo Atual de USDC",
+withdrawAmount: "Valor do Saque",
+solanaWallet: "Carteira Solana",
+withdrawUsdcButton: "Sacar USDC",
+withdrawLimits: "Mínimo 10 USDC · Máximo 250 USDC",
 leaderboard: "Classificação",
     totalPoints: "💜 Pontos Totais",
     pointsUnit: "pontos",
@@ -2521,6 +2541,11 @@ adminRejectedTab: "Rejeitados",
     accountSummary: "Ringkasan Akun",
       myWallet: "Dompet Saya",
 usdcWithdrawal: "Penarikan USDC",
+      currentUsdcBalance: "Saldo USDC Saat Ini",
+withdrawAmount: "Jumlah Penarikan",
+solanaWallet: "Dompet Solana",
+withdrawUsdcButton: "Tarik USDC",
+withdrawLimits: "Minimum 10 USDC · Maksimum 250 USDC",
 leaderboard: "Papan Peringkat",
     totalPoints: "💜 Total Poin",
       pointsUnit: "poin",
@@ -2705,6 +2730,11 @@ adminRejectedTab: "Ditolak",
     accountSummary: "Resumo da Conta",
     myWallet: "A Minha Carteira",
 usdcWithdrawal: "Levantamento de USDC",
+    currentUsdcBalance: "Saldo Atual de USDC",
+withdrawAmount: "Montante a Levantar",
+solanaWallet: "Carteira Solana",
+withdrawUsdcButton: "Levantar USDC",
+withdrawLimits: "Mínimo 10 USDC · Máximo 250 USDC",
 leaderboard: "Classificação",
     totalPoints: "💜 Total de Pontos",
     pointsUnit: "pontos",
