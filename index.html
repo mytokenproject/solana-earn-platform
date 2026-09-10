@@ -3011,7 +3011,18 @@ document.getElementById("backpackWalletBtn");
 
 const changeWalletPanel =
   document.getElementById("changeWalletPanel");
-async function saveWalletAddress(address) {
+const newWalletAddressInput =
+  document.getElementById("newWalletAddressInput");
+
+const changeWalletMfaCodeInput =
+  document.getElementById("changeWalletMfaCodeInput");
+
+const confirmWalletChangeBtn =
+  document.getElementById("confirmWalletChangeBtn");
+
+const changeWalletStatus =
+  document.getElementById("changeWalletStatus");
+  async function saveWalletAddress(address) {
   const { data: authData, error: authError } =
     await supabaseClient.auth.getUser();
 
@@ -3064,6 +3075,134 @@ if (walletTouchError) {
       changeWalletPanel.style.display === "none"
         ? "block"
         : "none";
+  });
+  }
+  if (
+  confirmWalletChangeBtn &&
+  newWalletAddressInput &&
+  changeWalletMfaCodeInput &&
+  changeWalletStatus
+) {
+  confirmWalletChangeBtn.addEventListener("click", async () => {
+    const newAddress =
+      newWalletAddressInput.value.trim();
+
+    const mfaCode =
+      changeWalletMfaCodeInput.value.trim();
+
+    changeWalletStatus.textContent = "";
+
+    if (
+      newAddress.length < 32 ||
+      newAddress.length > 44 ||
+      !/^[1-9A-HJ-NP-Za-km-z]+$/.test(newAddress)
+    ) {
+      changeWalletStatus.textContent =
+        "❌ Geçerli bir Solana cüzdan adresi girin.";
+      return;
+    }
+
+    if (!/^\d{6}$/.test(mfaCode)) {
+      changeWalletStatus.textContent =
+        "❌ 6 haneli Authenticator kodunu girin.";
+      return;
+    }
+
+    confirmWalletChangeBtn.disabled = true;
+    changeWalletStatus.textContent =
+      "🔐 2FA doğrulanıyor...";
+
+    try {
+      const {
+        data: { user },
+        error: userError
+      } = await supabaseClient.auth.getUser();
+
+      if (userError || !user) {
+        throw new Error(
+          "Oturum bulunamadı. Lütfen tekrar giriş yapın."
+        );
+      }
+
+      const {
+        data: factorsData,
+        error: factorsError
+      } = await supabaseClient.auth.mfa.listFactors();
+
+      if (factorsError) {
+        throw factorsError;
+      }
+
+      const totpFactor =
+        factorsData?.totp?.find(
+          factor => factor.status === "verified"
+        ) ||
+        factorsData?.totp?.[0];
+
+      if (!totpFactor) {
+        throw new Error(
+          "Aktif 2FA doğrulaması bulunamadı."
+        );
+      }
+
+      const {
+        error: verifyError
+      } =
+        await supabaseClient.auth.mfa.challengeAndVerify({
+          factorId: totpFactor.id,
+          code: mfaCode
+        });
+
+      if (verifyError) {
+        throw new Error(
+          "2FA kodu doğrulanamadı."
+        );
+      }
+
+      await saveWalletAddress(newAddress);
+
+      changeWalletStatus.textContent =
+        "✅ Cüzdan başarıyla değiştirildi.";
+
+      newWalletAddressInput.value = "";
+      changeWalletMfaCodeInput.value = "";
+
+      const accountStatusWallet =
+        document.getElementById(
+          "accountStatusWallet"
+        );
+
+      if (accountStatusWallet) {
+        accountStatusWallet.textContent =
+          "Cüzdan: Bağlı";
+      }
+
+      if (walletStatus) {
+        walletStatus.innerHTML =
+          "Bağlandı: <span class='wallet'>" +
+          newAddress +
+          "</span>";
+      }
+
+      setTimeout(() => {
+        changeWalletPanel.style.display =
+          "none";
+      }, 1200);
+
+    } catch (err) {
+      console.error(
+        "Cüzdan değiştirme hatası:",
+        err
+      );
+
+      changeWalletStatus.textContent =
+        "❌ " +
+        (err?.message ||
+          "Cüzdan değiştirilemedi.");
+    } finally {
+      confirmWalletChangeBtn.disabled =
+        false;
+    }
   });
   }
 const dbBalanceEl =
