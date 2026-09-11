@@ -6649,8 +6649,115 @@ btn.textContent = saved
   <div>✅ 🌙 <span data-i18n="appearanceDarkOption">Koyu</span></div>
   <div style="opacity:.55;">📱 <span data-i18n="appearanceSystemSoon">Sistem — Yakında</span></div>
 </div>
+  <div
+  id="adminMinimumTokenSetting"
+  style="
+    margin-top:12px;
+    padding:14px;
+    border:1px solid rgba(139,92,246,.30);
+    border-radius:14px;
+  "
+>
+  <div style="font-weight:700;margin-bottom:10px;">
+    🪙 Minimum Token Şartı
+  </div>
+
+  <div style="opacity:.7;font-size:13px;margin-bottom:8px;">
+    Kullanıcının Workplace erişimi için sahip olması gereken minimum token miktarı
+  </div>
+
+  <input
+    id="adminMinimumTokenBalance"
+    type="number"
+    min="0"
+    step="1"
+    placeholder="100000"
+    style="width:100%;box-sizing:border-box;margin-bottom:10px;"
+  >
+
+  <button
+    type="button"
+    id="saveMinimumTokenBalanceBtn"
+    class="secondary"
+    style="width:100%;"
+  >
+    💾 Minimum Token Şartını Kaydet
+  </button>
+
+  <div
+    id="minimumTokenSettingStatus"
+    style="margin-top:8px;font-size:13px;opacity:.8;"
+  ></div>
+    </div>
   </div>
    </div>
+  <script>
+(async () => {
+  const input = document.getElementById("adminMinimumTokenBalance");
+  const saveBtn = document.getElementById("saveMinimumTokenBalanceBtn");
+  const statusEl = document.getElementById("minimumTokenSettingStatus");
+  const panel = document.getElementById("adminMinimumTokenSetting");
+
+  if (!input || !saveBtn || !statusEl || !panel) return;
+
+  const { data: isAdmin, error: adminError } =
+    await supabaseClient.rpc("is_admin");
+
+  if (adminError || !isAdmin) {
+    panel.style.display = "none";
+    return;
+  }
+
+  const { data, error } = await supabaseClient
+    .from("settings")
+    .select("minimum_token_balance")
+    .eq("id", 1)
+    .single();
+
+  if (error) {
+    statusEl.textContent = "❌ Mevcut değer alınamadı.";
+    return;
+  }
+
+  input.value = Number(data.minimum_token_balance || 0);
+
+  saveBtn.addEventListener("click", async () => {
+    const value = Number(input.value);
+
+    if (!Number.isFinite(value) || value < 0) {
+      statusEl.textContent = "❌ Geçerli bir token miktarı gir.";
+      return;
+    }
+
+    saveBtn.disabled = true;
+    statusEl.textContent = "Kaydediliyor...";
+
+    const { error: updateError } = await supabaseClient
+      .from("settings")
+      .update({ minimum_token_balance: value })
+      .eq("id", 1);
+
+    if (updateError) {
+      statusEl.textContent = "❌ Kaydedilemedi: " + updateError.message;
+      saveBtn.disabled = false;
+      return;
+    }
+
+    if (window.platformSettings) {
+      window.platformSettings.minimum_token_balance = value;
+    }
+
+    const minTokenEl = document.getElementById("minTokenBalance");
+    if (minTokenEl) {
+      minTokenEl.textContent =
+        value.toLocaleString("tr-TR");
+    }
+
+    statusEl.textContent = "✅ Minimum token şartı güncellendi.";
+    saveBtn.disabled = false;
+  });
+})();
+  </script> 
    <nav
   id="bottomNav"
   style="
