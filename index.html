@@ -1054,7 +1054,15 @@ data-i18n-placeholder="loginMfaPlaceholder"
       <span>🏆</span>
       <span data-i18n="leaderboard">Liderlik Panosu</span>
     </button>
-
+<!-- WORKPLACE AL / SWAP -->
+<button
+  type="button"
+  class="account-summary-item"
+  id="workplaceSwapMenuBtn"
+>
+  <span>🔄</span>
+  <span>WORKPLACE Al / Swap</span>
+</button>
   </div>
 
 </section>
@@ -1130,6 +1138,74 @@ data-i18n-placeholder="loginMfaPlaceholder"
   <small style="display:block;margin-top:12px;opacity:.75;">
     <span data-i18n="withdrawLimits">Minimum 10 USDC · Maksimum 250 USDC</span>
   </small>
+</section>
+    <!-- WORKPLACE SWAP PANEL -->
+<section
+  id="workplaceSwapPanel"
+  class="card"
+  style="
+    display:none;
+    margin-top:12px;
+    padding:18px;
+  "
+>
+  <h3 style="margin-top:0;">🔄 WORKPLACE Al / Swap</h3>
+
+  <div style="margin-bottom:14px;">
+    <small style="opacity:.75;">WORKPLACE Canlı Fiyat</small>
+    <div
+      id="workplaceLivePrice"
+      style="font-size:22px;font-weight:700;margin-top:4px;"
+    >
+      Yakında
+    </div>
+  </div>
+
+  <label style="display:block;margin-bottom:6px;">
+    Ödeme Birimi
+  </label>
+
+  <select
+    id="workplaceSwapFrom"
+    style="width:100%;padding:12px;margin-bottom:12px;"
+  >
+    <option value="SOL">SOL</option>
+    <option value="USDC">USDC</option>
+  </select>
+
+  <label style="display:block;margin-bottom:6px;">
+    Miktar
+  </label>
+
+  <input
+    id="workplaceSwapAmount"
+    type="number"
+    min="0"
+    step="any"
+    placeholder="0.00"
+    style="width:100%;padding:12px;box-sizing:border-box;"
+  />
+
+  <div
+    style="
+      margin-top:14px;
+      padding:12px;
+      border-radius:10px;
+      opacity:.8;
+    "
+  >
+    Tahmini WORKPLACE:
+    <strong id="workplaceSwapEstimate">—</strong>
+  </div>
+
+  <button
+    type="button"
+    class="primary"
+    disabled
+    style="width:100%;margin-top:16px;"
+  >
+    Swap Yakında Aktif
+  </button>
 </section>
   <section
   class="card"
@@ -7410,5 +7486,18 @@ refreshWithdrawWalletAddress();
 
 loadAdminUserStats();
   </script>
+   <script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const swapMenuBtn = document.getElementById("workplaceSwapMenuBtn");
+    const swapPanel = document.getElementById("workplaceSwapPanel");
+
+    if (!swapMenuBtn || !swapPanel) return;
+
+    swapMenuBtn.addEventListener("click", function () {
+      const isOpen = swapPanel.style.display === "block";
+      swapPanel.style.display = isOpen ? "none" : "block";
+    });
+  });
+   </script>
 </body>
 </html>
