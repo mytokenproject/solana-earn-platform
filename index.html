@@ -6689,6 +6689,62 @@ btn.textContent = saved
     style="margin-top:8px;font-size:13px;opacity:.8;"
   ></div>
     </div>
+    <div
+  id="adminUserStats"
+  style="
+    margin-top:12px;
+    padding:14px;
+    border:1px solid rgba(139,92,246,.30);
+    border-radius:14px;
+  "
+>
+  <div style="font-weight:700;margin-bottom:12px;">
+    📊 Kullanıcı İstatistikleri
+  </div>
+
+  <div
+    style="
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:10px;
+    "
+  >
+    <div class="stat-box">
+      <div style="opacity:.65;font-size:12px;">Toplam Kullanıcı</div>
+      <strong id="statTotalUsers">-</strong>
+    </div>
+
+    <div class="stat-box">
+      <div style="opacity:.65;font-size:12px;">Bugün Aktif</div>
+      <strong id="statActiveToday">-</strong>
+    </div>
+
+    <div class="stat-box">
+      <div style="opacity:.65;font-size:12px;">Son 7 Gün Aktif</div>
+      <strong id="statActive7Days">-</strong>
+    </div>
+
+    <div class="stat-box">
+      <div style="opacity:.65;font-size:12px;">Bugün Yeni</div>
+      <strong id="statNewToday">-</strong>
+    </div>
+
+    <div class="stat-box">
+      <div style="opacity:.65;font-size:12px;">Görev Yapan Kullanıcı</div>
+      <strong id="statTaskUsers">-</strong>
+    </div>
+
+    <div class="stat-box">
+      <div style="opacity:.65;font-size:12px;">Tamamlanan Görev</div>
+      <strong id="statCompletedTasks">-</strong>
+    </div>
+  </div>
+
+  <div
+    id="adminUserStatsStatus"
+    style="margin-top:10px;font-size:13px;opacity:.7;"
+  ></div>
+    </div>
   </div>
    </div>
   <script>
@@ -7306,6 +7362,53 @@ withdrawUsdcStatus.textContent =
 }
 
 refreshWithdrawWalletAddress();
+    async function loadAdminUserStats() {
+  const panel = document.getElementById("adminUserStats");
+  const statusEl = document.getElementById("adminUserStatsStatus");
+
+  if (!panel || !statusEl) return;
+
+  const { data: isAdmin, error: adminError } =
+    await supabaseClient.rpc("is_admin");
+
+  if (adminError || !isAdmin) {
+    panel.style.display = "none";
+    return;
+  }
+
+  statusEl.textContent = "Yükleniyor...";
+
+  const { data, error } =
+    await supabaseClient.rpc("get_admin_user_stats");
+
+  if (error) {
+    statusEl.textContent =
+      "❌ İstatistikler alınamadı: " + error.message;
+    return;
+  }
+
+  document.getElementById("statTotalUsers").textContent =
+    Number(data.total_users || 0).toLocaleString("tr-TR");
+
+  document.getElementById("statActiveToday").textContent =
+    Number(data.active_today || 0).toLocaleString("tr-TR");
+
+  document.getElementById("statActive7Days").textContent =
+    Number(data.active_7_days || 0).toLocaleString("tr-TR");
+
+  document.getElementById("statNewToday").textContent =
+    Number(data.new_today || 0).toLocaleString("tr-TR");
+
+  document.getElementById("statTaskUsers").textContent =
+    Number(data.users_completed_tasks || 0).toLocaleString("tr-TR");
+
+  document.getElementById("statCompletedTasks").textContent =
+    Number(data.total_completed_tasks || 0).toLocaleString("tr-TR");
+
+  statusEl.textContent = "";
+}
+
+loadAdminUserStats();
   </script>
 </body>
 </html>
