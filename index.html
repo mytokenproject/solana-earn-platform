@@ -6732,13 +6732,14 @@ btn.textContent = saved
     saveBtn.disabled = true;
     statusEl.textContent = "Kaydediliyor...";
 
-    const { error: updateError } = await supabaseClient
-      .from("settings")
-      .update({ minimum_token_balance: value })
-      .eq("id", 1);
+    const { error: updateError } = await supabaseClient.rpc(
+      "set_minimum_token_balance",
+      { p_value: value }
+    );
 
     if (updateError) {
-      statusEl.textContent = "❌ Kaydedilemedi: " + updateError.message;
+      statusEl.textContent =
+        "❌ Kaydedilemedi: " + updateError.message;
       saveBtn.disabled = false;
       return;
     }
@@ -6747,17 +6748,21 @@ btn.textContent = saved
       window.platformSettings.minimum_token_balance = value;
     }
 
-    const minTokenEl = document.getElementById("minTokenBalance");
+    const minTokenEl =
+      document.getElementById("minTokenBalance");
+
     if (minTokenEl) {
       minTokenEl.textContent =
         value.toLocaleString("tr-TR");
     }
 
-    statusEl.textContent = "✅ Minimum token şartı güncellendi.";
+    statusEl.textContent =
+      "✅ Minimum token şartı güncellendi.";
+
     saveBtn.disabled = false;
   });
 })();
-  </script> 
+  </script>
    <nav
   id="bottomNav"
   style="
