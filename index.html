@@ -1066,6 +1066,69 @@ data-i18n-placeholder="loginMfaPlaceholder"
   </div>
 
 </section>
+    <!-- LİDERLİK PANOSU PANELİ -->
+<section
+  id="leaderboardPanel"
+  class="card"
+  style="
+    display:none;
+    margin-top:12px;
+    padding:18px;
+  "
+>
+  <h3 style="margin-top:0;">🏆 Liderlik Panosu</h3>
+
+  <div
+    id="leaderboardMonth"
+    style="
+      opacity:.75;
+      font-size:13px;
+      margin-bottom:14px;
+    "
+  >
+    Aylık İlk 10
+  </div>
+
+  <div
+    style="
+      display:flex;
+      justify-content:space-between;
+      gap:8px;
+      padding:8px 6px;
+      font-size:12px;
+      opacity:.7;
+      border-bottom:1px solid rgba(255,255,255,.10);
+    "
+  >
+    <span style="width:46px;">Sıra</span>
+    <span style="flex:1;">Kullanıcı</span>
+    <span style="width:58px;text-align:center;">Görev</span>
+    <span style="width:90px;text-align:right;">Ödül</span>
+  </div>
+
+  <div id="leaderboardList">
+    <div
+      style="
+        padding:16px 6px;
+        text-align:center;
+        opacity:.7;
+      "
+    >
+      Liderlik tablosu yükleniyor...
+    </div>
+  </div>
+
+  <small
+    style="
+      display:block;
+      margin-top:14px;
+      opacity:.7;
+      line-height:1.5;
+    "
+  >
+    🥇🥈🥉🏅🏅 İlk 5 kullanıcı aylık 10.000 WORK ödülü kazanır.
+  </small>
+</section>
     <!-- USDC ÇEKİM PANELİ -->
 <section
   id="withdrawUsdcPanel"
@@ -7859,6 +7922,95 @@ loadAdminUserStats();
       swapPanel.style.display = isOpen ? "none" : "block";
     });
   });
+   </script>
+   <script>
+document.addEventListener("DOMContentLoaded", function () {
+  const leaderboardMenuBtn = document.getElementById("leaderboardMenuBtn");
+  const leaderboardPanel = document.getElementById("leaderboardPanel");
+  const leaderboardList = document.getElementById("leaderboardList");
+
+  if (!leaderboardMenuBtn || !leaderboardPanel || !leaderboardList) return;
+
+  const medals = ["🥇", "🥈", "🥉", "🏅", "🏅"];
+
+  leaderboardMenuBtn.addEventListener("click", async function () {
+    const isOpen = leaderboardPanel.style.display === "block";
+
+    leaderboardPanel.style.display = isOpen ? "none" : "block";
+
+    if (isOpen) return;
+
+    leaderboardList.innerHTML = `
+      <div style="padding:16px 6px;text-align:center;opacity:.7;">
+        Liderlik tablosu yükleniyor...
+      </div>
+    `;
+
+    const { data, error } = await supabaseClient.rpc(
+      "get_monthly_leaderboard"
+    );
+
+    if (error) {
+      console.error("Leaderboard error:", error);
+
+      leaderboardList.innerHTML = `
+        <div style="padding:16px 6px;text-align:center;opacity:.7;">
+          Liderlik tablosu yüklenemedi.
+        </div>
+      `;
+      return;
+    }
+
+    if (!data || data.length === 0) {
+      leaderboardList.innerHTML = `
+        <div style="padding:16px 6px;text-align:center;opacity:.7;">
+          Bu ay henüz sıralama oluşmadı.
+        </div>
+      `;
+      return;
+    }
+
+    leaderboardList.innerHTML = "";
+
+    data.forEach((row) => {
+      const rank = Number(row.rank_position || 0);
+      const medal = rank <= 5 ? medals[rank - 1] : rank + ".";
+      const reward = Number(row.reward_work || 0);
+
+      const item = document.createElement("div");
+
+      item.style.cssText = `
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+        gap:8px;
+        padding:12px 6px;
+        border-bottom:1px solid rgba(255,255,255,.08);
+        font-size:13px;
+      `;
+
+      item.innerHTML = `
+        <span style="width:46px;font-weight:700;">
+          ${medal}
+        </span>
+
+        <span style="flex:1;overflow:hidden;text-overflow:ellipsis;">
+          ${row.user_label || "-"}
+        </span>
+
+        <span style="width:58px;text-align:center;font-weight:700;">
+          ${Number(row.completed_tasks || 0)}
+        </span>
+
+        <span style="width:90px;text-align:right;font-weight:700;">
+          ${reward > 0 ? reward.toLocaleString("tr-TR") + " WORK" : "—"}
+        </span>
+      `;
+
+      leaderboardList.appendChild(item);
+    });
+  });
+});
    </script>
 </body>
 </html>
