@@ -7728,6 +7728,25 @@ if (
     }, 100);
   });
 }
+    const workHoldMenuBtn = document.getElementById("workHoldMenuBtn");
+const workHoldPanel = document.getElementById("workHoldPanel");
+
+if (workHoldMenuBtn && workHoldPanel) {
+  workHoldMenuBtn.addEventListener("click", () => {
+    const isOpen = workHoldPanel.style.display !== "none";
+
+    workHoldPanel.style.display = isOpen ? "none" : "block";
+
+    if (!isOpen) {
+      setTimeout(() => {
+        workHoldPanel.scrollIntoView({
+          behavior: "smooth",
+          block: "center"
+        });
+      }, 100);
+    }
+  });
+}
     const withdrawUsdcMenuBtn =
   document.getElementById("withdrawUsdcMenuBtn");
 
