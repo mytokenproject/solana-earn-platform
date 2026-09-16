@@ -1211,6 +1211,58 @@ data-i18n-placeholder="loginMfaPlaceholder"
     <span data-i18n="withdrawLimits">Minimum 10 USDC · Maksimum 250 USDC</span>
   </small>
 </section>
+    <!-- WORK HOLD PANEL -->
+<section
+  id="workHoldPanel"
+  class="card"
+  style="display:none; margin-top:12px; padding:18px;"
+>
+  <h3 style="margin-top:0;">🔒 WORK Hold & Kazan</h3>
+
+  <p style="opacity:.8; line-height:1.5;">
+    WORK tokenlarını 7 gün boyunca cüzdanında tut ve haftalık ödül kazan.
+    Tokenların cüzdanından çıkmaz.
+  </p>
+
+  <div style="margin-top:14px;">
+    <label for="workHoldAmount">
+      <strong>HOLD miktarı</strong>
+    </label>
+
+    <input
+      id="workHoldAmount"
+      type="number"
+      min="1"
+      step="1"
+      placeholder="Örn: 100000"
+      style="width:100%; padding:12px; box-sizing:border-box; margin-top:8px;"
+    />
+  </div>
+
+  <div style="margin-top:14px; line-height:1.7;">
+    <div>⏱️ Süre: <strong>7 gün</strong></div>
+    <div>🎁 Haftalık ödül: <strong>%0,25</strong></div>
+    <div>
+      💰 Tahmini ödül:
+      <strong id="workHoldRewardEstimate">0 WORK</strong>
+    </div>
+  </div>
+
+  <button
+    type="button"
+    id="startWorkHoldBtn"
+    class="primary"
+    style="width:100%; margin-top:16px;"
+  >
+    🔒 HOLD Başlat
+  </button>
+
+  <div
+    id="workHoldStatus"
+    class="status"
+    style="margin-top:10px;"
+  ></div>
+</section>
     <!-- WORKPLACE SWAP PANEL -->
 <section
   id="workplaceSwapPanel"
