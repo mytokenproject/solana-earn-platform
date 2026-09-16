@@ -7759,14 +7759,27 @@ if (startWorkHoldBtn && workHoldAmount) {
     workHoldStatus.textContent = "HOLD başlatılıyor...";
 
     try {
+      const { data: sessionData, error: sessionError } =
+  await supabaseClient.auth.getSession();
+
+if (sessionError) throw sessionError;
+
+const accessToken = sessionData?.session?.access_token;
+
+if (!accessToken) {
+  throw new Error("AUTH_REQUIRED");
+}
       const { data, error } = await supabaseClient.functions.invoke(
-        "work-hold",
-        {
-          body: {
-            hold_amount: amount
-          }
-        }
-      );
+  "work-hold",
+  {
+    body: {
+      hold_amount: amount
+    },
+    headers: {
+      Authorization: `Bearer ${accessToken}`
+    }
+  }
+);
 
       if (error) throw error;
 
