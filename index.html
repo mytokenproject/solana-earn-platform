@@ -7743,6 +7743,44 @@ if (workHoldAmount && workHoldRewardEstimate) {
       }) + " WORK";
   });
 }
+    const startWorkHoldBtn = document.getElementById("startWorkHoldBtn");
+const workHoldStatus = document.getElementById("workHoldStatus");
+
+if (startWorkHoldBtn && workHoldAmount) {
+  startWorkHoldBtn.addEventListener("click", async () => {
+    const amount = Number(workHoldAmount.value);
+
+    if (!amount || amount <= 0) {
+      workHoldStatus.textContent = "Geçerli bir HOLD miktarı gir.";
+      return;
+    }
+
+    startWorkHoldBtn.disabled = true;
+    workHoldStatus.textContent = "HOLD başlatılıyor...";
+
+    try {
+      const { data, error } = await supabaseClient.functions.invoke(
+        "work-hold",
+        {
+          body: {
+            hold_amount: amount
+          }
+        }
+      );
+
+      if (error) throw error;
+
+      workHoldStatus.textContent =
+        data?.message || "✅ HOLD başarıyla başlatıldı.";
+    } catch (error) {
+      console.error("WORK HOLD error:", error);
+      workHoldStatus.textContent =
+        "❌ HOLD başlatılamadı. Lütfen tekrar deneyin.";
+    } finally {
+      startWorkHoldBtn.disabled = false;
+    }
+  });
+}
 const workHoldPanel = document.getElementById("workHoldPanel");
 
 if (workHoldMenuBtn && workHoldPanel) {
