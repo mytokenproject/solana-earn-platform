@@ -7729,6 +7729,20 @@ if (
   });
 }
     const workHoldMenuBtn = document.getElementById("workHoldMenuBtn");
+    const workHoldAmount = document.getElementById("workHoldAmount");
+const workHoldRewardEstimate = document.getElementById("workHoldRewardEstimate");
+
+if (workHoldAmount && workHoldRewardEstimate) {
+  workHoldAmount.addEventListener("input", () => {
+    const amount = Number(workHoldAmount.value) || 0;
+    const reward = amount * 0.0025;
+
+    workHoldRewardEstimate.textContent =
+      reward.toLocaleString("tr-TR", {
+        maximumFractionDigits: 9
+      }) + " WORK";
+  });
+}
 const workHoldPanel = document.getElementById("workHoldPanel");
 
 if (workHoldMenuBtn && workHoldPanel) {
