@@ -7787,8 +7787,8 @@ if (!accessToken) {
         data?.message || "✅ HOLD başarıyla başlatıldı.";
     } catch (error) {
       console.error("WORK HOLD error:", error);
-      workHoldStatus.textContent =
-        "❌ HOLD başlatılamadı. Lütfen tekrar deneyin.";
+    workHoldStatus.textContent =
+  "❌ " + (error?.message || String(error));
     } finally {
       startWorkHoldBtn.disabled = false;
     }
