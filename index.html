@@ -7773,8 +7773,9 @@ if (!accessToken) {
   "work-hold",
   {
     body: {
-      hold_amount: amount
-    },
+  hold_amount: amount,
+  wallet_address: localStorage.getItem("workplace_wallet_address")
+},
     headers: {
       Authorization: `Bearer ${accessToken}`
     }
