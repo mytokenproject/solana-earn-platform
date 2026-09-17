@@ -7771,68 +7771,238 @@ if (
   });
 }
     const workHoldMenuBtn = document.getElementById("workHoldMenuBtn");
-    const workHoldAmount = document.getElementById("workHoldAmount");
+const workHoldAmount = document.getElementById("workHoldAmount");
 const workHoldRewardEstimate = document.getElementById("workHoldRewardEstimate");
-
-if (workHoldAmount && workHoldRewardEstimate) {
-  workHoldAmount.addEventListener("input", () => {
-    const amount = Number(workHoldAmount.value) || 0;
-    const reward = amount * 0.0025;
-
-    workHoldRewardEstimate.textContent =
-      reward.toLocaleString("tr-TR", {
-        maximumFractionDigits: 9
-      }) + " WORK";
-  });
-}
-    const startWorkHoldBtn = document.getElementById("startWorkHoldBtn");
+const startWorkHoldBtn = document.getElementById("startWorkHoldBtn");
 const workHoldStatus = document.getElementById("workHoldStatus");
+const workHoldPanel = document.getElementById("workHoldPanel");
+const workHoldCountdown = document.getElementById("workHoldCountdown");
 
+const workHoldDurationButtons =
+  document.querySelectorAll(".work-hold-duration");
+
+let selectedWorkHoldDays = 7;
+let selectedWorkHoldPercent = 0;
+let workHoldCampaigns = {};
+
+// --------------------------------------------------
+// WORK HOLD kampanyalarını Supabase'ten yükle
+// --------------------------------------------------
+async function loadWorkHoldCampaigns() {
+  try {
+    const { data, error } = await supabaseClient
+      .from("work_hold_campaigns")
+      .select("id,name,reward_percent,duration_days,is_active")
+      .eq("is_active", true)
+      .in("duration_days", [1, 7, 30]);
+
+    if (error) throw error;
+
+    workHoldCampaigns = {};
+
+    (data || []).forEach((campaign) => {
+      const days = Number(campaign.duration_days);
+
+      workHoldCampaigns[days] = {
+        id: campaign.id,
+        name: campaign.name,
+        percent: Number(campaign.reward_percent) || 0
+      };
+    });
+
+    // Butonların üzerindeki oranları DB'den güncelle
+    workHoldDurationButtons.forEach((button) => {
+      const days = Number(button.dataset.days);
+      const campaign = workHoldCampaigns[days];
+
+      if (campaign) {
+        button.dataset.percent = String(campaign.percent);
+        button.innerHTML =
+          `${days} gün<br>🎁 %${campaign.percent.toLocaleString("tr-TR", {
+            maximumFractionDigits: 4
+          })}`;
+
+        button.disabled = false;
+        button.style.opacity = "1";
+      } else {
+        button.disabled = true;
+        button.style.opacity = "0.5";
+      }
+    });
+
+    // Varsayılan seçim 7 gün
+    if (workHoldCampaigns[7]) {
+      selectWorkHoldDuration(7);
+    } else if (workHoldCampaigns[1]) {
+      selectWorkHoldDuration(1);
+    } else if (workHoldCampaigns[30]) {
+      selectWorkHoldDuration(30);
+    } else {
+      selectedWorkHoldDays = 0;
+      selectedWorkHoldPercent = 0;
+
+      if (workHoldStatus) {
+        workHoldStatus.textContent =
+          "❌ Aktif WORK HOLD kampanyası bulunamadı.";
+      }
+    }
+
+    updateWorkHoldRewardEstimate();
+
+  } catch (error) {
+    console.error("WORK HOLD campaign load error:", error);
+
+    if (workHoldStatus) {
+      workHoldStatus.textContent =
+        "❌ HOLD oranları yüklenemedi.";
+    }
+  }
+}
+
+// --------------------------------------------------
+// Süre seç
+// --------------------------------------------------
+function selectWorkHoldDuration(days) {
+  const campaign = workHoldCampaigns[days];
+
+  if (!campaign) return;
+
+  selectedWorkHoldDays = days;
+  selectedWorkHoldPercent = campaign.percent;
+
+  workHoldDurationButtons.forEach((button) => {
+    const buttonDays = Number(button.dataset.days);
+    const isSelected = buttonDays === days;
+
+    button.style.outline =
+      isSelected ? "2px solid currentColor" : "none";
+
+    button.style.fontWeight =
+      isSelected ? "700" : "400";
+
+    button.setAttribute(
+      "aria-pressed",
+      isSelected ? "true" : "false"
+    );
+  });
+
+  updateWorkHoldRewardEstimate();
+}
+
+// --------------------------------------------------
+// Tahmini ödülü hesapla
+// --------------------------------------------------
+function updateWorkHoldRewardEstimate() {
+  if (!workHoldAmount || !workHoldRewardEstimate) return;
+
+  const amount = Number(workHoldAmount.value) || 0;
+
+  const reward =
+    amount * (Number(selectedWorkHoldPercent) / 100);
+
+  workHoldRewardEstimate.textContent =
+    reward.toLocaleString("tr-TR", {
+      maximumFractionDigits: 9
+    }) + " WORK";
+}
+
+// Süre butonları
+workHoldDurationButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    const days = Number(button.dataset.days);
+    selectWorkHoldDuration(days);
+  });
+});
+
+// Miktar değişince ödülü güncelle
+if (workHoldAmount) {
+  workHoldAmount.addEventListener(
+    "input",
+    updateWorkHoldRewardEstimate
+  );
+}
+
+// --------------------------------------------------
+// HOLD BAŞLAT
+// --------------------------------------------------
 if (startWorkHoldBtn && workHoldAmount) {
   startWorkHoldBtn.addEventListener("click", async () => {
     const amount = Number(workHoldAmount.value);
 
     if (!amount || amount <= 0) {
-      workHoldStatus.textContent = "❌ Geçerli bir HOLD miktarı gir.";
+      workHoldStatus.textContent =
+        "❌ Geçerli bir HOLD miktarı gir.";
+      return;
+    }
+
+    if (![1, 7, 30].includes(selectedWorkHoldDays)) {
+      workHoldStatus.textContent =
+        "❌ Önce HOLD süresini seç.";
+      return;
+    }
+
+    if (!workHoldCampaigns[selectedWorkHoldDays]) {
+      workHoldStatus.textContent =
+        "❌ Seçilen HOLD kampanyası aktif değil.";
       return;
     }
 
     startWorkHoldBtn.disabled = true;
-    workHoldStatus.textContent = "HOLD başlatılıyor...";
+    workHoldStatus.textContent =
+      `${selectedWorkHoldDays} günlük HOLD başlatılıyor...`;
 
     try {
       // 1) Oturumu kontrol et
-      const { data: sessionData, error: sessionError } =
-        await supabaseClient.auth.getSession();
+      const {
+        data: sessionData,
+        error: sessionError
+      } = await supabaseClient.auth.getSession();
 
       if (sessionError) throw sessionError;
 
-      const accessToken = sessionData?.session?.access_token;
-      const userId = sessionData?.session?.user?.id;
+      const accessToken =
+        sessionData?.session?.access_token;
+
+      const userId =
+        sessionData?.session?.user?.id;
 
       if (!accessToken || !userId) {
-        throw new Error("Önce Workplace hesabınıza giriş yapmalısınız.");
+        throw new Error(
+          "Önce Workplace hesabına giriş yap."
+        );
       }
 
-      // 2) Kullanıcının en son bağladığı cüzdanı Supabase'ten al
-      const { data: walletRows, error: walletError } =
-        await supabaseClient
-          .from("wallets")
-          .select("address")
-          .eq("user_id", userId)
-          .order("last_connected_at", { ascending: false })
-          .limit(1);
+      // 2) Kullanıcının en son bağladığı cüzdanı bul
+      const {
+        data: walletRows,
+        error: walletError
+      } = await supabaseClient
+        .from("wallets")
+        .select("address")
+        .eq("user_id", userId)
+        .order("last_connected_at", {
+          ascending: false
+        })
+        .limit(1);
 
       if (walletError) {
-        console.error("WORK HOLD wallet query error:", walletError);
-        throw new Error("Cüzdan bilgisi alınamadı.");
+        console.error(
+          "WORK HOLD wallet query error:",
+          walletError
+        );
+
+        throw new Error(
+          "Cüzdan bilgisi alınamadı."
+        );
       }
 
       const walletAddress =
         walletRows?.[0]?.address?.trim() || "";
 
       if (!walletAddress) {
-        throw new Error("Önce Solana cüzdanınızı hesabınıza bağlayın.");
+        throw new Error(
+          "Önce Solana cüzdanınızı bağlayın."
+        );
       }
 
       // Local kayıt da güncel kalsın
@@ -7841,15 +8011,17 @@ if (startWorkHoldBtn && workHoldAmount) {
         walletAddress
       );
 
-      // 3) HOLD isteğini kayıtlı cüzdanla gönder
+      // 3) Edge Function'a gönder
       const { data, error } =
         await supabaseClient.functions.invoke(
           "work-hold",
           {
             body: {
               hold_amount: amount,
-              wallet_address: walletAddress
+              wallet_address: walletAddress,
+              duration_days: selectedWorkHoldDays
             },
+
             headers: {
               Authorization: `Bearer ${accessToken}`
             }
@@ -7859,28 +8031,41 @@ if (startWorkHoldBtn && workHoldAmount) {
       if (error) throw error;
 
       workHoldStatus.textContent =
-        data?.message || "✅ HOLD başarıyla başlatıldı.";
+        data?.message ||
+        `✅ ${selectedWorkHoldDays} günlük HOLD başarıyla başlatıldı.`;
+
+      if (workHoldCountdown && data?.ends_at) {
+        workHoldCountdown.style.display = "block";
+      }
 
     } catch (error) {
       console.error("WORK HOLD error:", error);
 
       workHoldStatus.textContent =
-        "❌ " + (error?.message || String(error));
+        "❌ " +
+        (error?.message || String(error));
 
     } finally {
       startWorkHoldBtn.disabled = false;
     }
   });
 }
-const workHoldPanel = document.getElementById("workHoldPanel");
 
+// --------------------------------------------------
+// HOLD PANELİNİ AÇ / KAPAT
+// --------------------------------------------------
 if (workHoldMenuBtn && workHoldPanel) {
-  workHoldMenuBtn.addEventListener("click", () => {
-    const isOpen = workHoldPanel.style.display !== "none";
+  workHoldMenuBtn.addEventListener("click", async () => {
+    const isOpen =
+      workHoldPanel.style.display !== "none";
 
-    workHoldPanel.style.display = isOpen ? "none" : "block";
+    workHoldPanel.style.display =
+      isOpen ? "none" : "block";
 
     if (!isOpen) {
+      // Panel her açıldığında güncel Admin oranlarını getir
+      await loadWorkHoldCampaigns();
+
       setTimeout(() => {
         workHoldPanel.scrollIntoView({
           behavior: "smooth",
@@ -7890,6 +8075,9 @@ if (workHoldMenuBtn && workHoldPanel) {
     }
   });
 }
+
+// Sayfa açılışında kampanyaları hazırla
+loadWorkHoldCampaigns();
     const withdrawUsdcMenuBtn =
   document.getElementById("withdrawUsdcMenuBtn");
 
