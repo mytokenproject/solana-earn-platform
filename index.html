@@ -1220,7 +1220,7 @@ data-i18n-placeholder="loginMfaPlaceholder"
   <h3 style="margin-top:0;">🔒 WORK Hold & Kazan</h3>
 
   <p style="opacity:.8; line-height:1.5;">
-    WORK tokenlarını 7 gün boyunca cüzdanında tut ve haftalık ödül kazan.
+    WORK tokenlarını seçtiğin süre boyunca cüzdanında tut ve ödül kazan.
     Tokenların cüzdanından çıkmaz.
   </p>
 
@@ -1235,17 +1235,54 @@ data-i18n-placeholder="loginMfaPlaceholder"
       min="1"
       step="1"
       placeholder="Örn: 100000"
-      style="width:100%; padding:12px; box-sizing:border-box; margin-top:8px;"
+      style="width:100%; padding:12px; box-sizing:border-box;"
     />
   </div>
 
-  <div style="margin-top:14px; line-height:1.7;">
-    <div>⏱️ Süre: <strong>7 gün</strong></div>
-    <div>🎁 Haftalık ödül: <strong>%0,25</strong></div>
-    <div>
-      💰 Tahmini ödül:
-      <strong id="workHoldRewardEstimate">0 WORK</strong>
+  <div style="margin-top:16px;">
+    <div style="margin-bottom:8px;">
+      <strong>⏱️ Süre seç</strong>
     </div>
+
+    <div
+      id="workHoldDurationOptions"
+      style="display:grid; grid-template-columns:repeat(3,1fr); gap:8px;"
+    >
+      <button
+        type="button"
+        class="work-hold-duration"
+        data-days="1"
+        data-percent="0.1"
+        style="padding:10px 4px;"
+      >
+        1 gün<br>🎁 %0,1
+      </button>
+
+      <button
+        type="button"
+        class="work-hold-duration"
+        data-days="7"
+        data-percent="1"
+        style="padding:10px 4px;"
+      >
+        7 gün<br>🎁 %1
+      </button>
+
+      <button
+        type="button"
+        class="work-hold-duration"
+        data-days="30"
+        data-percent="5"
+        style="padding:10px 4px;"
+      >
+        30 gün<br>🎁 %5
+      </button>
+    </div>
+  </div>
+
+  <div style="margin-top:16px;">
+    💰 Tahmini ödül:
+    <strong id="workHoldRewardEstimate">0 WORK</strong>
   </div>
 
   <button
@@ -1261,6 +1298,11 @@ data-i18n-placeholder="loginMfaPlaceholder"
     id="workHoldStatus"
     class="status"
     style="margin-top:10px;"
+  ></div>
+
+  <div
+    id="workHoldCountdown"
+    style="display:none; margin-top:14px; text-align:center;"
   ></div>
 </section>
     <!-- WORKPLACE SWAP PANEL -->
