@@ -8158,8 +8158,54 @@ if (workHoldMenuBtn && workHoldPanel) {
   });
 }
 
-// Sayfa açılışında kampanyaları hazırla
+// --------------------------------------------------
+// AKTİF HOLD'U BUL VE SAYACI BAŞLAT
+// --------------------------------------------------
+async function loadActiveWorkHoldCountdown() {
+  try {
+    const { data: sessionData, error: sessionError } =
+      await supabaseClient.auth.getSession();
+
+    if (sessionError) throw sessionError;
+
+    const userId = sessionData?.session?.user?.id;
+
+    if (!userId) {
+      if (workHoldCountdown) {
+        workHoldCountdown.style.display = "none";
+      }
+      return;
+    }
+
+    const { data, error } = await supabaseClient
+      .from("work_holds")
+      .select("id,hold_amount,reward_amount,ends_at,status")
+      .eq("user_id", userId)
+      .eq("status", "active")
+      .order("started_at", { ascending: false })
+      .limit(1)
+      .maybeSingle();
+
+    if (error) throw error;
+
+    if (!data?.ends_at) {
+      if (workHoldCountdown) {
+        workHoldCountdown.style.display = "none";
+        workHoldCountdown.innerHTML = "";
+      }
+      return;
+    }
+
+    startWorkHoldCountdown(data.ends_at);
+
+  } catch (error) {
+    console.error("Active WORK HOLD countdown error:", error);
+  }
+}
+
+// Sayfa açılışında HOLD bilgilerini hazırla
 loadWorkHoldCampaigns();
+loadActiveWorkHoldCountdown();
     const withdrawUsdcMenuBtn =
   document.getElementById("withdrawUsdcMenuBtn");
 
