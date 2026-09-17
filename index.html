@@ -7790,11 +7790,31 @@ let workHoldCampaigns = {};
 // --------------------------------------------------
 async function loadWorkHoldCampaigns() {
   try {
+    if (workHoldStatus) {
+      workHoldStatus.textContent = "⏳ HOLD oranları yükleniyor...";
+    }
+
+    // Oturumun hazır olduğundan emin ol
+    const { data: sessionData, error: sessionError } =
+      await supabaseClient.auth.getSession();
+
+    if (sessionError) throw sessionError;
+
+    if (!sessionData?.session?.user) {
+      if (workHoldStatus) {
+        workHoldStatus.textContent =
+          "❌ HOLD oranlarını görmek için önce giriş yap.";
+      }
+      return;
+    }
+
+    // Aktif HOLD kampanyalarını getir
     const { data, error } = await supabaseClient
       .from("work_hold_campaigns")
-      .select("id,name,reward_percent,duration_days,is_active")
+      .select("id,name,reward_percent,duration_days")
       .eq("is_active", true)
-      .in("duration_days", [1, 7, 30]);
+      .in("duration_days", [1, 7, 30])
+      .order("duration_days", { ascending: true });
 
     if (error) throw error;
 
@@ -7806,17 +7826,18 @@ async function loadWorkHoldCampaigns() {
       workHoldCampaigns[days] = {
         id: campaign.id,
         name: campaign.name,
-        percent: Number(campaign.reward_percent) || 0
+        percent: Number(campaign.reward_percent)
       };
     });
 
-    // Butonların üzerindeki oranları DB'den güncelle
+    // Butonları DB'deki gerçek oranlarla güncelle
     workHoldDurationButtons.forEach((button) => {
       const days = Number(button.dataset.days);
       const campaign = workHoldCampaigns[days];
 
       if (campaign) {
         button.dataset.percent = String(campaign.percent);
+
         button.innerHTML =
           `${days} gün<br>🎁 %${campaign.percent.toLocaleString("tr-TR", {
             maximumFractionDigits: 4
@@ -7830,7 +7851,7 @@ async function loadWorkHoldCampaigns() {
       }
     });
 
-    // Varsayılan seçim 7 gün
+    // Varsayılan 7 gün
     if (workHoldCampaigns[7]) {
       selectWorkHoldDuration(7);
     } else if (workHoldCampaigns[1]) {
@@ -7845,16 +7866,33 @@ async function loadWorkHoldCampaigns() {
         workHoldStatus.textContent =
           "❌ Aktif WORK HOLD kampanyası bulunamadı.";
       }
+
+      updateWorkHoldRewardEstimate();
+      return;
     }
 
     updateWorkHoldRewardEstimate();
 
+    // Eski kırmızı hata mesajını temizle
+    if (workHoldStatus) {
+      workHoldStatus.textContent = "";
+    }
+
+    console.log(
+      "WORK HOLD campaigns loaded:",
+      workHoldCampaigns
+    );
+
   } catch (error) {
-    console.error("WORK HOLD campaign load error:", error);
+    console.error(
+      "WORK HOLD campaign load error:",
+      error
+    );
 
     if (workHoldStatus) {
       workHoldStatus.textContent =
-        "❌ HOLD oranları yüklenemedi.";
+        "❌ HOLD oranları yüklenemedi: " +
+        (error?.message || String(error));
     }
   }
 }
