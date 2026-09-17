@@ -7777,7 +7777,51 @@ const startWorkHoldBtn = document.getElementById("startWorkHoldBtn");
 const workHoldStatus = document.getElementById("workHoldStatus");
 const workHoldPanel = document.getElementById("workHoldPanel");
 const workHoldCountdown = document.getElementById("workHoldCountdown");
+let workHoldCountdownTimer = null;
 
+function startWorkHoldCountdown(endsAt) {
+  if (!workHoldCountdown || !endsAt) return;
+
+  if (workHoldCountdownTimer) {
+    clearInterval(workHoldCountdownTimer);
+  }
+
+  function updateCountdown() {
+    const endTime = new Date(endsAt).getTime();
+    const now = Date.now();
+    const remaining = endTime - now;
+
+    if (remaining <= 0) {
+      clearInterval(workHoldCountdownTimer);
+      workHoldCountdownTimer = null;
+
+      workHoldCountdown.style.display = "block";
+      workHoldCountdown.innerHTML =
+        "🎉 <strong>HOLD süresi tamamlandı!</strong>";
+      return;
+    }
+
+    const totalSeconds = Math.floor(remaining / 1000);
+
+    const days = Math.floor(totalSeconds / 86400);
+    const hours = Math.floor((totalSeconds % 86400) / 3600);
+    const minutes = Math.floor((totalSeconds % 3600) / 60);
+    const seconds = totalSeconds % 60;
+
+    workHoldCountdown.style.display = "block";
+
+    workHoldCountdown.innerHTML =
+      "⏳ Kalan süre: <strong>" +
+      days + " gün " +
+      String(hours).padStart(2, "0") + ":" +
+      String(minutes).padStart(2, "0") + ":" +
+      String(seconds).padStart(2, "0") +
+      "</strong>";
+  }
+
+  updateCountdown();
+  workHoldCountdownTimer = setInterval(updateCountdown, 1000);
+}
 const workHoldDurationButtons =
   document.querySelectorAll(".work-hold-duration");
 
