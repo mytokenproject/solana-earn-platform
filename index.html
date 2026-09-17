@@ -7779,11 +7779,20 @@ const workHoldPanel = document.getElementById("workHoldPanel");
 const workHoldCountdown = document.getElementById("workHoldCountdown");
 let workHoldCountdownTimer = null;
 
-function startWorkHoldCountdown(endsAt) {
+function startWorkHoldCountdown(endsAt, holdAmount = 0, rewardAmount = 0) {
   if (!workHoldCountdown || !endsAt) return;
 
   if (workHoldCountdownTimer) {
     clearInterval(workHoldCountdownTimer);
+  }
+
+  function formatWorkAmount(value) {
+    const number = Number(value || 0);
+
+    return number.toLocaleString("tr-TR", {
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 9
+    });
   }
 
   function updateCountdown() {
@@ -7797,7 +7806,14 @@ function startWorkHoldCountdown(endsAt) {
 
       workHoldCountdown.style.display = "block";
       workHoldCountdown.innerHTML =
+        "🔒 Aktif HOLD: <strong>" +
+        formatWorkAmount(holdAmount) +
+        " WORK</strong><br>" +
+        "🎁 Kazanılacak ödül: <strong>" +
+        formatWorkAmount(rewardAmount) +
+        " WORK</strong><br>" +
         "🎉 <strong>HOLD süresi tamamlandı!</strong>";
+
       return;
     }
 
@@ -7811,10 +7827,19 @@ function startWorkHoldCountdown(endsAt) {
     workHoldCountdown.style.display = "block";
 
     workHoldCountdown.innerHTML =
+      "🔒 Aktif HOLD: <strong>" +
+      formatWorkAmount(holdAmount) +
+      " WORK</strong><br>" +
+      "🎁 Kazanılacak ödül: <strong>" +
+      formatWorkAmount(rewardAmount) +
+      " WORK</strong><br>" +
       "⏳ Kalan süre: <strong>" +
-      days + " gün " +
-      String(hours).padStart(2, "0") + ":" +
-      String(minutes).padStart(2, "0") + ":" +
+      days +
+      " gün " +
+      String(hours).padStart(2, "0") +
+      ":" +
+      String(minutes).padStart(2, "0") +
+      ":" +
       String(seconds).padStart(2, "0") +
       "</strong>";
   }
