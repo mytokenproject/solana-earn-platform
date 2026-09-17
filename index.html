@@ -7751,7 +7751,7 @@ if (startWorkHoldBtn && workHoldAmount) {
     const amount = Number(workHoldAmount.value);
 
     if (!amount || amount <= 0) {
-      workHoldStatus.textContent = "Geçerli bir HOLD miktarı gir.";
+      workHoldStatus.textContent = "❌ Geçerli bir HOLD miktarı gir.";
       return;
     }
 
@@ -7759,37 +7759,72 @@ if (startWorkHoldBtn && workHoldAmount) {
     workHoldStatus.textContent = "HOLD başlatılıyor...";
 
     try {
+      // 1) Oturumu kontrol et
       const { data: sessionData, error: sessionError } =
-  await supabaseClient.auth.getSession();
+        await supabaseClient.auth.getSession();
 
-if (sessionError) throw sessionError;
+      if (sessionError) throw sessionError;
 
-const accessToken = sessionData?.session?.access_token;
+      const accessToken = sessionData?.session?.access_token;
+      const userId = sessionData?.session?.user?.id;
 
-if (!accessToken) {
-  throw new Error("AUTH_REQUIRED");
-}
-      const { data, error } = await supabaseClient.functions.invoke(
-  "work-hold",
-  {
-    body: {
-  hold_amount: amount,
-  wallet_address: localStorage.getItem("workplace_wallet_address")
-},
-    headers: {
-      Authorization: `Bearer ${accessToken}`
-    }
-  }
-);
+      if (!accessToken || !userId) {
+        throw new Error("Önce Workplace hesabınıza giriş yapmalısınız.");
+      }
+
+      // 2) Kullanıcının en son bağladığı cüzdanı Supabase'ten al
+      const { data: walletRows, error: walletError } =
+        await supabaseClient
+          .from("wallets")
+          .select("address")
+          .eq("user_id", userId)
+          .order("last_connected_at", { ascending: false })
+          .limit(1);
+
+      if (walletError) {
+        console.error("WORK HOLD wallet query error:", walletError);
+        throw new Error("Cüzdan bilgisi alınamadı.");
+      }
+
+      const walletAddress =
+        walletRows?.[0]?.address?.trim() || "";
+
+      if (!walletAddress) {
+        throw new Error("Önce Solana cüzdanınızı hesabınıza bağlayın.");
+      }
+
+      // Local kayıt da güncel kalsın
+      localStorage.setItem(
+        "workplace_wallet_address",
+        walletAddress
+      );
+
+      // 3) HOLD isteğini kayıtlı cüzdanla gönder
+      const { data, error } =
+        await supabaseClient.functions.invoke(
+          "work-hold",
+          {
+            body: {
+              hold_amount: amount,
+              wallet_address: walletAddress
+            },
+            headers: {
+              Authorization: `Bearer ${accessToken}`
+            }
+          }
+        );
 
       if (error) throw error;
 
       workHoldStatus.textContent =
         data?.message || "✅ HOLD başarıyla başlatıldı.";
+
     } catch (error) {
       console.error("WORK HOLD error:", error);
-    workHoldStatus.textContent =
-  "❌ " + (error?.message || String(error));
+
+      workHoldStatus.textContent =
+        "❌ " + (error?.message || String(error));
+
     } finally {
       startWorkHoldBtn.disabled = false;
     }
