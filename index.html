@@ -7348,6 +7348,90 @@ btn.textContent = saved
     style="margin-top:10px;font-size:13px;opacity:.7;"
   ></div>
     </div>
+    <!-- 🔒 WORK HOLD YÖNETİMİ -->
+<div
+  id="adminWorkHoldPanel"
+  style="
+    margin-top:12px;
+    padding:14px;
+    border:1px solid rgba(139,92,246,.30);
+    border-radius:14px;
+  "
+>
+  <div style="font-weight:700;margin-bottom:12px;">
+    🔒 WORK HOLD Yönetimi
+  </div>
+
+  <div
+    style="
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:10px;
+    "
+  >
+    <div class="stat-box">
+      <div style="opacity:.65;font-size:12px;">
+        Toplam HOLD Kullanıcısı
+      </div>
+      <strong id="holdStatTotalUsers">-</strong>
+    </div>
+
+    <div class="stat-box">
+      <div style="opacity:.65;font-size:12px;">
+        Aktif HOLD Kullanıcısı
+      </div>
+      <strong id="holdStatActiveUsers">-</strong>
+    </div>
+
+    <div class="stat-box">
+      <div style="opacity:.65;font-size:12px;">
+        Aktif HOLD Sayısı
+      </div>
+      <strong id="holdStatActiveHolds">-</strong>
+    </div>
+
+    <div class="stat-box">
+      <div style="opacity:.65;font-size:12px;">
+        Aktif HOLD Toplamı
+      </div>
+      <strong id="holdStatActiveWork">-</strong>
+    </div>
+
+    <div class="stat-box">
+      <div style="opacity:.65;font-size:12px;">
+        Bekleyen Ödül
+      </div>
+      <strong id="holdStatPendingReward">-</strong>
+    </div>
+
+    <div class="stat-box">
+      <div style="opacity:.65;font-size:12px;">
+        Tamamlanan HOLD
+      </div>
+      <strong id="holdStatCompleted">-</strong>
+    </div>
+
+    <div class="stat-box">
+      <div style="opacity:.65;font-size:12px;">
+        Başarısız HOLD
+      </div>
+      <strong id="holdStatFailed">-</strong>
+    </div>
+  </div>
+
+  <div
+    id="adminWorkHoldStatus"
+    style="margin-top:10px;font-size:13px;opacity:.7;"
+  >
+    HOLD verileri yükleniyor...
+  </div>
+
+  <div
+    id="adminWorkHoldList"
+    style="margin-top:12px;"
+  ></div>
+</div>
+<!-- 🔒 WORK HOLD YÖNETİMİ SON -->
   </div>
    </div>
   <script>
