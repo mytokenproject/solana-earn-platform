@@ -1146,13 +1146,20 @@ data-i18n-placeholder="loginMfaPlaceholder"
     aria-expanded="false"
     onclick="
       const tasks=document.getElementById('mainTasksSection');
-    const extras=document.getElementById('discoverExtras');
-      const arrow=document.getElementById('tasksMenuArrow');
-      const open=tasks.style.display!=='none';
-      if(extras) extras.hidden=open;
-tasks.style.display=open?'none':'block';
-      this.setAttribute('aria-expanded', open?'false':'true');
-      arrow.textContent=open?'▼':'▲';
+const extras=document.getElementById('discoverExtras');
+const arrow=document.getElementById('tasksMenuArrow');
+const open=this.getAttribute('aria-expanded')==='true';
+
+if(open){
+  tasks.style.display='none';
+  extras.hidden=true;
+}else{
+  extras.hidden=false;
+  tasks.style.display='block';
+}
+
+this.setAttribute('aria-expanded',open?'false':'true');
+arrow.textContent=open?'▼':'▲';
     "
   >
     <span>✓ <span data-i18n="tasks">Görevler</span></span>
