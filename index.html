@@ -1146,9 +1146,11 @@ data-i18n-placeholder="loginMfaPlaceholder"
     aria-expanded="false"
     onclick="
       const tasks=document.getElementById('mainTasksSection');
+    const extras=document.getElementById('discoverExtras');
       const arrow=document.getElementById('tasksMenuArrow');
       const open=tasks.style.display!=='none';
-      tasks.style.display=open?'none':'block';
+      if(extras) extras.hidden=open;
+tasks.style.display=open?'none':'block';
       this.setAttribute('aria-expanded', open?'false':'true');
       arrow.textContent=open?'▼':'▲';
     "
