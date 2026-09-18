@@ -823,6 +823,24 @@ style="padding:8px 10px; font-size:12px; white-space:nowrap; order:2;"
 >
   🛡️ Admin
     </button>
+    <button
+  type="button"
+  id="sideLanguageBtn"
+  onclick="const m=document.getElementById('sideLanguageMenu'); m.style.display=m.style.display==='none'?'block':'none';"
+>
+  🌐 Dil
+    </button>
+    <div
+  id="sideLanguageMenu"
+  style="display:none; padding:6px 12px 10px 28px;"
+>
+  <button type="button" onclick="document.querySelector('#languageMenu [data-lang=&quot;tr&quot;]').click();">🇹🇷 Türkçe</button>
+  <button type="button" onclick="document.querySelector('#languageMenu [data-lang=&quot;en&quot;]').click();">🇬🇧 English</button>
+  <button type="button" onclick="document.querySelector('#languageMenu [data-lang=&quot;hi&quot;]').click();">🇮🇳 Hindi</button>
+  <button type="button" onclick="document.querySelector('#languageMenu [data-lang=&quot;pt-BR&quot;]').click();">🇧🇷 Português BR</button>
+  <button type="button" onclick="document.querySelector('#languageMenu [data-lang=&quot;id&quot;]').click();">🇮🇩 Indonesia</button>
+  <button type="button" onclick="document.querySelector('#languageMenu [data-lang=&quot;pt-PT&quot;]').click();">🇵🇹 Português PT</button>
+    </div>
     <button type="button" data-target="account">
       👤 Hesap Özeti
     </button>
