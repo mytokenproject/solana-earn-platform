@@ -7914,7 +7914,7 @@ const workHoldPanel = document.getElementById("workHoldPanel");
 const workHoldCountdown = document.getElementById("workHoldCountdown");
 let workHoldCountdownTimer = null;
 
-function startWorkHoldCountdown(endsAt, holdAmount = 0, rewardAmount = 0) {
+function startWorkHoldCountdown(endsAt, holdAmount = 0, rewardAmount = 0, startedAt = null) {
   if (!workHoldCountdown || !endsAt) return;
 
   if (workHoldCountdownTimer) {
@@ -7953,7 +7953,12 @@ function startWorkHoldCountdown(endsAt, holdAmount = 0, rewardAmount = 0) {
     }
 
     const totalSeconds = Math.floor(remaining / 1000);
-
+    const startTime = startedAt ? new Date(startedAt).getTime() : null;
+const totalDuration = startTime ? endTime - startTime : 0;
+const elapsed = startTime ? Math.max(0, Math.min(now - startTime, totalDuration)) : 0;
+const earnedReward = totalDuration > 0
+  ? Number(rewardAmount || 0) * (elapsed / totalDuration)
+  : 0;
     const days = Math.floor(totalSeconds / 86400);
     const hours = Math.floor((totalSeconds % 86400) / 3600);
     const minutes = Math.floor((totalSeconds % 3600) / 60);
@@ -7968,6 +7973,9 @@ function startWorkHoldCountdown(endsAt, holdAmount = 0, rewardAmount = 0) {
       "🎁 Kazanılacak ödül: <strong>" +
       formatWorkAmount(rewardAmount) +
       " WORK</strong><br>" +
+      "💰 Biriken ödül: <strong>" +
+formatWorkAmount(earnedReward) +
+" WORK</strong><br>" +
       "⏳ Kalan süre: <strong>" +
       days +
       " gün " +
@@ -8339,7 +8347,7 @@ async function loadActiveWorkHoldCountdown() {
 
     const { data, error } = await supabaseClient
       .from("work_holds")
-      .select("id,hold_amount,reward_amount,ends_at,status")
+      .select("id,hold_amount,reward_amount,started_at,ends_at,status")
       .eq("user_id", userId)
       .eq("status", "active")
       .order("started_at", { ascending: false })
@@ -8359,7 +8367,8 @@ async function loadActiveWorkHoldCountdown() {
     startWorkHoldCountdown(
   data.ends_at,
   data.hold_amount,
-  data.reward_amount
+  data.reward_amount,
+  data.started_at
 );
 
   } catch (error) {
