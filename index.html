@@ -8704,7 +8704,24 @@ loadAdminUserStats();
 
   statusEl.textContent = "";
 }
+document.getElementById("saveHoldRatesBtn")?.addEventListener("click", async () => {
+  const rate1 = Number(document.getElementById("holdRate1").value);
+  const rate7 = Number(document.getElementById("holdRate7").value);
+  const rate30 = Number(document.getElementById("holdRate30").value);
 
+  const { error } = await supabaseClient.rpc("admin_update_work_hold_rates", {
+    p_rate_1: rate1,
+    p_rate_7: rate7,
+    p_rate_30: rate30
+  });
+
+  if (error) {
+    alert("❌ Oranlar kaydedilemedi: " + error.message);
+    return;
+  }
+
+  alert("✅ HOLD oranları kaydedildi");
+});
 loadAdminWorkHoldStats();
     document.addEventListener("DOMContentLoaded", function () {
   const userStatsBtn = document.getElementById("toggleAdminUserStats");
