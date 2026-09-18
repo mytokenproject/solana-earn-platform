@@ -8732,7 +8732,22 @@ document.getElementById("saveHoldRatesBtn")?.addEventListener("click", async () 
   alert("✅ HOLD oranları kaydedildi");
 });
 loadAdminWorkHoldStats();
-    document.addEventListener("DOMContentLoaded", function () {
+(async function protectAdminSettings() {
+  const adminStatsMenu = document.getElementById("adminStatsMenu");
+  const userStatsPanel = document.getElementById("adminUserStats");
+  const workHoldPanel = document.getElementById("adminWorkHoldPanel");
+
+  if (adminStatsMenu) adminStatsMenu.style.display = "none";
+  if (userStatsPanel) userStatsPanel.style.display = "none";
+  if (workHoldPanel) workHoldPanel.style.display = "none";
+
+  const { data: isAdmin, error } =
+    await supabaseClient.rpc("is_admin");
+
+  if (!error && isAdmin && adminStatsMenu) {
+    adminStatsMenu.style.display = "grid";
+  }
+})();  document.addEventListener("DOMContentLoaded", function () {
   const userStatsBtn = document.getElementById("toggleAdminUserStats");
   const workHoldBtn = document.getElementById("toggleAdminWorkHold");
 
