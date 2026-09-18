@@ -693,13 +693,13 @@ body.menu-open {
     </div>
   </div>
 
-  <div class="topbar-right">
+  <div class="topbar-right" style="display:flex;align-items:center;gap:6px;">
 <button
   type="button"
   id="topLoginBtn"
 data-i18n="login"
   onclick="document.getElementById('loginSheet').style.display='flex'; document.getElementById('loginDetails').open=true;"
-  style="padding:8px 10px; font-size:12px; white-space:nowrap;"
+style="padding:8px 10px; font-size:12px; white-space:nowrap; order:2;"
 >
   Giriş Yap
 </button>
@@ -709,6 +709,7 @@ data-i18n="login"
   id="adminBtn"
   style="
     display:none;
+    order:1;
     width:auto;
     margin:0;
     padding:8px 10px;
@@ -735,7 +736,7 @@ data-i18n="login"
   <option value="id">ID</option>
   <option value="pt-PT">PT-PT</option>
 </select>
-   <div class="language-menu-wrap" style="position:relative;">
+   <div class="language-menu-wrap" style="position:relative; order:3;"
   <button type="button" id="languageMenuBtn" style="padding:7px 10px; min-width:78px; border:1px solid rgba(139,92,246,.45); border-radius:12px; background:#111629; color:#fff; font-size:13px; white-space:nowrap;">
     🇹🇷 TR ▾
   </button>
@@ -753,7 +754,22 @@ data-i18n="login"
 <button type="button" data-lang="pt-PT" style="display:block; width:100%; padding:8px 10px; border:0; border-radius:9px; background:transparent; color:#fff; font-size:13px; text-align:left; white-space:nowrap;">🇵🇹 PT-PT</button>
   </div>
    </div> 
-    <button class="bell-btn" type="button">🔔</button>
+  <a href="https://t.me/workplaceearn"
+   target="_blank"
+   rel="noopener noreferrer"
+   aria-label="Telegram"
+   style="order:4;width:34px;height:34px;min-width:34px;padding:0;border:0;background:#229ED9;border-radius:50%;display:flex;align-items:center;justify-content:center;text-decoration:none;">
+  <span style="color:white;font-size:20px;line-height:1;transform:rotate(-12deg);">➤</span>
+  </a>
+
+<a href="https://x.com/workplaceearn"
+   target="_blank"
+   rel="noopener noreferrer"
+   aria-label="X"
+   style="order:5;width:34px;height:34px;width:34px;padding:0;border:0;background:transparent;display:flex;align-items:center;justify-content:center;text-decoration:none;color:white;font-size:25px;font-weight:500;">
+  𝕏
+</a>
+  <button class="bell-btn" type="button" style="order:6;">🔔</button>
 
   </div>
 
