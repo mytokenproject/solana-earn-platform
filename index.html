@@ -803,7 +803,18 @@ style="padding:8px 10px; font-size:12px; white-space:nowrap; order:2;"
     <button type="button" data-target="home">
       🏠 Ana Sayfa
     </button>
-
+ <button
+  type="button"
+  onclick="
+    document.getElementById('sideMenu').classList.remove('open');
+    document.getElementById('menuOverlay').classList.remove('show');
+    document.body.classList.remove('menu-open');
+    document.getElementById('loginSheet').style.display='flex';
+    document.getElementById('loginDetails').open=true;
+  "
+>
+  👤 Hesabım
+ </button>
     <button type="button" data-target="account">
       👤 Hesap Özeti
     </button>
