@@ -5134,10 +5134,12 @@ const sponsorAdLink =
   if (!isAdmin) {
   if (adminBtn) adminBtn.style.display = "none";
   adminAdPanel.style.display = "none";
+    if (sideAdminBtn) sideAdminBtn.style.display = "none";
   return;
 }
 
 if (adminBtn) adminBtn.style.display = "inline-flex";
+    if (sideAdminBtn) sideAdminBtn.style.display = "flex";
 
   const { data: ads, error: adsError } =
     await supabaseClient
