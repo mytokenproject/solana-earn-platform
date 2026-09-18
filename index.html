@@ -1137,6 +1137,26 @@ data-i18n-placeholder="loginMfaPlaceholder"
   </div>
 
 </section>
+<!-- GÖREVLER -->
+<section class="account-summary-section">
+  <button
+    type="button"
+    class="account-summary-toggle"
+    id="tasksMenuToggle"
+    aria-expanded="false"
+    onclick="
+      const tasks=document.getElementById('mainTasksSection');
+      const arrow=document.getElementById('tasksMenuArrow');
+      const open=tasks.style.display!=='none';
+      tasks.style.display=open?'none':'block';
+      this.setAttribute('aria-expanded', open?'false':'true');
+      arrow.textContent=open?'▼':'▲';
+    "
+  >
+    <span>✓ <span data-i18n="tasks">Görevler</span></span>
+    <span id="tasksMenuArrow">▼</span>
+  </button>
+</section>
     <!-- LİDERLİK PANOSU PANELİ -->
 <section
   id="leaderboardPanel"
