@@ -8561,6 +8561,100 @@ refreshWithdrawWalletAddress();
 }
 
 loadAdminUserStats();
+    async function loadAdminWorkHoldStats() {
+  const panel = document.getElementById("adminWorkHoldPanel");
+  const statusEl = document.getElementById("adminWorkHoldStatus");
+  const listEl = document.getElementById("adminWorkHoldList");
+
+  if (!panel || !statusEl || !listEl) return;
+
+  const { data: isAdmin, error: adminError } =
+    await supabaseClient.rpc("is_admin");
+
+  if (adminError || !isAdmin) {
+    panel.style.display = "none";
+    return;
+  }
+
+  statusEl.textContent = "HOLD verileri yükleniyor...";
+
+  const { data, error } =
+    await supabaseClient.rpc("get_admin_work_hold_stats");
+
+  if (error) {
+    console.error("WORK HOLD admin error:", error);
+    statusEl.textContent =
+      "❌ HOLD verileri alınamadı: " + error.message;
+    return;
+  }
+
+  document.getElementById("holdStatTotalUsers").textContent =
+    Number(data?.total_users || 0).toLocaleString("tr-TR");
+
+  document.getElementById("holdStatActiveUsers").textContent =
+    Number(data?.active_users || 0).toLocaleString("tr-TR");
+
+  document.getElementById("holdStatActiveHolds").textContent =
+    Number(data?.active_holds || 0).toLocaleString("tr-TR");
+
+  document.getElementById("holdStatActiveWork").textContent =
+    Number(data?.active_work || 0).toLocaleString("tr-TR") + " WORK";
+
+  document.getElementById("holdStatPendingReward").textContent =
+    Number(data?.pending_reward || 0).toLocaleString("tr-TR") + " WORK";
+
+  document.getElementById("holdStatCompleted").textContent =
+    Number(data?.completed_holds || 0).toLocaleString("tr-TR");
+
+  document.getElementById("holdStatFailed").textContent =
+    Number(data?.failed_holds || 0).toLocaleString("tr-TR");
+
+  const holds = Array.isArray(data?.holds) ? data.holds : [];
+
+  if (!holds.length) {
+    listEl.innerHTML =
+      '<div style="opacity:.65;font-size:13px;">Henüz HOLD kaydı yok.</div>';
+  } else {
+    listEl.innerHTML = holds.map(h => {
+      const status =
+        h.status === "active" ? "🟢 Aktif" :
+        h.status === "completed" ? "✅ Tamamlandı" :
+        h.status === "failed" ? "🔴 Başarısız" :
+        h.status || "-";
+
+      const wallet = h.wallet_address
+        ? h.wallet_address.slice(0, 6) + "..." +
+          h.wallet_address.slice(-4)
+        : "-";
+
+      return `
+        <div style="
+          padding:10px;
+          margin-top:8px;
+          border:1px solid rgba(139,92,246,.20);
+          border-radius:10px;
+          font-size:12px;
+          line-height:1.7;
+        ">
+          <strong>#${h.id} — ${status}</strong><br>
+          👤 ${wallet}<br>
+          🔒 ${Number(h.hold_amount || 0).toLocaleString("tr-TR")} WORK<br>
+          ⏱️ ${h.duration_days || "-"} gün<br>
+          🎁 ${Number(h.reward_amount || 0).toLocaleString("tr-TR")} WORK
+          ${
+            h.failure_reason
+              ? `<br>⚠️ ${h.failure_reason}`
+              : ""
+          }
+        </div>
+      `;
+    }).join("");
+  }
+
+  statusEl.textContent = "";
+}
+
+loadAdminWorkHoldStats();
   </script>
    <script>
   document.addEventListener("DOMContentLoaded", function () {
