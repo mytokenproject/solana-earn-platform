@@ -7293,8 +7293,36 @@ btn.textContent = saved
   ></div>
     </div>
     <div
+  id="adminStatsMenu"
+  style="
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:10px;
+    margin-top:12px;
+  "
+>
+  <button
+    type="button"
+    id="toggleAdminUserStats"
+    class="secondary"
+    style="width:100%;"
+  >
+    📊 Kullanıcı İstatistikleri
+  </button>
+
+  <button
+    type="button"
+    id="toggleAdminWorkHold"
+    class="secondary"
+    style="width:100%;"
+  >
+    🔒 WORK HOLD
+  </button>
+    </div>
+    <div
   id="adminUserStats"
   style="
+    display:none;
     margin-top:12px;
     padding:14px;
     border:1px solid rgba(139,92,246,.30);
@@ -7352,6 +7380,7 @@ btn.textContent = saved
 <div
   id="adminWorkHoldPanel"
   style="
+  display:none;
     margin-top:12px;
     padding:14px;
     border:1px solid rgba(139,92,246,.30);
@@ -8661,6 +8690,35 @@ loadAdminUserStats();
 }
 
 loadAdminWorkHoldStats();
+    document.addEventListener("DOMContentLoaded", function () {
+  const userStatsBtn = document.getElementById("toggleAdminUserStats");
+  const workHoldBtn = document.getElementById("toggleAdminWorkHold");
+
+  const userStatsPanel = document.getElementById("adminUserStats");
+  const workHoldPanel = document.getElementById("adminWorkHoldPanel");
+
+  if (userStatsBtn && userStatsPanel) {
+    userStatsBtn.addEventListener("click", function () {
+      const opening = userStatsPanel.style.display === "none";
+      userStatsPanel.style.display = opening ? "block" : "none";
+
+      if (opening && workHoldPanel) {
+        workHoldPanel.style.display = "none";
+      }
+    });
+  }
+
+  if (workHoldBtn && workHoldPanel) {
+    workHoldBtn.addEventListener("click", function () {
+      const opening = workHoldPanel.style.display === "none";
+      workHoldPanel.style.display = opening ? "block" : "none";
+
+      if (opening && userStatsPanel) {
+        userStatsPanel.style.display = "none";
+      }
+    });
+  }
+});
   </script>
    <script>
   document.addEventListener("DOMContentLoaded", function () {
