@@ -7859,7 +7859,7 @@ function base58Decode(value) {
       JSON.parse(new TextDecoder().decode(decrypted));
 
     const address = payload?.public_key || "";
- 
+ alert("PHANTOM TEST 4: Adres alındı ✅\n" + address);
     if (!address) {
       throw new Error("Phantom cüzdan adresi alınamadı.");
     }
