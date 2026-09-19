@@ -3930,6 +3930,7 @@ const changeWalletStatus =
 if (walletTouchError) {
   throw walletTouchError;
 }
+/*
 const { error: userWalletUpdateError } =
   await supabaseClient
     .from("users")
@@ -3940,7 +3941,9 @@ const { error: userWalletUpdateError } =
 
 if (userWalletUpdateError) {
   throw userWalletUpdateError;
-  }  localStorage.setItem("workplace_wallet_address", address);
+  }
+*/
+    localStorage.setItem("workplace_wallet_address", address);
 }
   window.saveWalletAddress = saveWalletAddress;
   if (changeWalletBtn && changeWalletPanel) {
