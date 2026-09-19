@@ -7833,13 +7833,11 @@ function base58Decode(value) {
   if (!phantomEncryptionPublicKey || !nonce || !data) return;
 
   try {
-    alert("PHANTOM TEST 1: Callback geldi ✅");
     const storedSecretKey =
       localStorage.getItem("phantom_dapp_secret_key");
     if (!storedSecretKey) {
       throw new Error("Phantom geçici bağlantı anahtarı bulunamadı.");
     }
- alert("PHANTOM TEST 2: Geçici anahtar bulundu ✅");
     const dappSecretKey = new Uint8Array(
       storedSecretKey.split(",").map(Number)
     );
@@ -7854,12 +7852,10 @@ function base58Decode(value) {
     if (!decrypted) {
       throw new Error("Phantom bağlantı yanıtı çözülemedi.");
     }
-   alert("PHANTOM TEST 3: Yanıt çözüldü ✅");
     const payload =
       JSON.parse(new TextDecoder().decode(decrypted));
 
     const address = payload?.public_key || "";
- alert("PHANTOM TEST 4: Adres alındı ✅\n" + address);
     if (!address) {
       throw new Error("Phantom cüzdan adresi alınamadı.");
     }
