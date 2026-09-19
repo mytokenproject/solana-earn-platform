@@ -3929,7 +3929,17 @@ const changeWalletStatus =
 if (walletTouchError) {
   throw walletTouchError;
 }
-  localStorage.setItem("workplace_wallet_address", address);
+const { error: userWalletUpdateError } =
+  await supabaseClient
+    .from("users")
+    .update({
+      wallet_address: address
+    })
+    .eq("id", userId);
+
+if (userWalletUpdateError) {
+  throw userWalletUpdateError;
+  }  localStorage.setItem("workplace_wallet_address", address);
 }
   if (changeWalletBtn && changeWalletPanel) {
   changeWalletBtn.addEventListener("click", () => {
