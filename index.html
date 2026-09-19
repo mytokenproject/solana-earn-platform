@@ -7876,7 +7876,10 @@ alert(
 
   } catch (err) {
     console.error("Phantom deeplink connect error:", err);
-    localStorage.removeItem("phantom_dapp_secret_key");
+alert(
+  "PHANTOM TEST 4: Kayıt hatası = " +
+  (err?.message || JSON.stringify(err) || String(err))
+); localStorage.removeItem("phantom_dapp_secret_key");
   }
 })();
    </script>
