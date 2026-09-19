@@ -7854,7 +7854,7 @@ function base58Decode(value) {
     if (!decrypted) {
       throw new Error("Phantom bağlantı yanıtı çözülemedi.");
     }
- 
+   alert("PHANTOM TEST 3: Yanıt çözüldü ✅");
     const payload =
       JSON.parse(new TextDecoder().decode(decrypted));
 
