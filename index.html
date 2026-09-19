@@ -7700,15 +7700,19 @@ btn.textContent = saved
 if (window.applyTranslations) {
   window.applyTranslations(bottomNavLanguage);
      }
-     function openWalletApp(walletName) {
+   function openWalletApp(walletName) {
+     if (walletName === "phantom") {
   const workplaceUrl = "https://workplaceearn.com/";
 
-  if (walletName === "phantom") {
-    window.location.href =
-      "https://phantom.app/ul/browse/" +
-      encodeURIComponent(workplaceUrl);
-    return;
-  }
+  const phantomUrl =
+    "https://phantom.app/ul/browse/" +
+    encodeURIComponent(workplaceUrl) +
+    "?ref=" +
+    encodeURIComponent(workplaceUrl);
+
+  window.location.href = phantomUrl;
+  return;
+     }
 
   if (walletName === "solflare") {
     window.location.href =
