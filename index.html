@@ -7773,14 +7773,27 @@ function base58Decode(value) {
   const workplaceUrl = "https://workplaceearn.com/";
 
   if (walletName === "phantom") {
-    const phantomWorkplaceUrl =
-      "https://workplaceearn.com/?wallet_connect=phantom";
+  if (!window.nacl) {
+    alert("Phantom bağlantı sistemi yüklenemedi.");
+    return;
+  }
+
+  const dappKeyPair = nacl.box.keyPair();
+  const dappPublicKey = base58Encode(dappKeyPair.publicKey);
+
+  sessionStorage.setItem(
+    "phantom_dapp_secret_key",
+    Array.from(dappKeyPair.secretKey).join(",")
+  );
+
+  const params = new URLSearchParams({
+    app_url: workplaceUrl,
+    dapp_encryption_public_key: dappPublicKey,
+    redirect_link: workplaceUrl
+  });
 
   const phantomUrl =
-    "https://phantom.app/ul/browse/" +
-    encodeURIComponent(phantomWorkplaceUrl) +
-    "?ref=" +
-    encodeURIComponent(phantomWorkplaceUrl);
+    "https://phantom.app/ul/v1/connect?" + params.toString();
 
   window.location.href = phantomUrl;
   return;
@@ -7805,31 +7818,7 @@ function base58Decode(value) {
       encodeURIComponent(workplaceUrl);
   }
      }
-     setTimeout(async () => {
-  const params = new URLSearchParams(window.location.search);
-
-  if (params.get("wallet_connect") === "phantom") {
-    const provider =
-      window.phantom?.solana ||
-      (window.solana?.isPhantom ? window.solana : null);
-
-    if (provider) {
-      try {
-        const response = await provider.connect();
-        const address =
-          (response?.publicKey || provider.publicKey)?.toString();
-
-        if (address) {
-          await saveWalletAddress(address);
-          window.history.replaceState({}, "", window.location.pathname);
-          window.location.reload();
-        }
-      } catch (err) {
-        console.error("Phantom connect error:", err);
-      }
-    }
-  }
-}, 1200);
+     
    </script>
   <script>
 (() => {
