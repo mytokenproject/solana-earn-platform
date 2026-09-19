@@ -7831,7 +7831,11 @@ function base58Decode(value) {
   try {
     const storedSecretKey =
       localStorage.getItem("phantom_dapp_secret_key");
-
+alert(
+  storedSecretKey
+    ? "PHANTOM TEST 1: Geçici anahtar bulundu ✅"
+    : "PHANTOM TEST 1: Geçici anahtar YOK ❌"
+);
     if (!storedSecretKey) {
       throw new Error("Phantom geçici bağlantı anahtarı bulunamadı.");
     }
