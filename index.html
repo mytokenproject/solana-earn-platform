@@ -7702,7 +7702,7 @@ if (window.applyTranslations) {
      }
    function openWalletApp(walletName) {
      if (walletName === "phantom") {
-  const workplaceUrl = "https://workplaceearn.com/";
+  const workplaceUrl = "https://workplaceearn.com/?wallet_connect=phantom";
 
   const phantomUrl =
     "https://phantom.app/ul/browse/" +
@@ -7713,7 +7713,6 @@ if (window.applyTranslations) {
   window.location.href = phantomUrl;
   return;
      }
-
   if (walletName === "solflare") {
     window.location.href =
       "https://solflare.com/ul/v1/browse/" +
@@ -7734,6 +7733,31 @@ if (window.applyTranslations) {
       encodeURIComponent(workplaceUrl);
   }
      }
+     setTimeout(async () => {
+  const params = new URLSearchParams(window.location.search);
+
+  if (params.get("wallet_connect") === "phantom") {
+    const provider =
+      window.phantom?.solana ||
+      (window.solana?.isPhantom ? window.solana : null);
+
+    if (provider) {
+      try {
+        const response = await provider.connect();
+        const address =
+          (response?.publicKey || provider.publicKey)?.toString();
+
+        if (address) {
+          await saveWalletAddress(address);
+          window.history.replaceState({}, "", window.location.pathname);
+          window.location.reload();
+        }
+      } catch (err) {
+        console.error("Phantom connect error:", err);
+      }
+    }
+  }
+}, 1200);
    </script>
   <script>
 (() => {
