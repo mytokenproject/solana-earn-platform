@@ -7835,11 +7835,6 @@ function base58Decode(value) {
   try {
     const storedSecretKey =
       localStorage.getItem("phantom_dapp_secret_key");
-alert(
-  storedSecretKey
-    ? "PHANTOM TEST 1: Geçici anahtar bulundu ✅"
-    : "PHANTOM TEST 1: Geçici anahtar YOK ❌"
-);
     if (!storedSecretKey) {
       throw new Error("Phantom geçici bağlantı anahtarı bulunamadı.");
     }
@@ -7858,12 +7853,12 @@ alert(
     if (!decrypted) {
       throw new Error("Phantom bağlantı yanıtı çözülemedi.");
     }
- alert("PHANTOM TEST 2: Şifre çözme başarılı ✅");
+ 
     const payload =
       JSON.parse(new TextDecoder().decode(decrypted));
 
     const address = payload?.public_key || "";
- alert("PHANTOM TEST 3: Cüzdan adresi = " + address);
+ 
     if (!address) {
       throw new Error("Phantom cüzdan adresi alınamadı.");
     }
@@ -7879,11 +7874,7 @@ alert(
     );
 
   } catch (err) {
-    console.error("Phantom deeplink connect error:", err);
-alert(
-  "PHANTOM TEST 4: Kayıt hatası = " +
-  (err?.message || JSON.stringify(err) || String(err))
-); localStorage.removeItem("phantom_dapp_secret_key");
+    console.error("Phantom deeplink connect error:", err); localStorage.removeItem("phantom_dapp_secret_key");
   }
 })();
    </script>
