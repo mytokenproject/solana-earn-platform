@@ -3942,6 +3942,7 @@ if (userWalletUpdateError) {
   throw userWalletUpdateError;
   }  localStorage.setItem("workplace_wallet_address", address);
 }
+  window.saveWalletAddress = saveWalletAddress;
   if (changeWalletBtn && changeWalletPanel) {
   changeWalletBtn.addEventListener("click", () => {
     changeWalletPanel.style.display =
@@ -7864,7 +7865,7 @@ alert(
       throw new Error("Phantom cüzdan adresi alınamadı.");
     }
 
-    await saveWalletAddress(address);
+    await window.saveWalletAddress(address);
 
     localStorage.removeItem("phantom_dapp_secret_key");
 
