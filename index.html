@@ -7833,6 +7833,7 @@ function base58Decode(value) {
   if (!phantomEncryptionPublicKey || !nonce || !data) return;
 
   try {
+    alert("PHANTOM TEST 1: Callback geldi ✅");
     const storedSecretKey =
       localStorage.getItem("phantom_dapp_secret_key");
     if (!storedSecretKey) {
