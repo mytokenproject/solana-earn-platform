@@ -7701,14 +7701,17 @@ if (window.applyTranslations) {
   window.applyTranslations(bottomNavLanguage);
      }
    function openWalletApp(walletName) {
-     if (walletName === "phantom") {
-  const workplaceUrl = "https://workplaceearn.com/?wallet_connect=phantom";
+  const workplaceUrl = "https://workplaceearn.com/";
+
+  if (walletName === "phantom") {
+    const phantomWorkplaceUrl =
+      "https://workplaceearn.com/?wallet_connect=phantom";
 
   const phantomUrl =
     "https://phantom.app/ul/browse/" +
-    encodeURIComponent(workplaceUrl) +
+    encodeURIComponent(phantomWorkplaceUrl) +
     "?ref=" +
-    encodeURIComponent(workplaceUrl);
+    encodeURIComponent(phantomWorkplaceUrl);
 
   window.location.href = phantomUrl;
   return;
