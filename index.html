@@ -7876,6 +7876,7 @@ function base58Decode(value) {
 
   } catch (err) {
     console.error("Phantom deeplink connect error:", err); localStorage.removeItem("phantom_dapp_secret_key");
+    alert("PHANTOM SAVE ERROR ❌\n" + (err?.message || JSON.stringify(err)));
   }
 })();
    </script>
