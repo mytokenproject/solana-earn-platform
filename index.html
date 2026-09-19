@@ -7839,7 +7839,7 @@ function base58Decode(value) {
     if (!storedSecretKey) {
       throw new Error("Phantom geçici bağlantı anahtarı bulunamadı.");
     }
-
+ alert("PHANTOM TEST 2: Geçici anahtar bulundu ✅");
     const dappSecretKey = new Uint8Array(
       storedSecretKey.split(",").map(Number)
     );
