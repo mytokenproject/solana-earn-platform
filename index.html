@@ -281,32 +281,30 @@ button:active {
       }
     }
  /* Keşfet & Kazan premium kartları */
+.discover-card .grid {
+  display: grid !important;
+  grid-template-columns: repeat(2, 1fr) !important;
+  gap: 7px !important;
+}
+
 .discover-card .task {
-  height: auto !important;
-  min-height: 36px !important;
-padding: 4px 8px !important;
-margin: 2px 0 !important;
+  height: 34px !important;
+  min-height: 34px !important;
+  padding: 0 !important;
+  margin: 0 !important;
 
-  background:
-    radial-gradient(ellipse at 8% 20%,
-      rgba(0, 200, 255, 0.95) 0%,
-      transparent 43%),
-    radial-gradient(ellipse at 92% 80%,
-      rgba(220, 0, 255, 0.95) 0%,
-      transparent 46%),
-    linear-gradient(135deg,
-      #006cff 0%,
-      #1026a8 48%,
-      #8500ff 100%) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
 
-  border: 1px solid #7c5cff !important;
-  border-radius: 15px !important;
-
-  box-shadow:
-    0 0 8px rgba(0, 190, 255, 0.65),
-    0 0 12px rgba(170, 0, 255, 0.50) !important;
+  background: linear-gradient(135deg, #006cff, #8500ff) !important;
+  border: 1px solid rgba(255,255,255,.35) !important;
+  border-radius: 10px !important;
+  box-shadow: 0 2px 7px rgba(70,0,255,.30) !important;
 
   color: #ffffff !important;
+  font-size: 15px !important;
+  font-weight: 800 !important;
 }
 
 .discover-card .task-title {
