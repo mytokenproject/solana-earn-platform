@@ -8245,6 +8245,24 @@ if (quickTasks && tasksMenuToggle) {
     tasksMenuToggle.click();
   });
     }
+    // Yeni kompakt Keşfet tuşu
+const quickDiscover = document.getElementById("quickDiscover");
+const discoverMenu = document.getElementById("discoverMenu");
+
+if (quickDiscover && discoverMenu) {
+  quickDiscover.addEventListener("click", () => {
+    discoverMenu.open = !discoverMenu.open;
+
+    if (discoverMenu.open) {
+      setTimeout(() => {
+        discoverMenu.scrollIntoView({
+          behavior: "smooth",
+          block: "center"
+        });
+      }, 100);
+    }
+  });
+    }
     const walletMenuBtn = document.getElementById("walletMenuBtn");
 const loginSheetForWallet = document.getElementById("loginSheet");
 const loginDetailsForWallet = document.getElementById("loginDetails");
