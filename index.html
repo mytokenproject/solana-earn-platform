@@ -715,6 +715,75 @@ button:active {
 body.menu-open {
   overflow: hidden;
 }
+  /* ===== WORK HOLD KOMPAKT GÖRÜNÜM ===== */
+
+#workHoldPanel {
+  padding: 12px !important;
+}
+
+#workHoldPanel h3 {
+  margin: 0 0 6px !important;
+  font-size: 18px;
+}
+
+/* Uzun açıklamayı kaldır */
+#workHoldPanel > p {
+  display: none;
+}
+
+/* HOLD miktarı alanı */
+#workHoldPanel > div:nth-of-type(1) {
+  margin-top: 6px !important;
+}
+
+#workHoldAmount {
+  padding: 8px 10px !important;
+  height: 38px;
+  margin-top: 4px;
+}
+
+/* Süre bölümü */
+#workHoldPanel > div:nth-of-type(2) {
+  margin-top: 8px !important;
+}
+
+#workHoldPanel > div:nth-of-type(2) > div:first-child {
+  margin-bottom: 4px !important;
+  font-size: 14px;
+}
+
+#workHoldDurationOptions {
+  gap: 6px !important;
+}
+
+#workHoldDurationOptions .work-hold-duration {
+  padding: 6px 2px !important;
+  margin-top: 0 !important;
+  min-height: 48px;
+  font-size: 13px;
+  line-height: 1.2;
+}
+
+/* Tahmini ödül */
+#workHoldPanel > div:nth-of-type(3) {
+  margin-top: 8px !important;
+  font-size: 14px;
+}
+
+/* HOLD Başlat */
+#startWorkHoldBtn {
+  margin-top: 8px !important;
+  padding: 10px 12px !important;
+}
+
+/* Durum ve sayaç */
+#workHoldStatus {
+  margin-top: 5px !important;
+}
+
+#workHoldCountdown {
+  margin-top: 6px !important;
+  }
   </style>
   <script src="https://cdn.jsdelivr.net/npm/tweetnacl@1.0.3/nacl-fast.min.js"></script>
   </head>
