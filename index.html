@@ -977,12 +977,17 @@ style="display:none !important;padding:8px 10px; font-size:12px; white-space:now
   id="sideLanguageMenu"
   style="display:none; padding:6px 12px 10px 28px;"
 >
-  <button type="button" onclick="applyTranslations('tr');">🇹🇷 Türkçe</button>
-<button type="button" onclick="applyTranslations('en');">🇬🇧 English</button>
-<button type="button" onclick="applyTranslations('hi');">🇮🇳 Hindi</button>
-<button type="button" onclick="applyTranslations('pt-BR');">🇧🇷 Português BR</button>
-<button type="button" onclick="applyTranslations('id');">🇮🇩 Indonesia</button>
-<button type="button" onclick="applyTranslations('pt-PT');">🇵🇹 Português PT</button>
+  <button type="button" onclick="document.getElementById('languageSelect').value='tr'; document.getElementById('languageSelect').dispatchEvent(new Event('change'));">🇹🇷 Türkçe</button>
+
+<button type="button" onclick="document.getElementById('languageSelect').value='en'; document.getElementById('languageSelect').dispatchEvent(new Event('change'));">🇬🇧 English</button>
+
+<button type="button" onclick="document.getElementById('languageSelect').value='hi'; document.getElementById('languageSelect').dispatchEvent(new Event('change'));">🇮🇳 Hindi</button>
+
+<button type="button" onclick="document.getElementById('languageSelect').value='pt-BR'; document.getElementById('languageSelect').dispatchEvent(new Event('change'));">🇧🇷 Português BR</button>
+
+<button type="button" onclick="document.getElementById('languageSelect').value='id'; document.getElementById('languageSelect').dispatchEvent(new Event('change'));">🇮🇩 Indonesia</button>
+
+<button type="button" onclick="document.getElementById('languageSelect').value='pt-PT'; document.getElementById('languageSelect').dispatchEvent(new Event('change'));">🇵🇹 Português PT</button>
     </div>
     <a href="https://t.me/workplaceearn"
    target="_blank"
