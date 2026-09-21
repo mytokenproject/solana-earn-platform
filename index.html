@@ -8672,7 +8672,14 @@ if (workHoldMenuBtn && workHoldPanel) {
     }
   });
 }
+// Yeni kompakt WORK Hold tuşu
+const quickWorkHold = document.getElementById("quickWorkHold");
 
+if (quickWorkHold && workHoldMenuBtn) {
+  quickWorkHold.addEventListener("click", () => {
+    workHoldMenuBtn.click();
+  });
+    }
 // --------------------------------------------------
 // AKTİF HOLD'U BUL VE SAYACI BAŞLAT
 // --------------------------------------------------
