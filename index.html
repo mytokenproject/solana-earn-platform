@@ -8263,6 +8263,24 @@ if (quickDiscover && discoverMenu) {
     }
   });
     }
+    // Yeni kompakt Nasıl? tuşu
+const quickHow = document.getElementById("quickHow");
+const howItWorksMenu = document.getElementById("howItWorksMenu");
+
+if (quickHow && howItWorksMenu) {
+  quickHow.addEventListener("click", () => {
+    howItWorksMenu.open = !howItWorksMenu.open;
+
+    if (howItWorksMenu.open) {
+      setTimeout(() => {
+        howItWorksMenu.scrollIntoView({
+          behavior: "smooth",
+          block: "center"
+        });
+      }, 100);
+    }
+  });
+    }
     const walletMenuBtn = document.getElementById("walletMenuBtn");
 const loginSheetForWallet = document.getElementById("loginSheet");
 const loginDetailsForWallet = document.getElementById("loginDetails");
