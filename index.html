@@ -8313,9 +8313,10 @@ const accountSummaryArrow = document.getElementById("accountSummaryArrow");
 
 if (accountSummaryToggle && accountSummaryMenu) {
   accountSummaryToggle.addEventListener("click", () => {
-    const isOpen = accountSummaryMenu.style.display === "flex";
+    const isOpen =
+    accountSummaryMenu.style.display === "grid";
 
-    accountSummaryMenu.style.display = isOpen ? "none" : "flex";
+    accountSummaryMenu.style.display = isOpen ? "none" : "grid";
     if (isOpen) {
   const withdrawUsdcPanel = document.getElementById("withdrawUsdcPanel");
   if (withdrawUsdcPanel) withdrawUsdcPanel.style.display = "none";
