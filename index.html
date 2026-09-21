@@ -1173,7 +1173,7 @@ data-i18n-placeholder="loginMfaPlaceholder"
 
   <div class="status" id="mfaSetupStatus"></div>
     </div>
-      <button class="primary"
+      <button class="primary account-mini-action"
   id="connectBtn">
   👛
       </button>
@@ -1198,6 +1198,7 @@ data-i18n-placeholder="loginMfaPlaceholder"
   style="display:none;">
       </div>
         <button type="button" id="logoutBtn"
+  class="account-mini-action"
   data-i18n="logout"
   style="display:none;">
   🚪 Çıkış Yap
@@ -4718,6 +4719,15 @@ document.getElementById("openOfferwallggBtn")?.addEventListener("click", async (
   font-size: 15px;
   font-weight: 700;
   }
+  /* ===== KOMPAKT HESAP BUTONLARI ===== */
+.account-mini-action {
+  min-height: 48px !important;
+  padding: 8px 12px !important;
+  margin: 8px 0 !important;
+  border-radius: 12px !important;
+  font-size: 15px !important;
+  font-weight: 700 !important;
+}
   /* ===== KOMPAKT 6'LI ANA PANEL ===== */
 .quick-main-panel {
   display: grid;
