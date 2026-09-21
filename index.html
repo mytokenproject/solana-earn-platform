@@ -816,6 +816,7 @@ body.menu-open {
 }
   </style>
   <script src="https://cdn.jsdelivr.net/npm/tweetnacl@1.0.3/nacl-fast.min.js"></script>
+  <script src="https://plugin.jup.ag/plugin-v1.js"></script>
   </head>
  <body>
 
@@ -1552,73 +1553,22 @@ arrow.textContent=open?'▼':'▲';
     style="display:none; margin-top:14px; text-align:center;"
   ></div>
 </section>
-    <!-- WORKPLACE SWAP PANEL -->
-<section
-  id="workplaceSwapPanel"
-  class="card"
-  style="
-    display:none;
-    margin-top:12px;
-    padding:18px;
-  "
->
-  <h3 style="margin-top:0;">🔄 WORKPLACE Al / Swap</h3>
-
-  <div style="margin-bottom:14px;">
-    <small style="opacity:.75;">WORKPLACE Canlı Fiyat</small>
-    <div
-      id="workplaceLivePrice"
-      style="font-size:22px;font-weight:700;margin-top:4px;"
-    >
-      Yakında
-    </div>
+    <!-- JUPITER SWAP -->
+<section id="jupiterSwapPanel" class="card" style="margin-top:12px; padding:12px;">
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+    <strong>🪐 Jupiter Swap</strong>
+    <small style="opacity:.65;">Canlı Swap</small>
   </div>
-
-  <label style="display:block;margin-bottom:6px;">
-    Ödeme Birimi
-  </label>
-
-  <select
-    id="workplaceSwapFrom"
-    style="width:100%;padding:12px;margin-bottom:12px;"
-  >
-    <option value="SOL">SOL</option>
-    <option value="USDC">USDC</option>
-  </select>
-
-  <label style="display:block;margin-bottom:6px;">
-    Miktar
-  </label>
-
-  <input
-    id="workplaceSwapAmount"
-    type="number"
-    min="0"
-    step="any"
-    placeholder="0.00"
-    style="width:100%;padding:12px;box-sizing:border-box;"
-  />
 
   <div
+    id="jupiter-plugin"
     style="
-      margin-top:14px;
-      padding:12px;
-      border-radius:10px;
-      opacity:.8;
+      width:100%;
+      min-height:420px;
+      border-radius:14px;
+      overflow:hidden;
     "
-  >
-    Tahmini WORKPLACE:
-    <strong id="workplaceSwapEstimate">—</strong>
-  </div>
-
-  <button
-    type="button"
-    class="primary"
-    disabled
-    style="width:100%;margin-top:16px;"
-  >
-    Swap Yakında Aktif
-  </button>
+  ></div>
 </section>
   <section
   class="card"
@@ -9392,5 +9342,13 @@ s.referrerPolicy = 'no-referrer-when-downgrade';
 l.parentNode.insertBefore(s, l);
 })({})
   </script>
+    <script>
+  window.addEventListener("load", function () {
+    window.Jupiter.init({
+      displayMode: "integrated",
+      integratedTargetId: "jupiter-plugin"
+    });
+  });
+    </script>
 </body>
 </html>
