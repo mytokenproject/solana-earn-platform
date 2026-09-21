@@ -8236,6 +8236,15 @@ if (quickAccount && accountSummaryToggle) {
     accountSummaryToggle.click();
   });
     }
+    // Yeni kompakt Görevler tuşu
+const quickTasks = document.getElementById("quickTasks");
+const tasksMenuToggle = document.getElementById("tasksMenuToggle");
+
+if (quickTasks && tasksMenuToggle) {
+  quickTasks.addEventListener("click", () => {
+    tasksMenuToggle.click();
+  });
+    }
     const walletMenuBtn = document.getElementById("walletMenuBtn");
 const loginSheetForWallet = document.getElementById("loginSheet");
 const loginDetailsForWallet = document.getElementById("loginDetails");
