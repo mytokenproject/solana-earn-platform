@@ -8228,6 +8228,14 @@ if (accountSummaryToggle && accountSummaryMenu) {
     }
   });
     }
+    // Yeni kompakt Hesap tuşu
+const quickAccount = document.getElementById("quickAccount");
+
+if (quickAccount && accountSummaryToggle) {
+  quickAccount.addEventListener("click", () => {
+    accountSummaryToggle.click();
+  });
+    }
     const walletMenuBtn = document.getElementById("walletMenuBtn");
 const loginSheetForWallet = document.getElementById("loginSheet");
 const loginDetailsForWallet = document.getElementById("loginDetails");
