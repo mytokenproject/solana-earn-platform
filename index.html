@@ -9049,7 +9049,7 @@ async function loadWorkHoldCampaigns() {
   days === 7 ? "workHold7Days" :
   "workHold30Days";
 
-const currentLang = localStorage.getItem("language") || "tr";
+const currentLang = localStorage.getItem("workplace_language") || "tr";
 const dayText =
   translations[currentLang]?.[dayKey] ??
   translations.tr?.[dayKey] ??
