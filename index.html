@@ -9044,10 +9044,21 @@ async function loadWorkHoldCampaigns() {
       if (campaign) {
         button.dataset.percent = String(campaign.percent);
 
-        button.innerHTML =
-          `${days} gün<br>🎁 %${campaign.percent.toLocaleString("tr-TR", {
-            maximumFractionDigits: 4
-          })}`;
+        const dayKey =
+  days === 1 ? "workHold1Day" :
+  days === 7 ? "workHold7Days" :
+  "workHold30Days";
+
+const currentLang = localStorage.getItem("language") || "tr";
+const dayText =
+  translations[currentLang]?.[dayKey] ??
+  translations.tr?.[dayKey] ??
+  `${days} gün`;
+
+button.innerHTML =
+  `<span data-i18n="${dayKey}">${dayText}</span><br>🎁 %${campaign.percent.toLocaleString("tr-TR", {
+    maximumFractionDigits: 4
+  })}`;
 
         button.disabled = false;
         button.style.opacity = "1";
