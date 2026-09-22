@@ -7856,14 +7856,21 @@ if (logoutBtn) {
   const heroForTop =
     document.querySelector(".hero");
 
+  const workplaceHeroForTop =
+    document.getElementById("workplaceHeroPanel");
+
   const workplacePromoForTop =
     document.getElementById("workplacePromoSlider");
 
   const sponsorForTop =
     document.getElementById("sponsorAdPanel");
 
-  if (heroForTop && workplacePromoForTop && sponsorForTop) {
-
+  if (
+    heroForTop &&
+    workplaceHeroForTop &&
+    workplacePromoForTop &&
+    sponsorForTop
+  ) {
     heroForTop.parentNode.insertBefore(
       sponsorForTop,
       heroForTop
@@ -7872,6 +7879,11 @@ if (logoutBtn) {
     heroForTop.parentNode.insertBefore(
       workplacePromoForTop,
       sponsorForTop
+    );
+
+    heroForTop.parentNode.insertBefore(
+      workplaceHeroForTop,
+      workplacePromoForTop
     );
   }
   }
