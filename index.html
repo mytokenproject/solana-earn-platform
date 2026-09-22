@@ -2884,6 +2884,12 @@ workHold7Days: "7 gün",
 workHold30Days: "30 gün",
 workHoldEstimatedReward: "Tahmini ödül",
 workHoldStart: "HOLD Başlat",
+workHoldActive: "Aktif HOLD",
+workHoldRewardToEarn: "Kazanılacak ödül",
+workHoldEarnedReward: "Biriken ödül",
+workHoldRemainingTime: "Kalan süre",
+workHoldDayUnit: "gün",
+workHoldCompleted: "HOLD süresi tamamlandı!",
     quickWorkHold: "🔒 WORK Hold",
 quickAccount: "👤 Hesap",
 quickTasks: "✓ Görevler",
@@ -3141,7 +3147,13 @@ workHold30Days: "30 days",
   workHold1Day: "1 day",
 workHold7Days: "7 days",
 workHold30Days: "30 days",
-    quickWorkHold: "🔒 WORK Hold",
+workHoldActive: "Active HOLD",
+workHoldRewardToEarn: "Reward to earn",
+workHoldEarnedReward: "Earned reward",
+workHoldRemainingTime: "Time remaining",
+workHoldDayUnit: "days",
+workHoldCompleted: "HOLD period completed!",
+  quickWorkHold: "🔒 WORK Hold",
 quickAccount: "👤 Account",
 quickTasks: "✓ Tasks",
 quickDiscover: "🚀 Discover",
@@ -3395,6 +3407,12 @@ workHold7Days: "7 दिन",
 workHold30Days: "30 दिन",
 workHoldEstimatedReward: "अनुमानित इनाम",
 workHoldStart: "HOLD शुरू करें",
+workHoldActive: "सक्रिय HOLD",
+workHoldRewardToEarn: "मिलने वाला इनाम",
+workHoldEarnedReward: "अर्जित इनाम",
+workHoldRemainingTime: "शेष समय",
+workHoldDayUnit: "दिन",
+workHoldCompleted: "HOLD अवधि पूरी हुई!",
  quickWorkHold: "🔒 WORK Hold",
 quickAccount: "👤 खाता",
 quickTasks: "✓ कार्य",
@@ -3651,6 +3669,12 @@ workHold7Days: "7 dias",
 workHold30Days: "30 dias",
 workHoldEstimatedReward: "Recompensa estimada",
 workHoldStart: "Iniciar HOLD",
+workHoldActive: "HOLD ativo",
+workHoldRewardToEarn: "Recompensa a receber",
+workHoldEarnedReward: "Recompensa acumulada",
+workHoldRemainingTime: "Tempo restante",
+workHoldDayUnit: "dias",
+workHoldCompleted: "Período de HOLD concluído!",
 quickWorkHold: "🔒 WORK Hold",
 quickAccount: "👤 Conta",
 quickTasks: "✓ Tarefas",
@@ -3906,6 +3930,12 @@ workHold7Days: "7 hari",
 workHold30Days: "30 hari",
 workHoldEstimatedReward: "Perkiraan hadiah",
 workHoldStart: "Mulai HOLD",
+workHoldActive: "HOLD aktif",
+workHoldRewardToEarn: "Hadiah yang akan diterima",
+workHoldEarnedReward: "Hadiah terkumpul",
+workHoldRemainingTime: "Waktu tersisa",
+workHoldDayUnit: "hari",
+workHoldCompleted: "Periode HOLD selesai!",
  quickWorkHold: "🔒 WORK Hold",
 quickAccount: "👤 Akun",
 quickTasks: "✓ Tugas",
@@ -4162,6 +4192,12 @@ workHold7Days: "7 dias",
 workHold30Days: "30 dias",
 workHoldEstimatedReward: "Recompensa estimada",
 workHoldStart: "Iniciar HOLD",
+workHoldActive: "HOLD ativo",
+workHoldRewardToEarn: "Recompensa a receber",
+workHoldEarnedReward: "Recompensa acumulada",
+workHoldRemainingTime: "Tempo restante",
+workHoldDayUnit: "dias",
+workHoldCompleted: "Período de HOLD concluído!",
  quickWorkHold: "🔒 WORK Hold",
 quickAccount: "👤 Conta",
 quickTasks: "✓ Tarefas",
@@ -8965,15 +9001,16 @@ function startWorkHoldCountdown(endsAt, holdAmount = 0, rewardAmount = 0, starte
       workHoldCountdownTimer = null;
 
       workHoldCountdown.style.display = "block";
-      workHoldCountdown.innerHTML =
-        "🔒 Aktif HOLD: <strong>" +
-        formatWorkAmount(holdAmount) +
-        " WORK</strong><br>" +
-        "🎁 Kazanılacak ödül: <strong>" +
-        formatWorkAmount(rewardAmount) +
-        " WORK</strong><br>" +
-        "🎉 <strong>HOLD süresi tamamlandı!</strong>";
+const holdLang = translations[currentLang] || translations.tr;
 
+workHoldCountdown.innerHTML =
+  "🔒 " + holdLang.workHoldActive + ": <strong>" +
+  formatWorkAmount(holdAmount) +
+  " WORK</strong><br>" +
+  "🎁 " + holdLang.workHoldRewardToEarn + ": <strong>" +
+  formatWorkAmount(rewardAmount) +
+  " WORK</strong><br>" +
+  "🎉 <strong>" + holdLang.workHoldCompleted + "</strong>";
       return;
     }
 
@@ -8990,26 +9027,24 @@ const earnedReward = totalDuration > 0
     const seconds = totalSeconds % 60;
 
     workHoldCountdown.style.display = "block";
+ const holdLang = translations[currentLang] || translations.tr;
 
-    workHoldCountdown.innerHTML =
-      "🔒 Aktif HOLD: <strong>" +
-      formatWorkAmount(holdAmount) +
-      " WORK</strong><br>" +
-      "🎁 Kazanılacak ödül: <strong>" +
-      formatWorkAmount(rewardAmount) +
-      " WORK</strong><br>" +
-      "💰 Biriken ödül: <strong>" +
-formatWorkAmount(earnedReward) +
-" WORK</strong><br>" +
-      "⏳ Kalan süre: <strong>" +
-      days +
-      " gün " +
-      String(hours).padStart(2, "0") +
-      ":" +
-      String(minutes).padStart(2, "0") +
-      ":" +
-      String(seconds).padStart(2, "0") +
-      "</strong>";
+workHoldCountdown.innerHTML =
+  "🔒 " + holdLang.workHoldActive + ": <strong>" +
+  formatWorkAmount(holdAmount) +
+  " WORK</strong><br>" +
+  "🎁 " + holdLang.workHoldRewardToEarn + ": <strong>" +
+  formatWorkAmount(rewardAmount) +
+  " WORK</strong><br>" +
+  "💰 " + holdLang.workHoldEarnedReward + ": <strong>" +
+  formatWorkAmount(earnedReward) +
+  " WORK</strong><br>" +
+  "⌛ " + holdLang.workHoldRemainingTime + ": <strong>" +
+  days + " " + holdLang.workHoldDaysUnit + " " +
+  String(hours).padStart(2, "0") + ":" +
+  String(minutes).padStart(2, "0") + ":" +
+  String(seconds).padStart(2, "0") +
+  "</strong>";   
   }
 
   updateCountdown();
