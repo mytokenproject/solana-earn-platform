@@ -1362,7 +1362,7 @@ style="display:none !important;padding:8px 10px; font-size:12px; white-space:now
   <nav class="side-menu-nav">
 
     <button type="button" data-target="home">
-      🏠 Ana Sayfa
+  🏠 <span data-i18n="home">Ana Sayfa</span>
     </button>
  <button
   type="button"
@@ -1374,7 +1374,7 @@ style="display:none !important;padding:8px 10px; font-size:12px; white-space:now
     document.getElementById('loginDetails').open=true;
   "
 >
-  👤 Hesabım
+  👤 <span data-i18n="myAccount">Hesabım</span>
  </button>
     <button
   type="button"
@@ -1382,14 +1382,14 @@ style="display:none !important;padding:8px 10px; font-size:12px; white-space:now
   style="display:none;"
   onclick="document.getElementById('adminBtn').click();"
 >
-  🛡️ Admin
+  🛡️ <span data-i18n="admin">Admin</span>
     </button>
     <button
   type="button"
   id="sideLanguageBtn"
   onclick="const m=document.getElementById('sideLanguageMenu'); m.style.display=m.style.display==='none'?'block':'none';"
 >
-  🌐 Dil
+  🌐 <span data-i18n="language">Dil</span>
     </button>
     <div
   id="sideLanguageMenu"
