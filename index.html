@@ -1231,7 +1231,57 @@ body.menu-open {
   margin-right: auto !important;
   box-sizing: border-box !important;
 }
+/* ===== GÖREV • ÖDÜL • USDC POWER BUTONU ===== */
 
+.quick-usdc-btn {
+  grid-column: 1 / -1 !important;
+  min-height: 58px !important;
+  margin-top: 3px !important;
+  border-radius: 30px !important;
+
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 14px !important;
+
+  background: linear-gradient(135deg, #059669, #16a34a, #22c55e) !important;
+  border: 2px solid #34d399 !important;
+
+  color: #ffffff !important;
+  font-size: 17px !important;
+  font-weight: 900 !important;
+
+  box-shadow:
+    0 0 12px rgba(34,197,94,.65),
+    0 0 25px rgba(34,197,94,.35) !important;
+}
+
+.quick-power-icon {
+  width: 42px;
+  height: 42px;
+  flex: 0 0 42px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+  background: #079b35;
+  border: 2px solid #4ade80;
+
+  font-size: 30px;
+  line-height: 1;
+  font-weight: 400;
+
+  box-shadow:
+    inset 0 0 10px rgba(0,0,0,.22),
+    0 0 12px rgba(74,222,128,.55);
+}
+
+.quick-usdc-btn:active {
+  transform: scale(.97) !important;
+  filter: brightness(1.15);
+}
   </style>
   <script src="https://cdn.jsdelivr.net/npm/tweetnacl@1.0.3/nacl-fast.min.js"></script>
   <script src="https://plugin.jup.ag/plugin-v1.js"></script>
@@ -2260,7 +2310,7 @@ height:auto; margin-left:auto; margin-right:auto;">
   </div>
 </section>
 <!-- ===== /WORKPLACE TANITIM SLIDER ===== --> 
-  <!-- ===== KOMPAKT 6'LI ANA PANEL ===== -->
+  <!-- ===== KOMPAKT ANA PANEL ===== -->
 <div class="quick-main-panel">
 
   <button type="button" class="quick-main-btn" id="quickWorkHold" data-i18n="quickWorkHold">
@@ -2275,20 +2325,17 @@ height:auto; margin-left:auto; margin-right:auto;">
     ✓ Görevler
   </button>
 
-  <button type="button" class="quick-main-btn" id="quickDiscover" data-i18n="quickDiscover">
-    🚀 Keşfet
-  </button>
-
   <button type="button" class="quick-main-btn" id="quickHow" data-i18n="quickHow">
     📖 Nasıl?
   </button>
 
-  <button type="button" class="quick-main-btn soon" data-i18n="quickSoon" disabled>
-    ✨ Yakında
+  <button type="button" class="quick-main-btn quick-usdc-btn" id="quickDiscover">
+    <span class="quick-power-icon">⏻</span>
+    <span>GÖREV • ÖDÜL • USDC</span>
   </button>
 
 </div>
-<!-- ===== /KOMPAKT 6'LI ANA PANEL ===== -->
+<!-- ===== /KOMPAKT ANA PANEL ===== -->
   <section
   id="adminAdPanel"
   class="card"
