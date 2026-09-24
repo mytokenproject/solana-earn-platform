@@ -8937,7 +8937,23 @@ const quickAccount = document.getElementById("quickAccount");
 
 if (quickAccount && accountSummaryToggle) {
   quickAccount.addEventListener("click", () => {
+    const accountMenu = document.getElementById("accountSummaryMenu");
+    const greenPanel = document.querySelector(".quick-main-panel");
+
+    if (accountMenu && greenPanel) {
+      greenPanel.parentNode.insertBefore(accountMenu, greenPanel);
+    }
+
     accountSummaryToggle.click();
+
+    setTimeout(() => {
+      if (accountMenu && accountMenu.style.display !== "none") {
+        accountMenu.scrollIntoView({
+          behavior: "smooth",
+          block: "center"
+        });
+      }
+    }, 150);
   });
     }
     // Yeni kompakt Görevler tuşu
