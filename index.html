@@ -8991,6 +8991,18 @@ const tasksMenuToggle = document.getElementById("tasksMenuToggle");
 if (quickTasks && tasksMenuToggle) {
   quickTasks.addEventListener("click", () => {
     tasksMenuToggle.click();
+
+    setTimeout(() => {
+      const tasks = document.getElementById("mainTasksSection");
+      if (!tasks) return;
+
+      const y = tasks.getBoundingClientRect().top + window.scrollY - 180;
+
+      window.scrollTo({
+        top: y,
+        behavior: "smooth"
+      });
+    }, 150);
   });
     }
     // Yeni kompakt Keşfet tuşu
