@@ -8917,14 +8917,7 @@ if (accountSummaryToggle && accountSummaryMenu) {
     accountSummaryMenu.style.display === "grid";
 
     accountSummaryMenu.style.display = isOpen ? "none" : "grid";
-  const workplaceHeroPanel = document.getElementById("workplaceHeroPanel");
-if (workplaceHeroPanel) {
-  workplaceHeroPanel.style.setProperty(
-    "margin-top",
-    isOpen ? "-86px" : "0px",
-    "important"
-  );
-    }
+  
     if (isOpen) {
   const withdrawUsdcPanel = document.getElementById("withdrawUsdcPanel");
   if (withdrawUsdcPanel) withdrawUsdcPanel.style.display = "none";
