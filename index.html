@@ -5259,7 +5259,7 @@ const taskText =
       btn.textContent = taskText.taskProcessing;
 
       const { data, error } = await supabaseClient.rpc(
-        "complete_my_task_and_reward",
+        "claim_work_task",
         {
           p_task_id: taskId
         }
@@ -5284,20 +5284,16 @@ const taskText =
         return;
       }
 
-      balance = Number(result.new_total_points || 0);
       completed += 1;
 
-      btn.dataset.done = "1";
-      btn.textContent = "✓ " + taskText.taskCompleted;
-      btn.classList.add("done");
+btn.dataset.done = "1";
+btn.textContent = "✓ " + taskText.taskCompleted;
+btn.classList.add("done");
 
-      render();
+render();
 
-      alert(
-  taskText.taskCompletedRewardPrefix +
-  result.earned_points +
-  " " +
-  taskText.pointsUnit
+alert(
+  "🎉 " + Number(result.reward_work || 0) + " WORK hak ettiniz!"
 );
     });
 document.getElementById("openOfferwallggBtn")?.addEventListener("click", async () => {
@@ -7600,7 +7596,7 @@ async function completeTask(taskId) {
     }
 
     const { data, error } = await window.supabaseClient.rpc(
-      "complete_my_task_and_reward",
+      "claim_work_task",
       { p_task_id: taskId }
     );
 
@@ -7613,16 +7609,18 @@ async function completeTask(taskId) {
       return;
     }
 
-    if (data === true) {
-      alert(
-  (translations[localStorage.getItem("workplace_language")] || translations.tr)
-    .taskRewardAdded
-);
-    } else {
-      alert(
-  (translations[localStorage.getItem("workplace_language")] || translations.tr)
-    .taskCannotCompleteNow
-);
+  const result = data && data[0];
+
+if (result) {
+  alert(
+    "🎉 " + Number(result.reward_work || 0) + " WORK hak ettiniz!"
+  );
+} else {
+  alert(
+    (translations[localStorage.getItem("workplace_language")] || translations.tr)
+      .taskCannotCompleteNow
+  );
+  }
     }
   } catch (error) {
     console.error(error);
