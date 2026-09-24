@@ -6382,7 +6382,12 @@ loadAdminAds();
   }
   }
   loadApprovedSponsorAd();
-  
+  const promoSlider = document.getElementById("workplacePromoSlider");
+const sponsorPanel = document.getElementById("sponsorAdPanel");
+
+if (promoSlider && sponsorPanel) {
+  sponsorPanel.parentNode.insertBefore(promoSlider, sponsorPanel);
+  }
 if (advertiseBtn && adPlans) {
   advertiseBtn.addEventListener("click", () => {
     const isOpen = adPlans.style.display === "block";
