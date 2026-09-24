@@ -1433,7 +1433,9 @@ style="display:none !important;padding:8px 10px; font-size:12px; white-space:now
   </div>
 
   <nav class="side-menu-nav">
-
+<button type="button" id="sideQuickHow" data-i18n="quickHow">
+  📖 Nasıl?
+</button>
     <button type="button" data-target="home">
   🏠 <span data-i18n="home">Ana Sayfa</span>
     </button>
@@ -9007,6 +9009,7 @@ if (quickDiscover && discoverMenu) {
     }
     // Yeni kompakt Nasıl? tuşu
 const quickHow = document.getElementById("quickHow");
+const sideQuickHow = document.getElementById("sideQuickHow");
 const howItWorksMenu = document.getElementById("howItWorksMenu");
 
 if (quickHow && howItWorksMenu) {
@@ -9021,6 +9024,11 @@ if (quickHow && howItWorksMenu) {
         });
       }, 100);
     }
+  });
+    }
+if (sideQuickHow && howItWorksMenu) {
+  sideQuickHow.addEventListener("click", () => {
+    quickHow.click();
   });
     }
     const walletMenuBtn = document.getElementById("walletMenuBtn");
