@@ -2350,10 +2350,6 @@ height:auto; margin-left:auto; margin-right:auto;">
     ✓ Görevler
   </button>
 
-  <button type="button" class="quick-main-btn" id="quickHow" data-i18n="quickHow">
-    📖 Nasıl?
-  </button>
-
   <button type="button" class="quick-main-btn quick-usdc-btn" id="quickDiscover">
     <span class="quick-power-icon">⏻</span>
     <span data-i18n="quickDiscoverReward">GÖREV • ÖDÜL • USDC</span>
@@ -9031,7 +9027,14 @@ if (sideQuickHow && howItWorksMenu) {
   document.getElementById("sideMenu").classList.remove("open");
 document.getElementById("menuOverlay").classList.remove("show");
 document.body.classList.remove("menu-open");
-    quickHow.click();
+    howItWorksMenu.open = true;
+
+setTimeout(() => {
+  howItWorksMenu.scrollIntoView({
+    behavior: "smooth",
+    block: "center"
+  });
+}, 100);
   });
     }
     const walletMenuBtn = document.getElementById("walletMenuBtn");
