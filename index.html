@@ -2349,10 +2349,6 @@ height:auto; margin-left:auto; margin-right:auto;">
     👤 Hesap
   </button>
 
-  <button type="button" class="quick-main-btn" id="quickTasks" data-i18n="quickTasks">
-    ✓ Görevler
-  </button>
-
   <button type="button" class="quick-main-btn quick-usdc-btn" id="quickDiscover">
     <span class="quick-power-icon">⏻</span>
     <span data-i18n="quickDiscoverReward">GÖREV • ÖDÜL • USDC</span>
@@ -8541,7 +8537,7 @@ btn.textContent = saved
   "
 >
   <button type="button" class="secondary" onclick="window.scrollTo({top:0,behavior:'smooth'});" style="padding:7px 2px;font-size:12px;min-height:58px;">⌂<br><span data-i18n="home">Anasayfa</span></button>
-<button type="button" class="secondary" onclick="document.getElementById('discoverExtras').hidden=false;document.getElementById('mainTasksSection').scrollIntoView({behavior:'smooth',block:'start'});" style="padding:7px 2px;font-size:12px;min-height:58px;">✓<br><span data-i18n="tasksNav">Görevler</span></button>
+<button type="button" class="secondary" id="quickTasks" style="padding:7px 2px;font-size:12px;min-height:58px;">✓<br><span data-i18n="tasksNav">Görevler</span></button>
  </nav>
    <script>
      const bottomNavLanguage =
