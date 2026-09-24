@@ -9559,6 +9559,11 @@ const withdrawUsdcPanel =
 
 if (withdrawUsdcMenuBtn && withdrawUsdcPanel) {
   withdrawUsdcMenuBtn.addEventListener("click", async () => {
+  const greenPanel = document.querySelector(".quick-main-panel");
+
+if (greenPanel) {
+  greenPanel.parentNode.insertBefore(withdrawUsdcPanel, greenPanel);
+    }
     const isOpen =
       withdrawUsdcPanel.style.display !== "none";
 
