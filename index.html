@@ -9028,6 +9028,9 @@ if (quickHow && howItWorksMenu) {
     }
 if (sideQuickHow && howItWorksMenu) {
   sideQuickHow.addEventListener("click", () => {
+  document.getElementById("sideMenu").classList.remove("open");
+document.getElementById("menuOverlay").classList.remove("show");
+document.body.classList.remove("menu-open");
     quickHow.click();
   });
     }
