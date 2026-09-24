@@ -9978,6 +9978,11 @@ document.addEventListener("DOMContentLoaded", function () {
   const medals = ["🥇", "🥈", "🥉", "🏅", "🏅"];
 
   leaderboardMenuBtn.addEventListener("click", async function () {
+    const greenPanel = document.querySelector(".quick-main-panel");
+
+if (greenPanel) {
+  greenPanel.parentNode.insertBefore(leaderboardPanel, greenPanel);
+     }
     const isOpen = leaderboardPanel.style.display === "block";
 
     leaderboardPanel.style.display = isOpen ? "none" : "block";
