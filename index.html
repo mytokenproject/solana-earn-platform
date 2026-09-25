@@ -2901,7 +2901,7 @@ height:auto; margin-left:auto; margin-right:auto;">
 <script>
 
 (() => {
-  
+// ===== 18 - DİL / ÇEVİRİ SİSTEMİ - BAŞLANGIÇ =====
       const translations = {
   tr: {
     accountSummary: "Hesap Özeti",
@@ -4483,7 +4483,8 @@ howStep12Title: "12. Receba o Seu USDC na Sua Carteira",
 howStep12Desc: "Quando o levantamento for concluído com sucesso, o USDC será enviado para a sua carteira Solana registada."
       }
 };
-
+// ===== 18 - DİL / ÇEVİRİ SİSTEMİ - BİTİŞ =====
+// ===== 19 - DİL SEÇİM / MENÜ SİSTEMİ - BAŞLANGIÇ =====
   const languageSelect =
     document.getElementById("languageSelect");
   const languageMenuBtn = document.getElementById("languageMenuBtn");
@@ -4605,6 +4606,8 @@ applyTranslations(savedLanguage);
   document.documentElement.lang = lang;
   applyTranslations(lang);
 });
+// ===== 19 - DİL SEÇİM / MENÜ SİSTEMİ - BİTİŞ =====
+// ===== 20 - CÜZDAN BAĞLAMA / KAYDETME SİSTEMİ - BAŞLANGIÇ =====
   const balanceEl =
     document.getElementById("balance");
   const walletChooser =
@@ -4849,6 +4852,8 @@ if (userWalletUpdateError) {
     }
   });
   }
+// ===== 20 - CÜZDAN BAĞLAMA / DEĞİŞTİRME + 2FA SİSTEMİ - BİTİŞ =====
+// ===== 21 - HAMBURGER / YAN MENÜ SİSTEMİ - BAŞLANGIÇ =====
 const dbBalanceEl =
   document.getElementById("dbBalance");
   const completedEl =
@@ -4891,7 +4896,7 @@ if (closeMenuBtn) {
 if (menuOverlay) {
   menuOverlay.addEventListener("click", closeSideMenu);
 }
-
+// ===== 21 - HAMBURGER / YAN MENÜ SİSTEMİ - BİTİŞ =====
   let balance = 0;
 
   let completed = 0;
@@ -5163,8 +5168,8 @@ if (topWalletStatusEl)
     trustWalletText.accountStatusWalletDisconnected;
 }
 });
-
-  
+// ===== 21 - CÜZDAN SEÇİM / BAĞLANTI SİSTEMİ - BİTİŞ =====
+// ===== 22 - GÖREV BUTONLARI SİSTEMİ - BAŞLANGIÇ =====  
   
   
   
@@ -5298,6 +5303,8 @@ alert(
   "🎉 " + Number(result.reward_work || 0) + " WORK hak ettiniz!"
 );
     });
+// ===== 22 - GÖREV BUTONLARI SİSTEMİ - BİTİŞ =====
+// ===== 23 - SAĞLAYICI AÇMA SİSTEMİ - BAŞLANGIÇ =====
 document.getElementById("openOfferwallggBtn")?.addEventListener("click", async () => {
   const {
     data: { user },
@@ -5332,10 +5339,11 @@ document.getElementById("openOfferwallggBtn")?.addEventListener("click", async (
 
   window.location.href = gamwallUrl;
 });
+// ===== 23 - SAĞLAYICI AÇMA SİSTEMİ - BİTİŞ =====
   render();
 
 })();
-
+<!-- ===== 24 - HESAP ÖZETİ STİL SİSTEMİ - BAŞLANGIÇ ===== -->
 </script>
 
 <!-- HESAP ÖZETİ STİLİ -->
@@ -5442,10 +5450,11 @@ document.getElementById("openOfferwallggBtn")?.addEventListener("click", async (
   text-align: left;
 }
 </style>
-
+<!-- ===== 24 - HESAP ÖZETİ STİL SİSTEMİ - BİTİŞ ===== -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
+// ===== 25 - SUPABASE / KATEGORİ GÖREVLERİ SİSTEMİ - BAŞLANGIÇ =====
   const SUPABASE_URL = "https://cudmuahuhaqdavvvnjlk.supabase.co";
 
   const SUPABASE_KEY =
@@ -5890,6 +5899,8 @@ const web3TaskText =
   console.log("Kategori görevleri:", data);
 return data || [];
   }
+// ===== 25 - KATEGORİ GÖREVLERİ SİSTEMİ - BİTİŞ =====
+// ===== 26 - PLATFORM AYARLARI SİSTEMİ - BAŞLANGIÇ =====
   async function loadPlatformSettings() {
   const { data, error } = await supabaseClient
     .from("settings")
