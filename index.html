@@ -8911,7 +8911,11 @@ if (quickAccount && accountSummaryToggle) {
     if (accountMenu && greenPanel) {
       greenPanel.parentNode.insertBefore(accountMenu, greenPanel);
     }
+const holdPanelForTop = document.getElementById("workHoldPanel");
 
+if (holdPanelForTop && greenPanel) {
+  greenPanel.parentNode.insertBefore(holdPanelForTop, greenPanel);
+    }
     accountSummaryToggle.click();
 
     setTimeout(() => {
