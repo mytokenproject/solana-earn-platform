@@ -7596,6 +7596,7 @@ alert(
 // ===== 27 - GİRİŞ / KAYIT / 2FA / HESAP / CÜZDAN SİSTEMİ - BİTİŞ =====
 </script> 
 <script>
+// ===== 28 - GÖREV TAMAMLAMA / ÖDÜL SİSTEMİ - BAŞLANGIÇ =====
 async function completeTask(taskId) {
   try {
     if (!window.supabaseClient) {
@@ -7641,7 +7642,9 @@ if (result) {
 );
   }
 }
+// ===== 28 - GÖREV TAMAMLAMA / ÖDÜL SİSTEMİ - BİTİŞ =====
   // === KAZANÇ MOTORU HAZIRLIK ===
+// ===== 29 - KAZANÇ MOTORU / KAZANÇ GEÇMİŞİ - BAŞLANGIÇ =====
 async function getMyEarnings() {
   if (!window.supabaseClient) {
     console.error("Supabase bağlantısı hazır değil.");
@@ -7845,6 +7848,8 @@ descriptionEl.textContent =
     historyEl.appendChild(row);
   });
 }
+// ===== 29 - KAZANÇ MOTORU / KAZANÇ GEÇMİŞİ - BİTİŞ =====
+// ===== 30 - GÖREV KARTLARI / PANEL YÖNLENDİRME - BAŞLANGIÇ =====
 const gamesCardEl = document.getElementById("gamesCard");
 const gamesSectionEl = document.getElementById("gamesSection");
 const closeGamesBtnEl = document.getElementById("closeGamesBtn");
@@ -8070,8 +8075,9 @@ if (logoutBtn) {
     window.location.reload();
   });
 }
-
+// ===== 30 - GÖREV KARTLARI / PANEL YÖNLENDİRME - BİTİŞ =====
 </script>
+<!-- ===== 31 - AYARLAR / BİLDİRİM PANELİ - BAŞLANGIÇ ===== -->
    <div
   id="settingsSheet"
   style="
@@ -8477,6 +8483,9 @@ btn.textContent = saved
   });
 })();
   </script>
+  <!-- ===== 31 - AYARLAR / BİLDİRİM PANELİ - BİTİŞ ===== -->
+
+<!-- ===== 32 - ALT SABİT MENÜ / BOTTOM NAV - BAŞLANGIÇ ===== -->
    <nav
   id="bottomNav"
   style="
@@ -8683,6 +8692,9 @@ function base58Decode(value) {
   }
 })();
    </script>
+<!-- ===== 32 - ALT SABİT MENÜ / CÜZDAN BAĞLANTI SİSTEMİ - BİTİŞ ===== -->
+
+<!-- ===== 33 - DİNAMİK GÖREV LİSTELERİ / DİL SİSTEMİ - BAŞLANGIÇ ===== -->
   <script>
 (() => {
   const ids = [
@@ -9564,6 +9576,7 @@ async function loadActiveWorkHoldCountdown() {
 // Sayfa açılışında HOLD bilgilerini hazırla
 loadWorkHoldCampaigns();
 loadActiveWorkHoldCountdown();
+// ===== WORK HOLD SİSTEMİ - BİTİŞ =====
     const withdrawUsdcMenuBtn =
   document.getElementById("withdrawUsdcMenuBtn");
 
