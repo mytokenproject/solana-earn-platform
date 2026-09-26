@@ -7934,29 +7934,6 @@ if (surveysCardEl) {
   }
 });
 } 
-const videoCardEl = document.getElementById("videoCard");
-const videoSectionEl = document.getElementById("videoSection");
-const closeVideoBtnEl = document.getElementById("closeVideoBtn");
-
-if (videoCardEl && videoSectionEl && closeVideoBtnEl) {
-  videoCardEl.style.cursor = "pointer";
-
-  videoCardEl.addEventListener("click", () => {
-    videoSectionEl.style.display = "block";
-    videoSectionEl.scrollIntoView({
-      behavior: "smooth",
-      block: "start"
-    });
-  });
-
-  closeVideoBtnEl.addEventListener("click", () => {
-    videoSectionEl.style.display = "none";
-    videoCardEl.scrollIntoView({
-      behavior: "smooth",
-      block: "center"
-    });
-  });
-}
 const sponsoredCardEl = document.getElementById("sponsoredCard");
 const sponsoredSectionEl = document.getElementById("sponsoredSection");
 const closeSponsoredBtnEl = document.getElementById("closeSponsoredBtn");
