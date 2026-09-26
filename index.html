@@ -7480,7 +7480,7 @@ alert(
 // ===== 27 - GİRİŞ / KAYIT / 2FA / HESAP / CÜZDAN SİSTEMİ - BİTİŞ =====
 </script> 
 <script>
-alert("SCRIPT 28 ACILDI");
+
 // ===== 28 - GÖREV TAMAMLAMA / ÖDÜL SİSTEMİ - BAŞLANGIÇ =====
 async function completeTask(taskId) {
   try {
@@ -7530,7 +7530,6 @@ if (result) {
 // ===== 28 - GÖREV TAMAMLAMA / ÖDÜL SİSTEMİ - BİTİŞ =====
   // === KAZANÇ MOTORU HAZIRLIK ===
 // ===== 29 - KAZANÇ MOTORU / KAZANÇ GEÇMİŞİ - BAŞLANGIÇ =====
-  alert("29 BASLADI");
 async function getMyEarnings() {
   if (!window.supabaseClient) {
     console.error("Supabase bağlantısı hazır değil.");
@@ -7736,7 +7735,6 @@ descriptionEl.textContent =
 }
 // ===== 29 - KAZANÇ MOTORU / KAZANÇ GEÇMİŞİ - BİTİŞ =====
 // ===== 30 - GÖREV KARTLARI / PANEL YÖNLENDİRME - BAŞLANGIÇ =====
-alert("30 BASLADI");
 const gamesCardEl = document.getElementById("gamesCard");
 const gamesSectionEl = document.getElementById("gamesSection");
 const closeGamesBtnEl = document.getElementById("closeGamesBtn");
@@ -7823,7 +7821,6 @@ if (surveysCardEl) {
   surveysCardEl.style.cursor = "pointer";
 
   surveysCardEl.addEventListener("click", async () => {
-  alert("CPX TIKLANDI");
   try {
     const { data, error } = await supabaseClient.functions.invoke(
       "cpx-offerwall",
