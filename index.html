@@ -7820,6 +7820,7 @@ if (surveysCardEl) {
   surveysCardEl.style.cursor = "pointer";
 
   surveysCardEl.addEventListener("click", async () => {
+  alert("CPX TIKLANDI");
   try {
     const { data, error } = await supabaseClient.functions.invoke(
       "cpx-offerwall",
