@@ -8450,7 +8450,38 @@ font-size:18px;
   `;
 
   tasksGiftBtn.appendChild(giftBadge);
-  giftBadge.classList.add("gift-ready");
+(async () => {
+  try {
+    const { data: { session } } =
+      await supabaseClient.auth.getSession();
+
+    if (!session?.access_token) return;
+
+    const { data, error } =
+      await supabaseClient.functions.invoke(
+        "claim-work-reward",
+        {
+          body: {
+            task_type: "daily_login",
+            check_only: true
+          },
+          headers: {
+            Authorization:
+              `Bearer ${session.access_token}`
+          }
+        }
+      );
+
+    if (!error && data?.available === true) {
+      giftBadge.classList.add("gift-ready");
+    } else {
+      giftBadge.classList.remove("gift-ready");
+    }
+  } catch (err) {
+    console.error("Gift status check error:", err);
+    giftBadge.classList.remove("gift-ready");
+  }
+})();
 }
      const BASE58_ALPHABET =
   "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz";
