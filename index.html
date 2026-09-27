@@ -8418,6 +8418,25 @@ btn.textContent = saved
 if (window.applyTranslations) {
   window.applyTranslations(bottomNavLanguage);
      }
+  // ===== GÖREVLER HEDİYE BİLDİRİMİ =====
+const tasksGiftBtn = document.getElementById("quickTasks");
+
+if (tasksGiftBtn) {
+  tasksGiftBtn.style.position = "relative";
+
+  const giftBadge = document.createElement("span");
+  giftBadge.id = "dailyGiftBadge";
+  giftBadge.textContent = "🎁";
+  giftBadge.style.cssText = `
+    position:absolute;
+    top:-10px;
+    right:-4px;
+    font-size:24px;
+    z-index:10;
+  `;
+
+  tasksGiftBtn.appendChild(giftBadge);
+}
      const BASE58_ALPHABET =
   "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz";
 
