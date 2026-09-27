@@ -10078,14 +10078,24 @@ l.parentNode.insertBefore(s, l);
         dailyLoginBtn.disabled = true;
         dailyLoginBtn.innerHTML = "⏳ Kontrol ediliyor...";
 
-        const { data, error } = await supabaseClient.functions.invoke(
-          "claim-work-reward",
-          {
-            body: {
-              task_type: "daily_login"
-            }
-          }
-        );
+      const { data: sessionData } = await supabaseClient.auth.getSession();
+const accessToken = sessionData?.session?.access_token;
+
+if (!accessToken) {
+  throw new Error("Oturum bulunamadı. Lütfen tekrar giriş yap.");
+}
+
+const { data, error } = await supabaseClient.functions.invoke(
+  "claim-work-reward",
+  {
+    body: {
+      task_type: "daily_login"
+    },
+    headers: {
+      Authorization: `Bearer ${accessToken}`
+    }
+  }
+);
 
         if (error) {
           console.error("Daily reward error:", error);
