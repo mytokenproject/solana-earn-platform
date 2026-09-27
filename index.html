@@ -10068,6 +10068,56 @@ l.parentNode.insertBefore(s, l);
       panel.style.display = "none";
     });
   }
+  const dailyLoginBtn = document.getElementById("rtDailyLoginTask");
+
+  if (dailyLoginBtn) {
+    dailyLoginBtn.addEventListener("click", async function () {
+      const oldText = dailyLoginBtn.innerHTML;
+
+      try {
+        dailyLoginBtn.disabled = true;
+        dailyLoginBtn.innerHTML = "⏳ Kontrol ediliyor...";
+
+        const { data, error } = await supabaseClient.functions.invoke(
+          "claim-work-reward",
+          {
+            body: {
+              task_type: "daily_login"
+            }
+          }
+        );
+
+        if (error) {
+          console.error("Daily reward error:", error);
+
+          if (data?.status === "ALREADY_CLAIMED") {
+            dailyLoginBtn.innerHTML = "✅ Bugünkü 10 WORK alındı";
+            return;
+          }
+
+          throw error;
+        }
+
+        if (data?.ok) {
+          dailyLoginBtn.innerHTML = "✅ 10 WORK Kazandın";
+          alert("🎉 Günlük giriş ödülün olan 10 WORK cüzdanına gönderildi!");
+          return;
+        }
+
+        if (data?.status === "ALREADY_CLAIMED") {
+          dailyLoginBtn.innerHTML = "✅ Bugünkü 10 WORK alındı";
+          return;
+        }
+
+        throw new Error(data?.message || "Ödül alınamadı.");
+      } catch (err) {
+        console.error("Daily login reward:", err);
+        dailyLoginBtn.disabled = false;
+        dailyLoginBtn.innerHTML = oldText;
+        alert("Günlük giriş ödülü şu anda alınamadı.");
+      }
+    });
+  }
 })();
 </script>
 
