@@ -10276,21 +10276,9 @@ async function claimOneTimeWorkReward(button, taskType, successText) {
   }
 }
 
-const emailTaskBtn =
-  document.getElementById("rtEmailTask");
-
 const walletTaskBtn =
   document.getElementById("rtWalletTask");
 
-if (emailTaskBtn) {
-  emailTaskBtn.addEventListener("click", async () => {
-    await claimOneTimeWorkReward(
-      emailTaskBtn,
-      "email_connect",
-      "E-posta bağlama ödülün olan 100 WORK gönderildi!"
-    );
-  });
-}
 
 if (walletTaskBtn) {
   walletTaskBtn.addEventListener("click", async () => {
