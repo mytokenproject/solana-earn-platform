@@ -10103,13 +10103,13 @@ l.parentNode.insertBefore(s, l);
       🎁 Günlük Hediyeni Al — 10 WORK
     </button>
 
-    <button style="width:100%; padding:16px; margin-bottom:12px;">
+    <button id="rtEmailTask" style="width:100%; padding:16px;
       📧 E-posta Bağla — 100 WORK
     </button>
 
-    <button style="width:100%; padding:16px;">
-      👛 Cüzdan Bağla — 100 WORK
-    </button>
+    <button id="rtWalletTask" style="width:100%; padding:16px;">
+    👛 Cüzdan Bağla – 100 WORK
+</button>
 
   </div>
 </div>
@@ -10198,6 +10198,109 @@ dailyLoginBtn.innerHTML = "✅ Bugünün Hediyesi Alındı";
     });
   }
 })();
+// ===== E-POSTA + CÜZDAN TEK SEFERLİK WORK ÖDÜLLERİ =====
+
+async function claimOneTimeWorkReward(button, taskType, successText) {
+  if (!button) return;
+
+  const oldText = button.innerHTML;
+
+  try {
+    button.disabled = true;
+    button.innerHTML = "⏳ Kontrol ediliyor...";
+
+    const { data: sessionData } =
+      await supabaseClient.auth.getSession();
+
+    const accessToken =
+      sessionData?.session?.access_token;
+
+    if (!accessToken) {
+      throw new Error(
+        "Oturum bulunamadı. Lütfen tekrar giriş yap."
+      );
+    }
+
+    const { data, error } =
+      await supabaseClient.functions.invoke(
+        "claim-work-reward",
+        {
+          body: {
+            task_type: taskType
+          },
+          headers: {
+            Authorization: `Bearer ${accessToken}`
+          }
+        }
+      );
+
+    if (error) {
+      if (data?.status === "ALREADY_CLAIMED") {
+        button.innerHTML = "✅ Ödül Alındı";
+        button.disabled = true;
+        alert("✅ Bu 100 WORK ödülünü zaten aldın.");
+        return;
+      }
+
+      throw error;
+    }
+
+    if (data?.ok) {
+      button.innerHTML = "✅ Ödül Alındı";
+      button.disabled = true;
+      alert(`🎉 ${successText}`);
+      return;
+    }
+
+    if (data?.status === "ALREADY_CLAIMED") {
+      button.innerHTML = "✅ Ödül Alındı";
+      button.disabled = true;
+      alert("✅ Bu 100 WORK ödülünü zaten aldın.");
+      return;
+    }
+
+    throw new Error(
+      data?.message || "Ödül alınamadı."
+    );
+
+  } catch (err) {
+    console.error("One-time WORK reward:", err);
+
+    button.disabled = false;
+    button.innerHTML = oldText;
+
+    alert(
+      err?.message ||
+      "Ödül alınamadı. Lütfen tekrar dene."
+    );
+  }
+}
+
+const emailTaskBtn =
+  document.getElementById("rtEmailTask");
+
+const walletTaskBtn =
+  document.getElementById("rtWalletTask");
+
+if (emailTaskBtn) {
+  emailTaskBtn.addEventListener("click", async () => {
+    await claimOneTimeWorkReward(
+      emailTaskBtn,
+      "email_connect",
+      "E-posta bağlama ödülün olan 100 WORK gönderildi!"
+    );
+  });
+}
+
+if (walletTaskBtn) {
+  walletTaskBtn.addEventListener("click", async () => {
+    await claimOneTimeWorkReward(
+      walletTaskBtn,
+      "wallet_connect",
+      "Cüzdan bağlama ödülün olan 100 WORK gönderildi!"
+    );
+  });
+  }
 </script>
 
 <!-- ===== YENİ GÖREVLER PANELİ - BİTİŞ ===== -->
