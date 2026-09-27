@@ -10016,5 +10016,61 @@ l.parentNode.insertBefore(s, l);
     });
   });
     </script>
+<!-- ===== YENİ GÖREVLER PANELİ - BAŞLANGIÇ ===== -->
+
+<div id="rtTasksPanel" style="
+  display:none;
+  position:fixed;
+  inset:0;
+  z-index:99999;
+  background:#08111f;
+  padding:20px;
+  overflow:auto;
+">
+  <div style="max-width:520px; margin:40px auto;">
+
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+      <h2 style="margin:0; color:white;">🎯 Görevler</h2>
+      <button id="rtTasksClose" style="font-size:24px; background:none; border:0; color:white;">✕</button>
+    </div>
+
+    <button style="width:100%; padding:16px; margin-bottom:12px;">
+      📅 Günlük Giriş — 10 WORK
+    </button>
+
+    <button style="width:100%; padding:16px; margin-bottom:12px;">
+      📧 E-posta Bağla — 100 WORK
+    </button>
+
+    <button style="width:100%; padding:16px;">
+      👛 Cüzdan Bağla — 100 WORK
+    </button>
+
+  </div>
+</div>
+
+<script>
+(function () {
+  const panel = document.getElementById("rtTasksPanel");
+  const closeBtn = document.getElementById("rtTasksClose");
+  const quickTasks = document.getElementById("quickTasks");
+
+  if (quickTasks && panel) {
+    quickTasks.addEventListener("click", function (e) {
+      e.preventDefault();
+      e.stopImmediatePropagation();
+      panel.style.display = "block";
+    }, true);
+  }
+
+  if (closeBtn && panel) {
+    closeBtn.addEventListener("click", function () {
+      panel.style.display = "none";
+    });
+  }
+})();
+</script>
+
+<!-- ===== YENİ GÖREVLER PANELİ - BİTİŞ ===== -->
 </body>
 </html>
