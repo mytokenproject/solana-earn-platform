@@ -10035,7 +10035,7 @@ l.parentNode.insertBefore(s, l);
     </div>
 
     <button id="rtDailyLoginTask" style="width:100%; padding:16px; margin-bottom:12px;">
-      📅 Günlük Giriş — 10 WORK
+      🎁 Günlük Hediyeni Al — 10 WORK
     </button>
 
     <button style="width:100%; padding:16px; margin-bottom:12px;">
@@ -10101,7 +10101,8 @@ const { data, error } = await supabaseClient.functions.invoke(
           console.error("Daily reward error:", error);
 
           if (data?.status === "ALREADY_CLAIMED") {
-            dailyLoginBtn.innerHTML = "✅ Bugünkü 10 WORK alındı";
+            dailyLoginBtn.innerHTML = "✅ Bugünün Hediyesi Alındı
+          dailyLoginBtn.disabled = true;
             return;
           }
 
@@ -10109,13 +10110,15 @@ const { data, error } = await supabaseClient.functions.invoke(
         }
 
         if (data?.ok) {
-          dailyLoginBtn.innerHTML = "✅ 10 WORK Kazandın";
+          dailyLoginBtn.innerHTML = "✅ Bugünün Hediyesi Alındı";
+      dailyLoginBtn.disabled = true;
           alert("🎉 Günlük giriş ödülün olan 10 WORK cüzdanına gönderildi!");
           return;
         }
 
         if (data?.status === "ALREADY_CLAIMED") {
-          dailyLoginBtn.innerHTML = "✅ Bugünkü 10 WORK alındı";
+          dailyLoginBtn.innerHTML = "✅ Bugünün Hediyesi Alındı
+      dailyLoginBtn.disabled = true;
           return;
         }
 
