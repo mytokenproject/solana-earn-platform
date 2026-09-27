@@ -2552,7 +2552,7 @@ height:auto; margin-left:auto; margin-right:auto;">
   margin-top:16px;
 ">
 
-  <div class="task" id="surveysCard" style="min-height:52px; padding:8px; display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:20px; font-weight:800;">
+  <div class="task" id="surveysCard" onclick="openCPX()" style="min-height:52px; padding:8px; display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:20px; font-weight:800;">
   1
   </div>
   <div class="task" id="appsCard" style="min-height:52px; padding:8px; display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:20px; font-weight:800;">
@@ -5360,6 +5360,31 @@ document.getElementById("openOfferwallggBtn")?.addEventListener("click", async (
     SUPABASE_KEY
   );
   window.supabaseClient = supabaseClient;
+  window.openCPX = async function () {
+  try {
+    const { data, error } = await window.supabaseClient.functions.invoke(
+      "cpx-offerwall",
+      { body: {} }
+    );
+
+    if (error) {
+      alert("CPX açılamadı.");
+      console.error(error);
+      return;
+    }
+
+    if (!data || !data.url) {
+      alert("CPX bağlantısı alınamadı.");
+      console.error(data);
+      return;
+    }
+
+    window.location.href = data.url;
+  } catch (err) {
+    alert("CPX bağlantı hatası.");
+    console.error(err);
+  }
+};
   async function loadCategoryTasks() {
   const { data, error } = await supabaseClient
     .from("tasks")
