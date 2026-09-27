@@ -7972,6 +7972,18 @@ if (logoutBtn) {
 }
 // ===== 30 - GÖREV KARTLARI / PANEL YÖNLENDİRME - BİTİŞ =====
 </script>
+<script>
+document.getElementById("logoutBtn")?.addEventListener("click", async function () {
+  try {
+    const { error } = await supabaseClient.auth.signOut();
+    if (error) throw error;
+
+    window.location.reload();
+  } catch (error) {
+    alert("Çıkış hatası: " + (error?.message || error));
+  }
+});
+</script>
 <!-- ===== 31 - AYARLAR / BİLDİRİM PANELİ - BAŞLANGIÇ ===== -->
    <div
   id="settingsSheet"
