@@ -10111,11 +10111,15 @@ l.parentNode.insertBefore(s, l);
 
         throw new Error(data?.message || "Ödül alınamadı.");
       } catch (err) {
-        console.error("Daily login reward:", err);
-        dailyLoginBtn.disabled = false;
-        dailyLoginBtn.innerHTML = oldText;
-        alert("Günlük giriş ödülü şu anda alınamadı.");
-      }
+  console.error("Daily login reward:", err);
+  dailyLoginBtn.disabled = false;
+  dailyLoginBtn.innerHTML = oldText;
+
+  alert(
+    "TEST HATASI:\n" +
+    (err?.message || JSON.stringify(err))
+  );
+  }
     });
   }
 })();
