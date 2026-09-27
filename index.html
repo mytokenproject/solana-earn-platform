@@ -8412,6 +8412,20 @@ btn.textContent = saved
 </button>
  </nav>
    <script>
+  const giftBounceStyle = document.createElement("style");
+giftBounceStyle.textContent = `
+  @keyframes giftBounce {
+    0%, 70%, 100% { transform: translateY(0) scale(1); }
+    78% { transform: translateY(-4px) scale(1.08); }
+    86% { transform: translateY(0) scale(1); }
+    93% { transform: translateY(-2px) scale(1.04); }
+  }
+
+  #dailyGiftBadge.gift-ready {
+    animation: giftBounce 2s ease-in-out infinite;
+  }
+`;
+document.head.appendChild(giftBounceStyle);
      const bottomNavLanguage =
   localStorage.getItem("workplace_language") || "tr";
 
@@ -8436,6 +8450,7 @@ font-size:18px;
   `;
 
   tasksGiftBtn.appendChild(giftBadge);
+  giftBadge.classList.add("gift-ready");
 }
      const BASE58_ALPHABET =
   "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz";
