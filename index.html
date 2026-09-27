@@ -7950,27 +7950,25 @@ if (web3CardEl && web3SectionEl && closeWeb3BtnEl) {
     });
   });
 }
-  const logoutBtn = document.getElementById("logoutBtn");
+const logoutBtn = document.getElementById("logoutBtn");
 
 if (logoutBtn) {
-  logoutBtn.addEventListener("click", async () => {
-    logoutBtn.disabled = true;
+  logoutBtn.onclick = async function () {
+    try {
+      logoutBtn.disabled = true;
 
-    const { error } =
-      await supabaseClient.auth.signOut({ scope: "local" });
+      const { error } = await supabaseClient.auth.signOut();
 
-    if (error) {
+      if (error) throw error;
+
+      localStorage.removeItem("supabase.auth.token");
+      window.location.href = window.location.pathname;
+    } catch (error) {
       console.error("Çıkış hatası:", error);
-       alert(
-  (translations[localStorage.getItem("workplace_language")] || translations.tr)
-    .logoutFailedPrefix + " " + error.message
-);
+      alert("Çıkış yapılamadı: " + (error?.message || "Bilinmeyen hata"));
       logoutBtn.disabled = false;
-      return;
     }
-
-    window.location.reload();
-  });
+  };
 }
 // ===== 30 - GÖREV KARTLARI / PANEL YÖNLENDİRME - BİTİŞ =====
 </script>
