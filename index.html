@@ -10101,7 +10101,7 @@ const { data, error } = await supabaseClient.functions.invoke(
           console.error("Daily reward error:", error);
 
           if (data?.status === "ALREADY_CLAIMED") {
-            dailyLoginBtn.innerHTML = "✅ Bugünün Hediyesi Alındı
+dailyLoginBtn.innerHTML = "✅ Bugünün Hediyesi Alındı";
           dailyLoginBtn.disabled = true;
             return;
           }
@@ -10117,7 +10117,7 @@ const { data, error } = await supabaseClient.functions.invoke(
         }
 
         if (data?.status === "ALREADY_CLAIMED") {
-          dailyLoginBtn.innerHTML = "✅ Bugünün Hediyesi Alındı
+  dailyLoginBtn.innerHTML = "✅ Bugünün Hediyesi Alındı";
       dailyLoginBtn.disabled = true;
           return;
         }
