@@ -5362,6 +5362,12 @@ document.getElementById("openOfferwallggBtn")?.addEventListener("click", async (
   );
   window.supabaseClient = supabaseClient;
   window.openCPX = async function () {
+  const { data: sessionData } = await supabaseClient.auth.getSession();
+
+if (!sessionData.session) {
+  alert("🔐 Ankete başlamak ve USDC ödülünü almak için giriş yapın veya hesap oluşturun.");
+  return;
+  }
   try {
     const { data, error } = await window.supabaseClient.functions.invoke(
       "cpx-offerwall",
