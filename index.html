@@ -5208,7 +5208,7 @@ document.getElementById("openOfferwallggBtn")?.addEventListener("click", async (
   } = await supabaseClient.auth.getUser();
 
   if (error || !user) {
-    alert("Offerwall.GG'yi açmak için giriş yapmalısınız.");
+    alert("🔐 Tekliflere başlamak ve USDC ödülünü almak için giriş yapın veya hesap oluşturun.");
     return;
   }
 
