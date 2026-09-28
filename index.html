@@ -5225,7 +5225,7 @@ document.getElementById("openOfferwallggBtn")?.addEventListener("click", async (
   } = await supabaseClient.auth.getUser();
 
   if (error || !user) {
-    alert("Gamwall'ı açmak için giriş yapmalısınız.");
+    alert("🔐 Göreve başlamak ve USDC ödülünü almak için giriş yapın veya hesap oluşturun.");
     return;
   }
 
