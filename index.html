@@ -9209,6 +9209,27 @@ if (quickDiscover && discoverMenu) {
     }
   });
     }
+  // ===== 04A - İZLE ÖDÜL USDC AÇ / KAPA =====
+const watchRewardBtn = document.getElementById("watchRewardBtn");
+const watchRewardPanel = document.getElementById("watchRewardPanel");
+
+if (watchRewardBtn && watchRewardPanel) {
+  watchRewardBtn.addEventListener("click", () => {
+    const isClosed = watchRewardPanel.style.display === "none";
+
+    watchRewardPanel.style.display = isClosed ? "block" : "none";
+
+    if (isClosed) {
+      setTimeout(() => {
+        watchRewardPanel.scrollIntoView({
+          behavior: "smooth",
+          block: "center"
+        });
+      }, 100);
+    }
+  });
+}
+// ===== 04A - İZLE ÖDÜL USDC AÇ / KAPA BİTİŞ =====
     // Yeni kompakt Nasıl? tuşu
 const quickHow = document.getElementById("quickHow");
 const sideQuickHow = document.getElementById("sideQuickHow");
