@@ -2572,8 +2572,10 @@ height:auto; margin-left:auto; margin-right:auto;">
   onclick="document.getElementById('openGamwallBtn').click();">
   <span data-i18n="taskGeneral">🎮 Görev Yap • USDC Kazan ✅</span>
 </div>
-  <div class="task" id="videoCard" style="min-height:52px; padding:8px; display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:20px; font-weight:800;">
-  <span data-i18n="taskApp">📱 Uygulama Görevi • USDC Kazan</span>
+  <div class="task" id="videoCard"
+  style="min-height:52px; padding:8px; display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:20px; font-weight:800;"
+  onclick="window.openRapidoreachOfferwall();">
+  <span>🚀 Rapidoreach • USDC Kazan</span>
   </div>
   <div class="task" id="offerwallggCard"
   style="min-height:52px; padding:8px; display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:20px; font-weight:800;"
@@ -5452,6 +5454,40 @@ if (!sessionData.session) {
   } catch (err) {
     alert("CPX bağlantı hatası.");
     console.error(err);
+  }
+};
+window.openRapidoreachOfferwall = async function () {
+  try {
+    const { data: sessionData } =
+      await window.supabaseClient.auth.getSession();
+
+    if (!sessionData.session) {
+      alert("🔐 Rapidoreach görevlerini açmak ve USDC ödülü almak için giriş yapın veya hesap oluşturun.");
+      return;
+    }
+
+    const { data, error } =
+      await window.supabaseClient.functions.invoke(
+        "rapidoreach-offerwall",
+        { body: {} }
+      );
+
+    if (error) {
+      console.error("Rapidoreach açılamadı:", error);
+      alert("Rapidoreach şu anda açılamadı.");
+      return;
+    }
+
+    if (!data || !data.url) {
+      console.error("Rapidoreach URL alınamadı:", data);
+      alert("Rapidoreach bağlantısı alınamadı.");
+      return;
+    }
+
+    window.location.href = data.url;
+  } catch (err) {
+    console.error("Rapidoreach bağlantı hatası:", err);
+    alert("Rapidoreach bağlantısı sırasında bir hata oluştu.");
   }
 };
   async function loadCategoryTasks() {
